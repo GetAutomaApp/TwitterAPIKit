@@ -29,7 +29,7 @@ extension TwitterAPISessionDataTask {
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 extension TwitterAPISessionJSONTask {
 
-    public var responseObject: TwitterAPIResponse<Any> {
+    public var responseObject: TwitterAPIResponse<any Sendable> {
         get async {
             return await withTaskCancellationHandler(
                 operation: {

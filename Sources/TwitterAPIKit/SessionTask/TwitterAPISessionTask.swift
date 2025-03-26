@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol TwitterAPISessionTask {
+public protocol TwitterAPISessionTask: Sendable {
     var taskIdentifier: Int { get }
     var currentRequest: URLRequest? { get }
     var originalRequest: URLRequest? { get }

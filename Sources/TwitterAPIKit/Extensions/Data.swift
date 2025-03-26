@@ -22,10 +22,10 @@ extension Data {
         return chunks
     }
 
-    func serialize() -> Result<Any, TwitterAPIKitError> {
+    func serialize<T>() -> Result<T, TwitterAPIKitError> {
         do {
             let jsonObj = try JSONSerialization.jsonObject(with: self, options: [])
-            return .success(jsonObj)
+            return .success(jsonObj as! T)
         } catch let error {
             return .failure(
                 .responseSerializeFailed(

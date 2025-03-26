@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TwitterAPIResponse<Success> {
+public struct TwitterAPIResponse<Success: Sendable>: Sendable {
     public let request: URLRequest?
     public let response: HTTPURLResponse?
 
@@ -27,9 +27,8 @@ public struct TwitterAPIResponse<Success> {
     }
 }
 
-extension TwitterAPIResponse {
-
-    public func map<NewSuccess>(_ transform: (Success) -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
+public extension TwitterAPIResponse {
+    func map<NewSuccess>(_ transform: (Success) -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
         return .init(
             request: request,
             response: response,
@@ -39,7 +38,7 @@ extension TwitterAPIResponse {
         )
     }
 
-    public func flatMap<NewSuccess>(_ transform: (Success) -> Result<NewSuccess, TwitterAPIKitError>)
+    func flatMap<NewSuccess>(_ transform: (Success) -> Result<NewSuccess, TwitterAPIKitError>)
         -> TwitterAPIResponse<NewSuccess>
     {
         return .init(
@@ -51,10 +50,10 @@ extension TwitterAPIResponse {
         )
     }
 
-    public func tryMap<NewSuccess>(_ transform: (Success) throws -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
+    func tryMap<NewSuccess>(_ transform: (Success) throws -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
         let nextResult: Result<NewSuccess, TwitterAPIKitError> = result.flatMap { data in
             let r: Result<NewSuccess, Error> = .init {
-                return try transform(data)
+                try transform(data)
             }
             return r.mapError { TwitterAPIKitError(error: $0) }
         }
@@ -67,7 +66,7 @@ extension TwitterAPIResponse {
         )
     }
 
-    public func mapError(_ tranform: (TwitterAPIKitError) -> TwitterAPIKitError) -> TwitterAPIResponse {
+    func mapError(_ tranform: (TwitterAPIKitError) -> TwitterAPIKitError) -> TwitterAPIResponse {
         return .init(
             request: request,
             response: response,
@@ -75,21 +74,18 @@ extension TwitterAPIResponse {
             result: result.mapError(tranform),
             rateLimit: rateLimit
         )
-
     }
 }
 
-extension TwitterAPIResponse {
-
+public extension TwitterAPIResponse {
     /// for debug
-    public var prettyString: String {
-
+    var prettyString: String {
         let body =
             data.map { data in
 
                 // make pretty
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []),
-                    let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+                   let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
                 {
                     return String(data: jsonData, encoding: .utf8) ?? ""
                 } else {
@@ -108,8 +104,8 @@ extension TwitterAPIResponse {
         let responseContentLength =
             "< Content-Length: \(response?.allHeaderFields["Content-Length"] ?? "No Content-Length")"
 
-        switch self.result {
-        case .failure(let error):
+        switch result {
+        case let .failure(error):
             return "-- Request failure --"
                 + "\n\(request)"
                 + "\n\(contentType)"
@@ -136,13 +132,12 @@ extension TwitterAPIResponse {
     }
 }
 
-extension String {
-
-    fileprivate var unescapeSlash: String {
+private extension String {
+    var unescapeSlash: String {
         return replacingOccurrences(of: #"\/"#, with: #"/"#)
     }
 
-    fileprivate var unescapingUnicodeCharacters: String {
+    var unescapingUnicodeCharacters: String {
         #if os(Linux)
             return self
         #else

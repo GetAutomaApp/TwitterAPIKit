@@ -3,7 +3,7 @@ import Foundation
 /// https://developer.twitter.com/en/docs/rate-limits
 /// https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits
 /// https://developer.twitter.com/en/docs/twitter-api/rate-limits
-public struct TwitterRateLimit {
+public struct TwitterRateLimit: Sendable {
     public let limit: Int
     public let remaining: Int
 
@@ -11,10 +11,9 @@ public struct TwitterRateLimit {
     public let reset: TimeInterval
 
     public init?(header: [AnyHashable: Any]) {
-
         guard let limit = parse(header, key: "x-rate-limit-limit"),
-            let remaining = parse(header, key: "x-rate-limit-remaining"),
-            let reset = parse(header, key: "x-rate-limit-reset")
+              let remaining = parse(header, key: "x-rate-limit-remaining"),
+              let reset = parse(header, key: "x-rate-limit-reset")
         else {
             return nil
         }
@@ -24,8 +23,8 @@ public struct TwitterRateLimit {
     }
 }
 
-extension TwitterRateLimit {
-    public var resetDate: Date {
+public extension TwitterRateLimit {
+    var resetDate: Date {
         return Date(timeIntervalSince1970: reset)
     }
 }

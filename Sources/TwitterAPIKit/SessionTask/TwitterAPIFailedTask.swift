@@ -1,7 +1,6 @@
 import Foundation
 
-public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISessionStreamTask {
-
+public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISessionStreamTask, Sendable {
     public let error: TwitterAPIKitError
 
     public init(_ error: TwitterAPIKitError) {
@@ -15,7 +14,7 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
 
     public func responseData(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> TwitterAPIFailedTask {
         queue.async {
             block(
@@ -24,7 +23,8 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
                     response: nil,
                     data: nil,
                     result: .failure(error),
-                    rateLimit: nil)
+                    rateLimit: nil
+                )
             )
         }
         return self
@@ -49,9 +49,9 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
                     response: nil,
                     data: nil,
                     result: .failure(error),
-                    rateLimit: nil)
+                    rateLimit: nil
+                )
             )
-
         }
         return self
     }
@@ -65,8 +65,8 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
 
     @discardableResult
     public func responseDecodable<T>(
-        type: T.Type,
-        decoder: JSONDecoder,
+        type _: T.Type,
+        decoder _: JSONDecoder,
         queue: DispatchQueue,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> TwitterAPIFailedTask where T: Decodable {
@@ -77,9 +77,9 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
                     response: nil,
                     data: nil,
                     result: .failure(error),
-                    rateLimit: nil)
+                    rateLimit: nil
+                )
             )
-
         }
         return self
     }
@@ -136,11 +136,13 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
                 response: nil,
                 data: nil,
                 result: .failure(error),
-                rateLimit: nil)
+                rateLimit: nil
+            )
             block(response)
         }
         return self
     }
+
     @discardableResult
     public func streamResponse(
         _ block: @escaping (TwitterAPIResponse<Data>) -> Void

@@ -1,15 +1,15 @@
 import Foundation
 
 protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
-    associatedtype Success
+    associatedtype Success: Sendable
     @discardableResult
     func responseObject(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Success>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Success>) -> Void
     ) -> TwitterAPISessionSpecializedTask<Success>
 }
 
-public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTask_ {
+public struct TwitterAPISessionSpecializedTask<Success: Sendable>: TwitterAPISessionSpecializedTask_ {
 
     public var taskIdentifier: Int {
         return innerTask.taskIdentifier
@@ -26,20 +26,20 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     }
 
     private let innerTask: TwitterAPISessionDataTask
-    private let transform: (Data) throws -> Success
+    private let transform: @Sendable (Data) throws -> Success
 
     public init(
         task: TwitterAPISessionDataTask,
-        transform: @escaping (Data) throws -> Success
+        transform: @Sendable @escaping (Data) throws -> Success
     ) {
         self.innerTask = task
         self.transform = transform
     }
 
     @discardableResult
-    public func responseObject(
+    func responseObject(
         queue: DispatchQueue = .main,
-        _ block: @escaping (TwitterAPIResponse<Success>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Success>) -> Void
     ) -> TwitterAPISessionSpecializedTask<Success> {
         innerTask.responseData(queue: queue) { response in
             let success = response.tryMap(transform)
@@ -47,11 +47,11 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
         }
         return self
     }
-
+    
     @discardableResult
     public func responseData(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> TwitterAPISessionSpecializedTask<Success> {
         innerTask.responseData(queue: queue, block)
         return self
@@ -59,7 +59,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
 
     @discardableResult
     public func responseData(
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> TwitterAPISessionSpecializedTask<
         Success
     > {
