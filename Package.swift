@@ -10,7 +10,7 @@ import PackageDescription
 let dependencies: [Package.Dependency] = []
 let tDependencies: [Target.Dependency] = []
 #else // for Linux
-let dependencies: [Package.Dependency] = [.package(url: "https://github.com/apple/swift-crypto.git", from: "2.0.0")]
+let dependencies: [Package.Dependency] = [.package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")]
 let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
 #endif
 
