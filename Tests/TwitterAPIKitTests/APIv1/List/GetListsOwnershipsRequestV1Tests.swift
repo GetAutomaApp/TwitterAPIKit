@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetListsOwnershipsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetListsOwnershipsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetListsOwnershipsRequestV1(
             user: .userID("uid"),
             count: 21,
@@ -27,7 +23,7 @@ class GetListsOwnershipsRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetListsOwnershipsRequestV1(
             user: .screenName("name")
         )
@@ -38,5 +34,9 @@ class GetListsOwnershipsRequestV1Tests: XCTestCase {
                 "screen_name": "name",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostMediaSubtitlesDeleteRequestV1(
             mediaID: "m",
             mediaCategory: "c",
@@ -29,5 +25,9 @@ class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
                 ],
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

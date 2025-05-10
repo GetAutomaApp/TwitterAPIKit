@@ -2,8 +2,8 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-class TwitterOAuth2AccessTokenTests: XCTestCase {
-    func test() throws {
+internal class TwitterOAuth2AccessTokenTests: XCTestCase {
+    public func test() throws {
         try XCTContext.runActivity(named: "without refresh_token") { _ in
 
             let data = Data(
@@ -44,7 +44,7 @@ class TwitterOAuth2AccessTokenTests: XCTestCase {
         }
     }
 
-    func testError() throws {
+    public func testError() throws {
         try XCTContext.runActivity(named: "Not json") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("aa".utf8))) { error in
                 XCTAssertTrue((error as! TwitterAPIKitError).isResponseSerializeFailed)
@@ -56,5 +56,9 @@ class TwitterOAuth2AccessTokenTests: XCTestCase {
                 XCTAssertTrue((error as! TwitterAPIKitError).isResponseSerializeFailed)
             }
         }
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

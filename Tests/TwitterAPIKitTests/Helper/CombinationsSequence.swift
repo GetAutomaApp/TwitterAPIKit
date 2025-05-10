@@ -66,7 +66,7 @@ public struct CombinationsSequence<Base: Collection> {
             return 1 << n
         }
 
-        func binomial(n: Int, k: Int) -> Int {
+        public func binomial(n: Int, k: Int) -> Int {
             switch k {
             case n, 0: return 1
             case n...: return 0
@@ -130,10 +130,10 @@ extension CombinationsSequence: Sequence {
         ///     // Can't advance without needing to go past `base.endIndex`,
         ///     // so the iteration is finished.
         @inlinable
-        mutating func advance() {
+        mutating public func advance() {
             /// Advances `kRange` by incrementing its `lowerBound` until the range is
             /// empty, when iteration is finished.
-            func advanceKRange() {
+            public func advanceKRange() {
                 if kRange.lowerBound < kRange.upperBound {
                     let advancedLowerBound = kRange.lowerBound + 1
                     kRange = advancedLowerBound ..< kRange.upperBound
@@ -174,7 +174,7 @@ extension CombinationsSequence: Sequence {
         }
 
         @inlinable
-        public mutating func next() -> [Base.Element]? {
+        public mutating public func next() -> [Base.Element]? {
             guard !isFinished else { return nil }
             defer { advance() }
             return indexes.map { i in base[i] }
@@ -182,7 +182,7 @@ extension CombinationsSequence: Sequence {
     }
 
     @inlinable
-    public func makeIterator() -> Iterator {
+    public public func makeIterator() -> Iterator {
         Iterator(self)
     }
 }
@@ -257,7 +257,7 @@ public extension Collection {
     ///   is the number of elements in the base collection, since
     ///   `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    func combinations<R: RangeExpression>(
+    public func combinations<R: RangeExpression>(
         ofCount kRange: R
     ) -> CombinationsSequence<Self> where R.Bound == Int {
         CombinationsSequence(self, kRange: kRange)
@@ -293,8 +293,9 @@ public extension Collection {
     /// is the number of elements in the base collection, since
     /// `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    func combinations(ofCount k: Int) -> CombinationsSequence<Self> {
+    public func combinations(ofCount k: Int) -> CombinationsSequence<Self> {
         precondition(k >= 0, "Can't have combinations with a negative number of elements.")
         return CombinationsSequence(self, k: k)
+
     }
 }

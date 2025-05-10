@@ -1,16 +1,14 @@
 import TwitterAPIKit
 import XCTest
 
-class UploadMediaUtilTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {
+internal class UploadMediaUtilTests: XCTestCase {
+    override public func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
-    func testWithProcessing() throws {
+    public func testWithProcessing() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -117,9 +115,9 @@ class UploadMediaUtilTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testInitError() throws {
+    public func testInitError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -175,9 +173,9 @@ class UploadMediaUtilTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testAppendError() throws {
+    public func testAppendError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -245,9 +243,9 @@ class UploadMediaUtilTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testFinalizeError() throws {
+    public func testFinalizeError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -316,9 +314,9 @@ class UploadMediaUtilTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testWithProcessingError() throws {
+    public func testWithProcessingError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -426,9 +424,9 @@ class UploadMediaUtilTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testWithoutProcessing() throws {
+    public func testWithoutProcessing() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -494,5 +492,9 @@ class UploadMediaUtilTests: XCTestCase {
         }
 
         wait(for: [exp], timeout: 10)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

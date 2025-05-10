@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetSpacesSearchRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetSpacesSearchRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetSpacesSearchRequestV2(
             query: "_q_",
             expansions: [.creatorID],
@@ -33,7 +29,7 @@ class GetSpacesSearchRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetSpacesSearchRequestV2(
             query: "あ"
         )
@@ -44,5 +40,9 @@ class GetSpacesSearchRequestV2Tests: XCTestCase {
                 "query": "あ",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

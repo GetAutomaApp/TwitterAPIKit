@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostUsersFollowingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostUsersFollowingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersFollowingRequestV2(
             id: "_id_",
             targetUserID: "_targetUserID_"
@@ -17,5 +13,9 @@ class PostUsersFollowingRequestV2Tests: XCTestCase {
         XCTAssertEqual(req.path, "/2/users/_id_/following")
         XCTAssertEqual(req.bodyContentType, .json)
         AssertEqualAnyDict(req.parameters, ["target_user_id": "_targetUserID_"])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

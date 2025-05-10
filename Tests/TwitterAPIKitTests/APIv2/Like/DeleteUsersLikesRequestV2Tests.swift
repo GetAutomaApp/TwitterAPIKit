@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class DeleteUsersLikesRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class DeleteUsersLikesRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = DeleteUsersLikesRequestV2(
             id: "_id_",
             tweetID: "_tweetID_"
@@ -20,5 +16,9 @@ class DeleteUsersLikesRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

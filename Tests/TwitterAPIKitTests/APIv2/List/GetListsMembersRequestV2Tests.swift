@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetListsMembersRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetListsMembersRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetListsMembersRequestV2(
             id: "_id_",
             expansions: [.pinnedTweetID],
@@ -32,11 +28,15 @@ class GetListsMembersRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetListsMembersRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetFriendshipsShowRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetFriendshipsShowRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetFriendshipsShowRequestV1(
             sourceUser: .userID("suid"),
             targetUser: .userID("tuid")
@@ -25,7 +21,7 @@ class GetFriendshipsShowRequestV1Tests: XCTestCase {
         )
     }
 
-    func testScreenName() throws {
+    public func testScreenName() throws {
         let req = GetFriendshipsShowRequestV1(
             sourceUser: .screenName("s"),
             targetUser: .screenName("t")
@@ -38,5 +34,9 @@ class GetFriendshipsShowRequestV1Tests: XCTestCase {
                 "target_screen_name": "t",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetOAuth2AuthorizeRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetOAuth2AuthorizeRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetOAuth2AuthorizeRequestV1(
             responseType: "_r_",
             clientID: "_c_id_",
@@ -35,7 +31,7 @@ class GetOAuth2AuthorizeRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetOAuth2AuthorizeRequestV1(
             clientID: "_ci_",
             redirectURI: "_r_",
@@ -57,5 +53,9 @@ class GetOAuth2AuthorizeRequestV1Tests: XCTestCase {
                 "scope": "a",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

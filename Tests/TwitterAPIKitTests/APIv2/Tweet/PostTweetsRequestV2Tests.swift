@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostTweetsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostTweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let request = PostTweetsRequestV2(
             directMessageDeepLink: "deep_link",
             forSuperFollowersOnly: true,
@@ -40,5 +36,9 @@ class PostTweetsRequestV2Tests: XCTestCase {
                 "text": "text",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

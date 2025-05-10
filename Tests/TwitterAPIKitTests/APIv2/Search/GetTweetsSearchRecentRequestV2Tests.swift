@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsSearchRecentRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetTweetsSearchRecentRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsSearchRecentRequestV2(
             query: "Q",
             endTime: Date(timeIntervalSince1970: 100),
@@ -46,5 +42,9 @@ class GetTweetsSearchRecentRequestV2Tests: XCTestCase {
                 "user.fields": "pinned_tweet_id,username",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

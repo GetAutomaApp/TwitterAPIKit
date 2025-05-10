@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetAccountVerifyCredentialsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetAccountVerifyCredentialsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetAccountVerifyCredentialsRequestV1(
             skipStatus: true,
             includeEmail: true,
@@ -27,12 +23,16 @@ class GetAccountVerifyCredentialsRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetAccountVerifyCredentialsRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

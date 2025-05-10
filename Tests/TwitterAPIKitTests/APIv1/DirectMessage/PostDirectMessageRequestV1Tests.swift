@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostDirectMessageRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testText() throws {
+internal class PostDirectMessageRequestV1Tests: XCTestCase {
+    public func testText() throws {
         let req = PostDirectMessageRequestV1(
             targetUserID: "target",
             message: "msg"
@@ -29,7 +25,7 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
-    func testQuickReplyOptions() throws {
+    public func testQuickReplyOptions() throws {
         let req = PostDirectMessageRequestV1(
             targetUserID: "target",
             message: "msg",
@@ -65,7 +61,7 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
-    func testAttachMedia() throws {
+    public func testAttachMedia() throws {
         let req = PostDirectMessageRequestV1(
             targetUserID: "target",
             message: "msg with media",
@@ -97,7 +93,7 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
-    func testAttachLocation() throws {
+    public func testAttachLocation() throws {
         XCTContext.runActivity(named: "coordinate") { _ in
             let req = PostDirectMessageRequestV1(
                 targetUserID: "target",
@@ -172,5 +168,9 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
                 ]
             )
         }
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

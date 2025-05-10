@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class UploadMediaInitRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class UploadMediaInitRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = UploadMediaInitRequestV1(
             totalBytes: 10,
             mediaType: "image/jpg",
@@ -28,5 +24,9 @@ class UploadMediaInitRequestV1Tests: XCTestCase {
                 "additional_owners": "1,2",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

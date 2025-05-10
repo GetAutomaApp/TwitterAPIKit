@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsCountsAllRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetTweetsCountsAllRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsCountsAllRequestV2(
             query: "a",
             endTime: Date(timeIntervalSince1970: 10),
@@ -32,5 +28,9 @@ class GetTweetsCountsAllRequestV2Tests: XCTestCase {
                 "until_id": "u",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

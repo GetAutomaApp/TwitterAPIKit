@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostUsersRetweetsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostUsersRetweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersRetweetsRequestV2(
             id: "_id_",
             tweetID: "_tweetID_"
@@ -22,5 +18,9 @@ class PostUsersRetweetsRequestV2Tests: XCTestCase {
                 "tweet_id": "_tweetID_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

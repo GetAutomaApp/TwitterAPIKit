@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetSearchTweetsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetSearchTweetsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetSearchTweetsRequestV1(
             q: "あああ",
             lang: "lang",
@@ -40,7 +36,7 @@ class GetSearchTweetsRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetSearchTweetsRequestV1(
             q: "_q_"
         )
@@ -51,5 +47,9 @@ class GetSearchTweetsRequestV1Tests: XCTestCase {
                 "q": "_q_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

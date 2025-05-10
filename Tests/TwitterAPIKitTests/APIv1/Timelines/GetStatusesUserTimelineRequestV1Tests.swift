@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetStatusesUserTimelineRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetStatusesUserTimelineRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetStatusesUserTimelineRequestV1(
             user: .userID("uid"),
             count: 12,
@@ -35,7 +31,7 @@ class GetStatusesUserTimelineRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetStatusesUserTimelineRequestV1(
             user: .screenName("s")
         )
@@ -46,5 +42,9 @@ class GetStatusesUserTimelineRequestV1Tests: XCTestCase {
                 "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

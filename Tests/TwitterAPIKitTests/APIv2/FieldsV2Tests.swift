@@ -2,12 +2,8 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-class FieldsV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testTwitterTweetFieldsV2() throws {
+internal class FieldsV2Tests: XCTestCase {
+    public func testTwitterTweetFieldsV2() throws {
         let allCases: [TwitterTweetFieldsV2] = [
             .attachments,
             .authorID,
@@ -39,11 +35,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterTweetFieldsV2All() throws {
+    public func testTwitterTweetFieldsV2All() throws {
         XCTAssertEqual(TwitterTweetFieldsV2.all.count, 20)
     }
 
-    func testTwitterUserFieldsV2() throws {
+    public func testTwitterUserFieldsV2() throws {
         let allCases: [TwitterUserFieldsV2] = [
             .createdAt,
             .description,
@@ -69,11 +65,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterUserFieldsV2All() throws {
+    public func testTwitterUserFieldsV2All() throws {
         XCTAssertEqual(TwitterUserFieldsV2.all.count, 14)
     }
 
-    func testTwitterPlaceFieldsV2() throws {
+    public func testTwitterPlaceFieldsV2() throws {
         let allCases: [TwitterPlaceFieldsV2] = [
             .containedWithin,
             .country,
@@ -93,11 +89,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterPlaceFieldsV2All() throws {
+    public func testTwitterPlaceFieldsV2All() throws {
         XCTAssertEqual(TwitterPlaceFieldsV2.all.count, 8)
     }
 
-    func testTwitterPollFieldsV2() throws {
+    public func testTwitterPollFieldsV2() throws {
         let allCases: [TwitterPollFieldsV2] = [
             .durationMinutes,
             .endDatetime,
@@ -114,11 +110,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterPollFieldsV2All() throws {
+    public func testTwitterPollFieldsV2All() throws {
         XCTAssertEqual(TwitterPollFieldsV2.all.count, 5)
     }
 
-    func testTwitterMediaFieldsV2() throws {
+    public func testTwitterMediaFieldsV2() throws {
         let allCases: [TwitterMediaFieldsV2] = [
             .durationMs,
             .height,
@@ -146,11 +142,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterMediaFieldsV2All() throws {
+    public func testTwitterMediaFieldsV2All() throws {
         XCTAssertEqual(TwitterMediaFieldsV2.all.count, 13)
     }
 
-    func testTwitterListFieldsV2() throws {
+    public func testTwitterListFieldsV2() throws {
         let allCases: [TwitterListFieldsV2] = [
             .createdAt,
             .followerCount,
@@ -170,11 +166,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterListFieldsV2All() throws {
+    public func testTwitterListFieldsV2All() throws {
         XCTAssertEqual(TwitterListFieldsV2.all.count, 8)
     }
 
-    func testTwitterSpaceFieldsV2() throws {
+    public func testTwitterSpaceFieldsV2() throws {
         let allCases: [TwitterSpaceFieldsV2] = [
             .id,
             .state,
@@ -203,11 +199,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterSpaceFieldsV2All() throws {
+    public func testTwitterSpaceFieldsV2All() throws {
         XCTAssertEqual(TwitterSpaceFieldsV2.all.count, 17)
     }
 
-    func testTwitterTopicFieldsV2() throws {
+    public func testTwitterTopicFieldsV2() throws {
         let allCases: [TwitterTopicFieldsV2] = [
             .id,
             .name,
@@ -222,11 +218,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterTopicFieldsV2All() throws {
+    public func testTwitterTopicFieldsV2All() throws {
         XCTAssertEqual(TwitterTopicFieldsV2.all.count, 3)
     }
 
-    func testTwitterDmEventFieldsV2() throws {
+    public func testTwitterDmEventFieldsV2() throws {
         let allCases: [TwitterDmEventFieldsV2] = [
             .attachments,
             .createdAt,
@@ -246,11 +242,11 @@ class FieldsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterDmEventFieldsV2All() throws {
+    public func testTwitterDmEventFieldsV2All() throws {
         XCTAssertEqual(TwitterDmEventFieldsV2.all.count, 9)
     }
 
-    func testTwitterDmConversationFieldsV2() throws {
+    public func testTwitterDmConversationFieldsV2() throws {
         let allCases: [TwitterDmConversationFieldsV2] = [
             .id,
             .other("~"),
@@ -258,7 +254,11 @@ class FieldsV2Tests: XCTestCase {
         XCTAssertEqual(allCases.commaSeparatedString, "id,~")
     }
 
-    func testTwitterDmConversationFieldsV2All() throws {
+    public func testTwitterDmConversationFieldsV2All() throws {
         XCTAssertEqual(TwitterDmConversationFieldsV2.all.count, 1)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

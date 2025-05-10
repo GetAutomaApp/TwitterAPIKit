@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetUsersBlockingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetUsersBlockingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersBlockingRequestV2(
             id: "_id_",
             expansions: [.pinnedTweetID],
@@ -32,11 +28,15 @@ class GetUsersBlockingRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersBlockingRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class DeleteUsersRetweetsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class DeleteUsersRetweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = DeleteUsersRetweetsRequestV2(
             id: "_id_",
             sourceTweetID: "_sourceTweetID_"
@@ -17,5 +13,9 @@ class DeleteUsersRetweetsRequestV2Tests: XCTestCase {
         XCTAssertEqual(req.path, "/2/users/_id_/retweets/_sourceTweetID_")
         XCTAssertEqual(req.bodyContentType, .wwwFormUrlEncoded)
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

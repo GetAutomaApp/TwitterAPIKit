@@ -1,6 +1,10 @@
 import TwitterAPIKit
 import XCTest
 
-final class TwitterAPIKitTests: XCTestCase {
-    func testExample() throws {}
+final internal class TwitterAPIKitTests: XCTestCase {
+    public func testExample() throws {}
+
+    deinit {
+        // De-init Logic Here
+    }
 }

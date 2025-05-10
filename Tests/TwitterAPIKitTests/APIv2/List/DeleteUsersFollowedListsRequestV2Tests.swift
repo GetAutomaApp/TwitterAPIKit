@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class DeleteUsersFollowedListsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class DeleteUsersFollowedListsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = DeleteUsersFollowedListsRequestV2(
             id: "_id_",
             listID: "_listID_"
@@ -17,5 +13,9 @@ class DeleteUsersFollowedListsRequestV2Tests: XCTestCase {
         XCTAssertEqual(req.path, "/2/users/_id_/followed_lists/_listID_")
         XCTAssertEqual(req.bodyContentType, .wwwFormUrlEncoded)
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

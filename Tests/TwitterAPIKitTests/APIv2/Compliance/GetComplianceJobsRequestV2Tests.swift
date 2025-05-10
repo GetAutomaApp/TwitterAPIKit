@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetComplianceJobsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetComplianceJobsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetComplianceJobsRequestV2(
             type: .tweets,
             status: .complete
@@ -25,7 +21,7 @@ class GetComplianceJobsRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetComplianceJobsRequestV2(
             type: .users
         )
@@ -36,5 +32,9 @@ class GetComplianceJobsRequestV2Tests: XCTestCase {
                 "type": "users",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

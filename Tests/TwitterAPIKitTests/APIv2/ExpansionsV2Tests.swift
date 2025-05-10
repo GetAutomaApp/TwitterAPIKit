@@ -2,12 +2,8 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-class ExpansionsV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testTwitterTweetExpansionsV2() throws {
+internal class ExpansionsV2Tests: XCTestCase {
+    public func testTwitterTweetExpansionsV2() throws {
         let allCases: [TwitterTweetExpansionsV2] = [
             .attachmentsPollIDs,
             .attachmentsMediaKeys,
@@ -27,11 +23,11 @@ class ExpansionsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterTweetExpansionsV2All() throws {
+    public func testTwitterTweetExpansionsV2All() throws {
         XCTAssertEqual(TwitterTweetExpansionsV2.all.count, 8)
     }
 
-    func testTwitterUserExpansionsV2() throws {
+    public func testTwitterUserExpansionsV2() throws {
         let allCases: [TwitterUserExpansionsV2] = [
             .pinnedTweetID,
             .other("~~~"),
@@ -44,11 +40,11 @@ class ExpansionsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterUserExpansionsV2All() throws {
+    public func testTwitterUserExpansionsV2All() throws {
         XCTAssertEqual(TwitterUserExpansionsV2.all.count, 1)
     }
 
-    func testTwitterListExpansionsV2() throws {
+    public func testTwitterListExpansionsV2() throws {
         let allCases: [TwitterListExpansionsV2] = [
             .ownerID,
             .other("~~~"),
@@ -61,11 +57,11 @@ class ExpansionsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterListExpansionsV2All() throws {
+    public func testTwitterListExpansionsV2All() throws {
         XCTAssertEqual(TwitterListExpansionsV2.all.count, 1)
     }
 
-    func testTwitterSpaceExpansionsV2() throws {
+    public func testTwitterSpaceExpansionsV2() throws {
         let allCases: [TwitterSpaceExpansionsV2] = [
             .invitedUserIDs,
             .speakerIDs,
@@ -82,11 +78,11 @@ class ExpansionsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterSpaceExpansionsV2All() throws {
+    public func testTwitterSpaceExpansionsV2All() throws {
         XCTAssertEqual(TwitterSpaceExpansionsV2.all.count, 5)
     }
 
-    func testTwitterDmEventExpansionsV2() throws {
+    public func testTwitterDmEventExpansionsV2() throws {
         let allCases: [TwitterDmEventExpansionsV2] = [
             .attachmentsMediaKeys,
             .participantIDs,
@@ -102,7 +98,11 @@ class ExpansionsV2Tests: XCTestCase {
         )
     }
 
-    func testTwitterDmEventExpansionsV2All() throws {
+    public func testTwitterDmEventExpansionsV2All() throws {
         XCTAssertEqual(TwitterDmEventExpansionsV2.all.count, 4)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

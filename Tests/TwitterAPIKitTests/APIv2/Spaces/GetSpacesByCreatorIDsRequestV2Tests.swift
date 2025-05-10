@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetSpacesByCreatorIDsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetSpacesByCreatorIDsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetSpacesByCreatorIDsRequestV2(
             userIDs: ["a", "b"],
             expansions: [.invitedUserIDs],
@@ -31,7 +27,7 @@ class GetSpacesByCreatorIDsRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetSpacesByCreatorIDsRequestV2(
             userIDs: ["a", "b", "c"]
         )
@@ -42,5 +38,9 @@ class GetSpacesByCreatorIDsRequestV2Tests: XCTestCase {
                 "user_ids": "a,b,c",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

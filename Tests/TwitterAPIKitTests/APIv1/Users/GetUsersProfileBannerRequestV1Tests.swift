@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetUsersProfileBannerRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetUsersProfileBannerRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersProfileBannerRequestV1(
             user: .userID("uid")
         )
@@ -23,7 +19,7 @@ class GetUsersProfileBannerRequestV1Tests: XCTestCase {
         )
     }
 
-    func testScreenName() throws {
+    public func testScreenName() throws {
         let req = GetUsersProfileBannerRequestV1(
             user: .screenName("s")
         )
@@ -38,5 +34,9 @@ class GetUsersProfileBannerRequestV1Tests: XCTestCase {
                 "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

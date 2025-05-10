@@ -2,7 +2,7 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-private class GetTwitterReqeust: TwitterAPIRequest {
+private internal class GetTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .get }
     var path: String { return "/get.json" }
     var parameters: [String: Any] {
@@ -10,7 +10,7 @@ private class GetTwitterReqeust: TwitterAPIRequest {
     }
 }
 
-private class PostTwitterReqeust: TwitterAPIRequest {
+private internal class PostTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .post }
     var path: String { return "/post.json" }
     var parameters: [String: Any] {
@@ -18,7 +18,7 @@ private class PostTwitterReqeust: TwitterAPIRequest {
     }
 }
 
-private class EmptyRequest: TwitterAPIRequest {
+private internal class EmptyRequest: TwitterAPIRequest {
     var method: HTTPMethod { return .get }
     var path: String { return "/empty.json" }
     var parameters: [String: Any] {
@@ -26,7 +26,7 @@ private class EmptyRequest: TwitterAPIRequest {
     }
 }
 
-class TwitterAPISessionTests: XCTestCase {
+internal class TwitterAPISessionTests: XCTestCase {
     private let environment = TwitterAPIEnvironment(
         twitterURL: URL(string: "https://twitter.example.com")!,
         apiURL: URL(string: "https://api.example.com")!,
@@ -35,7 +35,7 @@ class TwitterAPISessionTests: XCTestCase {
 
     lazy var session: TwitterAPISession = {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         return TwitterAPISession(
             auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -44,13 +44,11 @@ class TwitterAPISessionTests: XCTestCase {
         )
     }()
 
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {
+    override public func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
-    func testGET() throws {
+    public func testGET() throws {
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "GET")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/get.json?hoge=%F0%9F%98%80")
@@ -64,7 +62,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testPOST() throws {
+    public func testPOST() throws {
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "POST")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/post.json")
@@ -81,7 +79,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testEmpty() throws {
+    public func testEmpty() throws {
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "GET")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/empty.json")
@@ -95,9 +93,9 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testStream() throws {
+    public func testStream() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .bearer("bearer_token"),
@@ -132,9 +130,9 @@ class TwitterAPISessionTests: XCTestCase {
 
     // MARK: - Auth
 
-    func testBasicAuth() throws {
+    public func testBasicAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .basic(apiKey: "api_key", apiSecretKey: "api_secret_key"),
@@ -153,9 +151,9 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testBearerAuth() throws {
+    public func testBearerAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .bearer("bearer_token"),
@@ -174,9 +172,9 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testNoneAuth() throws {
+    public func testNoneAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .none,
@@ -195,9 +193,9 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testOAuth10aAuth() throws {
+    public func testOAuth10aAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
             configuration: config,
@@ -215,9 +213,9 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testOAuth20() throws {
+    public func testOAuth20() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .oauth20(
                 .init(
@@ -244,9 +242,9 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testRequestOAuth20WithPKCEConfidentialClient() throws {
+    public func testRequestOAuth20WithPKCEConfidentialClient() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .requestOAuth20WithPKCE(.confidentialClient(clientID: "client_id", clientSecret: "client_secret")),
             configuration: config,
@@ -264,9 +262,9 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testRequestOAuth20WithPKCEPublicClient() throws {
+    public func testRequestOAuth20WithPKCEPublicClient() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .requestOAuth20WithPKCE(.publicClient),
             configuration: config,
@@ -282,6 +280,10 @@ class TwitterAPISessionTests: XCTestCase {
             exp.fulfill()
         }
         wait(for: [exp], timeout: 10)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
 

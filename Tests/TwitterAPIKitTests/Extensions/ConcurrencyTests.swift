@@ -5,12 +5,8 @@ import XCTest
 #if compiler(>=5.5.2) && canImport(_Concurrency)
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-    class ConcurrencyTests: XCTestCase {
-        override func setUpWithError() throws {}
-
-        override func tearDownWithError() throws {}
-
-        func test() async throws {
+    internal class ConcurrencyTests: XCTestCase {
+        public func test() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
             let task = TwitterAPISessionDelegatedJSONTask(
@@ -54,7 +50,7 @@ import XCTest
             }
         }
 
-        func testCancel() async throws {
+        public func testCancel() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
             let task = TwitterAPISessionDelegatedJSONTask(
@@ -98,7 +94,7 @@ import XCTest
             XCTAssertTrue(mockTask.cancelled)
         }
 
-        func testTaskCancel() async throws {
+        public func testTaskCancel() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
             let task = TwitterAPISessionDelegatedJSONTask(
@@ -130,7 +126,7 @@ import XCTest
             }
         }
 
-        func testStream() async throws {
+        public func testStream() async throws {
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
@@ -170,7 +166,7 @@ import XCTest
             XCTAssertEqual(count, 4)
         }
 
-        func testStreamCancel() async throws {
+        public func testStreamCancel() async throws {
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
@@ -197,7 +193,7 @@ import XCTest
             XCTAssertTrue(mockTask.cancelled)
         }
 
-        func testStreamError() async throws {
+        public func testStreamError() async throws {
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
@@ -237,5 +233,9 @@ import XCTest
 
             await asyncTask.value
         }
+
+    deinit {
+        // De-init Logic Here
+    }
     }
 #endif

@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersTimelinesReverseChronologicalRequestV2(
             id: "_i_",
             endTime: Date(timeIntervalSince1970: 50),
@@ -48,7 +44,7 @@ class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersTimelinesReverseChronologicalRequestV2(
             id: "_i_"
         )
@@ -57,5 +53,9 @@ class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

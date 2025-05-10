@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsSearchAllRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetTweetsSearchAllRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsSearchAllRequestV2(
             query: "_q_",
             endTime: Date(timeIntervalSince1970: 2),
@@ -49,7 +45,7 @@ class GetTweetsSearchAllRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetTweetsSearchAllRequestV2(
             query: "_q1_"
         )
@@ -60,5 +56,9 @@ class GetTweetsSearchAllRequestV2Tests: XCTestCase {
                 "query": "_q1_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

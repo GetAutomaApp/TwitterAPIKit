@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetUsersLikedTweetsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetUsersLikedTweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersLikedTweetsRequestV2(
             id: "_id_",
             expansions: [.authorID],
@@ -38,7 +34,7 @@ class GetUsersLikedTweetsRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersLikedTweetsRequestV2(
             id: "_id_"
         )
@@ -47,5 +43,9 @@ class GetUsersLikedTweetsRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

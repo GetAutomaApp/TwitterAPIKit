@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetUsersMentionsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetUsersMentionsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersMentionsRequestV2(
             id: "_i_",
             endTime: Date(timeIntervalSince1970: 11),
@@ -46,7 +42,7 @@ class GetUsersMentionsRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersMentionsRequestV2(
             id: "_i_"
         )
@@ -55,5 +51,9 @@ class GetUsersMentionsRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

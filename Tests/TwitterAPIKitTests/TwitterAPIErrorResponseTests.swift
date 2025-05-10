@@ -28,7 +28,10 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
                 ],
             ]
 
-            let v1Response = TwitterAPIErrorResponseV1(obj: obj)!
+            guard let v1Response = TwitterAPIErrorResponseV1(obj: obj) else {
+                return XCTFail("Failed to parse response")
+            }
+
             XCTAssertEqual(v1Response.message, "message1")
             XCTAssertEqual(v1Response.code, 1)
             XCTAssertEqual(
@@ -44,7 +47,8 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
             XCTAssertEqual(
                 v1Response,
                 .init(
-                    message: "message1", code: 1,
+                    message: "message1",
+                    code: 1,
                     errors: [
                         .init(message: "message1", code: 1, errors: []),
                         .init(message: "message2", code: 2, errors: []),
@@ -78,7 +82,10 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
 
                 ],
             ]
-            let v2Response = TwitterAPIErrorResponseV2(obj: obj)!
+            guard let v2Response = TwitterAPIErrorResponseV2(obj: obj) else {
+                return XCTFail("Failed to parse response")
+            }
+
             XCTAssertEqual(v2Response.title, "_title_")
             XCTAssertEqual(v2Response.detail, "_detail_")
             XCTAssertEqual(v2Response.type, "_type_")
@@ -88,7 +95,9 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
             XCTAssertEqual(
                 v2Response,
                 TwitterAPIErrorResponseV2(
-                    title: "_title_", detail: "_detail_", type: "_type_",
+                    title: "_title_",
+                    detail: "_detail_",
+                    type: "_type_",
                     errors: [.init(message: "_message_", parameters: ["param": ["b"]])]
                 )
             )
@@ -167,7 +176,7 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
             }
 
             XCTContext.runActivity(named: "invalid") { _ in
-                let data = "{}".data(using: .utf8)!
+                let data = Data("{}")
                 let error = TwitterAPIErrorResponse(data: data)
                 XCTAssertEqual(error, .unknown(data))
                 XCTAssertTrue(error.isUnknown)

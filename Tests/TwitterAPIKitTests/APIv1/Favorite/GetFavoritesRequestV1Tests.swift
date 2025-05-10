@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetFavoritesRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetFavoritesRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetFavoritesRequestV1(
             target: .userID("uid"),
             count: 100,
@@ -31,7 +27,7 @@ class GetFavoritesRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetFavoritesRequestV1(
             target: .screenName("s")
         )
@@ -42,5 +38,9 @@ class GetFavoritesRequestV1Tests: XCTestCase {
                 "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

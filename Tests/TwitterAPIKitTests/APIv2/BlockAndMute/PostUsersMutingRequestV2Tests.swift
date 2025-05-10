@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostUsersMutingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostUsersMutingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersMutingRequestV2(
             id: "_id_",
             targetUserID: "_targetUserID_"
@@ -22,5 +18,9 @@ class PostUsersMutingRequestV2Tests: XCTestCase {
                 "target_user_id": "_targetUserID_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

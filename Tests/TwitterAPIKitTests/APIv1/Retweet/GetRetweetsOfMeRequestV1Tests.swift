@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetRetweetsOfMeRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetRetweetsOfMeRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetRetweetsOfMeRequestV1(
             count: 10,
             sinceID: "_s_",
@@ -33,12 +29,16 @@ class GetRetweetsOfMeRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetRetweetsOfMeRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

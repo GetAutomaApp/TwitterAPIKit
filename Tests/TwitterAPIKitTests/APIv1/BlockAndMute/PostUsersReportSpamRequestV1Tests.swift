@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostUsersReportSpamRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostUsersReportSpamRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersReportSpamRequestV1(
             user: .userID("uid"),
             performBlock: true
@@ -25,7 +21,7 @@ class PostUsersReportSpamRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostUsersReportSpamRequestV1(
             user: .screenName("s")
         )
@@ -36,5 +32,9 @@ class PostUsersReportSpamRequestV1Tests: XCTestCase {
                 "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

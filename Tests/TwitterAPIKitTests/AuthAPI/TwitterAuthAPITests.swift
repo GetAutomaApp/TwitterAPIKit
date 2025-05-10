@@ -1,12 +1,12 @@
 import TwitterAPIKit
 import XCTest
 
-class TwitterAuthAPITests: XCTestCase {
+internal class TwitterAuthAPITests: XCTestCase {
     var client: TwitterAuthAPI!
 
-    override func setUpWithError() throws {
+    override public func setUpWithError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         client =
             TwitterAPIClient(
@@ -15,11 +15,11 @@ class TwitterAuthAPITests: XCTestCase {
             ).auth
     }
 
-    override func tearDownWithError() throws {
+    override public func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
-    func testMakeOAuthAuthorizeURL() throws {
+    public func testMakeOAuthAuthorizeURL() throws {
         let url = client.oauth10a.makeOAuthAuthorizeURL(
             .init(oauthToken: "token", forceLogin: true, screenName: "name")
         )
@@ -29,7 +29,7 @@ class TwitterAuthAPITests: XCTestCase {
         )
     }
 
-    func testMakeOAuthAuthenticateURL() throws {
+    public func testMakeOAuthAuthenticateURL() throws {
         let url = client.oauth10a.makeOAuthAuthenticateURL(
             .init(oauthToken: "token", forceLogin: true, screenName: "name")
         )
@@ -39,7 +39,7 @@ class TwitterAuthAPITests: XCTestCase {
         )
     }
 
-    func testMakeOAuth2AuthorizeURL() throws {
+    public func testMakeOAuth2AuthorizeURL() throws {
         let url = client.oauth20.makeOAuth2AuthorizeURL(
             .init(
                 clientID: "cid",
@@ -57,5 +57,9 @@ class TwitterAuthAPITests: XCTestCase {
             url!.absoluteString,
             "https://twitter.com/i/oauth2/authorize?client_id=cid&code_challenge=challenge&code_challenge_method=plain&redirect_uri=callback&response_type=code&scope=users.read%20tweet.read&state=state"
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

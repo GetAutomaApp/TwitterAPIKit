@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetFollowersListRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetFollowersListRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetFollowersListRequestV1(
             user: .userID("uid"),
             count: 1,
@@ -31,7 +27,7 @@ class GetFollowersListRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetFollowersListRequestV1(
             user: .screenName("s")
         )
@@ -42,5 +38,9 @@ class GetFollowersListRequestV1Tests: XCTestCase {
                 "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

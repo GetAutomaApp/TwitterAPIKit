@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetUsersByRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetUsersByRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersByRequestV2(
             usernames: ["a", "b"],
             expansions: [.pinnedTweetID],
@@ -29,7 +25,7 @@ class GetUsersByRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersByRequestV2(
             usernames: ["a", "b"]
         )
@@ -40,5 +36,9 @@ class GetUsersByRequestV2Tests: XCTestCase {
                 "usernames": "a,b",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

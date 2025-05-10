@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostAccountUpdateProfileImageRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostAccountUpdateProfileImageRequestV1Tests: XCTestCase {
+    public func test() throws {
         let image = Data([0, 1, 2])
         let req = PostAccountUpdateProfileImageRequestV1(
             image: image,
@@ -28,7 +24,7 @@ class PostAccountUpdateProfileImageRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let image = Data([0, 1, 2])
         let req = PostAccountUpdateProfileImageRequestV1(
             image: image
@@ -40,5 +36,9 @@ class PostAccountUpdateProfileImageRequestV1Tests: XCTestCase {
                 "image": "AAEC",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

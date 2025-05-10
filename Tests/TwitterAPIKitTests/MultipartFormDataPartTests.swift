@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class MultipartFormDataPartTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testEqualValue() throws {
+internal class MultipartFormDataPartTests: XCTestCase {
+    public func testEqualValue() throws {
         let a = MultipartFormDataPart.value(name: "n", value: 1)
         let b = MultipartFormDataPart.value(name: "n", value: "1")
         let c = MultipartFormDataPart.value(name: "n", value: Float(1))
@@ -17,7 +13,7 @@ class MultipartFormDataPartTests: XCTestCase {
         }
     }
 
-    func testEqualData() throws {
+    public func testEqualData() throws {
         let data = Data()
         let a = MultipartFormDataPart.data(name: "n", value: data, filename: "f", mimeType: "m")
         let b = MultipartFormDataPart.data(name: "m", value: data, filename: "f", mimeType: "m")
@@ -33,5 +29,9 @@ class MultipartFormDataPartTests: XCTestCase {
         }
 
         XCTAssertEqual(a, a1)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

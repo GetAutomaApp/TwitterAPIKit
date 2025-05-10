@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
+    public func test() throws {
         XCTContext.runActivity(named: "add") { _ in
 
             let add = PostTweetsSearchStreamRulesRequestV2(
@@ -53,7 +49,7 @@ class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
         }
     }
 
-    func testDryRun() throws {
+    public func testDryRun() throws {
         let add = PostTweetsSearchStreamRulesRequestV2(
             operation: .add([
                 .init(value: "value", tag: "tag"),
@@ -77,5 +73,9 @@ class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
         )
 
         AssertEqualAnyDict(add.queryParameters, ["dry_run": true])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

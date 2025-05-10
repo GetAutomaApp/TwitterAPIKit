@@ -1,14 +1,12 @@
 import TwitterAPIKit
 import XCTest
 
-class TwitterAPIClientTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {
+internal class TwitterAPIClientTests: XCTestCase {
+    override public func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
-    func testJSONDecoder() throws {
+    public func testJSONDecoder() throws {
         let decoder = TwitterAPIClient.defaultJSONDecoder
 
         let dateV1 = try decoder.decode(Date.self, from: Data("\"Sun Jul 03 04:32:05 +0000 2022\"".utf8))
@@ -16,9 +14,9 @@ class TwitterAPIClientTests: XCTestCase {
         XCTAssertEqual(dateV1, dateV2)
     }
 
-    func testRefreshToken() throws {
+    public func testRefreshToken() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth20(
@@ -72,9 +70,9 @@ class TwitterAPIClientTests: XCTestCase {
         }
     }
 
-    func testRefreshTokenForceRefresh() throws {
+    public func testRefreshTokenForceRefresh() throws {
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockURLProtocol.self]
+        config.protocolinternal classes = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth20(
@@ -122,7 +120,7 @@ class TwitterAPIClientTests: XCTestCase {
         }
     }
 
-    func testRefreshToken_invalidAuthenticationMethod() throws {
+    public func testRefreshToken_invalidAuthenticationMethod() throws {
         let client = TwitterAPIClient(.none)
         let exp = expectation(description: "")
         client.refreshOAuth20Token(type: .publicClient) { result in
@@ -137,7 +135,7 @@ class TwitterAPIClientTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testRefreshToken_refreshTokenIsMissing() throws {
+    public func testRefreshToken_refreshTokenIsMissing() throws {
         let client = TwitterAPIClient(
             .oauth20(
                 .init(
@@ -161,7 +159,7 @@ class TwitterAPIClientTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testRefreshTokenNotExpired() throws {
+    public func testRefreshTokenNotExpired() throws {
         let now = Date()
         let client = TwitterAPIClient(
             .oauth20(
@@ -194,9 +192,9 @@ class TwitterAPIClientTests: XCTestCase {
     #if compiler(>=5.5.2) && canImport(_Concurrency)
 
         @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-        func testRefreshTokenAsync() async throws {
+        public func testRefreshTokenAsync() async throws {
             let config = URLSessionConfiguration.default
-            config.protocolClasses = [MockURLProtocol.self]
+            config.protocolinternal classes = [MockURLProtocol.self]
 
             let client = TwitterAPIClient(
                 .oauth20(
@@ -235,7 +233,7 @@ class TwitterAPIClientTests: XCTestCase {
         }
 
         @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-        func testRefreshTokenInvalidAuthenticationMethodAsync() async throws {
+        public func testRefreshTokenInvalidAuthenticationMethodAsync() async throws {
             let client = TwitterAPIClient(.none)
 
             do {
@@ -251,4 +249,8 @@ class TwitterAPIClientTests: XCTestCase {
             }
         }
     #endif
+
+    deinit {
+        // De-init Logic Here
+    }
 }

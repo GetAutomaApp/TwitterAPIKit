@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsSearchStreamRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetTweetsSearchStreamRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsSearchStreamRequestV2(
             backfillMinutes: 1,
             expansions: [.referencedTweetsIDAuthorID],
@@ -35,12 +31,16 @@ class GetTweetsSearchStreamRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetTweetsSearchStreamRequestV2()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

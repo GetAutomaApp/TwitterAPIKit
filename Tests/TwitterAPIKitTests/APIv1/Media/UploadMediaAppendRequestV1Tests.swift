@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class UploadMediaAppendRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class UploadMediaAppendRequestV1Tests: XCTestCase {
+    public func test() throws {
         let data = Data()
         let req = UploadMediaAppendRequestV1(
             mediaID: "m",
@@ -31,7 +27,7 @@ class UploadMediaAppendRequestV1Tests: XCTestCase {
         )
     }
 
-    func testSegments() throws {
+    public func testSegments() throws {
         let data = Data([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
         let req = UploadMediaAppendRequestV1(
@@ -62,7 +58,7 @@ class UploadMediaAppendRequestV1Tests: XCTestCase {
         XCTAssertEqual(reqs[3].segmentIndex, 3)
     }
 
-    func testSegumentsMiddle() throws {
+    public func testSegumentsMiddle() throws {
         //              | 0  |  1  |  2  |  3  |  4  | 5
         let data = Data([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
@@ -93,5 +89,9 @@ class UploadMediaAppendRequestV1Tests: XCTestCase {
 
         XCTAssertEqual(reqs[3].media, Data([10]))
         XCTAssertEqual(reqs[3].segmentIndex, 5)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

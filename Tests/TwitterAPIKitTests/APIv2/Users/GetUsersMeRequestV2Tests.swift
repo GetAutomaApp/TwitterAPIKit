@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetUsersMeRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetUsersMeRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersMeRequestV2(
             expansions: [.pinnedTweetID],
             tweetFields: [.geo],
@@ -27,12 +23,16 @@ class GetUsersMeRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersMeRequestV2()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

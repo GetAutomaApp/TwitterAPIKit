@@ -2,11 +2,7 @@ import TwitterAPIKit
 import XCTest
 
 class GetDmEventsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+    public func test() throws {
         let req = GetDmEventsRequestV2(
             maxResults: 10,
             paginationToken: "_p_",
@@ -35,5 +31,9 @@ class GetDmEventsRequestV2Tests: XCTestCase {
                 "tweet.fields": "lang",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

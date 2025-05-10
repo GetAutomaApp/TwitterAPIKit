@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetTrendsClosestRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetTrendsClosestRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetTrendsClosestRequestV1(
             location: TwitterCoordinateV1(lat: 37.7, long: -122.4)
         )
@@ -22,5 +18,9 @@ class GetTrendsClosestRequestV1Tests: XCTestCase {
                 "long": -122.4,
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

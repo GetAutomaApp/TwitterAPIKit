@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetSavedSearchesListRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetSavedSearchesListRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetSavedSearchesListRequestV1()
 
         XCTAssertEqual(req.method, .get)
@@ -17,5 +13,9 @@ class GetSavedSearchesListRequestV1Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

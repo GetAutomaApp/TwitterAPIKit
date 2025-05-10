@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetMutesUsersListRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetMutesUsersListRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetMutesUsersListRequestV1(
             cursor: "_c_",
             includeEntities: true,
@@ -27,12 +23,16 @@ class GetMutesUsersListRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetMutesUsersListRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

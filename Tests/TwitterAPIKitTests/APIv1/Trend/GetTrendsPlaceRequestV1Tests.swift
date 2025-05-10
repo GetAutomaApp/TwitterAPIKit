@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetTrendsPlaceRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetTrendsPlaceRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetTrendsPlaceRequestV1(
             woeid: "_w_",
             exclude: true
@@ -25,7 +21,7 @@ class GetTrendsPlaceRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetTrendsPlaceRequestV1(
             woeid: "_w_"
         )
@@ -36,5 +32,9 @@ class GetTrendsPlaceRequestV1Tests: XCTestCase {
                 "woeid": "_w_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

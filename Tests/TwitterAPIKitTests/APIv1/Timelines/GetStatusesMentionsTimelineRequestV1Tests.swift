@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetStatusesMentionsTimelineRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetStatusesMentionsTimelineRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetStatusesMentionsTimelineRequestV1(
             count: 100,
             maxID: "_m_",
@@ -31,12 +27,16 @@ class GetStatusesMentionsTimelineRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetStatusesMentionsTimelineRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

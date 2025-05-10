@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostCollectionsEntriesMoveRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostCollectionsEntriesMoveRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostCollectionsEntriesMoveRequestV1(
             id: "_i_",
             tweetID: "_t_",
@@ -29,7 +25,7 @@ class PostCollectionsEntriesMoveRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostCollectionsEntriesMoveRequestV1(
             id: "_i_",
             tweetID: "_t_",
@@ -44,5 +40,9 @@ class PostCollectionsEntriesMoveRequestV1Tests: XCTestCase {
                 "relative_to": "_r_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

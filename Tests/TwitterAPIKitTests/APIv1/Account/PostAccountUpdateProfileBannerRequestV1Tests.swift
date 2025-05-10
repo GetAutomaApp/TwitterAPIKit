@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
+    public func test() throws {
         let banner = Data([0, 1, 2])
         let req = PostAccountUpdateProfileBannerRequestV1(
             banner: banner,
@@ -42,7 +38,7 @@ class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let banner = Data([0, 1])
         let req = PostAccountUpdateProfileBannerRequestV1(
             banner: banner
@@ -62,5 +58,9 @@ class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
                 "banner": "AAE=",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

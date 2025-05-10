@@ -2,7 +2,7 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-class TwitterAPIRequestTests: XCTestCase {
+internal class TwitterAPIRequestTests: XCTestCase {
     private struct MockTwitterAPIRequest: TwitterAPIRequest {
         var method: HTTPMethod = .get
         var path: String = "/mock"
@@ -25,11 +25,7 @@ class TwitterAPIRequestTests: XCTestCase {
         uploadURL: .init(string: "https://upload.example.com")!
     )
 
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testRequestURL() throws {
+    public func testRequestURL() throws {
         XCTContext.runActivity(named: "api") { _ in
             let req = MockTwitterAPIRequest(parameters: ["key": "value"], baseURLType: .api)
             XCTAssertEqual(req.requestURL(for: env).absoluteString, "https://api.example.com/mock")
@@ -41,7 +37,7 @@ class TwitterAPIRequestTests: XCTestCase {
         }
     }
 
-    func testParameterForOAuth() throws {
+    public func testParameterForOAuth() throws {
         XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
             let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .wwwFormUrlEncoded)
             XCTAssertEqual(req.parameterForOAuth as! [String: String], ["key": "value"])
@@ -58,7 +54,7 @@ class TwitterAPIRequestTests: XCTestCase {
         }
     }
 
-    func testParameterByMethods() throws {
+    public func testParameterByMethods() throws {
         // 🥓 = F0 9F A5 93
 
         try XCTContext.runActivity(named: "GET") { _ in
@@ -126,7 +122,7 @@ class TwitterAPIRequestTests: XCTestCase {
         }
     }
 
-    func testURLQueryPercentEncode() throws {
+    public func testURLQueryPercentEncode() throws {
         let req = MockTwitterAPIRequest(
             method: .get,
             parameters: [
@@ -143,7 +139,7 @@ class TwitterAPIRequestTests: XCTestCase {
         )
     }
 
-    func testBodyAndQueryParameter() throws {
+    public func testBodyAndQueryParameter() throws {
         let req = MockTwitterAPIQueryAndBodyRequest(
             method: .post,
             queryParameters: ["key": "value,🥓"],
@@ -161,7 +157,7 @@ class TwitterAPIRequestTests: XCTestCase {
         XCTAssertEqual(String(data: urlReq.httpBody!, encoding: .utf8)!, "body=%E3%81%82")
     }
 
-    func testBodyContentType() throws {
+    public func testBodyContentType() throws {
         try XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
 
             let req = try MockTwitterAPIRequest(
@@ -265,5 +261,9 @@ class TwitterAPIRequestTests: XCTestCase {
                 }
             )
         }
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

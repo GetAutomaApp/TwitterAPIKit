@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostListsSubscribersCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostListsSubscribersCreateRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostListsSubscribersCreateRequestV1(
             list: .listID("lid")
         )
@@ -23,7 +19,7 @@ class PostListsSubscribersCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    func testScreenName() throws {
+    public func testScreenName() throws {
         let req = PostListsSubscribersCreateRequestV1(
             list: .slug(slug: "sl", owner: .screenName("name"))
         )
@@ -35,5 +31,9 @@ class PostListsSubscribersCreateRequestV1Tests: XCTestCase {
                 "owner_screen_name": "name",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

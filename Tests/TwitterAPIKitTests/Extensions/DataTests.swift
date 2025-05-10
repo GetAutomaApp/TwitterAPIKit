@@ -2,12 +2,8 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-class DataTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testSerialize() throws {
+internal class DataTests: XCTestCase {
+    public func testSerialize() throws {
         XCTContext.runActivity(named: "success") { _ in
             let data = Data("{\"a\":1}".utf8)
             let serialized = data.serialize()
@@ -21,7 +17,7 @@ class DataTests: XCTestCase {
         }
     }
 
-    func testDecode() throws {
+    public func testDecode() throws {
         struct Obj: Decodable {
             let a: Int
         }
@@ -36,5 +32,9 @@ class DataTests: XCTestCase {
             let serialized = data.decode(Obj.self, decoder: JSONDecoder())
             XCTAssertTrue(serialized.error!.isResponseSerializeFailed)
         }
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

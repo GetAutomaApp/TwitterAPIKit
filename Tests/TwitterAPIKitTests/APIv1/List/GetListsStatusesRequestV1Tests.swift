@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetListsStatusesRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetListsStatusesRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetListsStatusesRequestV1(
             list: .listID("lid"),
             count: 15,
@@ -33,7 +29,7 @@ class GetListsStatusesRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetListsStatusesRequestV1(
             list: .listID("lid")
         )
@@ -44,5 +40,9 @@ class GetListsStatusesRequestV1Tests: XCTestCase {
                 "list_id": "lid",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -2,11 +2,7 @@ import TwitterAPIKit
 import XCTest
 
 class PostCollectionsCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+    public func test() throws {
         let req = PostCollectionsCreateRequestV1(
             name: "_n_",
             url: "_u_",
@@ -29,7 +25,7 @@ class PostCollectionsCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostCollectionsCreateRequestV1(
             name: "n"
         )
@@ -40,5 +36,9 @@ class PostCollectionsCreateRequestV1Tests: XCTestCase {
                 "name": "n",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

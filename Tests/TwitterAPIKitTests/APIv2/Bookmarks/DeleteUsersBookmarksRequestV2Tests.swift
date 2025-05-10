@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class DeleteUsersBookmarksRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class DeleteUsersBookmarksRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = DeleteUsersBookmarksRequestV2(
             id: "_i_",
             tweetID: "_t_"
@@ -20,5 +16,9 @@ class DeleteUsersBookmarksRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

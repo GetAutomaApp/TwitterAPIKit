@@ -1,14 +1,10 @@
 import TwitterAPIKit
 import XCTest
 
-final class TwitterAuthenticationMethodTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
+final internal class TwitterAuthenticationMethodTests: XCTestCase {
     // MARK: - OAuth10a
 
-    func testOAuth10aInit() throws {
+    public func testOAuth10aInit() throws {
         let oauth10 = TwitterAuthenticationMethod.OAuth10a(
             consumerKey: "ck",
             consumerSecret: "cs",
@@ -24,7 +20,7 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
 
     // MARK: - OAuth20
 
-    func testOAuth20Init() throws {
+    public func testOAuth20Init() throws {
         do {
             let createdAt = Date(timeIntervalSince1970: 2)
 
@@ -76,7 +72,7 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
         }
     }
 
-    func testOAuth20Refresh() throws {
+    public func testOAuth20Refresh() throws {
         let createdAt = Date(timeIntervalSince1970: 2)
 
         var oauth20 = TwitterAuthenticationMethod.OAuth20(
@@ -116,7 +112,7 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
         XCTAssertEqual(oauth20.createdAt, refreshedAt)
     }
 
-    func testOAuth20Expired() throws {
+    public func testOAuth20Expired() throws {
         let createdAt = Date(timeIntervalSince1970: 0)
         let oauth20 = TwitterAuthenticationMethod.OAuth20(
             clientID: "",
@@ -132,7 +128,7 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
         XCTAssertTrue(oauth20.expired)
     }
 
-    func testOAuth20NotExpired() throws {
+    public func testOAuth20NotExpired() throws {
         let createdAt = Date()
         let oauth20 = TwitterAuthenticationMethod.OAuth20(
             clientID: "",
@@ -146,5 +142,9 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
 
         XCTAssertEqual(oauth20.expiresAt, createdAt.addingTimeInterval(10))
         XCTAssertFalse(oauth20.expired)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

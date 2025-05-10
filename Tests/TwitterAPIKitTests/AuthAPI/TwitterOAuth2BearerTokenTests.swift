@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class TwitterOAuth2BearerTokenTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testJsonData() throws {
+internal class TwitterOAuth2BearerTokenTests: XCTestCase {
+    public func testJsonData() throws {
         let data = Data(#"{"token_type":"bearer","access_token":"token"}"#.utf8)
         let token = try TwitterOAuth2BearerToken(jsonData: data)!
 
@@ -14,13 +10,17 @@ class TwitterOAuth2BearerTokenTests: XCTestCase {
         XCTAssertEqual(token.accessToken, "token")
     }
 
-    func testNil() throws {
+    public func testNil() throws {
         let data = Data("{}".utf8)
         XCTAssertNil(try TwitterOAuth2BearerToken(jsonData: data))
     }
 
-    func testThrow() throws {
+    public func testThrow() throws {
         let data = Data("".utf8)
         XCTAssertThrowsError(try TwitterOAuth2BearerToken(jsonData: data))
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

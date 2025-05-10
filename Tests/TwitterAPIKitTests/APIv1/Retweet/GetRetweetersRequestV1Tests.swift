@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetRetweetersRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetRetweetersRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetRetweetersRequestV1(
             id: "_i_",
             count: 100,
@@ -29,7 +25,7 @@ class GetRetweetersRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetRetweetersRequestV1(
             id: "_i_"
         )
@@ -40,5 +36,9 @@ class GetRetweetersRequestV1Tests: XCTestCase {
                 "id": "_i_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

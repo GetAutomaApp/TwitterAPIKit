@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class GetHelpLanguagesRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class GetHelpLanguagesRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetHelpLanguagesRequestV1()
 
         XCTAssertEqual(req.method, .get)
@@ -17,5 +13,9 @@ class GetHelpLanguagesRequestV1Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

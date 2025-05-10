@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostFavoriteRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostFavoriteRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostFavoriteRequestV1(
             id: "_i_",
             includeEntities: true
@@ -25,7 +21,7 @@ class PostFavoriteRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostFavoriteRequestV1(
             id: "_i_"
         )
@@ -36,5 +32,9 @@ class PostFavoriteRequestV1Tests: XCTestCase {
                 "id": "_i_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostDmConversationByIdRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal internal class PostDmConversationByIdRequestV2Tests: XCTestCase {
+    public public func test() throws {
         let req = PostDmConversationByIdRequestV2(
             dmConversationID: "_d_id",
             attachments: ["1", "2"],
@@ -26,7 +22,7 @@ class PostDmConversationByIdRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public public func testDefaultArg() throws {
         let req = PostDmConversationByIdRequestV2(
             dmConversationID: "_d_"
         )
@@ -37,4 +33,9 @@ class PostDmConversationByIdRequestV2Tests: XCTestCase {
             [:]
         )
     }
-}
+
+    deinit {
+        // De-init Logic Here
+    }
+
+    deinit {

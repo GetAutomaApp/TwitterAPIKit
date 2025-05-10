@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class PostUsersBlockingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class PostUsersBlockingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersBlockingRequestV2(
             id: "_id_",
             targetUserID: "_targetUserID_"
@@ -22,5 +18,9 @@ class PostUsersBlockingRequestV2Tests: XCTestCase {
                 "target_user_id": "_targetUserID_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
