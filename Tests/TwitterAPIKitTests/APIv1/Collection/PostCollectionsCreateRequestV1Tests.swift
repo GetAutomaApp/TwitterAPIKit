@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostCollectionsCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostCollectionsCreateRequestV1(
@@ -39,7 +37,7 @@ class PostCollectionsCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "name": "n"
+                "name": "n",
             ]
         )
     }

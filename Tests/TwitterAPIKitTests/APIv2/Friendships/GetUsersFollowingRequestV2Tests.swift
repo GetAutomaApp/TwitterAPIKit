@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetUsersFollowingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetUsersFollowingRequestV2(
@@ -30,7 +28,8 @@ class GetUsersFollowingRequestV2Tests: XCTestCase {
                 "pagination_token": "t",
                 "tweet.fields": "text",
                 "user.fields": "name",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

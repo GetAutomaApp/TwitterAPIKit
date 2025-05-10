@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
 open class GetUsersByUsernameRequestV2: TwitterAPIRequest {
-
     public let username: String
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let tweetFields: Set<TwitterTweetFieldsV2>?

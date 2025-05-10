@@ -1,7 +1,6 @@
 import Foundation
 
 open class SearchAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets
     public func searchTweets(
         _ request: GetSearchTweetsRequestV1

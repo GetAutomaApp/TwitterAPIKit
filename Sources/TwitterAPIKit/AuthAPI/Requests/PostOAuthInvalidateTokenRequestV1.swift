@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/invalidate_access_token
 open class PostOAuthInvalidateTokenRequestV1: TwitterAPIRequest {
-
     public var method: HTTPMethod {
         return .post
     }

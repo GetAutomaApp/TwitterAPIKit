@@ -1,7 +1,6 @@
 import Foundation
 
 open class DirectMessageAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/new-event
     public func postDirectMessage(
         _ request: PostDirectMessageRequestV1
@@ -12,7 +11,7 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/delete-message-event
     public func deleteDirectMessage(
         _ request: DeleteDirectMessageRequestV1
-    ) -> TwitterAPISessionDataTask {  // 204 - No Content
+    ) -> TwitterAPISessionDataTask { // 204 - No Content
         return session.send(request)
     }
 

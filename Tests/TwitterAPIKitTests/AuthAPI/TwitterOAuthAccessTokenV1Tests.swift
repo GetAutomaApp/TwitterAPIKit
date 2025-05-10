@@ -2,17 +2,14 @@ import TwitterAPIKit
 import XCTest
 
 class TwitterOAuthAccessTokenV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         let token = TwitterOAuthAccessTokenV1(
-            oauthToken: "token", oauthTokenSecret: "secret", userID: "uid", screenName: "sn")
+            oauthToken: "token", oauthTokenSecret: "secret", userID: "uid", screenName: "sn"
+        )
         XCTAssertEqual(token.oauthToken, "token")
         XCTAssertEqual(token.oauthTokenSecret, "secret")
         XCTAssertEqual(token.userID, "uid")

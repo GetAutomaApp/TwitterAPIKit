@@ -1,7 +1,6 @@
 import Foundation
 
 open class ComplianceAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
     public func getComplianceJob(
         _ request: GetComplianceJobRequestV2

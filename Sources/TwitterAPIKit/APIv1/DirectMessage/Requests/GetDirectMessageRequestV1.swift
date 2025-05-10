@@ -3,7 +3,6 @@ import Foundation
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/get-event
 
 open class GetDirectMessageRequestV1: TwitterAPIRequest {
-
     public let id: String
 
     public var method: HTTPMethod {

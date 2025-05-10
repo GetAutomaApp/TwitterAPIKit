@@ -2,15 +2,11 @@ import TwitterAPIKit
 import XCTest
 
 class TwitterAPIFailedTaskTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         let task = TwitterAPIFailedTask(.responseFailed(reason: .invalidResponse(error: nil)))
 
         XCTAssertTrue(task.error.isResponseFailed)

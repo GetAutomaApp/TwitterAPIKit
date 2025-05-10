@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
 open class PutListRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let description: String?
     public let name: String?

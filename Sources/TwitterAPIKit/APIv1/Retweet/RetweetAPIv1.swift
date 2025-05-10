@@ -1,7 +1,6 @@
 import Foundation
 
 open class RetweetAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-statuses-retweet-id
     public func postRetweet(
         _ request: PostRetweetRequestV1

@@ -20,7 +20,6 @@ import Foundation
  */
 
 public struct TwitterOAuth2AccessToken {
-
     public let scope: [String]
     public let tokenType: String
     public let expiresIn: Int
@@ -33,17 +32,17 @@ public struct TwitterOAuth2AccessToken {
         let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
 
         guard let obj = json as? [String: Any],
-            let scope = obj["scope"] as? String,
-            let tokenType = obj["token_type"] as? String,
-            let expiresIn = obj["expires_in"] as? Int,
-            let accessToken = obj["access_token"] as? String
+              let scope = obj["scope"] as? String,
+              let tokenType = obj["token_type"] as? String,
+              let expiresIn = obj["expires_in"] as? Int,
+              let accessToken = obj["access_token"] as? String
         else { return nil }
 
         self.scope = scope.components(separatedBy: " ")
         self.tokenType = tokenType
         self.expiresIn = expiresIn
         self.accessToken = accessToken
-        self.refreshToken = obj["refresh_token"] as? String
+        refreshToken = obj["refresh_token"] as? String
     }
 }
 
@@ -56,7 +55,7 @@ extension TwitterOAuth2AccessToken {
                 )
             }
             return token
-        } catch let error {
+        } catch {
             throw TwitterAPIKitError.responseSerializeFailed(
                 reason: .jsonSerializationFailed(error: error)
             )

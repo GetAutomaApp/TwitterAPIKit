@@ -1,11 +1,10 @@
 import Foundation
 
 class MockURLProtocol: URLProtocol {
-
     static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
     static var requestAssert: ((URLRequest) throws -> Void)?
 
-    override class func canInit(with request: URLRequest) -> Bool {
+    override class func canInit(with _: URLRequest) -> Bool {
         return true
     }
 
@@ -19,20 +18,18 @@ class MockURLProtocol: URLProtocol {
     }
 
     override func startLoading() {
-
-        let handler: ((URLRequest) throws -> (HTTPURLResponse, Data?))
+        let handler: (URLRequest) throws -> (HTTPURLResponse, Data?)
         if let h = MockURLProtocol.requestHandler {
             handler = h
         } else {
             handler = { request in
-                return (
+                (
                     HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, Data()
                 )
             }
         }
 
         do {
-
             try MockURLProtocol.requestAssert?(request)
 
             let (response, data): (URLResponse, Data?) = try handler(request)
@@ -48,7 +45,5 @@ class MockURLProtocol: URLProtocol {
         }
     }
 
-    override func stopLoading() {
-
-    }
+    override func stopLoading() {}
 }

@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetFriendshipsLookupRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetFriendshipsLookupRequestV1(
@@ -20,7 +18,7 @@ class GetFriendshipsLookupRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "user_id": "uid1,uid2"
+                "user_id": "uid1,uid2",
             ]
         )
     }
@@ -34,7 +32,7 @@ class GetFriendshipsLookupRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s1,s2"
+                "screen_name": "s1,s2",
             ]
         )
     }

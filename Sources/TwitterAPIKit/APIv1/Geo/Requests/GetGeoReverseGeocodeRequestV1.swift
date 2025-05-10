@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/places-near-location/api-reference/get-geo-reverse_geocode
 open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
-
     public let location: TwitterCoordinateV1
     public let accuracy: TwitterAccuracyV1?
     public let maxResults: Int?

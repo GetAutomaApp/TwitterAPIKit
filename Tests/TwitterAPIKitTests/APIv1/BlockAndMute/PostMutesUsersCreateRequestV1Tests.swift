@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostMutesUsersCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostMutesUsersCreateRequestV1(
@@ -20,7 +18,7 @@ class PostMutesUsersCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "user_id": "uid"
+                "user_id": "uid",
             ]
         )
     }
@@ -33,7 +31,7 @@ class PostMutesUsersCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
     }

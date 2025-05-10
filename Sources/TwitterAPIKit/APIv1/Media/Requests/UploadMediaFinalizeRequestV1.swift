@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-finalize
 open class UploadMediaFinalizeRequestV1: TwitterAPIRequest {
-
     public let command: String = "FINALIZE"
     public let mediaID: String
 

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
 open class GetUsersLikedTweetsRequestV2: TwitterAPIRequest {
-
     /// User ID
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?

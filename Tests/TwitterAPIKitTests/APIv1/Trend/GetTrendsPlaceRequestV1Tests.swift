@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetTrendsPlaceRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetTrendsPlaceRequestV1(
@@ -35,7 +33,7 @@ class GetTrendsPlaceRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "woeid": "_w_"
+                "woeid": "_w_",
             ]
         )
     }

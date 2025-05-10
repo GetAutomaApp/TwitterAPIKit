@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
 open class GetSpacesSearchRequestV2: TwitterAPIRequest {
-
     public enum State: String {
         case all
         case live

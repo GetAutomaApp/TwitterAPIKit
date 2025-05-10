@@ -29,8 +29,8 @@ func initializer(input: String) -> String {
                 return nil
             }
 
-            let firstRange: Range = Range(match.range(at: 1), in: line)!
-            let secondRange: Range = Range(match.range(at: 2), in: line)!
+            let firstRange = Range(match.range(at: 1), in: line)!
+            let secondRange = Range(match.range(at: 2), in: line)!
             let name = String(line[firstRange])
             let type = String(line[secondRange])
             return (name: name, type: type)
@@ -43,17 +43,17 @@ func initializer(input: String) -> String {
         return "\(name): \(type)"
     }
 
-    let initBody: [String] = pairs.map { (name: String, type: String) in
-        return "self.\(name) = \(name)"
+    let initBody: [String] = pairs.map { (name: String, _: String) in
+        "self.\(name) = \(name)"
     }
 
     let body = """
-        public init(
-            \(initArgs.joined(separator: ",\n    "))
-        ) {
-            \(initBody.joined(separator: "\n    "))
-        }
-        """
+    public init(
+        \(initArgs.joined(separator: ",\n    "))
+    ) {
+        \(initBody.joined(separator: "\n    "))
+    }
+    """
 
     return body
 }
@@ -63,8 +63,8 @@ extension String {
     func camelCaseToSnakeCase() -> String {
         let acronymPattern = "([A-Z]+)([A-Z][a-z]|[0-9])"
         let normalPattern = "([a-z0-9])([A-Z])"
-        return self.processCamalCaseRegex(pattern: acronymPattern)?
-            .processCamalCaseRegex(pattern: normalPattern)?.lowercased() ?? self.lowercased()
+        return processCamalCaseRegex(pattern: acronymPattern)?
+            .processCamalCaseRegex(pattern: normalPattern)?.lowercased() ?? lowercased()
     }
 
     fileprivate func processCamalCaseRegex(pattern: String) -> String? {
@@ -80,7 +80,7 @@ extension String {
         let pattern = "([A-Z]{2})(s)$"
         let regex = try? NSRegularExpression(pattern: pattern, options: [])
         guard let match = regex?.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)),
-            let range = Range(match.range, in: self)
+              let range = Range(match.range, in: self)
         else { return self }
         return replacingCharacters(in: range, with: self[range].uppercased())
     }
@@ -98,12 +98,12 @@ extension NSRegularExpression {
 }
 
 /*
-public let hoge: String
-public let fooBar: String?
- ↓ ↓ ↓ ↓
-p["hoge"] = hoge
-fooBar.map { p["foo_bar"] = $0 }
-*/
+ public let hoge: String
+ public let fooBar: String?
+  ↓ ↓ ↓ ↓
+ p["hoge"] = hoge
+ fooBar.map { p["foo_bar"] = $0 }
+ */
 func body(input: String) -> String {
     let primitiveTypes = [": Int", ": String", ": Bool"]
 
@@ -137,12 +137,12 @@ func body(input: String) -> String {
             }
         }
     let body = """
-            open var parameters: [String: Any] {
-                var p = [String: Any]()
-                \(params.joined(separator: "\n    "))
-                return p
-            }
-        """
+        open var parameters: [String: Any] {
+            var p = [String: Any]()
+            \(params.joined(separator: "\n    "))
+            return p
+        }
+    """
     return body
 }
 

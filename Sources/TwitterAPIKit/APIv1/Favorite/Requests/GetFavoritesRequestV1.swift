@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-favorites-list
 open class GetFavoritesRequestV1: TwitterAPIRequest {
-
     public let target: TwitterUserIdentifierV1
     public let count: Int?
     public let sinceID: String?

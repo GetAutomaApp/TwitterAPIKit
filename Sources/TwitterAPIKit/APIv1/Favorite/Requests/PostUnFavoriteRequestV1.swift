@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-favorites-destroy
 open class PostUnFavoriteRequestV1: TwitterAPIRequest {
-
     public let id: String
     public let includeEntities: Bool?
 

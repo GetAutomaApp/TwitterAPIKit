@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/trends/locations-with-trending-topics/api-reference/get-trends-closest
 open class GetTrendsClosestRequestV1: TwitterAPIRequest {
-
     public let location: TwitterCoordinateV1
 
     public var method: HTTPMethod {

@@ -4,7 +4,6 @@ import Foundation
 
 /// tweet.fields
 public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
-
     case attachments
     case authorID
     case contextAnnotations
@@ -28,7 +27,6 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case other(String)
 
     public var stringValue: String {
-
         switch self {
         case .attachments:
             return "attachments"
@@ -70,7 +68,7 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "text"
         case .withheld:
             return "withheld"
-        case .other(let other):
+        case let .other(other):
             return other
         }
     }
@@ -153,7 +151,7 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "verified"
         case .withheld:
             return "withheld"
-        case .other(let other):
+        case let .other(other):
             return other
         }
     }
@@ -184,7 +182,6 @@ extension Set where Element == TwitterUserFieldsV2 {
 
 /// place.fields
 public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
-
     case containedWithin
     case country
     case countryCode
@@ -213,7 +210,7 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "name"
         case .placeType:
             return "place_type"
-        case .other(let other):
+        case let .other(other):
             return other
         }
     }
@@ -257,7 +254,7 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "options"
         case .votingStatus:
             return "voting_status"
-        case .other(let other):
+        case let .other(other):
             return other
         }
     }
@@ -309,7 +306,7 @@ public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         case .promotedMetrics: return "promoted_metrics"
         case .altText: return "alt_text"
         case .variants: return "variants"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
@@ -338,7 +335,6 @@ extension Set where Element == TwitterMediaFieldsV2 {
 
 /// list.fields
 public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
-
     case createdAt
     case followerCount
     case memberCount
@@ -359,7 +355,7 @@ public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         case .id: return "id"
         case .name: return "name"
         case .ownerID: return "owner_id"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
@@ -383,7 +379,6 @@ extension Set where Element == TwitterListFieldsV2 {
 
 /// space.fields
 public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
-
     case id
     case state
     case hostIDs
@@ -422,7 +417,7 @@ public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         case .updatedAt: return "updated_at"
         case .scheduledStart: return "scheduled_start"
         case .isTicketed: return "is_ticketed"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
@@ -455,7 +450,6 @@ extension Set where Element == TwitterSpaceFieldsV2 {
 
 /// topic.fields
 public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable {
-
     case id
     case name
     case description
@@ -466,7 +460,7 @@ public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         case .id: return "id"
         case .name: return "name"
         case .description: return "description"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
@@ -508,7 +502,7 @@ public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         case .referencedTweets: return "referenced_tweets"
         case .senderID: return "sender_id"
         case .text: return "text"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
@@ -540,12 +534,12 @@ public enum TwitterDmConversationFieldsV2: TwitterAPIv2RequestParameter, Hashabl
     public var stringValue: String {
         switch self {
         case .id: return "id"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
     public static let all: Set<Self> = [
-        .id
+        .id,
     ]
 }
 

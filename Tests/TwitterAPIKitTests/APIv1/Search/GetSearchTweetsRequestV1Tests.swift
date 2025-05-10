@@ -2,15 +2,11 @@ import TwitterAPIKit
 import XCTest
 
 class GetSearchTweetsRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         let req = GetSearchTweetsRequestV1(
             q: "あああ",
             lang: "lang",
@@ -40,7 +36,8 @@ class GetSearchTweetsRequestV1Tests: XCTestCase {
                 "count": 20,
                 "max_id": "100",
                 "locale": "locale",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {
@@ -51,7 +48,7 @@ class GetSearchTweetsRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "q": "_q_"
+                "q": "_q_",
             ]
         )
     }

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/get-blocks-list
 open class GetBlocksListRequestV1: TwitterAPIRequest {
-
     public let includeEntities: Bool?
     public let skipStatus: Bool?
     public let cursor: String?

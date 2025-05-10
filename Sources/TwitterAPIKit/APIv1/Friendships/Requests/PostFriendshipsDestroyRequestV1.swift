@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/post-friendships-destroy
 open class PostFriendshipsDestroyRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
 
     public var method: HTTPMethod {

@@ -2,13 +2,13 @@ import Foundation
 
 private let chunkSeparator = "\r\n".data(using: .utf8)!
 public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, TwitterAPISessionDelegatedTask {
-
     public var taskIdentifier: Int { return task.taskIdentifier }
     public var currentRequest: URLRequest? { return task.currentRequest }
     public var originalRequest: URLRequest? { return task.originalRequest }
     public var httpResponse: HTTPURLResponse? {
         return task.httpResponse
     }
+
     private let task: TwitterAPISessionTask
     private var dataBlocks = [(queue: DispatchQueue, block: (TwitterAPIResponse<Data>) -> Void)]()
     private lazy var taskQueue = DispatchQueue(label: "TwitterAPISessionDelegatedStreamTask_\(taskIdentifier)")
@@ -50,7 +50,6 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
             let rateLimit = TwitterRateLimit(header: httpResponse.allHeaderFields)
 
             guard httpResponse.statusCode < 300 else {
-
                 let error = TwitterAPIErrorResponse(data: chunk)
                 self.notify(
                     result: .failure(
@@ -60,7 +59,8 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
                                 error: error,
                                 rateLimit: rateLimit
                             )
-                        )), rateLimit: rateLimit)
+                        )), rateLimit: rateLimit
+                )
 
                 return
             }
@@ -89,7 +89,7 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
             rateLimit: rateLimit
         )
 
-        dataBlocks.forEach { (queue, block) in
+        for (queue, block) in dataBlocks {
             queue.async {
                 block(response)
             }

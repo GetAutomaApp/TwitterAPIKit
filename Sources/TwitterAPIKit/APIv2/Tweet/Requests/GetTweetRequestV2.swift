@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
 open class GetTweetRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?

@@ -1,7 +1,6 @@
 import Foundation
 
 open class GetUploadMediaStatusRequestV1: TwitterAPIRequest {
-
     public let command: String = "STATUS"
     public let mediaID: String
 

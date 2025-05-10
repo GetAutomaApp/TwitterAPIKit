@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/typing-indicator-and-read-receipts/api-reference/new-typing-indicator
 open class PostDirectMessagesIndicateTypingRequestV1: TwitterAPIRequest {
-
     public let recipientID: String
 
     public var method: HTTPMethod {

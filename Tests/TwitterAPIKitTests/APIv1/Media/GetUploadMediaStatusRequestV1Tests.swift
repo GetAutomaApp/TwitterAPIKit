@@ -2,12 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetUploadMediaStatusRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetUploadMediaStatusRequestV1(mediaID: "m")
@@ -20,7 +17,7 @@ class GetUploadMediaStatusRequestV1Tests: XCTestCase {
             [
                 "command": "STATUS",
                 "media_id": "m",
-            ])
+            ]
+        )
     }
-
 }

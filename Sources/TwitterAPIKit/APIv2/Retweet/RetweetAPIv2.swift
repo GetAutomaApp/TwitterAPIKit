@@ -1,7 +1,6 @@
 import Foundation
 
 open class RetweetAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
     public func getRetweetedBy(
         _ request: GetTweetsRetweetedByRequestV2

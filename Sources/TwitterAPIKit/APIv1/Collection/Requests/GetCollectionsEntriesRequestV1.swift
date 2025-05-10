@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/get-collections-entries
 open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
-
     public let id: String
     public let count: Int?
     public let maxPosition: String?

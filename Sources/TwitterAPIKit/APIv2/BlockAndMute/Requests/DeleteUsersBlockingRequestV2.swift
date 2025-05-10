@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
 open class DeleteUsersBlockingRequestV2: TwitterAPIRequest {
-
     public let sourceUserID: String
     public let targetUserID: String
 

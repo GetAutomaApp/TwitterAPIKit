@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
 open class PostUsersFollowingRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let targetUserID: String
 

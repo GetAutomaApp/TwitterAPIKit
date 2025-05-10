@@ -3,7 +3,6 @@ import Foundation
 /// Returns DM Events for a DM Conversation
 /// Required OAuth 2.0 scopes: dm.read, tweet.read, users.read
 open class GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
-
     /// The DM Conversation ID.
     public let id: String
     /// The maximum number of results.

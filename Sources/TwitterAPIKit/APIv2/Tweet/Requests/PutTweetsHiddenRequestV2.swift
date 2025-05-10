@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
 open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
-
     /// Tweet ID
     public let id: String
     public let hidden: Bool

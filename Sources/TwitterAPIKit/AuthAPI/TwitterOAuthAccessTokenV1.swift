@@ -1,7 +1,6 @@
 import Foundation
 
 public struct TwitterOAuthAccessTokenV1 {
-
     public let oauthToken: String
     public let oauthTokenSecret: String
 
@@ -21,15 +20,15 @@ public struct TwitterOAuthAccessTokenV1 {
         var comp = URLComponents()
         comp.query = query
         guard let oauthToken = comp.queryItems?.first(where: { $0.name == "oauth_token" })?.value,
-            let oauthTokenSecret = comp.queryItems?.first(where: { $0.name == "oauth_token_secret" })?.value
+              let oauthTokenSecret = comp.queryItems?.first(where: { $0.name == "oauth_token_secret" })?.value
         else {
             return nil
         }
 
         self.oauthToken = oauthToken
         self.oauthTokenSecret = oauthTokenSecret
-        self.userID = comp.queryItems?.first(where: { $0.name == "user_id" })?.value
-        self.screenName = comp.queryItems?.first(where: { $0.name == "screen_name" })?.value
+        userID = comp.queryItems?.first(where: { $0.name == "user_id" })?.value
+        screenName = comp.queryItems?.first(where: { $0.name == "screen_name" })?.value
     }
 
     public init(
@@ -43,5 +42,4 @@ public struct TwitterOAuthAccessTokenV1 {
         self.userID = userID
         self.screenName = screenName
     }
-
 }

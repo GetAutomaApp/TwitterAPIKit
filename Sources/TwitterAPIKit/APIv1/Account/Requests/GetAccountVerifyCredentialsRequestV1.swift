@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-account-verify_credentials
 open class GetAccountVerifyCredentialsRequestV1: TwitterAPIRequest {
-
     public let skipStatus: Bool?
     public let includeEmail: Bool?
     public let includeEntities: Bool?

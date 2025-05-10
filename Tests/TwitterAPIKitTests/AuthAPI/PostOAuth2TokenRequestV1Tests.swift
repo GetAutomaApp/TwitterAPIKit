@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostOAuth2TokenRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostOAuth2TokenRequestV1(
@@ -20,7 +18,7 @@ class PostOAuth2TokenRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "grant_type": "_g_"
+                "grant_type": "_g_",
             ]
         )
     }
@@ -31,7 +29,7 @@ class PostOAuth2TokenRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "grant_type": "client_credentials"
+                "grant_type": "client_credentials",
             ]
         )
     }

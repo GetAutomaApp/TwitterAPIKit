@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetFollowersIDsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetFollowersIDsRequestV1(
@@ -39,7 +37,7 @@ class GetFollowersIDsRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
     }

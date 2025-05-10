@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
 open class GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
-
     /// Tweet ID
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?

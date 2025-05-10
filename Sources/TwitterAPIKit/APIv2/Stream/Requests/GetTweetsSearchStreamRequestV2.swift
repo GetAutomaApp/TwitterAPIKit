@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 open class GetTweetsSearchStreamRequestV2: TwitterAPIRequest {
-
     public let backfillMinutes: Int?
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?

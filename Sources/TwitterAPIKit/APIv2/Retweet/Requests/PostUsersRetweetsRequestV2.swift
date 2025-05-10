@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
 open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let tweetID: String
 

@@ -6,7 +6,7 @@ private class GetTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .get }
     var path: String { return "/get.json" }
     var parameters: [String: Any] {
-        return ["hoge": "😀"]  //= %F0%9F%98%80
+        return ["hoge": "😀"] // = %F0%9F%98%80
     }
 }
 
@@ -14,7 +14,7 @@ private class PostTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .post }
     var path: String { return "/post.json" }
     var parameters: [String: Any] {
-        return ["hoge": "😀"]  //= %F0%9F%98%80
+        return ["hoge": "😀"] // = %F0%9F%98%80
     }
 }
 
@@ -27,35 +27,30 @@ private class EmptyRequest: TwitterAPIRequest {
 }
 
 class TwitterAPISessionTests: XCTestCase {
-
     private let environment = TwitterAPIEnvironment(
         twitterURL: URL(string: "https://twitter.example.com")!,
         apiURL: URL(string: "https://api.example.com")!,
         uploadURL: URL(string: "https://upload.example.com")!
     )
 
-    lazy var session: TwitterAPISession =
-        ({
+    lazy var session: TwitterAPISession = {
+        let config = URLSessionConfiguration.default
+        config.protocolClasses = [MockURLProtocol.self]
 
-            let config = URLSessionConfiguration.default
-            config.protocolClasses = [MockURLProtocol.self]
+        return TwitterAPISession(
+            auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
+            configuration: config,
+            environment: environment
+        )
+    }()
 
-            return TwitterAPISession(
-                auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
-                configuration: config,
-                environment: environment
-            )
-        })()
-
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
     override func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
     func testGET() throws {
-
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "GET")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/get.json?hoge=%F0%9F%98%80")
@@ -101,7 +96,6 @@ class TwitterAPISessionTests: XCTestCase {
     }
 
     func testStream() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -127,9 +121,9 @@ class TwitterAPISessionTests: XCTestCase {
         let exp = expectation(description: "")
         exp.expectedFulfillmentCount = 4
         session.send(streamRequest: GetTwitterReqeust())
-            .streamResponse(queue: .global(qos: .default)) { response in
+            .streamResponse(queue: .global(qos: .default)) { _ in
                 exp.fulfill()
-            }.streamResponse { response in
+            }.streamResponse { _ in
                 XCTAssertTrue(Thread.isMainThread)
                 exp.fulfill()
             }
@@ -307,13 +301,13 @@ extension Data {
         while input.hasBytesAvailable {
             let read = input.read(buffer, maxLength: bufferSize)
             if read < 0 {
-                //Stream error occured
+                // Stream error occured
                 throw input.streamError!
             } else if read == 0 {
-                //EOF
+                // EOF
                 break
             }
-            self.append(buffer, count: read)
+            append(buffer, count: read)
         }
     }
 }

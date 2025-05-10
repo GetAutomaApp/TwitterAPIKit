@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline
 open class GetStatusesUserTimelineRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let maxID: String?

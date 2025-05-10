@@ -1,7 +1,6 @@
 import Foundation
 
 open class TwitterAPISession {
-
     public private(set) var auth: TwitterAuthenticationMethod
     public let session: URLSession
     public let environment: TwitterAPIEnvironment
@@ -12,7 +11,7 @@ open class TwitterAPISession {
         environment: TwitterAPIEnvironment
     ) {
         self.auth = auth
-        self.session = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
+        session = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
         self.environment = environment
     }
 
@@ -21,12 +20,11 @@ open class TwitterAPISession {
     }
 
     public func send(_ request: TwitterAPIRequest) -> TwitterAPISessionJSONTask {
-
         do {
             let urlRequest: URLRequest = try tryBuildURLRequest(request)
             let task = session.dataTask(with: urlRequest)
             return sessionDelegate.appendAndResume(task: task)
-        } catch let error {
+        } catch {
             return TwitterAPIFailedTask(.init(error: error))
         }
     }
@@ -36,13 +34,12 @@ open class TwitterAPISession {
             let urlRequest: URLRequest = try tryBuildURLRequest(streamRequest)
             let task = session.dataTask(with: urlRequest)
             return sessionDelegate.appendAndResumeStream(task: task)
-        } catch let error {
+        } catch {
             return TwitterAPIFailedTask(.init(error: error))
         }
     }
 
     private func tryBuildURLRequest(_ request: TwitterAPIRequest) throws -> URLRequest {
-
         var urlRequest = try request.buildRequest(environment: environment)
 
         switch auth {
@@ -79,7 +76,7 @@ open class TwitterAPISession {
             urlRequest.setValue("Bearer \(oauth20.accessToken)", forHTTPHeaderField: "Authorization")
 
         case let .requestOAuth20WithPKCE(.confidentialClient(clientID: apiKey, clientSecret: apiSecretKey)),
-            let .basic(apiKey: apiKey, apiSecretKey: apiSecretKey):
+             let .basic(apiKey: apiKey, apiSecretKey: apiSecretKey):
 
             let credential = "\(apiKey):\(apiSecretKey)"
             guard let credentialData = credential.data(using: .utf8) else {

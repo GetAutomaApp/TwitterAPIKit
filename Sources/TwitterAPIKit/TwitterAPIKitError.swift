@@ -1,7 +1,6 @@
 import Foundation
 
 public enum TwitterAPIKitError: Error {
-
     case requestFailed(reason: RequestFailureReason)
     public enum RequestFailureReason {
         case invalidURL(url: String)
@@ -46,55 +45,55 @@ public enum TwitterAPIKitError: Error {
     }
 }
 
-extension TwitterAPIKitError {
-    public var isRequestFailed: Bool {
+public extension TwitterAPIKitError {
+    var isRequestFailed: Bool {
         if case .requestFailed = self { return true }
         return false
     }
 
-    public var isResponseFailed: Bool {
+    var isResponseFailed: Bool {
         if case .responseFailed = self { return true }
         return false
     }
 
-    public var isResponseSerializeFailed: Bool {
+    var isResponseSerializeFailed: Bool {
         if case .responseSerializeFailed = self { return true }
         return false
     }
 
-    public var isUploadMediaFailed: Bool {
+    var isUploadMediaFailed: Bool {
         if case .uploadMediaFailed = self { return true }
         return false
     }
 
-    public var isRefreshOAuth20TokenFailed: Bool {
+    var isRefreshOAuth20TokenFailed: Bool {
         if case .refreshOAuth20TokenFailed = self { return true }
         return false
     }
 
-    public var isUnkonwn: Bool {
+    var isUnkonwn: Bool {
         if case .unkonwn = self { return true }
         return false
     }
 
-    public var underlyingError: Error? {
+    var underlyingError: Error? {
         switch self {
-        case .requestFailed(let reason):
+        case let .requestFailed(reason):
             return reason.underlyingError
-        case .responseFailed(let reason):
+        case let .responseFailed(reason):
             return reason.underlyingError
-        case .responseSerializeFailed(let reason):
+        case let .responseSerializeFailed(reason):
             return reason.underlyingError
-        case .uploadMediaFailed(let reason):
+        case let .uploadMediaFailed(reason):
             return reason.underlyingError
-        case .refreshOAuth20TokenFailed(let reason):
+        case let .refreshOAuth20TokenFailed(reason):
             return reason.underlyingError
-        case .unkonwn(let error):
+        case let .unkonwn(error):
             return error
         }
     }
 
-    public var isCancelled: Bool {
+    var isCancelled: Bool {
         guard let error = underlyingError as? URLError else {
             return false
         }
@@ -102,8 +101,8 @@ extension TwitterAPIKitError {
     }
 }
 
-extension TwitterAPIKitError {
-    public struct UploadMediaError: Decodable, Error {
+public extension TwitterAPIKitError {
+    struct UploadMediaError: Decodable, Error {
         public let code: Int
         public let name: String
         public let message: String
@@ -118,19 +117,18 @@ extension TwitterAPIKitError {
 
 extension TwitterAPIKitError: LocalizedError {
     public var errorDescription: String? {
-
         switch self {
-        case .requestFailed(let reason):
+        case let .requestFailed(reason):
             return reason.localizedDescription
-        case .responseFailed(let reason):
+        case let .responseFailed(reason):
             return reason.localizedDescription
-        case .responseSerializeFailed(let reason):
+        case let .responseSerializeFailed(reason):
             return reason.localizedDescription
-        case .uploadMediaFailed(let reason):
+        case let .uploadMediaFailed(reason):
             return reason.localizedDescription
-        case .refreshOAuth20TokenFailed(let reason):
+        case let .refreshOAuth20TokenFailed(reason):
             return reason.localizedDescription
-        case .unkonwn(let error):
+        case let .unkonwn(error):
             return error.localizedDescription
         }
     }
@@ -142,33 +140,33 @@ extension TwitterAPIKitError.UploadMediaError: LocalizedError {
     }
 }
 
-extension TwitterAPIKitError.RequestFailureReason {
-    public var localizedDescription: String {
+public extension TwitterAPIKitError.RequestFailureReason {
+    var localizedDescription: String {
         switch self {
-        case .invalidURL(let url):
+        case let .invalidURL(url):
             return "URL is not valid: \(url)"
-        case .invalidParameter(let parameter, let cause):
+        case let .invalidParameter(parameter, cause):
             return "Parameter is not valid: \(parameter), cause: \(cause)"
-        case .cannotEncodeStringToData(let string):
+        case let .cannotEncodeStringToData(string):
             return "Could not encode \"\(string)\""
-        case .jsonSerializationFailed(let obj):
+        case let .jsonSerializationFailed(obj):
             return "JSON could not be serialized. May be invalid object \(String(describing: obj))"
         }
     }
 
-    public var underlyingError: Error? {
+    var underlyingError: Error? {
         switch self {
         case .invalidURL,
-            .invalidParameter,
-            .cannotEncodeStringToData,
-            .jsonSerializationFailed:
+             .invalidParameter,
+             .cannotEncodeStringToData,
+             .jsonSerializationFailed:
             return nil
         }
     }
 }
 
-extension TwitterAPIKitError.ResponseFailureReason {
-    public var localizedDescription: String {
+public extension TwitterAPIKitError.ResponseFailureReason {
+    var localizedDescription: String {
         switch self {
         case let .invalidResponse(error: error):
             if let error = error {
@@ -180,7 +178,7 @@ extension TwitterAPIKitError.ResponseFailureReason {
         }
     }
 
-    public var underlyingError: Error? {
+    var underlyingError: Error? {
         switch self {
         case let .invalidResponse(error: error):
             return error
@@ -190,7 +188,7 @@ extension TwitterAPIKitError.ResponseFailureReason {
     }
 
     /// A status code in the case of unacceptableStatusCode.
-    public var statusCode: Int? {
+    var statusCode: Int? {
         if case .unacceptableStatusCode(statusCode: let statusCode, error: _, rateLimit: _) = self {
             return statusCode
         }
@@ -198,7 +196,7 @@ extension TwitterAPIKitError.ResponseFailureReason {
     }
 
     /// A rate limit in the case of unacceptableStatusCode.
-    public var rateLimit: TwitterRateLimit? {
+    var rateLimit: TwitterRateLimit? {
         if case .unacceptableStatusCode(statusCode: _, error: _, rateLimit: let rateLimit) = self {
             return rateLimit
         }
@@ -206,22 +204,22 @@ extension TwitterAPIKitError.ResponseFailureReason {
     }
 }
 
-extension TwitterAPIKitError.ResponseSerializationFailureReason {
-    public var localizedDescription: String {
+public extension TwitterAPIKitError.ResponseSerializationFailureReason {
+    var localizedDescription: String {
         switch self {
-        case .jsonSerializationFailed(let error):
+        case let .jsonSerializationFailed(error):
             return "Response could not be serialized because of error:\n\(error.localizedDescription)"
-        case .jsonDecodeFailed(let error):
+        case let .jsonDecodeFailed(error):
             return "Response could not be decoded because of error:\n\(error.localizedDescription)"
         case .cannotConvert(data: _, let toTypeName):
             return "Response could not convert to \"\(toTypeName)\""
         }
     }
 
-    public var underlyingError: Error? {
+    var underlyingError: Error? {
         switch self {
         case let .jsonSerializationFailed(error: error),
-            let .jsonDecodeFailed(error: error):
+             let .jsonDecodeFailed(error: error):
             return error
         case .cannotConvert:
             return nil
@@ -229,15 +227,15 @@ extension TwitterAPIKitError.ResponseSerializationFailureReason {
     }
 }
 
-extension TwitterAPIKitError.UploadMediaFailureReason {
-    public var localizedDescription: String {
+public extension TwitterAPIKitError.UploadMediaFailureReason {
+    var localizedDescription: String {
         switch self {
-        case .processingFailed(let error):
+        case let .processingFailed(error):
             return error.message
         }
     }
 
-    public var underlyingError: Error? {
+    var underlyingError: Error? {
         switch self {
         case let .processingFailed(error: error):
             return error
@@ -245,17 +243,18 @@ extension TwitterAPIKitError.UploadMediaFailureReason {
     }
 }
 
-extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
-    public var localizedDescription: String {
+public extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
+    var localizedDescription: String {
         switch self {
-        case .invalidAuthenticationMethod(let method):
+        case let .invalidAuthenticationMethod(method):
             return
                 "Token refresh is possible only when TwitterAuthenticationMethod is .oauth20. You are currently \(method)."
         case .refreshTokenIsMissing:
             return "Refresh token is missing."
         }
     }
-    public var underlyingError: Error? {
+
+    var underlyingError: Error? {
         switch self {
         case .invalidAuthenticationMethod, .refreshTokenIsMissing:
             return nil
@@ -263,25 +262,24 @@ extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
     }
 }
 
-extension TwitterAPIKitError {
-
-    public var requestFailureReason: RequestFailureReason? {
-        guard case .requestFailed(reason: let reason) = self else { return nil }
+public extension TwitterAPIKitError {
+    var requestFailureReason: RequestFailureReason? {
+        guard case let .requestFailed(reason: reason) = self else { return nil }
         return reason
     }
 
-    public var responseFailureReason: ResponseFailureReason? {
-        guard case .responseFailed(let reason) = self else { return nil }
+    var responseFailureReason: ResponseFailureReason? {
+        guard case let .responseFailed(reason) = self else { return nil }
         return reason
     }
 
-    public var responseSerializationFailureReason: ResponseSerializationFailureReason? {
-        guard case .responseSerializeFailed(let reason) = self else { return nil }
+    var responseSerializationFailureReason: ResponseSerializationFailureReason? {
+        guard case let .responseSerializeFailed(reason) = self else { return nil }
         return reason
     }
 
-    public var refreshOAuth20TokenFailureReason: RefreshOAuth20TokenFailureReason? {
-        guard case .refreshOAuth20TokenFailed(let reason) = self else { return nil }
+    var refreshOAuth20TokenFailureReason: RefreshOAuth20TokenFailureReason? {
+        guard case let .refreshOAuth20TokenFailed(reason) = self else { return nil }
         return reason
     }
 }

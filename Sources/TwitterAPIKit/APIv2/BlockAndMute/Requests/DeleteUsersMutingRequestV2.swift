@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting
 open class DeleteUsersMutingRequestV2: TwitterAPIRequest {
-
     public let sourceUserID: String
     public let targetUserID: String
 

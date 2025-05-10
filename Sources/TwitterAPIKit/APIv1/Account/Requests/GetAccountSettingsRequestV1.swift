@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-account-settings
 open class GetAccountSettingsRequestV1: TwitterAPIRequest {
-
     public var method: HTTPMethod {
         return .get
     }
@@ -15,6 +14,5 @@ open class GetAccountSettingsRequestV1: TwitterAPIRequest {
         return [:]
     }
 
-    public init() {
-    }
+    public init() {}
 }

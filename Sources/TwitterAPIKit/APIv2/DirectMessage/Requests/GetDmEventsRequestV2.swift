@@ -3,7 +3,6 @@ import Foundation
 /// Returns recent DM Events across DM conversations
 /// Required OAuth 2.0 scopes: dm.read, tweet.read, users.read
 open class GetDmEventsRequestV2: TwitterAPIRequest {
-
     /// The maximum number of results.
     public let maxResults: Int?
     /// This parameter is used to get a specified 'page' of results.

@@ -2,16 +2,13 @@ import TwitterAPIKit
 import XCTest
 
 class TwitterAPIClientTests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
     override func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
     func testJSONDecoder() throws {
-
         let decoder = TwitterAPIClient.defaultJSONDecoder
 
         let dateV1 = try decoder.decode(Date.self, from: Data("\"Sun Jul 03 04:32:05 +0000 2022\"".utf8))
@@ -124,6 +121,7 @@ class TwitterAPIClientTests: XCTestCase {
             XCTFail()
         }
     }
+
     func testRefreshToken_invalidAuthenticationMethod() throws {
         let client = TwitterAPIClient(.none)
         let exp = expectation(description: "")
@@ -180,7 +178,7 @@ class TwitterAPIClientTests: XCTestCase {
         let exp = expectation(description: "")
         client.refreshOAuth20Token(type: .publicClient) { result in
             switch result {
-            case .success(let newToken):
+            case let .success(newToken):
                 XCTAssertFalse(newToken.refreshed)
                 XCTAssertEqual(newToken.token.clientID, "c")
                 XCTAssertEqual(newToken.token.refreshToken, "r")

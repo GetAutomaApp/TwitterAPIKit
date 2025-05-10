@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/post-users-id-followed-lists
 open class PostUsersFollowedListsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let listID: String
 

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
 open class PostOAuth2RevokeTokenRequestV2: TwitterAPIRequest {
-
     public let token: String
     /// Required for Public Client.
     public let clientID: String?

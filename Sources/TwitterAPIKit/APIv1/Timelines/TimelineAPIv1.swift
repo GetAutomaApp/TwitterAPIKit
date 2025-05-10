@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/overview
 open class TimelineAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline
     public func getHomeTimeline(
         _ request: GetStatusesHomeTimelineRequestV1

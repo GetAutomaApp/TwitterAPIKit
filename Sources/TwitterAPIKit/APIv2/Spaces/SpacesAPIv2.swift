@@ -1,7 +1,6 @@
 import Foundation
 
 open class SpacesAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
     public func getSpace(
         _ request: GetSpaceRequestV2

@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetStatusesUserTimelineRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetStatusesUserTimelineRequestV1(
@@ -45,7 +43,7 @@ class GetStatusesUserTimelineRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
     }

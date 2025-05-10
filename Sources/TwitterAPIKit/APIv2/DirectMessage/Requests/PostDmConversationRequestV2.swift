@@ -3,7 +3,6 @@ import Foundation
 /// Creates a new DM Conversation.
 /// Required OAuth 2.0 scopes: dm.write, tweet.read, users.read
 open class PostDmConversationRequestV2: TwitterAPIRequest {
-
     /// The conversation type that is being created.
     public enum ConversationType: String {
         case group = "Group"

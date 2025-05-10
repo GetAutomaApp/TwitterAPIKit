@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-subscribers-show
 open class GetListsSubscribersShowRequestV1: TwitterAPIRequest {
-
     public let list: TwitterListIdentifierV1
     public let user: TwitterUserIdentifierV1
     public let includeEntities: Bool?

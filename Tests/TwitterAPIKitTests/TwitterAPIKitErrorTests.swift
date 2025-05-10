@@ -2,12 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class TwitterAPIKitErrorTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testInit() throws {
         XCTContext.runActivity(named: "unknown") { _ in
@@ -52,7 +49,8 @@ class TwitterAPIKitErrorTests: XCTestCase {
             TwitterAPIKitError.responseSerializeFailed(
                 reason: .jsonDecodeFailed(
                     error: DecodingError.typeMismatch(
-                        Any.self, .init(codingPath: [], debugDescription: "", underlyingError: nil)))
+                        Any.self, .init(codingPath: [], debugDescription: "", underlyingError: nil)
+                    ))
             ).isResponseSerializeFailed)
         XCTAssertTrue(
             TwitterAPIKitError.responseSerializeFailed(reason: .cannotConvert(data: Data(), toTypeName: ""))

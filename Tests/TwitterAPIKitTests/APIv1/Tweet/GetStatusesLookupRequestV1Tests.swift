@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetStatusesLookupRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetStatusesLookupRequestV1(
@@ -43,7 +41,7 @@ class GetStatusesLookupRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "id": "a"
+                "id": "a",
             ]
         )
     }

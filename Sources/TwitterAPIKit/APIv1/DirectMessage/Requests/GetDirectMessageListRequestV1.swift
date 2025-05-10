@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/list-events
 open class GetDirectMessageListRequestV1: TwitterAPIRequest {
-
     /// Max: 50
     public let count: Int?
     public let cursor: String?

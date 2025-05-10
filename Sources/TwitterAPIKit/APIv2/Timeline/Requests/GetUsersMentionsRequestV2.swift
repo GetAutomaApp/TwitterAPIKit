@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
 open class GetUsersMentionsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let endTime: Date?
     public let expansions: Set<TwitterTweetExpansionsV2>?

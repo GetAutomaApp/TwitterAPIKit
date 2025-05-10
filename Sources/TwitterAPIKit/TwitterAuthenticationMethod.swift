@@ -25,8 +25,8 @@ public enum TwitterAuthenticationMethod {
     case bearer(String)
 }
 
-extension TwitterAuthenticationMethod {
-    public struct OAuth10a: Codable {
+public extension TwitterAuthenticationMethod {
+    struct OAuth10a: Codable {
         public var consumerKey: String
         public var consumerSecret: String
         public var oauthToken: String?
@@ -45,7 +45,7 @@ extension TwitterAuthenticationMethod {
         }
     }
 
-    public struct OAuth20: Codable {
+    struct OAuth20: Codable {
         public var clientID: String
         public var scope: [String]
         public var tokenType: String
@@ -97,17 +97,17 @@ extension TwitterAuthenticationMethod {
             )
         }
 
-        mutating public func refresh(token: TwitterOAuth2AccessToken, refreshedAt: Date = Date()) {
-            self.scope = token.scope
-            self.tokenType = token.tokenType
-            self.expiresIn = token.expiresIn
-            self.accessToken = token.accessToken
-            self.refreshToken = token.refreshToken
-            self.createdAt = refreshedAt
+        public mutating func refresh(token: TwitterOAuth2AccessToken, refreshedAt: Date = Date()) {
+            scope = token.scope
+            tokenType = token.tokenType
+            expiresIn = token.expiresIn
+            accessToken = token.accessToken
+            refreshToken = token.refreshToken
+            createdAt = refreshedAt
         }
     }
 
-    public enum OAuth20WithPKCEClientType {
+    enum OAuth20WithPKCEClientType {
         case confidentialClient(clientID: String, clientSecret: String)
         case publicClient
     }

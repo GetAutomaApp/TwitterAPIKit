@@ -2,16 +2,15 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/post-collections-entries-curate
 open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
-
     public enum Operation {
         case add(tweetID: String)
         case remove(tweetID: String)
 
         var keyValue: [String: String] {
             switch self {
-            case .add(let tweetID):
+            case let .add(tweetID):
                 return ["op": "add", "tweet_id": tweetID]
-            case .remove(let tweetID):
+            case let .remove(tweetID):
                 return ["op": "remove", "tweet_id": tweetID]
             }
         }

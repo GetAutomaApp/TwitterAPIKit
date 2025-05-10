@@ -3,7 +3,6 @@ import XCTest
 @testable import TwitterAPIKit
 
 class TwitterAPIRequestTests: XCTestCase {
-
     private struct MockTwitterAPIRequest: TwitterAPIRequest {
         var method: HTTPMethod = .get
         var path: String = "/mock"
@@ -26,14 +25,11 @@ class TwitterAPIRequestTests: XCTestCase {
         uploadURL: .init(string: "https://upload.example.com")!
     )
 
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testRequestURL() throws {
-
         XCTContext.runActivity(named: "api") { _ in
             let req = MockTwitterAPIRequest(parameters: ["key": "value"], baseURLType: .api)
             XCTAssertEqual(req.requestURL(for: env).absoluteString, "https://api.example.com/mock")
@@ -46,7 +42,6 @@ class TwitterAPIRequestTests: XCTestCase {
     }
 
     func testParameterForOAuth() throws {
-
         XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
             let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .wwwFormUrlEncoded)
             XCTAssertEqual(req.parameterForOAuth as! [String: String], ["key": "value"])
@@ -64,7 +59,6 @@ class TwitterAPIRequestTests: XCTestCase {
     }
 
     func testParameterByMethods() throws {
-
         // 🥓 = F0 9F A5 93
 
         try XCTContext.runActivity(named: "GET") { _ in
@@ -133,7 +127,6 @@ class TwitterAPIRequestTests: XCTestCase {
     }
 
     func testURLQueryPercentEncode() throws {
-
         let req = MockTwitterAPIRequest(
             method: .get,
             parameters: [
@@ -169,7 +162,6 @@ class TwitterAPIRequestTests: XCTestCase {
     }
 
     func testBodyContentType() throws {
-
         try XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
 
             let req = try MockTwitterAPIRequest(
@@ -244,7 +236,6 @@ class TwitterAPIRequestTests: XCTestCase {
                         ).buildRequest(environment: env)
                     ) { error in
                         if case .jsonSerializationFailed(obj: _) = (error as! TwitterAPIKitError).requestFailureReason {
-
                         } else {
                             XCTFail()
                         }
@@ -260,21 +251,19 @@ class TwitterAPIRequestTests: XCTestCase {
                             method: .post,
                             parameters: [
                                 String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!:
-                                    String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!
+                                    String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!,
                             ],
                             bodyContentType: .json
                         ).buildRequest(environment: env)
                     ) { error in
 
                         if case .jsonSerializationFailed(obj: _) = (error as! TwitterAPIKitError).requestFailureReason {
-
                         } else {
                             XCTFail()
                         }
                     }
                 }
             )
-
         }
     }
 }

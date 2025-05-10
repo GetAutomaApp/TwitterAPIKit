@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/post-users-user_id-muting
 open class PostUsersMutingRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let targetUserID: String
 

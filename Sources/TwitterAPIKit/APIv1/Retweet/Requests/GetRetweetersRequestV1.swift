@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-retweeters-ids
 open class GetRetweetersRequestV1: TwitterAPIRequest {
-
     // Status ID
     let id: String
     let count: Int?
@@ -14,12 +13,10 @@ open class GetRetweetersRequestV1: TwitterAPIRequest {
     }
 
     public var path: String {
-
         return "/1.1/statuses/retweeters/ids.json"
     }
 
     open var parameters: [String: Any] {
-
         var p = [String: Any]()
 
         p["id"] = id

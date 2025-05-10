@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/get-collections-list
 open class GetCollectionsListRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?

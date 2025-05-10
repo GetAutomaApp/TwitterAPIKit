@@ -1,7 +1,6 @@
 import Foundation
 
 open class MediaAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/get-media-upload-status
     public func getUploadMediaStatus(
         _ request: GetUploadMediaStatusRequestV1
@@ -28,7 +27,6 @@ open class MediaAPIv1: TwitterAPIBase {
         _ request: UploadMediaAppendRequestV1,
         maxBytes: Int = 5_242_880 /* 5MB */
     ) -> [TwitterAPISessionSpecializedTask<String /* mediaID */>] {
-
         let tasks = request.segments(maxBytes: maxBytes)
             .map { req in
                 uploadMediaAppend(req).specialized { _ in
@@ -128,7 +126,6 @@ open class MediaAPIv1: TwitterAPIBase {
             TwitterAPIResponse<TwitterAPIClient.UploadMediaStatusResponse>
         ) -> Void
     ) {
-
         DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(initialWaitSec)) { [weak self] in
             guard let self = self else { return }
             self.waitMediaProcessing(mediaID: mediaID, completionHandler: completionHandler)
@@ -151,14 +148,13 @@ open class MediaAPIv1: TwitterAPIBase {
 
                     switch success.state {
                     case let .pending(checkAfterSecs: sec),
-                        let .inProgress(checkAfterSecs: sec, progressPercent: _):
+                         let .inProgress(checkAfterSecs: sec, progressPercent: _):
 
                         self.waitMediaProcessing(
                             mediaID: mediaID,
                             initialWaitSec: sec,
                             completionHandler: completionHandler
                         )
-
                     case .succeeded:
                         completionHandler(response)
                     case let .failed(error: error):
@@ -173,7 +169,7 @@ open class MediaAPIv1: TwitterAPIBase {
                         response.flatMap { _ in .failure(error) }
                     )
                     return
-                } catch let error {
+                } catch {
                     completionHandler(
                         response.flatMap { _ in .failure(.unkonwn(error: error)) }
                     )

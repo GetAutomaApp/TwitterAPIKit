@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let banner = Data([0, 1, 2])
@@ -61,7 +59,7 @@ class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "banner": "AAE="
+                "banner": "AAE=",
             ]
         )
     }

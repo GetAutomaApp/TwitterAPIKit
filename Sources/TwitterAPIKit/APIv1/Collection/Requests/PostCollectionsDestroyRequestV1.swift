@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/post-collections-destroy
 open class PostCollectionsDestroyRequestV1: TwitterAPIRequest {
-
     public let id: String
 
     public var method: HTTPMethod {

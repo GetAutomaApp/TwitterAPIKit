@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friends-list
 open class GetFriendsListRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?

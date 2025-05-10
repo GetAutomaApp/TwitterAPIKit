@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostOAuthRequestTokenRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostOAuthRequestTokenRequestV1(
@@ -35,7 +33,7 @@ class PostOAuthRequestTokenRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "oauth_callback": "_o_"
+                "oauth_callback": "_o_",
             ]
         )
     }

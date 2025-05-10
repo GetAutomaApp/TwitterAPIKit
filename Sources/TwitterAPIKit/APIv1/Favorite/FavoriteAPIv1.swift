@@ -1,7 +1,6 @@
 import Foundation
 
 open class FavoriteAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-favorites-create
     public func postFavorite(
         _ request: PostFavoriteRequestV1

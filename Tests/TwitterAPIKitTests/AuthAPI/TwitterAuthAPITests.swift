@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class TwitterAuthAPITests: XCTestCase {
-
     var client: TwitterAuthAPI!
 
     override func setUpWithError() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -27,7 +25,8 @@ class TwitterAuthAPITests: XCTestCase {
         )
         XCTAssertEqual(
             url?.absoluteString,
-            "https://api.twitter.com/oauth/authorize?force_login=true&oauth_token=token&screen_name=name")
+            "https://api.twitter.com/oauth/authorize?force_login=true&oauth_token=token&screen_name=name"
+        )
     }
 
     func testMakeOAuthAuthenticateURL() throws {
@@ -36,7 +35,8 @@ class TwitterAuthAPITests: XCTestCase {
         )
         XCTAssertEqual(
             url?.absoluteString,
-            "https://api.twitter.com/oauth/authenticate?force_login=true&oauth_token=token&screen_name=name")
+            "https://api.twitter.com/oauth/authenticate?force_login=true&oauth_token=token&screen_name=name"
+        )
     }
 
     func testMakeOAuth2AuthorizeURL() throws {
@@ -49,7 +49,8 @@ class TwitterAuthAPITests: XCTestCase {
                 codeChallengeMethod: "plain",
                 scopes: [
                     "users.read", "tweet.read",
-                ])
+                ]
+            )
         )
 
         XCTAssertEqual(

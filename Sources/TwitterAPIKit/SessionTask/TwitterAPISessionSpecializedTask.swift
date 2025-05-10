@@ -10,13 +10,14 @@ protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
 }
 
 public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTask_ {
-
     public var taskIdentifier: Int {
         return innerTask.taskIdentifier
     }
+
     public var currentRequest: URLRequest? {
         return innerTask.currentRequest
     }
+
     public var originalRequest: URLRequest? {
         return innerTask.originalRequest
     }
@@ -32,7 +33,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
         task: TwitterAPISessionDataTask,
         transform: @escaping (Data) throws -> Success
     ) {
-        self.innerTask = task
+        innerTask = task
         self.transform = transform
     }
 
@@ -72,18 +73,16 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
 }
 
 extension Array where Element: TwitterAPISessionSpecializedTask_ {
-
     func responseObject(
         queue: DispatchQueue = .main, _ block: @escaping ([TwitterAPIResponse<Element.Success>]) -> Void
     ) {
-
         let group = DispatchGroup()
 
         var responses = [TwitterAPIResponse<Element.Success>]()
         let innerQueue = DispatchQueue(label: "TwitterAPISessionSpecializedTask.array")
         innerQueue.suspend()
 
-        self.forEach { task in
+        for task in self {
             group.enter()
             innerQueue.async {
                 task.responseObject(queue: innerQueue) {

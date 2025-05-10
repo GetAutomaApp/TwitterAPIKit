@@ -15,9 +15,9 @@ public enum TwitterUsersIdentifierV1 {
 extension TwitterUserIdentifierV1 {
     func bind(param: inout [String: Any], userIDKey: String = "user_id", screenNameKey: String = "screen_name") {
         switch self {
-        case .userID(let string):
+        case let .userID(string):
             param[userIDKey] = string
-        case .screenName(let string):
+        case let .screenName(string):
             param[screenNameKey] = string
         }
     }
@@ -26,9 +26,9 @@ extension TwitterUserIdentifierV1 {
 extension TwitterUsersIdentifierV1 {
     func bind(param: inout [String: Any]) {
         switch self {
-        case .userIDs(let array):
+        case let .userIDs(array):
             param["user_id"] = array.joined(separator: ",")
-        case .screenNames(let array):
+        case let .screenNames(array):
             param["screen_name"] = array.joined(separator: ",")
         }
     }

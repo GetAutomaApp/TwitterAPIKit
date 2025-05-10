@@ -1,7 +1,6 @@
 import Foundation
 
 open class TwitterAPIClient {
-
     public static var defaultJSONDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -62,7 +61,7 @@ open class TwitterAPIClient {
     }
 
     /// for OAuth1.0a
-    convenience public init(
+    public convenience init(
         consumerKey: String,
         consumerSecret: String,
         oauthToken: String,
@@ -83,15 +82,15 @@ open class TwitterAPIClient {
 
 // MARK: - Refresh OAuth2.0 token
 
-extension TwitterAPIClient {
-    public typealias RefreshOAuth20TokenResultValue = (token: TwitterAuthenticationMethod.OAuth20, refreshed: Bool)
+public extension TwitterAPIClient {
+    typealias RefreshOAuth20TokenResultValue = (token: TwitterAuthenticationMethod.OAuth20, refreshed: Bool)
     /// Refresh OAuth2.0 token
-    public func refreshOAuth20Token(
+    func refreshOAuth20Token(
         type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType,
         forceRefresh: Bool = false,
         _ block: @escaping (Result<RefreshOAuth20TokenResultValue, TwitterAPIKitError>) -> Void
     ) {
-        guard case .oauth20(let token) = apiAuth else {
+        guard case let .oauth20(token) = apiAuth else {
             block(.failure(.refreshOAuth20TokenFailed(reason: .invalidAuthenticationMethod(apiAuth))))
             return
         }
@@ -118,7 +117,7 @@ extension TwitterAPIClient {
         .responseObject { [weak self] response in
             guard let self = self else { return }
             switch response.result {
-            case .success(let refreshedToken):
+            case let .success(refreshedToken):
                 var token = token
                 token.refresh(token: refreshedToken)
                 self.session.refreshOAuth20Token(token)
@@ -128,7 +127,7 @@ extension TwitterAPIClient {
                     object: self,
                     userInfo: [TwitterAPIClient.tokenUserInfoKey: token]
                 )
-            case .failure(let error):
+            case let .failure(error):
                 block(.failure(error))
             }
             self.refreshOAuth20TokenClient = nil
@@ -143,8 +142,8 @@ open class TwitterAPIBase {
     }
 }
 
-extension TwitterAPIClient {
+public extension TwitterAPIClient {
     // swift-format-ignore
-    public static let didRefreshOAuth20Token = Notification.Name(rawValue: "TwitterAPIKit.TwitterAPIClient.Notification.didRefreshOAuth20Token")
-    public static let tokenUserInfoKey = "TwitterAPIKit.TwitterAPIClient.UserInfoKey.tokenUser"
+    static let didRefreshOAuth20Token = Notification.Name(rawValue: "TwitterAPIKit.TwitterAPIClient.Notification.didRefreshOAuth20Token")
+    static let tokenUserInfoKey = "TwitterAPIKit.TwitterAPIClient.UserInfoKey.tokenUser"
 }

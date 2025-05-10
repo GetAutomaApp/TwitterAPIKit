@@ -2,15 +2,11 @@ import TwitterAPIKit
 import XCTest
 
 class GetTweetsRequestV2Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         XCTContext.runActivity(named: "with only required parameters") { _ in
 
             let tweet = GetTweetsRequestV2(ids: ["123", "abc"])
@@ -42,8 +38,8 @@ class GetTweetsRequestV2Tests: XCTestCase {
                     "poll.fields": "id",
                     "tweet.fields": "id,text",
                     "user.fields": "entities",
-                ])
+                ]
+            )
         }
     }
-
 }

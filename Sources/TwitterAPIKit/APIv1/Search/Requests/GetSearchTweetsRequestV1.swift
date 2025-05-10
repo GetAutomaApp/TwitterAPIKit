@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets
 open class GetSearchTweetsRequestV1: TwitterAPIRequest {
-
     public enum ResultType: String {
         case mixed
         case recent

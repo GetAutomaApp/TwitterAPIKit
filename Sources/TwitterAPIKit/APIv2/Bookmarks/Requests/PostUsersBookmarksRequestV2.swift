@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks
 open class PostUsersBookmarksRequestV2: TwitterAPIRequest {
-
     /// The user ID who you are bookmarking a Tweet on behalf of. It must match your own user ID or that of an authenticating user, meaning that you must pass the Access Token associated with the user ID when authenticating your request.
     public let id: String
     public let tweetID: String

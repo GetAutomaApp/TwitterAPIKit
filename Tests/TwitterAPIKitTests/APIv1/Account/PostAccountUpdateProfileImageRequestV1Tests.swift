@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostAccountUpdateProfileImageRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let image = Data([0, 1, 2])
@@ -39,7 +37,7 @@ class PostAccountUpdateProfileImageRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "image": "AAEC"
+                "image": "AAEC",
             ]
         )
     }

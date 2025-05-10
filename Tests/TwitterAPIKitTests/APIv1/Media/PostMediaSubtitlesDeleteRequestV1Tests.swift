@@ -2,12 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostMediaSubtitlesDeleteRequestV1(
@@ -28,7 +25,7 @@ class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
                     "subtitles": [
                         ["language_code": "l1"],
                         ["language_code": "l2"],
-                    ]
+                    ],
                 ],
             ]
         )

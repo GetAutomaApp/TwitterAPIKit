@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-update
 open class PostListsUpdateRequestV1: TwitterAPIRequest {
-
     public let list: TwitterListIdentifierV1
     public let name: String?
     public let mode: TwitterListModeV1?

@@ -3,12 +3,9 @@ import XCTest
 @testable import TwitterAPIKit
 
 class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testProps() throws {
         let cReq = URLRequest(url: URL(string: "http://example.com/current")!)
@@ -31,11 +28,9 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(mockTask.currentRequest, cReq)
         XCTAssertEqual(mockTask.originalRequest, oReq)
         XCTAssertEqual(task.httpResponse, resp)
-
     }
 
     func test() throws {
-
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: nil,
@@ -55,7 +50,6 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
 
         DispatchQueue.main.async {
-
             task.append(chunk: Data("aaaa\r\nbbbb".utf8))
             task.append(chunk: Data("🥓🥓\r\nあ".utf8))
             task.complete(error: nil)
@@ -118,7 +112,6 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
 
         DispatchQueue.main.async {
-
             task.append(
                 chunk: Data(
                     "{\"detail\":\"Authenticating with OAuth 1.0a User Context is forbidden for this endpoint.  Supported authentication types are [OAuth 2.0 Application-Only].\",\"title\":\"Unsupported Authentication\",\"status\":403,\"type\":\"https://api.twitter.com/2/problems/unsupported-authentication\"}"
@@ -159,7 +152,6 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
     }
 
     func testNilResponse() throws {
-
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: nil,
@@ -198,11 +190,9 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
 
         wait(for: [exp], timeout: 10)
         XCTAssertEqual(count, 1)
-
     }
 
     func testError() throws {
-
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: nil,

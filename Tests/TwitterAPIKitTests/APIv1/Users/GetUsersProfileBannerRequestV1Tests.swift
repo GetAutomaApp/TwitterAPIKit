@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetUsersProfileBannerRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetUsersProfileBannerRequestV1(
@@ -20,7 +18,7 @@ class GetUsersProfileBannerRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "user_id": "uid"
+                "user_id": "uid",
             ]
         )
     }
@@ -37,7 +35,7 @@ class GetUsersProfileBannerRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
     }

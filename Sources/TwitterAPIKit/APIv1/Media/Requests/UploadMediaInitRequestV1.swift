@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-init
 open class UploadMediaInitRequestV1: TwitterAPIRequest {
-
     public let command: String = "INIT"
     public let totalBytes: Int
     public let mediaType: String

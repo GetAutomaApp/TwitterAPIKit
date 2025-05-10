@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetSpacesByCreatorIDsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetSpacesByCreatorIDsRequestV2(
@@ -41,7 +39,7 @@ class GetSpacesByCreatorIDsRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "user_ids": "a,b,c"
+                "user_ids": "a,b,c",
             ]
         )
     }

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-lookup
 open class GetUsersLookupRequestV1: TwitterAPIRequest {
-
     public let users: TwitterUsersIdentifierV1
     public let tweetMode: Bool?
     public let includeEntities: Bool?

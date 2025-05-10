@@ -1,7 +1,6 @@
 import Foundation
 
 open class OAuth10aAPI: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
     public func postOAuthRequestTokenData(
         _ request: PostOAuthRequestTokenRequestV1

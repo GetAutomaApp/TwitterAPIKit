@@ -2,7 +2,6 @@ import TwitterAPIKit
 import XCTest
 
 class CustomListsListRequestV1: GetListsListRequestV1 {
-
     let custom: String
 
     override var parameters: [String: Any] {
@@ -24,16 +23,12 @@ class CapsuledListsListRequestV1: GetListsListRequestV1 {
 }
 
 class ListRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-list
     func testGetListsListRequestV1() throws {
-
         XCTContext.runActivity(named: "with only required parameters") { _ in
             let list = GetListsListRequestV1(user: .userID("1234"))
 

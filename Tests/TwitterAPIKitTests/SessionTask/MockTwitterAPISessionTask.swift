@@ -2,7 +2,6 @@ import Foundation
 import TwitterAPIKit
 
 class MockTwitterAPISessionTask: TwitterAPISessionTask {
-
     var taskIdentifier: Int
     var currentRequest: URLRequest?
     var originalRequest: URLRequest?
@@ -27,7 +26,6 @@ class MockTwitterAPISessionTask: TwitterAPISessionTask {
 }
 
 class MockTwitterAPISessionDataTask: MockTwitterAPISessionTask, TwitterAPISessionDataTask {
-
     var data: Data
 
     init(
@@ -40,11 +38,11 @@ class MockTwitterAPISessionDataTask: MockTwitterAPISessionTask, TwitterAPISessio
         self.data = data
         super.init(
             taskIdentifier: taskIdentifier, currentRequest: currentRequest, originalRequest: originalRequest,
-            httpResponse: httpResponse)
+            httpResponse: httpResponse
+        )
     }
 
     func responseData(queue: DispatchQueue, _ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
-
         queue.async { [weak self] in
             guard let self = self else { return }
             block(

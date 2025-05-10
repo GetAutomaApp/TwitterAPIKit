@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostListsMembersDestroyAllRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostListsMembersDestroyAllRequestV1(

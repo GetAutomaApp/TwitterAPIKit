@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
 open class GetSpaceRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterSpaceExpansionsV2>?
     public let spaceFields: Set<TwitterSpaceFieldsV2>?

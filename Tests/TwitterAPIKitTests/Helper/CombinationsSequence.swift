@@ -13,17 +13,17 @@
 public struct CombinationsSequence<Base: Collection> {
     /// The collection to iterate over for combinations.
     @usableFromInline
-    internal let base: Base
+    let base: Base
 
     @usableFromInline
-    internal let baseCount: Int
+    let baseCount: Int
 
     /// The range of accepted sizes of combinations.
     ///
     /// - Note: This may be `nil` if the attempted range entirely exceeds the
     /// upper bounds of the size of the `base` collection.
     @usableFromInline
-    internal let kRange: Range<Int>?
+    let kRange: Range<Int>?
 
     /// Initializes a `CombinationsSequence` for all combinations of `base` of
     /// size `k`.
@@ -32,8 +32,8 @@ public struct CombinationsSequence<Base: Collection> {
     ///   - base: The collection to iterate over for combinations.
     ///   - k: The expected size of each combination.
     @inlinable
-    internal init(_ base: Base, k: Int) {
-        self.init(base, kRange: k...k)
+    init(_ base: Base, k: Int) {
+        self.init(base, kRange: k ... k)
     }
 
     /// Initializes a `CombinationsSequence` for all combinations of `base` of
@@ -43,7 +43,7 @@ public struct CombinationsSequence<Base: Collection> {
     ///   - base: The collection to iterate over for combinations.
     ///   - kRange: The range of accepted sizes of combinations.
     @inlinable
-    internal init<R: RangeExpression>(
+    init<R: RangeExpression>(
         _ base: Base, kRange: R
     ) where R.Bound == Int {
         let range = kRange.relative(to: 0 ..< .max)
@@ -53,16 +53,16 @@ public struct CombinationsSequence<Base: Collection> {
         let upperBound = baseCount + 1
         self.kRange =
             range.lowerBound < upperBound
-            ? range.clamped(to: 0..<upperBound)
-            : nil
+                ? range.clamped(to: 0 ..< upperBound)
+                : nil
     }
 
     /// The total number of combinations.
     @inlinable
     public var count: Int {
-        guard let k = self.kRange else { return 0 }
+        guard let k = kRange else { return 0 }
         let n = baseCount
-        if k == 0..<(n + 1) {
+        if k == 0 ..< (n + 1) {
             return 1 << n
         }
 
@@ -85,7 +85,7 @@ extension CombinationsSequence: Sequence {
     /// The iterator for a `CombinationsSequence` instance.
     public struct Iterator: IteratorProtocol {
         @usableFromInline
-        internal let base: Base
+        let base: Base
 
         /// The current range of accepted sizes of combinations.
         ///
@@ -93,22 +93,22 @@ extension CombinationsSequence: Sequence {
         /// combinations of different sizes. When the range is empty, iteration is
         /// finished.
         @usableFromInline
-        internal var kRange: Range<Int>
+        var kRange: Range<Int>
 
         /// Whether or not iteration is finished (`kRange` is empty)
         @inlinable
-        internal var isFinished: Bool {
+        var isFinished: Bool {
             return kRange.isEmpty
         }
 
         @usableFromInline
-        internal var indexes: [Base.Index]
+        var indexes: [Base.Index]
 
         @inlinable
-        internal init(_ combinations: CombinationsSequence) {
-            self.base = combinations.base
-            self.kRange = combinations.kRange ?? 0..<0
-            self.indexes = Array(combinations.base.indices.prefix(kRange.lowerBound))
+        init(_ combinations: CombinationsSequence) {
+            base = combinations.base
+            kRange = combinations.kRange ?? 0 ..< 0
+            indexes = Array(combinations.base.indices.prefix(kRange.lowerBound))
         }
 
         /// Advances the current indices to the next set of combinations. If
@@ -130,13 +130,13 @@ extension CombinationsSequence: Sequence {
         ///     // Can't advance without needing to go past `base.endIndex`,
         ///     // so the iteration is finished.
         @inlinable
-        internal mutating func advance() {
+        mutating func advance() {
             /// Advances `kRange` by incrementing its `lowerBound` until the range is
             /// empty, when iteration is finished.
             func advanceKRange() {
                 if kRange.lowerBound < kRange.upperBound {
                     let advancedLowerBound = kRange.lowerBound + 1
-                    kRange = advancedLowerBound..<kRange.upperBound
+                    kRange = advancedLowerBound ..< kRange.upperBound
                     indexes.removeAll(keepingCapacity: true)
                     indexes.append(contentsOf: base.indices.prefix(kRange.lowerBound))
                 }
@@ -188,13 +188,13 @@ extension CombinationsSequence: Sequence {
 }
 
 extension CombinationsSequence: LazySequenceProtocol
-where Base: LazySequenceProtocol {}
+    where Base: LazySequenceProtocol {}
 
 //===----------------------------------------------------------------------===//
 // combinations(ofCount:)
 //===----------------------------------------------------------------------===//
 
-extension Collection {
+public extension Collection {
     /// Returns a collection of combinations of this collection's elements, with
     /// each combination having the specified number of elements.
     ///
@@ -257,7 +257,7 @@ extension Collection {
     ///   is the number of elements in the base collection, since
     ///   `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    public func combinations<R: RangeExpression>(
+    func combinations<R: RangeExpression>(
         ofCount kRange: R
     ) -> CombinationsSequence<Self> where R.Bound == Int {
         CombinationsSequence(self, kRange: kRange)
@@ -293,7 +293,7 @@ extension Collection {
     /// is the number of elements in the base collection, since
     /// `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    public func combinations(ofCount k: Int) -> CombinationsSequence<Self> {
+    func combinations(ofCount k: Int) -> CombinationsSequence<Self> {
         precondition(k >= 0, "Can't have combinations with a negative number of elements.")
         return CombinationsSequence(self, k: k)
     }

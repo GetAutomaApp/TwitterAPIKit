@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-retweets-id
 open class GetRetweetsRequestV1: TwitterAPIRequest {
-
     /// Status ID
     public let id: String
     /// max: 100

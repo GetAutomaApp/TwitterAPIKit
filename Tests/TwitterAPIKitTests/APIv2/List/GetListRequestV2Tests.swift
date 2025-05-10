@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetListRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetListRequestV2(
@@ -26,7 +24,8 @@ class GetListRequestV2Tests: XCTestCase {
                 "expansions": "owner_id",
                 "list.fields": "description,owner_id",
                 "user.fields": "username",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile
 open class PostAccountUpdateProfileRequestV1: TwitterAPIRequest {
-
     public let url: String?
     public let name: String?
     public let location: String?

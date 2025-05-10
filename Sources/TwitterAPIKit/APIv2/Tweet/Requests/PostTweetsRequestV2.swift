@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
 open class PostTweetsRequestV2: TwitterAPIRequest {
-
     public struct Geo {
         public let placeID: String
 

@@ -3,12 +3,9 @@ import XCTest
 @testable import TwitterAPIKit
 
 class ExpansionsV2Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testTwitterTweetExpansionsV2() throws {
         let allCases: [TwitterTweetExpansionsV2] = [
@@ -35,7 +32,6 @@ class ExpansionsV2Tests: XCTestCase {
     }
 
     func testTwitterUserExpansionsV2() throws {
-
         let allCases: [TwitterUserExpansionsV2] = [
             .pinnedTweetID,
             .other("~~~"),

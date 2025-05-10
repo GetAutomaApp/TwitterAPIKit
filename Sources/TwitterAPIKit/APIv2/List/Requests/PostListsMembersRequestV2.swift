@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/post-lists-id-members
 open class PostListsMembersRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let userID: String
 

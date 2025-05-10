@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
 open class GetUsersBookmarksRequestV2: TwitterAPIRequest {
-
     /// User ID of an authenticated user to request bookmarked Tweets for.
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?

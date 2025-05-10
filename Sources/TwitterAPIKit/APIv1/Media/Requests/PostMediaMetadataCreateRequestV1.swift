@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-metadata-create
 open class PostMediaMetadataCreateRequestV1: TwitterAPIRequest {
-
     public let mediaID: String
     public let altText: String
 

@@ -1,7 +1,6 @@
 import Foundation
 
 open class TimelineAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
     public func getUserTweets(
         _ request: GetUsersTweetsRequestV2

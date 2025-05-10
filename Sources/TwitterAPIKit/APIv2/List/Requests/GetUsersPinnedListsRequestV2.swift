@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
 open class GetUsersPinnedListsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterListExpansionsV2>?
     public let listFields: Set<TwitterListFieldsV2>?

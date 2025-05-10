@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
 open class GetUsersMeRequestV2: TwitterAPIRequest {
-
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let tweetFields: Set<TwitterTweetFieldsV2>?
     public let userFields: Set<TwitterUserFieldsV2>?

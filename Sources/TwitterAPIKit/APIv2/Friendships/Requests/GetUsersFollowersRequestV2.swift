@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
 open class GetUsersFollowersRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let maxResults: Int?

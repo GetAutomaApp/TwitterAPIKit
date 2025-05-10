@@ -1,7 +1,6 @@
 import Foundation
 
 open class BlockAndMuteAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
     public func getBlockUsers(
         _ request: GetUsersBlockingRequestV2

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-followers-list
 open class GetFollowersListRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -12,6 +11,7 @@ open class GetFollowersListRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         return .get
     }
+
     public var path: String {
         return "/1.1/followers/list.json"
     }

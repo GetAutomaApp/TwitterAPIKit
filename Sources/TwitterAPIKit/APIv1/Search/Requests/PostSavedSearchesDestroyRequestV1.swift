@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-saved_searches-destroy-id
 open class PostSavedSearchesDestroyRequestV1: TwitterAPIRequest {
-
     public let id: String
 
     public var method: HTTPMethod {

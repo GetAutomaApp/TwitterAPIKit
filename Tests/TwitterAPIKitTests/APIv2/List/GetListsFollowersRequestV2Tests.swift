@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetListsFollowersRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetListsFollowersRequestV2(
@@ -30,7 +28,8 @@ class GetListsFollowersRequestV2Tests: XCTestCase {
                 "pagination_token": "t",
                 "tweet.fields": "entities",
                 "user.fields": "verified",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

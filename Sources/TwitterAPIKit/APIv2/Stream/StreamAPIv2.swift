@@ -1,7 +1,6 @@
 import Foundation
 
 open class StreamAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
     public func sampleStream(
         _ request: GetTweetsSampleStreamRequestV2

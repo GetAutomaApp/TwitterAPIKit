@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/get-mutes-users-list
 open class GetMutesUsersListRequestV1: TwitterAPIRequest {
-
     public let cursor: String?
     public let includeEntities: Bool?
     public let skipStatus: Bool?
@@ -10,6 +9,7 @@ open class GetMutesUsersListRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         return .get
     }
+
     public var path: String {
         return "/1.1/mutes/users/list.json"
     }

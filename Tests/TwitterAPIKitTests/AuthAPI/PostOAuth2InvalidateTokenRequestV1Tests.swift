@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostOAuth2InvalidateTokenRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostOAuth2InvalidateTokenRequestV1(
@@ -20,7 +18,7 @@ class PostOAuth2InvalidateTokenRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "access_token": "_a_"
+                "access_token": "_a_",
             ]
         )
     }

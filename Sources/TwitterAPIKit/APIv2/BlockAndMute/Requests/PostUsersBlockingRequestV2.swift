@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/post-users-user_id-blocking
 open class PostUsersBlockingRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let targetUserID: String
 

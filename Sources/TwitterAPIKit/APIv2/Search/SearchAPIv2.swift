@@ -1,7 +1,6 @@
 import Foundation
 
 open class SearchAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     public func searchTweetsRecent(
         _ request: GetTweetsSearchRecentRequestV2

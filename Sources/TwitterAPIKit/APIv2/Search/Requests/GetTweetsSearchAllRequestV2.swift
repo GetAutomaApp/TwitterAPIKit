@@ -3,7 +3,6 @@ import Foundation
 /// This endpoint is only available to those users who have been approved for Academic Research access.
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
 open class GetTweetsSearchAllRequestV2: TwitterAPIRequest {
-
     public let query: String
     public let endTime: Date?
     public let expansions: Set<TwitterTweetExpansionsV2>?

@@ -1,7 +1,6 @@
 import Foundation
 
 open class AccountAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-account-settings
     public func getAccountSetting(
         _ request: GetAccountSettingsRequestV1

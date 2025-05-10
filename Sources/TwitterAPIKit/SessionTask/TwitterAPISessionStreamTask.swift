@@ -1,7 +1,6 @@
 import Foundation
 
 public protocol TwitterAPISessionStreamTask: TwitterAPISessionTask {
-
     @discardableResult
     func streamResponse(
         queue: DispatchQueue,

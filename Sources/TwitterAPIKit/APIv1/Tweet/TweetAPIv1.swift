@@ -1,7 +1,6 @@
 import Foundation
 
 open class TweetAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-statuses-update
     public func postUpdateStatus(
         _ request: PostStatusesUpdateRequestV1

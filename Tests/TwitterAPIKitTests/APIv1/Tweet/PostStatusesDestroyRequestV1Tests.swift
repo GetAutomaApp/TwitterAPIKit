@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostStatusesDestroyRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostStatusesDestroyRequestV1(
@@ -21,7 +19,7 @@ class PostStatusesDestroyRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "trim_user": true
+                "trim_user": true,
             ]
         )
     }

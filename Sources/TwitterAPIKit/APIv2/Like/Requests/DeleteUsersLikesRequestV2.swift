@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
 open class DeleteUsersLikesRequestV2: TwitterAPIRequest {
-
     /// user ID
     public let id: String
     public let tweetID: String

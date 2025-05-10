@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-mentions_timeline
 open class GetStatusesMentionsTimelineRequestV1: TwitterAPIRequest {
-
     public let count: Int?
     public let maxID: String?
     public let sinceID: String?

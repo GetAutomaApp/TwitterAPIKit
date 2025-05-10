@@ -2,21 +2,17 @@ import TwitterAPIKit
 import XCTest
 
 class MultipartFormDataPartTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testEqualValue() throws {
-
         let a = MultipartFormDataPart.value(name: "n", value: 1)
         let b = MultipartFormDataPart.value(name: "n", value: "1")
         let c = MultipartFormDataPart.value(name: "n", value: Float(1))
         let d = MultipartFormDataPart.value(name: "m", value: 1)
 
-        [a, b, c, d].combinations(ofCount: 2).forEach { combo in
+        for combo in [a, b, c, d].combinations(ofCount: 2) {
             XCTAssertNotEqual(combo[0], combo[1])
         }
     }
@@ -32,7 +28,7 @@ class MultipartFormDataPartTests: XCTestCase {
 
         let a1 = MultipartFormDataPart.data(name: "n", value: Data(), filename: "f", mimeType: "m")
 
-        [a, b, c, d, e, f].combinations(ofCount: 2).forEach { combo in
+        for combo in [a, b, c, d, e, f].combinations(ofCount: 2) {
             XCTAssertNotEqual(combo[0], combo[1])
         }
 

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
 open class PostListsRequestV2: TwitterAPIRequest {
-
     public let name: String
     public let description: String?
     public let `private`: Bool?

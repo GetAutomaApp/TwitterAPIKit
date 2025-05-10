@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules#Validate
 open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
-
     public struct Rule {
         public let value: String
         public let tag: String?
@@ -14,7 +13,7 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
 
     public enum Operation {
         case add([Rule])
-        case delete([String] /* rule IDs */)
+        case delete([String] /* rule IDs */ )
     }
 
     public let dryRun: Bool?
@@ -42,14 +41,14 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
         var p = [String: Any]()
 
         switch operation {
-        case .add(let rules):
+        case let .add(rules):
             p["add"] = rules.map {
-                return [
+                [
                     "value": $0.value,
                     "tag": $0.tag,
                 ].compactMapValues { $0 }
             }
-        case .delete(let ids):
+        case let .delete(ids):
             p["delete"] = ["ids": ids]
         }
 

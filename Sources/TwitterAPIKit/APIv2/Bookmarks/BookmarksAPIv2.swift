@@ -1,7 +1,6 @@
 import Foundation
 
 open class BookmarksAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
     public func getBookmarks(
         _ request: GetUsersBookmarksRequestV2

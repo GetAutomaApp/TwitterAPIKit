@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets
 open class GetTweetsQuoteTweetsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let maxResults: Int?

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-retweets_of_me
 open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
-
     public let count: Int?
     public let sinceID: String?
     public let maxID: String?
@@ -46,5 +45,4 @@ open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
         self.includeUserEntities = includeUserEntities
     }
-
 }

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/trends/trends-for-location/api-reference/get-trends-place
 open class GetTrendsPlaceRequestV1: TwitterAPIRequest {
-
     /// Where On Earth ID Global
     public let woeid: String
 

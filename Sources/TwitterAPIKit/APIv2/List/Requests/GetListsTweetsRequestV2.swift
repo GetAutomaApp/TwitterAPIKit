@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/api-reference/get-lists-id-tweets
 open class GetListsTweetsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let maxResults: Int?

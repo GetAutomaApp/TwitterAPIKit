@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
 open class PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
-
     /// If you are using pin-based authorization, you will need to set this to oob
     public let oauthCallback: String
 

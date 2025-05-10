@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-statuses-update
 open class PostStatusesUpdateRequestV1: TwitterAPIRequest {
-
     public let status: String
     public let inReplyToStatusID: String?
     public let autoPopulateReplyMetadata: Bool?
@@ -76,5 +75,4 @@ open class PostStatusesUpdateRequestV1: TwitterAPIRequest {
         self.failDMcommands = failDMcommands
         self.cardUri = cardUri
     }
-
 }

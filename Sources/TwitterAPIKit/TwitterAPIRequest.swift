@@ -26,14 +26,14 @@ public enum BodyContentType: String {
 }
 
 public enum MultipartFormDataPart {
-    case value(name: String, value: Any)  // value is stringified with "String(describing:)"
+    case value(name: String, value: Any) // value is stringified with "String(describing:)"
     case data(name: String, value: Data, filename: String, mimeType: String)
 
     var name: String {
         switch self {
-        case .value(let name, _):
+        case let .value(name, _):
             return name
-        case .data(let name, _, _, _):
+        case let .data(name, _, _, _):
             return name
         }
     }
@@ -68,27 +68,27 @@ public protocol TwitterAPIRequest {
     var bodyContentType: BodyContentType { get }
 }
 
-extension TwitterAPIRequest {
-    public var baseURLType: TwitterBaseURLType {
+public extension TwitterAPIRequest {
+    var baseURLType: TwitterBaseURLType {
         return .api
     }
 
-    public var bodyContentType: BodyContentType {
+    var bodyContentType: BodyContentType {
         return .wwwFormUrlEncoded
     }
 
-    public var parameters: [String: Any] {
+    var parameters: [String: Any] {
         return [:]
     }
 
-    public var queryParameters: [String: Any] {
+    var queryParameters: [String: Any] {
         if method.prefersQueryParameters {
             return parameters
         }
         return [:]
     }
 
-    public var bodyParameters: [String: Any] {
+    var bodyParameters: [String: Any] {
         if !method.prefersQueryParameters {
             return parameters
         }
@@ -97,9 +97,7 @@ extension TwitterAPIRequest {
 }
 
 extension TwitterAPIRequest {
-
     func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
-
         guard
             var urlComponent = URLComponents(
                 url: requestURL(for: environment),
@@ -111,15 +109,14 @@ extension TwitterAPIRequest {
         if !queryParameters.isEmpty {
             urlComponent.percentEncodedQueryItems =
                 queryParameters
-                .sorted(by: { a, b in a.key < b.key })
-                .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
+                    .sorted(by: { a, b in a.key < b.key })
+                    .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
         }
 
         var request = URLRequest(url: urlComponent.url!)
         request.httpMethod = method.rawValue
 
         if !bodyParameters.isEmpty {
-
             switch bodyContentType {
             case .wwwFormUrlEncoded:
                 request.setValue(bodyContentType.rawValue, forHTTPHeaderField: "Content-Type")
@@ -135,7 +132,7 @@ extension TwitterAPIRequest {
                         reason: .invalidParameter(
                             parameter: bodyParameters,
                             cause:
-                                "Parameter must be specified in `MultipartFormDataPart` for `BodyContentType.multipartFormData`."
+                            "Parameter must be specified in `MultipartFormDataPart` for `BodyContentType.multipartFormData`."
                         ))
                 }
 
@@ -144,9 +141,11 @@ extension TwitterAPIRequest {
                 request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
                 request.httpBody = try multipartFormData(
-                    boundary: boundary, parts: parts.sorted(by: { $0.name < $1.name }))
+                    boundary: boundary, parts: parts.sorted(by: { $0.name < $1.name })
+                )
                 request.setValue(
-                    String(request.httpBody?.count ?? 0), forHTTPHeaderField: "Content-Length")
+                    String(request.httpBody?.count ?? 0), forHTTPHeaderField: "Content-Length"
+                )
             case .json:
 
                 let param = bodyParameters
@@ -224,8 +223,8 @@ extension TwitterAPIRequest {
     }
 }
 
-extension TwitterAPIEnvironment {
-    fileprivate func baseURL(for type: TwitterBaseURLType) -> URL {
+private extension TwitterAPIEnvironment {
+    func baseURL(for type: TwitterBaseURLType) -> URL {
         switch type {
         case .twitter: return twitterURL
         case .api: return apiURL
@@ -234,8 +233,8 @@ extension TwitterAPIEnvironment {
     }
 }
 
-extension Data {
-    fileprivate mutating func appendBody(_ string: String) throws {
+private extension Data {
+    mutating func appendBody(_ string: String) throws {
         if let data = string.data(using: .utf8) {
             append(data)
         } else {

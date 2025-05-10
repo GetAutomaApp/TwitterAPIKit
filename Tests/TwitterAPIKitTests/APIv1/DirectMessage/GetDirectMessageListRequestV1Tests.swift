@@ -2,12 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetDirectMessageListRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetDirectMessageListRequestV1(
@@ -23,8 +20,8 @@ class GetDirectMessageListRequestV1Tests: XCTestCase {
             [
                 "count": 100,
                 "cursor": "cursor_str",
-            ])
+            ]
+        )
         XCTAssertTrue(req.bodyParameters.isEmpty)
     }
-
 }

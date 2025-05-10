@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetTweetsSearchAllRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetTweetsSearchAllRequestV2(
@@ -59,7 +57,7 @@ class GetTweetsSearchAllRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "query": "_q1_"
+                "query": "_q1_",
             ]
         )
     }

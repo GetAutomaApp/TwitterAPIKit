@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetApplicationRateLimitStatusRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetApplicationRateLimitStatusRequestV1(
@@ -20,7 +18,7 @@ class GetApplicationRateLimitStatusRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "resources": "a,b"
+                "resources": "a,b",
             ]
         )
     }

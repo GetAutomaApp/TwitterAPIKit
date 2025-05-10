@@ -2,15 +2,11 @@ import TwitterAPIKit
 import XCTest
 
 class TwitterRateLimitTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         XCTContext.runActivity(named: "from int") { _ in
             let header = [
                 "x-rate-limit-limit": 15,
@@ -39,7 +35,6 @@ class TwitterRateLimitTests: XCTestCase {
             XCTAssertEqual(rateLimit.remaining, 3)
             XCTAssertEqual(rateLimit.reset, 1_644_417_524)
         }
-
     }
 
     func testNil() throws {
@@ -68,7 +63,5 @@ class TwitterRateLimitTests: XCTestCase {
 
             XCTAssertNil(TwitterRateLimit(header: header))
         }
-
     }
-
 }

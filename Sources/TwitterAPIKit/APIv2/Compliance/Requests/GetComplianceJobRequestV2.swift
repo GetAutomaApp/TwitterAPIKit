@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
 open class GetComplianceJobRequestV2: TwitterAPIRequest {
-
     public let id: Int
 
     public var method: HTTPMethod {

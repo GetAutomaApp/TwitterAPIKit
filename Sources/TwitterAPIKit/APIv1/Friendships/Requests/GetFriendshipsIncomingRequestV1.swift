@@ -2,13 +2,13 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-incoming
 open class GetFriendshipsIncomingRequestV1: TwitterAPIRequest {
-
     public let cursor: String?
     public let stringifyIDs: Bool?
 
     public var method: HTTPMethod {
         return .get
     }
+
     public var path: String {
         return "/1.1/friendships/incoming.json"
     }

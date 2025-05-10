@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-subscribers
 open class GetListsSubscribersRequestV1: TwitterAPIRequest {
-
     public let list: TwitterListIdentifierV1
     public let count: Int?
     public let cursor: String?

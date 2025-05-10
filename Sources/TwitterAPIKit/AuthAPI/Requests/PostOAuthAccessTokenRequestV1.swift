@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/access_token
 open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
-
     public let oauthToken: String
     public let oauthVerifier: String
 

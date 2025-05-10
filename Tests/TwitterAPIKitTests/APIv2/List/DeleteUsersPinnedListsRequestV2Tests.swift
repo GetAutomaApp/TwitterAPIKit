@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class DeleteUsersPinnedListsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = DeleteUsersPinnedListsRequestV2(

@@ -1,7 +1,6 @@
 import Foundation
 
 open class UserAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-lookup
     public func getUsers(
         _ request: GetUsersLookupRequestV1

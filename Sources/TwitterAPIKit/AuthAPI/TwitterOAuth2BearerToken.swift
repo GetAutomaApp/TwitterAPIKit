@@ -10,8 +10,8 @@ public struct TwitterOAuth2BearerToken {
         let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
 
         guard let obj = json as? [String: Any],
-            let tokenType = obj["token_type"] as? String,
-            let accessToken = obj["access_token"] as? String
+              let tokenType = obj["token_type"] as? String,
+              let accessToken = obj["access_token"] as? String
         else {
             return nil
         }

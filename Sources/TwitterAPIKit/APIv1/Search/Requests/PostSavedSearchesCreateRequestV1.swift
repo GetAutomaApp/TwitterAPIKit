@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-saved_searches-create
 open class PostSavedSearchesCreateRequestV1: TwitterAPIRequest {
-
     public let query: String
 
     public var method: HTTPMethod {

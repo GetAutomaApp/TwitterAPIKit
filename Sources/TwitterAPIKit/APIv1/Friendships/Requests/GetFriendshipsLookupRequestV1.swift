@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-lookup
 open class GetFriendshipsLookupRequestV1: TwitterAPIRequest {
-
     public let users: TwitterUsersIdentifierV1
 
     public var method: HTTPMethod {

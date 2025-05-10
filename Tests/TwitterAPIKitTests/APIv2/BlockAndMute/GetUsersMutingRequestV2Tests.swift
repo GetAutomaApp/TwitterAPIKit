@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetUsersMutingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetUsersMutingRequestV2(
@@ -30,7 +28,8 @@ class GetUsersMutingRequestV2Tests: XCTestCase {
                 "pagination_token": "t",
                 "tweet.fields": "conversation_id,id,in_reply_to_user_id",
                 "user.fields": "created_at,username,verified",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

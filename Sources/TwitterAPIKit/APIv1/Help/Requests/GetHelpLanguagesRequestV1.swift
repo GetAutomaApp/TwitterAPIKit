@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/developer-utilities/supported-languages/api-reference/get-help-languages
 open class GetHelpLanguagesRequestV1: TwitterAPIRequest {
-
     public var method: HTTPMethod {
         return .get
     }
@@ -15,6 +14,5 @@ open class GetHelpLanguagesRequestV1: TwitterAPIRequest {
         return [:]
     }
 
-    public init() {
-    }
+    public init() {}
 }

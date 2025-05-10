@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-show-id
 open class GetStatusesShowRequestV1: TwitterAPIRequest {
-
     public let id: String
     public let trimUser: Bool?
     public let includeCardUri: Bool?
@@ -44,5 +43,4 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
         self.includeMyRetweet = includeMyRetweet
         self.includeExtAltText = includeExtAltText
     }
-
 }

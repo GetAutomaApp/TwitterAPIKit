@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
 open class GetSpacesBuyersRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?

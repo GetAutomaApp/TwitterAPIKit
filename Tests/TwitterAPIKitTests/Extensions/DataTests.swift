@@ -3,12 +3,9 @@ import XCTest
 @testable import TwitterAPIKit
 
 class DataTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testSerialize() throws {
         XCTContext.runActivity(named: "success") { _ in

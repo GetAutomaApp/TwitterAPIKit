@@ -1,7 +1,6 @@
 import Foundation
 
 open class CollectionAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/get-collections-entries
     public func getCollectionEntries(
         _ request: GetCollectionsEntriesRequestV1

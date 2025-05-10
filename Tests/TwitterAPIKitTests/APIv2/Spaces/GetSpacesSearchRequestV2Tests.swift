@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetSpacesSearchRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetSpacesSearchRequestV2(
@@ -43,7 +41,7 @@ class GetSpacesSearchRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "query": "あ"
+                "query": "あ",
             ]
         )
     }

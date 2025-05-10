@@ -7,11 +7,11 @@ import PackageDescription
 // If CommonCrypto is not available, swift-crypto should be used.
 
 #if canImport(CommonCrypto)
-let dependencies: [Package.Dependency] = []
-let tDependencies: [Target.Dependency] = []
+    let dependencies: [Package.Dependency] = []
+    let tDependencies: [Target.Dependency] = []
 #else // for Linux
-let dependencies: [Package.Dependency] = [.package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")]
-let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
+    let dependencies: [Package.Dependency] = [.package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")]
+    let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
 #endif
 
 let package = Package(
@@ -20,13 +20,14 @@ let package = Package(
         .macOS(.v10_14),
         .iOS(.v12),
         .tvOS(.v12),
-        .watchOS(.v6)
+        .watchOS(.v6),
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "TwitterAPIKit",
-            targets: ["TwitterAPIKit"]),
+            targets: ["TwitterAPIKit"]
+        ),
     ],
     dependencies: dependencies,
     targets: [
@@ -34,9 +35,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "TwitterAPIKit",
-            dependencies: tDependencies),
+            dependencies: tDependencies
+        ),
         .testTarget(
             name: "TwitterAPIKitTests",
-            dependencies: ["TwitterAPIKit"]),
+            dependencies: ["TwitterAPIKit"]
+        ),
     ]
 )

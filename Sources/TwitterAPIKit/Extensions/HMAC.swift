@@ -3,9 +3,8 @@ import Foundation
 #if canImport(CommonCrypto)
     import CommonCrypto
 
-    extension Data {
-        fileprivate func hmac(key: Data) -> Data {
-
+    fileprivate extension Data {
+        func hmac(key: Data) -> Data {
             // Thanks: https://github.com/jernejstrasner/SwiftCrypto
 
             let digestLen = Int(CC_SHA1_DIGEST_LENGTH)
@@ -34,8 +33,9 @@ import Foundation
         return message.hmac(key: key)
     }
 
-#elseif canImport(Crypto)  // for Linux
+#elseif canImport(Crypto) // for Linux
     import Crypto
+
     func createHMACSHA1(key: Data, message: Data) -> Data {
         return Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
     }

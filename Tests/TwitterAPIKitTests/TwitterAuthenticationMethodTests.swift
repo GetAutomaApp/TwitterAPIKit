@@ -2,17 +2,13 @@ import TwitterAPIKit
 import XCTest
 
 final class TwitterAuthenticationMethodTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     // MARK: - OAuth10a
 
     func testOAuth10aInit() throws {
-
         let oauth10 = TwitterAuthenticationMethod.OAuth10a(
             consumerKey: "ck",
             consumerSecret: "cs",
@@ -24,13 +20,11 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
         XCTAssertEqual(oauth10.consumerSecret, "cs")
         XCTAssertEqual(oauth10.oauthToken, "t")
         XCTAssertEqual(oauth10.oauthTokenSecret, "ts")
-
     }
 
     // MARK: - OAuth20
 
     func testOAuth20Init() throws {
-
         do {
             let createdAt = Date(timeIntervalSince1970: 2)
 

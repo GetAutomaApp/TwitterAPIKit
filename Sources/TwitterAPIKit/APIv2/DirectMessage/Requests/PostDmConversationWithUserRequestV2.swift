@@ -3,7 +3,6 @@ import Foundation
 /// Creates a new message for a DM Conversation with a participant user by ID
 /// Required OAuth 2.0 scopes: dm.write, tweet.read, users.read
 open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
-
     /// The ID of the recipient user that will receive the DM.
     public let participantID: String
     /// Attachments to a DM Event.

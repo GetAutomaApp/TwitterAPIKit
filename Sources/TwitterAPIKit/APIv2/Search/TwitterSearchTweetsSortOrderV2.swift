@@ -1,7 +1,6 @@
 import Foundation
 
 public enum TwitterSearchTweetsSortOrderV2: String {
-
     case recency
     case relevancy
 

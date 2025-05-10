@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetUsersOwnedListsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetUsersOwnedListsRequestV2(
@@ -30,8 +28,8 @@ class GetUsersOwnedListsRequestV2Tests: XCTestCase {
                 "max_results": 11,
                 "pagination_token": "t",
                 "user.fields": "created_at",
-
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

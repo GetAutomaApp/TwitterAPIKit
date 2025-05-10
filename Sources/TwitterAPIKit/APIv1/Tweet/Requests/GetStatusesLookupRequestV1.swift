@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-lookup
 open class GetStatusesLookupRequestV1: TwitterAPIRequest {
-
     public let ids: [String]
     public let map: Bool?
     public let trimUser: Bool?

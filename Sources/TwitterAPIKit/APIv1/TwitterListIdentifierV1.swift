@@ -8,14 +8,14 @@ public enum TwitterListIdentifierV1 {
 extension TwitterListIdentifierV1 {
     func bind(param: inout [String: Any]) {
         switch self {
-        case .listID(let string):
+        case let .listID(string):
             param["list_id"] = string
-        case .slug(let slug, let owner):
+        case let .slug(slug, owner):
             param["slug"] = slug
             switch owner {
-            case .userID(let string):
+            case let .userID(string):
                 param["owner_id"] = string
-            case .screenName(let string):
+            case let .screenName(string):
                 param["owner_screen_name"] = string
             }
         }

@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostFavoriteRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostFavoriteRequestV1(
@@ -35,7 +33,7 @@ class PostFavoriteRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "id": "_i_"
+                "id": "_i_",
             ]
         )
     }

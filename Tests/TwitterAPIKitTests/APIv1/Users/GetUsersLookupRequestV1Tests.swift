@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetUsersLookupRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetUsersLookupRequestV1(
@@ -37,7 +35,7 @@ class GetUsersLookupRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s1,s2"
+                "screen_name": "s1,s2",
             ]
         )
     }

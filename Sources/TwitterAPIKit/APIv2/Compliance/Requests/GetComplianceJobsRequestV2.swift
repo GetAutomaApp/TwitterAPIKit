@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
 open class GetComplianceJobsRequestV2: TwitterAPIRequest {
-
     public enum Status: String {
         case created
         case inProgress = "in_progress"

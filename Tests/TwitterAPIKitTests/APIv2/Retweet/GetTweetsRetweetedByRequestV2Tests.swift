@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetTweetsRetweetedByRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetTweetsRetweetedByRequestV2(
@@ -36,7 +34,8 @@ class GetTweetsRetweetedByRequestV2Tests: XCTestCase {
                 "poll.fields": "end_datetime,options",
                 "tweet.fields": "context_annotations,non_public_metrics",
                 "user.fields": "username,withheld",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

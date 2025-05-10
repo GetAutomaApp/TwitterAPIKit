@@ -2,16 +2,13 @@ import TwitterAPIKit
 import XCTest
 
 class UploadMediaUtilTests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
     override func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
     func testWithProcessing() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -33,7 +30,7 @@ class UploadMediaUtilTests: XCTestCase {
             }
             var data = Data()
             switch requestCount {
-            case 0:  // INIT
+            case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=INIT"))
 
@@ -41,15 +38,15 @@ class UploadMediaUtilTests: XCTestCase {
                     withJSONObject: [
                         "media_id_string": "123",
                         "expires_after_secs": 1000,
-                    ], options: [])
-
-            case 1:  // APPEND
+                    ], options: []
+                )
+            case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
-            case 2:  // APPEND
+            case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
-            case 3:  // FINALIZE
+            case 3: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
 
@@ -62,7 +59,8 @@ class UploadMediaUtilTests: XCTestCase {
                             "state": "pending",
                             "check_after_secs": 0,
                         ],
-                    ], options: [])
+                    ], options: []
+                )
             case 4:
 
                 XCTAssertEqual(request.httpMethod, "GET")
@@ -89,7 +87,7 @@ class UploadMediaUtilTests: XCTestCase {
                     withJSONObject: [
                         "media_id_string": "123",
                         "video": [
-                            "video_type": "video/mp4"
+                            "video_type": "video/mp4",
                         ],
                         "processing_info": [
                             "state": "succeeded",
@@ -120,7 +118,6 @@ class UploadMediaUtilTests: XCTestCase {
     }
 
     func testInitError() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -143,7 +140,7 @@ class UploadMediaUtilTests: XCTestCase {
             let data = Data("{}".utf8)
             var statusCode = 200
             switch requestCount {
-            case 0:  // INIT
+            case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=INIT"))
 
@@ -168,7 +165,6 @@ class UploadMediaUtilTests: XCTestCase {
             if case .responseFailed(reason: .unacceptableStatusCode(statusCode: 404, error: _, rateLimit: _)) = response
                 .error
             {
-
             } else {
                 XCTFail(response.prettyString)
             }
@@ -180,7 +176,6 @@ class UploadMediaUtilTests: XCTestCase {
     }
 
     func testAppendError() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -203,7 +198,7 @@ class UploadMediaUtilTests: XCTestCase {
             var data = Data()
             var statusCode = 200
             switch requestCount {
-            case 0:  // INIT
+            case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=INIT"))
 
@@ -211,13 +206,13 @@ class UploadMediaUtilTests: XCTestCase {
                     withJSONObject: [
                         "media_id_string": "123",
                         "expires_after_secs": 1000,
-                    ], options: [])
-
-            case 1:  // APPEND
+                    ], options: []
+                )
+            case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
                 statusCode = 400
-            case 2:  // APPEND
+            case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
                 statusCode = 200
@@ -240,7 +235,6 @@ class UploadMediaUtilTests: XCTestCase {
             if case .responseFailed(reason: .unacceptableStatusCode(statusCode: 400, error: _, rateLimit: _)) = response
                 .error
             {
-
             } else {
                 XCTFail(response.prettyString)
             }
@@ -252,7 +246,6 @@ class UploadMediaUtilTests: XCTestCase {
     }
 
     func testFinalizeError() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -275,7 +268,7 @@ class UploadMediaUtilTests: XCTestCase {
             }
             var data = Data()
             switch requestCount {
-            case 0:  // INIT
+            case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=INIT"))
 
@@ -283,15 +276,15 @@ class UploadMediaUtilTests: XCTestCase {
                     withJSONObject: [
                         "media_id_string": "123",
                         "expires_after_secs": 1000,
-                    ], options: [])
-
-            case 1:  // APPEND
+                    ], options: []
+                )
+            case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
-            case 2:  // APPEND
+            case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
-            case 3:  // FINALIZE
+            case 3: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
                 statusCode = 500
@@ -314,7 +307,6 @@ class UploadMediaUtilTests: XCTestCase {
             if case .responseFailed(reason: .unacceptableStatusCode(statusCode: 500, error: _, rateLimit: _)) = response
                 .error
             {
-
             } else {
                 XCTFail(response.prettyString)
             }
@@ -325,7 +317,6 @@ class UploadMediaUtilTests: XCTestCase {
     }
 
     func testWithProcessingError() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -347,7 +338,7 @@ class UploadMediaUtilTests: XCTestCase {
             }
             var data = Data()
             switch requestCount {
-            case 0:  // INIT
+            case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=INIT"))
 
@@ -355,15 +346,15 @@ class UploadMediaUtilTests: XCTestCase {
                     withJSONObject: [
                         "media_id_string": "123",
                         "expires_after_secs": 1000,
-                    ], options: [])
-
-            case 1:  // APPEND
+                    ], options: []
+                )
+            case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
-            case 2:  // APPEND
+            case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
-            case 3:  // FINALIZE
+            case 3: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
 
@@ -376,7 +367,8 @@ class UploadMediaUtilTests: XCTestCase {
                             "state": "pending",
                             "check_after_secs": 0,
                         ],
-                    ], options: [])
+                    ], options: []
+                )
             case 4:
 
                 XCTAssertEqual(request.httpMethod, "GET")
@@ -435,7 +427,6 @@ class UploadMediaUtilTests: XCTestCase {
     }
 
     func testWithoutProcessing() throws {
-
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -457,7 +448,7 @@ class UploadMediaUtilTests: XCTestCase {
             }
             var data = Data()
             switch requestCount {
-            case 0:  // INIT
+            case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=INIT"))
 
@@ -465,12 +456,14 @@ class UploadMediaUtilTests: XCTestCase {
                     withJSONObject: [
                         "media_id_string": "123",
                         "expires_after_secs": 1000,
-                    ], options: [])
+                    ], options: []
+                )
 
-            case 1:  // APPEND
+            case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
-            case 2:  // FINALIZE
+
+            case 2: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
                 XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
 
@@ -479,7 +472,8 @@ class UploadMediaUtilTests: XCTestCase {
                         "media_id_string": "123",
                         "size": 10,
                         "expires_after_secs": 200,
-                    ], options: [])
+                    ], options: []
+                )
 
             default:
                 XCTFail()

@@ -7,12 +7,9 @@ struct DecodableObj: Decodable, Equatable {
 }
 
 class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testSuccess() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
@@ -130,7 +127,6 @@ class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
     }
 
     func testCompleteWithError() throws {
-
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
         let task = TwitterAPISessionDelegatedJSONTask(
@@ -157,16 +153,16 @@ class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
             task.append(chunk: Data(":\"value\"}".utf8))
 
             mockTask.httpResponse = .init(
-                url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:])
+                url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+            )
 
-            task.complete(error: URLError.init(.badServerResponse))
+            task.complete(error: URLError(.badServerResponse))
         }
 
         wait(for: [exp], timeout: 10)
     }
 
     func testCancel() throws {
-
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
         let task = TwitterAPISessionDelegatedJSONTask(
@@ -193,9 +189,10 @@ class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
             task.append(chunk: Data(":\"value\"}".utf8))
 
             mockTask.httpResponse = .init(
-                url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:])
+                url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+            )
 
-            task.complete(error: URLError.init(.cancelled))
+            task.complete(error: URLError(.cancelled))
         }
 
         task.cancel()

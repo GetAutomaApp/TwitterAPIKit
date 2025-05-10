@@ -11,6 +11,7 @@ open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
             param["timeline_order"] = rawValue
         }
     }
+
     public let name: String
     public let url: String?
     public let description: String?

@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-users-profile_banner
 open class GetUsersProfileBannerRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
 
     public var method: HTTPMethod {

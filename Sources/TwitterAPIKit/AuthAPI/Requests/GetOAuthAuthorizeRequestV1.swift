@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/authorize
 open class GetOAuthAuthorizeRequestV1: TwitterAPIRequest {
-
     public let oauthToken: String
     public let forceLogin: Bool?
     public let screenName: String?

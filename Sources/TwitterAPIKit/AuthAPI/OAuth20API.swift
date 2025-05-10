@@ -1,7 +1,6 @@
 import Foundation
 
 open class OAuth20API: TwitterAPIBase {
-
     // MARK: - OAuth 2.0 Bearer Token
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/token
@@ -24,7 +23,7 @@ open class OAuth20API: TwitterAPIBase {
                         )
                     }
                     return token
-                } catch let error {
+                } catch {
                     throw TwitterAPIKitError.responseSerializeFailed(
                         reason: .jsonSerializationFailed(error: error)
                     )
@@ -34,7 +33,7 @@ open class OAuth20API: TwitterAPIBase {
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/invalidate_bearer_token
     ///
-    ///May not work. {"errors":[{"code":348,"message":"Client application is not permitted to to invalidate this token."}]}
+    /// May not work. {"errors":[{"code":348,"message":"Client application is not permitted to to invalidate this token."}]}
     /// https://twittercommunity.com/t/oauth2-invalidate-token-not-working-for-app-only-authentication-tokens/133108
     /// https://twittercommunity.com/t/invalidate-bearer-client-application-not-permitted/162761
     public func postInvalidateOAuth2BearerToken(
@@ -74,7 +73,6 @@ open class OAuth20API: TwitterAPIBase {
     ) -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken> {
         return postOAuth2RefreshTokenData(request)
             .specialized { try TwitterOAuth2AccessToken.fromResponse(data: $0) }
-
     }
 
     public func postOAuth2RevokeToken(

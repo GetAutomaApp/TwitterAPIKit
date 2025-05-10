@@ -2,12 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostDirectMessageRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func testText() throws {
         let req = PostDirectMessageRequestV1(
@@ -27,8 +24,9 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
                         "message_data": ["text": "msg"],
                         "target": ["recipient_id": "target"],
                     ],
-                ]
-            ])
+                ],
+            ]
+        )
     }
 
     func testQuickReplyOptions() throws {
@@ -62,8 +60,9 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
                             ],
                         ],
                     ],
-                ]
-            ])
+                ],
+            ]
+        )
     }
 
     func testAttachMedia() throws {
@@ -87,14 +86,15 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
                             "attachment": [
                                 "type": "media",
                                 "media": [
-                                    "id": "media_id"
+                                    "id": "media_id",
                                 ],
                             ],
                         ],
                         "target": ["recipient_id": "target"],
                     ],
-                ]
-            ])
+                ],
+            ]
+        )
     }
 
     func testAttachLocation() throws {
@@ -124,15 +124,16 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
                                             "coordinates": [
                                                 "type": "Point",
                                                 "coordinates": [10, 20],
-                                            ]
+                                            ],
                                         ],
                                     ],
                                 ],
                             ],
                             "target": ["recipient_id": "target"],
                         ],
-                    ]
-                ])
+                    ],
+                ]
+            )
         }
 
         XCTContext.runActivity(named: "place") { _ in
@@ -159,16 +160,17 @@ class PostDirectMessageRequestV1Tests: XCTestCase {
                                         "type": "shared_place",
                                         "shared_place": [
                                             "place": [
-                                                "id": "place_id"
-                                            ]
+                                                "id": "place_id",
+                                            ],
                                         ],
                                     ],
                                 ],
                             ],
                             "target": ["recipient_id": "target"],
                         ],
-                    ]
-                ])
+                    ],
+                ]
+            )
         }
     }
 }

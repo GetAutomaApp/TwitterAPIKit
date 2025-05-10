@@ -3,21 +3,17 @@ import XCTest
 @testable import TwitterAPIKit
 
 class TwitterAPISessionSpecializedTaskTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         let mockTask = MockTwitterAPISessionDataTask(
             data: Data("hoge".utf8), taskIdentifier: 10, currentRequest: nil, originalRequest: nil, httpResponse: nil
         )
 
         let task = TwitterAPISessionSpecializedTask(task: mockTask) { data in
-            return String(data: data, encoding: .utf8)!
+            String(data: data, encoding: .utf8)!
         }
 
         let exp = expectation(description: "")
@@ -34,7 +30,6 @@ class TwitterAPISessionSpecializedTaskTests: XCTestCase {
     }
 
     func testArray() throws {
-
         let mockTask1 = MockTwitterAPISessionDataTask(
             data: Data("hoge1".utf8), taskIdentifier: 10, currentRequest: nil, originalRequest: nil, httpResponse: nil
         )
@@ -43,11 +38,11 @@ class TwitterAPISessionSpecializedTaskTests: XCTestCase {
         )
 
         let task1 = TwitterAPISessionSpecializedTask(task: mockTask1) { data in
-            return String(data: data, encoding: .utf8)!
+            String(data: data, encoding: .utf8)!
         }
 
         let task2 = TwitterAPISessionSpecializedTask(task: mockTask2) { data in
-            return String(data: data, encoding: .utf8)!
+            String(data: data, encoding: .utf8)!
         }
 
         let exp = expectation(description: "")

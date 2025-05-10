@@ -2,15 +2,11 @@ import TwitterAPIKit
 import XCTest
 
 class TwitterAPIResponseTests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         let rateLimit = TwitterRateLimit(header: [
             "x-rate-limit-limit": "10",
             "x-rate-limit-remaining": "1",
@@ -37,14 +33,14 @@ class TwitterAPIResponseTests: XCTestCase {
 
         XCTContext.runActivity(named: "map") { _ in
             let mapped = response.map { data in
-                return try! JSONSerialization.jsonObject(with: data, options: [])
+                try! JSONSerialization.jsonObject(with: data, options: [])
             }
             XCTAssertEqual(mapped.success as! [String: String], [:])
         }
 
         XCTContext.runActivity(named: "tryMap") { _ in
             let mapped = response.tryMap { data in
-                return try JSONSerialization.jsonObject(with: data, options: [])
+                try JSONSerialization.jsonObject(with: data, options: [])
             }
             XCTAssertEqual(mapped.success as! [String: String], [:])
         }
@@ -58,8 +54,8 @@ class TwitterAPIResponseTests: XCTestCase {
             XCTAssertTrue(mapped.prettyString.hasPrefix("-- Request failure --"))
 
             XCTContext.runActivity(named: "mapError") { _ in
-                let errored = mapped.mapError { error in
-                    return .responseFailed(reason: .invalidResponse(error: nil))
+                let errored = mapped.mapError { _ in
+                    .responseFailed(reason: .invalidResponse(error: nil))
                 }
 
                 XCTAssertTrue(errored.error!.isResponseFailed)

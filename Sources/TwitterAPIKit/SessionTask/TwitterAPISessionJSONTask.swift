@@ -1,7 +1,6 @@
 import Foundation
 
 public protocol TwitterAPISessionJSONTask: TwitterAPISessionDataTask {
-
     @discardableResult
     func responseObject(
         queue: DispatchQueue,

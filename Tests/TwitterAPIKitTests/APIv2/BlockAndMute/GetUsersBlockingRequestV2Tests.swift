@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetUsersBlockingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetUsersBlockingRequestV2(
@@ -30,7 +28,8 @@ class GetUsersBlockingRequestV2Tests: XCTestCase {
                 "pagination_token": "token",
                 "tweet.fields": "context_annotations,entities,geo",
                 "user.fields": "profile_image_url,protected,public_metrics",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

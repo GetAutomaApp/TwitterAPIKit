@@ -1,7 +1,6 @@
 import Foundation
 
 open class BlockAndMuteAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/get-blocks-ids
     public func getBlockIDs(
         _ request: GetBlocksIDsRequestV1

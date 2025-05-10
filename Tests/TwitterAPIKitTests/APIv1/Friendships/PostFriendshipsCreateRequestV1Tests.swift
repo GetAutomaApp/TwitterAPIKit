@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostFriendshipsCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostFriendshipsCreateRequestV1(
@@ -35,7 +33,7 @@ class PostFriendshipsCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
     }

@@ -23,9 +23,9 @@ public enum TwitterAccuracyV1 {
 
     func bind(param: inout [String: Any]) {
         switch self {
-        case .m(let int):
+        case let .m(int):
             param["accuracy"] = "\(int)m"
-        case .ft(let int):
+        case let .ft(int):
             param["accuracy"] = "\(int)ft"
         }
     }

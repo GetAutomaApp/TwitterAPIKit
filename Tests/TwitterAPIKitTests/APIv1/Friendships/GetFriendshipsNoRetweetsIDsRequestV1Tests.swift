@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetFriendshipsNoRetweetsIDsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetFriendshipsNoRetweetsIDsRequestV1(
@@ -20,7 +18,7 @@ class GetFriendshipsNoRetweetsIDsRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "stringify_ids": true
+                "stringify_ids": true,
             ]
         )
     }

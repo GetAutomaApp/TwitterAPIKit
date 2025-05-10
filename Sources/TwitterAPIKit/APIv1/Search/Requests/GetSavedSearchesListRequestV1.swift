@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-saved_searches-list
 open class GetSavedSearchesListRequestV1: TwitterAPIRequest {
-
     public var method: HTTPMethod {
         return .get
     }
@@ -16,5 +15,4 @@ open class GetSavedSearchesListRequestV1: TwitterAPIRequest {
     }
 
     public init() {}
-
 }

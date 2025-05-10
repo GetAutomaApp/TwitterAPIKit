@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
 open class DeleteUsersRetweetsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let sourceTweetID: String
 

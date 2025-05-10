@@ -1,7 +1,6 @@
 import Foundation
 
 open class ListAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-list
     public func getLists(
         _ request: GetListsListRequestV1

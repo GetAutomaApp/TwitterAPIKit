@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetListsMembersRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetListsMembersRequestV2(
@@ -30,7 +28,8 @@ class GetListsMembersRequestV2Tests: XCTestCase {
                 "pagination_token": "t",
                 "tweet.fields": "created_at",
                 "user.fields": "protected",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {

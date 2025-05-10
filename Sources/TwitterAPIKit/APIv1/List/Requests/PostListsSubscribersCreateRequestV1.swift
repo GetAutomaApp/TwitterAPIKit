@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-subscribers-create
 open class PostListsSubscribersCreateRequestV1: TwitterAPIRequest {
-
     public let list: TwitterListIdentifierV1
 
     public var method: HTTPMethod {

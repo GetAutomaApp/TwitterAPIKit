@@ -2,12 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class UploadMediaInitRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = UploadMediaInitRequestV1(
@@ -29,6 +26,7 @@ class UploadMediaInitRequestV1Tests: XCTestCase {
                 "media_type": "image/jpg",
                 "media_category": "c",
                 "additional_owners": "1,2",
-            ])
+            ]
+        )
     }
 }

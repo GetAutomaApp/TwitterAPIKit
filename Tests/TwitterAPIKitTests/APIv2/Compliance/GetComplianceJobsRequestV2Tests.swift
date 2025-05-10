@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetComplianceJobsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetComplianceJobsRequestV2(
@@ -23,7 +21,8 @@ class GetComplianceJobsRequestV2Tests: XCTestCase {
             [
                 "type": "tweets",
                 "status": "complete",
-            ])
+            ]
+        )
     }
 
     func testDefaultArg() throws {
@@ -34,7 +33,8 @@ class GetComplianceJobsRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "type": "users"
-            ])
+                "type": "users",
+            ]
+        )
     }
 }

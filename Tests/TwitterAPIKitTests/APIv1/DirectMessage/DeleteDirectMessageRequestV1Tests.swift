@@ -2,12 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class DeleteDirectMessageRequestV1Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = DeleteDirectMessageRequestV1(id: "15")

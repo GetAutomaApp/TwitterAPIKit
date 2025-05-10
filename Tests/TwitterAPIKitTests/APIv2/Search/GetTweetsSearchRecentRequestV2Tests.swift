@@ -2,15 +2,11 @@ import TwitterAPIKit
 import XCTest
 
 class GetTweetsSearchRecentRequestV2Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
-
         let req = GetTweetsSearchRecentRequestV2(
             query: "Q",
             endTime: Date(timeIntervalSince1970: 100),
@@ -51,5 +47,4 @@ class GetTweetsSearchRecentRequestV2Tests: XCTestCase {
             ]
         )
     }
-
 }

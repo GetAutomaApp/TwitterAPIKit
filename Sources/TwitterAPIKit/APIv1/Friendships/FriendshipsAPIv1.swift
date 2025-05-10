@@ -1,7 +1,6 @@
 import Foundation
 
 open class FriendshipsAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-followers-ids
     public func getFollowerIDs(
         _ request: GetFollowersIDsRequestV1

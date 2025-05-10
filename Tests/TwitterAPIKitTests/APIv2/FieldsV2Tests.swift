@@ -3,14 +3,11 @@ import XCTest
 @testable import TwitterAPIKit
 
 class FieldsV2Tests: XCTestCase {
+    override func setUpWithError() throws {}
 
-    override func setUpWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
     func testTwitterTweetFieldsV2() throws {
-
         let allCases: [TwitterTweetFieldsV2] = [
             .attachments,
             .authorID,
@@ -116,6 +113,7 @@ class FieldsV2Tests: XCTestCase {
             "duration_minutes,end_datetime,id,options,voting_status,~~"
         )
     }
+
     func testTwitterPollFieldsV2All() throws {
         XCTAssertEqual(TwitterPollFieldsV2.all.count, 5)
     }
@@ -157,7 +155,7 @@ class FieldsV2Tests: XCTestCase {
             .createdAt,
             .followerCount,
             .memberCount,
-            .`private`,
+            .private,
             .description,
             .id,
             .name,
@@ -171,6 +169,7 @@ class FieldsV2Tests: XCTestCase {
             "created_at,description,follower_count,id,member_count,name,owner_id,private,~"
         )
     }
+
     func testTwitterListFieldsV2All() throws {
         XCTAssertEqual(TwitterListFieldsV2.all.count, 8)
     }

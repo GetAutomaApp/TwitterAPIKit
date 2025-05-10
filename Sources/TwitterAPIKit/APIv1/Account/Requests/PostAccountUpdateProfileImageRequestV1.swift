@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile_image
 open class PostAccountUpdateProfileImageRequestV1: TwitterAPIRequest {
-
     public let image: Data
     public let skipStatus: Bool?
     public let includeEntities: Bool?

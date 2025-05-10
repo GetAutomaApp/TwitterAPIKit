@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetFriendsListRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetFriendsListRequestV1(
@@ -41,7 +39,7 @@ class GetFriendsListRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
     }

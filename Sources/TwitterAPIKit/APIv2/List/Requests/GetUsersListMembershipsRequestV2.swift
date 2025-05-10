@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 open class GetUsersListMembershipsRequestV2: TwitterAPIRequest {
-
     /// User ID
     public let id: String
     public let expansions: Set<TwitterListExpansionsV2>?

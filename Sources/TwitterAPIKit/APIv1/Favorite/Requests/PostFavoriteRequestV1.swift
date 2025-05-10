@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-favorites-create
 open class PostFavoriteRequestV1: TwitterAPIRequest {
-
     public let id: String
     public let includeEntities: Bool?
 
@@ -28,5 +27,4 @@ open class PostFavoriteRequestV1: TwitterAPIRequest {
         self.id = id
         self.includeEntities = includeEntities
     }
-
 }

@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostSavedSearchesCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostSavedSearchesCreateRequestV1(
@@ -20,7 +18,7 @@ class PostSavedSearchesCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "query": "_q_"
+                "query": "_q_",
             ]
         )
     }

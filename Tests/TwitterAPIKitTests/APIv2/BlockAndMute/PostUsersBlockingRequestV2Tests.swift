@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostUsersBlockingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostUsersBlockingRequestV2(
@@ -21,7 +19,8 @@ class PostUsersBlockingRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "target_user_id": "_targetUserID_"
-            ])
+                "target_user_id": "_targetUserID_",
+            ]
+        )
     }
 }

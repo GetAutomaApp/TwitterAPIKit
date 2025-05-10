@@ -11,7 +11,6 @@ extension Set where Element: TwitterExpansionsParameterV2 {
 }
 
 public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable {
-
     case attachmentsPollIDs
     case attachmentsMediaKeys
     case authorID
@@ -32,7 +31,7 @@ public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable {
         case .inReplyToUserID: return "in_reply_to_user_id"
         case .referencedTweetsID: return "referenced_tweets.id"
         case .referencedTweetsIDAuthorID: return "referenced_tweets.id.author_id"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
@@ -55,12 +54,12 @@ public enum TwitterUserExpansionsV2: TwitterExpansionsParameterV2, Hashable {
     public var stringValue: String {
         switch self {
         case .pinnedTweetID: return "pinned_tweet_id"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
     public static let all: Set<Self> = [
-        .pinnedTweetID
+        .pinnedTweetID,
     ]
 }
 
@@ -71,17 +70,16 @@ public enum TwitterListExpansionsV2: TwitterExpansionsParameterV2, Hashable {
     public var stringValue: String {
         switch self {
         case .ownerID: return "owner_id"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
     public static let all: Set<Self> = [
-        .ownerID
+        .ownerID,
     ]
 }
 
 public enum TwitterSpaceExpansionsV2: TwitterExpansionsParameterV2, Hashable {
-
     case invitedUserIDs
     case speakerIDs
     case creatorID
@@ -96,7 +94,7 @@ public enum TwitterSpaceExpansionsV2: TwitterExpansionsParameterV2, Hashable {
         case .creatorID: return "creator_id"
         case .hostIDs: return "host_ids"
         case .topicIDs: return "topic_ids"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 
@@ -124,7 +122,7 @@ public enum TwitterDmEventExpansionsV2: TwitterExpansionsParameterV2, Hashable {
         case .participantIDs: return "participant_ids"
         case .referencedTweetsID: return "referenced_tweets.id"
         case .senderID: return "sender_id"
-        case .other(let string): return string
+        case let .other(string): return string
         }
     }
 

@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class GetListsOwnershipsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = GetListsOwnershipsRequestV1(
@@ -37,7 +35,7 @@ class GetListsOwnershipsRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "name"
+                "screen_name": "name",
             ]
         )
     }

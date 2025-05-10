@@ -2,11 +2,9 @@ import TwitterAPIKit
 import XCTest
 
 class PostStatusesUpdateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-    }
+    override func tearDownWithError() throws {}
 
     func test() throws {
         let req = PostStatusesUpdateRequestV1(
@@ -60,7 +58,7 @@ class PostStatusesUpdateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "status": "_s_"
+                "status": "_s_",
             ]
         )
     }

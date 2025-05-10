@@ -6,12 +6,9 @@ import XCTest
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     class ConcurrencyTests: XCTestCase {
+        override func setUpWithError() throws {}
 
-        override func setUpWithError() throws {
-        }
-
-        override func tearDownWithError() throws {
-        }
+        override func tearDownWithError() throws {}
 
         func test() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
@@ -25,7 +22,8 @@ import XCTest
                 task.append(chunk: Data(":\"value\"}".utf8))
 
                 mockTask.httpResponse = .init(
-                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:])
+                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                )
 
                 task.complete(error: nil)
             }
@@ -101,7 +99,6 @@ import XCTest
         }
 
         func testTaskCancel() async throws {
-
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
             let task = TwitterAPISessionDelegatedJSONTask(
@@ -153,7 +150,6 @@ import XCTest
 
             var count = 0
             for await response in stream {
-
                 switch count {
                 case 0:
                     XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "aaaa")
@@ -175,7 +171,6 @@ import XCTest
         }
 
         func testStreamCancel() async throws {
-
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
@@ -203,7 +198,6 @@ import XCTest
         }
 
         func testStreamError() async throws {
-
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
@@ -214,12 +208,11 @@ import XCTest
             )
 
             let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
-            let stream = task.streamResponse(queue: .main).map({ resp in resp.map { String(data: $0, encoding: .utf8)! }
-            })
+            let stream = task.streamResponse(queue: .main).map { resp in resp.map { String(data: $0, encoding: .utf8)! }
+            }
             let asyncTask = Task {
                 var count = 0
                 for await resp in stream {
-
                     switch count {
                     case 0:
                         XCTAssertEqual(resp.success, "aaaa")

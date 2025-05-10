@@ -2,7 +2,6 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
 open class GetTweetsSearchRecentRequestV2: TwitterAPIRequest {
-
     public enum TwitterSearchTweetsSortOrderV2: String {
         case recency
         case relevancy
