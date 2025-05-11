@@ -28,10 +28,15 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~~~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.TweetFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.TweetFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
-            "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,reply_settings,source,text,withheld,~~~"
+            "attachments,author_id,context_annotations," +
+            "conversation_id,created_at,entities,geo,id," +
+            "in_reply_to_user_id,lang,non_public_metrics," +
+            "organic_metrics,possibly_sensitive,promoted_metrics," +
+            "public_metrics,referenced_tweets,reply_settings,source,text,withheld,~~~"
         )
     }
 
@@ -58,10 +63,13 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.UserFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.UserFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
-            "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld,~~"
+            "created_at,description,entities," +
+            "id,location,name,pinned_tweet_id," +
+            "profile_image_url,protected,public_metrics,url,username,verified,withheld,~~"
         )
     }
 
@@ -82,7 +90,8 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~~~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.PlaceFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.PlaceFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "contained_within,country,country_code,full_name,geo,id,name,place_type,~~~"
@@ -103,7 +112,8 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.PollFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.PollFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "duration_minutes,end_datetime,id,options,voting_status,~~"
@@ -132,13 +142,17 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~~~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.MediaFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.MediaFieldsParameter.schema.items.enum | sort | join(",")'
 
-        // Note: `url` is missing in https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/media
+        // Note: `url` is missing in
+        // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/media
         // https://twittercommunity.com/t/documentation-for-media-object-missing-url-field/163062
         XCTAssertEqual(
             allCases.commaSeparatedString,
-            "alt_text,duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,variants,width,~~~"
+            "alt_text,duration_ms,height,media_key" +
+            ",non_public_metrics,organic_metrics,preview_image_url" +
+            ",promoted_metrics,public_metrics,type,url,variants,width,~~~"
         )
     }
 
@@ -159,7 +173,8 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.ListFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.ListFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "created_at,description,follower_count,id,member_count,name,owner_id,private,~"
@@ -192,10 +207,13 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.SpaceFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.SpaceFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
-            "created_at,creator_id,ended_at,host_ids,id,invited_user_ids,is_ticketed,lang,participant_count,scheduled_start,speaker_ids,started_at,state,subscriber_count,title,topic_ids,updated_at,~~"
+            "created_at,creator_id,ended_at,host_ids," +
+            "id,invited_user_ids,is_ticketed,lang,participant_count," +
+            "scheduled_start,speaker_ids,started_at,state,subscriber_count,title,topic_ids,updated_at,~~"
         )
     }
 
@@ -211,7 +229,8 @@ internal class FieldsV2Tests: XCTestCase {
             .other("~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.TopicFieldsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.TopicFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "description,id,name,~"
@@ -235,7 +254,9 @@ internal class FieldsV2Tests: XCTestCase {
             .text,
             .other("~"),
         ].shuffled()
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.DmEventFieldsParameter.schema.items.enum | sort | join(",")'
+
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.DmEventFieldsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "attachments,created_at,dm_conversation_id,event_type,id,participant_ids,referenced_tweets,sender_id,text,~"

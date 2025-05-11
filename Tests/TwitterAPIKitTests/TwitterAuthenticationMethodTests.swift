@@ -1,7 +1,7 @@
 import TwitterAPIKit
 import XCTest
 
-final internal class TwitterAuthenticationMethodTests: XCTestCase {
+internal final class TwitterAuthenticationMethodTests: XCTestCase {
     // MARK: - OAuth10a
 
     public func testOAuth10aInit() throws {
@@ -54,8 +54,11 @@ final internal class TwitterAuthenticationMethodTests: XCTestCase {
                                 "expires_in" : 7200,
                                 "access_token" : "<token>"
                             }
-                """.utf8)
-            let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON)!
+                """.utf8
+            )
+            guard let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON) else {
+                XCTFail("Failed to decode token Response")
+            }
             let oauth20 = TwitterAuthenticationMethod.OAuth20(
                 clientID: "_client_id_",
                 token: token,
@@ -65,7 +68,7 @@ final internal class TwitterAuthenticationMethodTests: XCTestCase {
             XCTAssertEqual(oauth20.clientID, "_client_id_")
             XCTAssertEqual(oauth20.scope, ["tweet.write", "tweet.read", "offline.access"])
             XCTAssertEqual(oauth20.tokenType, "bearer")
-            XCTAssertEqual(oauth20.expiresIn, 7200)
+            XCTAssertEqual(oauth20.expiresIn, 7_200)
             XCTAssertEqual(oauth20.accessToken, "<token>")
             XCTAssertEqual(oauth20.refreshToken, "<refresh token>")
             XCTAssertEqual(oauth20.createdAt, createdAt)
@@ -98,15 +101,18 @@ final internal class TwitterAuthenticationMethodTests: XCTestCase {
                             "expires_in" : 7200,
                             "access_token" : "<token>"
                         }
-            """.utf8)
-        let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON)!
+            """.utf8
+        )
+        guard let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON) else {
+            XCTFail("Failed to decode token Response")
+        }
 
         oauth20.refresh(token: token, refreshedAt: refreshedAt)
 
         XCTAssertEqual(oauth20.clientID, "client_id")
         XCTAssertEqual(oauth20.scope, ["tweet.write", "tweet.read", "offline.access"])
         XCTAssertEqual(oauth20.tokenType, "bearer")
-        XCTAssertEqual(oauth20.expiresIn, 7200)
+        XCTAssertEqual(oauth20.expiresIn, 7_200)
         XCTAssertEqual(oauth20.accessToken, "<token>")
         XCTAssertEqual(oauth20.refreshToken, "<refresh token>")
         XCTAssertEqual(oauth20.createdAt, refreshedAt)

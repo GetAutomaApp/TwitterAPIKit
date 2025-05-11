@@ -2,7 +2,7 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-private internal class GetTwitterReqeust: TwitterAPIRequest {
+private class GetTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .get }
     var path: String { return "/get.json" }
     var parameters: [String: Any] {
@@ -10,7 +10,7 @@ private internal class GetTwitterReqeust: TwitterAPIRequest {
     }
 }
 
-private internal class PostTwitterReqeust: TwitterAPIRequest {
+private class PostTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .post }
     var path: String { return "/post.json" }
     var parameters: [String: Any] {
@@ -18,7 +18,7 @@ private internal class PostTwitterReqeust: TwitterAPIRequest {
     }
 }
 
-private internal class EmptyRequest: TwitterAPIRequest {
+private class EmptyRequest: TwitterAPIRequest {
     var method: HTTPMethod { return .get }
     var path: String { return "/empty.json" }
     var parameters: [String: Any] {

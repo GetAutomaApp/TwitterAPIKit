@@ -14,10 +14,12 @@ internal class TwitterOAuthAccessTokenV1Tests: XCTestCase {
 
     public func testQueryStringData() throws {
         let data = Data(
-            "oauth_token=token&oauth_token_secret=secret&user_id=uid&screen_name=name"
-                .utf8)
+            "oauth_token=token&oauth_token_secret=secret&user_id=uid&screen_name=name".utf8
+        )
 
-        let token = TwitterOAuthAccessTokenV1(queryStringData: data)!
+        guard let token = TwitterOAuthAccessTokenV1(queryStringData: data) else {
+            XCTFail("Failed to decode token Response")
+        }
 
         XCTAssertEqual(token.oauthToken, "token")
         XCTAssertEqual(token.oauthTokenSecret, "secret")

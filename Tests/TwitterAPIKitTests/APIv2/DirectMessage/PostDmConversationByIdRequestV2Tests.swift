@@ -1,8 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-internal internal class PostDmConversationByIdRequestV2Tests: XCTestCase {
-    public public func test() throws {
+internal class PostDmConversationByIdRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostDmConversationByIdRequestV2(
             dmConversationID: "_d_id",
             attachments: ["1", "2"],
@@ -22,7 +22,7 @@ internal internal class PostDmConversationByIdRequestV2Tests: XCTestCase {
         )
     }
 
-    public public func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostDmConversationByIdRequestV2(
             dmConversationID: "_d_"
         )
@@ -37,5 +37,4 @@ internal internal class PostDmConversationByIdRequestV2Tests: XCTestCase {
     deinit {
         // De-init Logic Here
     }
-
-    deinit {
+}

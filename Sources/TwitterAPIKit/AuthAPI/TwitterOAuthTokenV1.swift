@@ -5,7 +5,7 @@ public struct TwitterOAuthTokenV1 {
     public let oauthTokenSecret: String
     public let oauthCallbackConfirmed: Bool?
 
-    /// from:  oauth_token=zlgW3QAAAAAA2_NZAAABfxxxxxxk&oauth_token_secret=pBYEQzdbyMqIcyDzyn0X7LDxxxxxxxxx&oauth_callback_confirmed=true
+    /// from: oauth_token=zlgW32_NZAAABk&oauth_token_secret=pBYEQzdbyMqIcyDzyn0X7LD&oauth_callback_confirmed=true
     public init?(queryStringData: Data) {
         let query = String(data: queryStringData, encoding: .utf8)
 

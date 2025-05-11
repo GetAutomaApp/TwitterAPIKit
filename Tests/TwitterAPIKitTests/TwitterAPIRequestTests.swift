@@ -20,10 +20,21 @@ internal class TwitterAPIRequestTests: XCTestCase {
         var bodyContentType: BodyContentType = .wwwFormUrlEncoded
     }
 
-    private let env = TwitterAPIEnvironment(
-        apiURL: .init(string: "https://api.example.com")!,
-        uploadURL: .init(string: "https://upload.example.com")!
-    )
+    private var env: TwitterAPIEnvironment
+
+    override public init() {
+        let apiUrl = URL(string: "https://api.example.com")
+        let uploadUrl = URL(string: "https://upload.example.com")
+
+        guard let apiUrl, let uploadUrl else {
+            XCTFail("apiUrl / uploadUrl isn't valid")
+        }
+
+        env = .init(
+            apiURL: apiUrl,
+            uploadURL: uploadUrl
+        )
+    }
 
     public func testRequestURL() throws {
         XCTContext.runActivity(named: "api") { _ in
@@ -40,17 +51,17 @@ internal class TwitterAPIRequestTests: XCTestCase {
     public func testParameterForOAuth() throws {
         XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
             let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .wwwFormUrlEncoded)
-            XCTAssertEqual(req.parameterForOAuth as! [String: String], ["key": "value"])
+            XCTAssertEqual(req.parameterForOAuth as? [String: String], ["key": "value"])
         }
 
         XCTContext.runActivity(named: "json") { _ in
             let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .json)
-            XCTAssertEqual(req.parameterForOAuth as! [String: String], [:])
+            XCTAssertEqual(req.parameterForOAuth as? [String: String], [:])
         }
 
         XCTContext.runActivity(named: "multipartFormData") { _ in
             let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .multipartFormData)
-            XCTAssertEqual(req.parameterForOAuth as! [String: String], [:])
+            XCTAssertEqual(req.parameterForOAuth as? [String: String], [:])
         }
     }
 
@@ -63,8 +74,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 parameters: ["key": "value,🥓"]
             )
 
-            XCTAssertEqual(req.queryParameters as! [String: String], ["key": "value,🥓"])
-            XCTAssertEqual(req.bodyParameters as! [String: String], [:])
+            XCTAssertEqual(req.queryParameters as? [String: String], ["key": "value,🥓"])
+            XCTAssertEqual(req.bodyParameters as? [String: String], [:])
 
             let urlReq = try req.buildRequest(environment: env)
 
@@ -79,8 +90,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 parameters: ["key": "value,🥓"]
             )
 
-            XCTAssertEqual(req.queryParameters as! [String: String], [:])
-            XCTAssertEqual(req.bodyParameters as! [String: String], ["key": "value,🥓"])
+            XCTAssertEqual(req.queryParameters as? [String: String], [:])
+            XCTAssertEqual(req.bodyParameters as? [String: String], ["key": "value,🥓"])
 
             let urlReq = try req.buildRequest(environment: env)
 
@@ -95,8 +106,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 parameters: ["key": "value,🥓"]
             )
 
-            XCTAssertEqual(req.queryParameters as! [String: String], [:])
-            XCTAssertEqual(req.bodyParameters as! [String: String], ["key": "value,🥓"])
+            XCTAssertEqual(req.queryParameters as? [String: String], [:])
+            XCTAssertEqual(req.bodyParameters as? [String: String], ["key": "value,🥓"])
 
             let urlReq = try req.buildRequest(environment: env)
 
@@ -111,8 +122,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 parameters: ["key": "value,🥓"]
             )
 
-            XCTAssertEqual(req.queryParameters as! [String: String], ["key": "value,🥓"])
-            XCTAssertEqual(req.bodyParameters as! [String: String], [:])
+            XCTAssertEqual(req.queryParameters as? [String: String], ["key": "value,🥓"])
+            XCTAssertEqual(req.bodyParameters as? [String: String], [:])
 
             let urlReq = try req.buildRequest(environment: env)
 
@@ -146,9 +157,9 @@ internal class TwitterAPIRequestTests: XCTestCase {
             bodyParameters: ["body": "あ"]
         )
 
-        XCTAssertEqual(req.parameters as! [String: String], [:])
-        XCTAssertEqual(req.queryParameters as! [String: String], ["key": "value,🥓"])
-        XCTAssertEqual(req.bodyParameters as! [String: String], ["body": "あ"])
+        XCTAssertEqual(req.parameters as? [String: String], [:])
+        XCTAssertEqual(req.queryParameters as? [String: String], ["key": "value,🥓"])
+        XCTAssertEqual(req.bodyParameters as? [String: String], ["body": "あ"])
 
         let urlReq = try req.buildRequest(environment: env)
 
@@ -191,8 +202,18 @@ internal class TwitterAPIRequestTests: XCTestCase {
 
             let body = String(data: req.httpBody!, encoding: .utf8)!
 
-            let expect =
-                "--\(boundary)\r\nContent-Disposition: form-data; name=\"a\"\r\n\r\nvalue\r\n--\(boundary)\r\nContent-Disposition: form-data; name=\"b\"; filename=\"hoge.txt\"\r\nContent-Type: plain/text\r\n\r\nab\r\n--\(boundary)--\r\n"
+            let expect = """
+            --\(boundary)\r\n
+            Content-Disposition: form-data; name="a"\r\n
+            \r\n
+            value\r\n
+            --\(boundary)\r\n
+            Content-Disposition: form-data; name="b"; filename="hoge.txt"\r\n
+            Content-Type: plain/text\r\n
+            \r\n
+            ab\r\n
+            --\(boundary)--\r\n
+            """
 
             XCTAssertEqual(body, expect)
 
@@ -219,7 +240,7 @@ internal class TwitterAPIRequestTests: XCTestCase {
 
             let body = try JSONSerialization.jsonObject(with: req.httpBody!, options: [])
 
-            XCTAssertEqual(body as! [String: String], ["key": "value,🥓"])
+            XCTAssertEqual(body as? [String: String], ["key": "value,🥓"])
 
             try XCTContext.runActivity(
                 named: "Invalid",
@@ -231,9 +252,11 @@ internal class TwitterAPIRequestTests: XCTestCase {
                             bodyContentType: .json
                         ).buildRequest(environment: env)
                     ) { error in
-                        if case .jsonSerializationFailed(obj: _) = (error as! TwitterAPIKitError).requestFailureReason {
+                        if
+                            let error = error as? TwitterAPIKitError,
+                            case .jsonSerializationFailed(obj: _) = error.requestFailureReason {
                         } else {
-                            XCTFail()
+                            XCTFail("Unknown Error")
                         }
                     }
                 }
@@ -252,10 +275,11 @@ internal class TwitterAPIRequestTests: XCTestCase {
                             bodyContentType: .json
                         ).buildRequest(environment: env)
                     ) { error in
-
-                        if case .jsonSerializationFailed(obj: _) = (error as! TwitterAPIKitError).requestFailureReason {
+                        if
+                            let error = error as? TwitterAPIKitError,
+                            case .jsonSerializationFailed(obj: _) = error.requestFailureReason {
                         } else {
-                            XCTFail()
+                            XCTFail("Unknown Error")
                         }
                     }
                 }
