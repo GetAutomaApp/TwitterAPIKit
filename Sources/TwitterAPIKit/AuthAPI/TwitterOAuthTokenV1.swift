@@ -19,7 +19,7 @@ public struct TwitterOAuthTokenV1 {
         }
 
         let oauthCallbackConfirmed = comp.queryItems?
-            .first(where: { $0.name == "oauth_callback_confirmed" })
+            .first { $0.name == "oauth_callback_confirmed" }
             .map { $0.value == "true" }
 
         self.oauthToken = oauthToken

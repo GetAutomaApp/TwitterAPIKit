@@ -2,12 +2,8 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-class TwitterAPISessionSpecializedTaskTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class TwitterAPISessionSpecializedTaskTests: XCTestCase {
+    public func test() throws {
         let mockTask = MockTwitterAPISessionDataTask(
             data: Data("hoge".utf8), taskIdentifier: 10, currentRequest: nil, originalRequest: nil, httpResponse: nil
         )
@@ -18,18 +14,20 @@ class TwitterAPISessionSpecializedTaskTests: XCTestCase {
 
         let exp = expectation(description: "")
         exp.expectedFulfillmentCount = 2
-        task.responseObject(queue: .main) { response in
-            XCTAssertEqual(response.success, "hoge")
-            exp.fulfill()
-        }.responseData { response in
-            XCTAssertEqual(response.success, Data("hoge".utf8))
-            exp.fulfill()
-        }
+        task
+            .responseObject(queue: .main) { response in
+                XCTAssertEqual(response.success, "hoge")
+                exp.fulfill()
+            }
+            .responseData { response in
+                XCTAssertEqual(response.success, Data("hoge".utf8))
+                exp.fulfill()
+            }
 
         wait(for: [exp], timeout: 100)
     }
 
-    func testArray() throws {
+    public func testArray() throws {
         let mockTask1 = MockTwitterAPISessionDataTask(
             data: Data("hoge1".utf8), taskIdentifier: 10, currentRequest: nil, originalRequest: nil, httpResponse: nil
         )
@@ -56,5 +54,9 @@ class TwitterAPISessionSpecializedTaskTests: XCTestCase {
         }
 
         wait(for: [exp], timeout: 100)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

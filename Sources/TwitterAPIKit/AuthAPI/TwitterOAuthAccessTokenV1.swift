@@ -4,7 +4,8 @@ public struct TwitterOAuthAccessTokenV1 {
     public let oauthToken: String
     public let oauthTokenSecret: String
 
-    // According to RFC5849, there is no mention of the user_id and screen_name parameters, but TwitterAPI does include them in its response.
+    // According to RFC5849, there is no mention of the user_id and screen_name parameters,
+    // but TwitterAPI does include them in its response.
 
     public let userID: String?
     public let screenName: String?
@@ -27,8 +28,8 @@ public struct TwitterOAuthAccessTokenV1 {
 
         self.oauthToken = oauthToken
         self.oauthTokenSecret = oauthTokenSecret
-        userID = comp.queryItems?.first(where: { $0.name == "user_id" })?.value
-        screenName = comp.queryItems?.first(where: { $0.name == "screen_name" })?.value
+        userID = comp.queryItems?.first { $0.name == "user_id" }?.value
+        screenName = comp.queryItems?.first { $0.name == "screen_name" }?.value
     }
 
     public init(

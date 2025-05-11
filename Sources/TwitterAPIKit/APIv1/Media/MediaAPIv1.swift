@@ -27,13 +27,12 @@ open class MediaAPIv1: TwitterAPIBase {
         _ request: UploadMediaAppendRequestV1,
         maxBytes: Int = 5_242_880 /* 5MB */
     ) -> [TwitterAPISessionSpecializedTask<String /* mediaID */>] {
-        let tasks = request.segments(maxBytes: maxBytes)
+        return request.segments(maxBytes: maxBytes)
             .map { req in
                 uploadMediaAppend(req).specialized { _ in
                     req.mediaID
                 }
             }
-        return tasks
     }
 
     /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-finalize
@@ -63,17 +62,17 @@ open class MediaAPIv1: TwitterAPIBase {
             queue: .processQueue
         ) { [weak self] response in
 
-            guard let self = self else { return }
+            guard let self else { return }
 
             let mediaID: String
             do {
                 mediaID = try response.result.get().mediaID
             } catch {
-                completionHandler(response.map { $0.mediaID })
+                completionHandler(response.map(\.mediaID))
                 return
             }
 
-            self.uploadMediaAppendSplitChunks(
+            uploadMediaAppendSplitChunks(
                 .init(
                     mediaID: mediaID,
                     filename: parameters.filename,
@@ -81,38 +80,41 @@ open class MediaAPIv1: TwitterAPIBase {
                     media: parameters.media,
                     segmentIndex: 0
                 ), maxBytes: parameters.uploadChunkSize ?? 5_242_880
-            ).responseObject(queue: .processQueue) { [weak self] responses in
+            )
+            .responseObject(queue: .processQueue) { [weak self] responses in
 
-                guard let self = self else { return }
+                guard let self else { return }
 
-                if let error = responses.first(where: { $0.isError }) {
+                if let error = responses.first { $0.isError } {
                     completionHandler(error)
                     return
                 }
 
-                self.uploadMediaFinalize(.init(mediaID: mediaID))
-                    .responseDecodable(type: TwitterAPIClient.UploadMediaFinalizeResponse.self, queue: .processQueue) {
-                        [weak self] response in
-                        guard let self = self else { return }
+                uploadMediaFinalize(.init(mediaID: mediaID))
+                    .responseDecodable(
+                        type: TwitterAPIClient.UploadMediaFinalizeResponse.self,
+                        queue: .processQueue
+                    ) { [weak self] response in
+                        guard let self else { return }
 
                         var finalizeResult: TwitterAPIClient.UploadMediaFinalizeResponse
                         do {
                             finalizeResult = try response.result.get()
                         } catch {
-                            completionHandler(response.map { $0.mediaID })
+                            completionHandler(response.map(\.mediaID))
                             return
                         }
 
                         guard let processingInfo = finalizeResult.processingInfo else {
-                            completionHandler(response.map { $0.mediaID })
+                            completionHandler(response.map(\.mediaID))
                             return
                         }
 
-                        self.waitMediaProcessing(
+                        waitMediaProcessing(
                             mediaID: mediaID,
                             initialWaitSec: processingInfo.checkAfterSecs ?? 0
                         ) { response in
-                            completionHandler(response.map { $0.mediaID })
+                            completionHandler(response.map(\.mediaID))
                         }
                     }
             }
@@ -127,8 +129,8 @@ open class MediaAPIv1: TwitterAPIBase {
         ) -> Void
     ) {
         DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(initialWaitSec)) { [weak self] in
-            guard let self = self else { return }
-            self.waitMediaProcessing(mediaID: mediaID, completionHandler: completionHandler)
+            guard let self else { return }
+            waitMediaProcessing(mediaID: mediaID, completionHandler: completionHandler)
         }
     }
 
@@ -139,9 +141,11 @@ open class MediaAPIv1: TwitterAPIBase {
         ) -> Void
     ) {
         _ = getUploadMediaStatus(.init(mediaID: mediaID))
-            .responseDecodable(type: TwitterAPIClient.UploadMediaStatusResponse.self, queue: .processQueue) {
-                [weak self] response in
-                guard let self = self else { return }
+            .responseDecodable(
+                type: TwitterAPIClient.UploadMediaStatusResponse.self,
+                queue: .processQueue
+            ) { [weak self] response in
+                guard let self else { return }
 
                 do {
                     let success = try response.result.get()
@@ -150,7 +154,7 @@ open class MediaAPIv1: TwitterAPIBase {
                     case let .pending(checkAfterSecs: sec),
                          let .inProgress(checkAfterSecs: sec, progressPercent: _):
 
-                        self.waitMediaProcessing(
+                        waitMediaProcessing(
                             mediaID: mediaID,
                             initialWaitSec: sec,
                             completionHandler: completionHandler
@@ -196,5 +200,9 @@ open class MediaAPIv1: TwitterAPIBase {
         _ request: PostMediaSubtitlesDeleteRequestV1
     ) -> TwitterAPISessionDataTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

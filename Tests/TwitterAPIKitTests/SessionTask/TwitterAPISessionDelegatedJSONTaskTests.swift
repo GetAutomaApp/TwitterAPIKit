@@ -2,16 +2,12 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-struct DecodableObj: Decodable, Equatable {
-    let key: String
+internal struct DecodableObj: Decodable, Equatable {
+    public let key: String
 }
 
-class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func testSuccess() throws {
+internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
+    public func testSuccess() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
         let task = TwitterAPISessionDelegatedJSONTask(
@@ -78,7 +74,7 @@ class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testInvalidStatusCode() throws {
+    public func testInvalidStatusCode() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
         let task = TwitterAPISessionDelegatedJSONTask(
@@ -126,7 +122,7 @@ class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testCompleteWithError() throws {
+    public func testCompleteWithError() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
         let task = TwitterAPISessionDelegatedJSONTask(
@@ -162,7 +158,7 @@ class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testCancel() throws {
+    public func testCancel() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
         let task = TwitterAPISessionDelegatedJSONTask(
@@ -201,9 +197,13 @@ class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         XCTAssertTrue(mockTask.cancelled)
     }
 
-    func testEXC_BAD_INSTRUCTION() throws {
+    public func testEXC_BAD_INSTRUCTION() throws {
         // EXC_BAD_INSTRUCTION will occur if the Dispatch Queue is released while suspended.
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
         _ = TwitterAPISessionDelegatedJSONTask(task: mockTask)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

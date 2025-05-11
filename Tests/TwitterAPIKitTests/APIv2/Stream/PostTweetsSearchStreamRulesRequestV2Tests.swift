@@ -9,7 +9,8 @@ internal class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
                 operation: .add([
                     .init(value: "value", tag: "tag"),
                     .init(value: "hoge"),
-                ]))
+                ])
+            )
 
             XCTAssertEqual(add.method, .post)
             XCTAssertEqual(add.path, "/2/tweets/search/stream/rules")

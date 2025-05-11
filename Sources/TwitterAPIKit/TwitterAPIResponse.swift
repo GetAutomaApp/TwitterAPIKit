@@ -52,10 +52,10 @@ public extension TwitterAPIResponse {
 
     func tryMap<NewSuccess>(_ transform: (Success) throws -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
         let nextResult: Result<NewSuccess, TwitterAPIKitError> = result.flatMap { data in
-            let r: Result<NewSuccess, Error> = .init {
+            let result: Result<NewSuccess, Error> = .init {
                 try transform(data)
             }
-            return r.mapError { TwitterAPIKitError(error: $0) }
+            return result.mapError { TwitterAPIKitError(error: $0) }
         }
         return .init(
             request: request,
@@ -116,7 +116,7 @@ public extension TwitterAPIResponse {
                 + "\n\(rateLimitStr)"
                 + "\n\(error.localizedDescription)"
                 + "\n<"
-                + "\n\(body.count == 0 ? "Empty body" : body.unescapeSlash)"
+                + "\n\(body.isEmpty ? "Empty body" : body.unescapeSlash)"
         case .success:
             return "-- Request success --"
                 + "\n\(request)"
@@ -127,7 +127,7 @@ public extension TwitterAPIResponse {
                 + "\n\(responseContentLength)"
                 + "\n\(rateLimitStr)"
                 + "\n<"
-                + "\n\(body.count == 0 ? "Empty body" : body.unescapeSlash)"
+                + "\n\(body.isEmpty ? "Empty body" : body.unescapeSlash)"
         }
     }
 }

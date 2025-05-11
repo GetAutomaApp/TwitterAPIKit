@@ -17,10 +17,10 @@ open class PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["oauth_callback"] = oauthCallback
-        xAuthAccessType.map { p["x_auth_access_type"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["oauth_callback"] = oauthCallback
+        xAuthAccessType.map { params["x_auth_access_type"] = $0 }
+        return params
     }
 
     public init(
@@ -29,5 +29,9 @@ open class PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
     ) {
         self.oauthCallback = oauthCallback
         self.xAuthAccessType = xAuthAccessType
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

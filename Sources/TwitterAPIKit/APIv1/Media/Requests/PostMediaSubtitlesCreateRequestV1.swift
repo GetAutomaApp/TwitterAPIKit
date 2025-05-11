@@ -40,10 +40,10 @@ open class PostMediaSubtitlesCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["media_id"] = mediaID
-        p["media_category"] = mediaCategory
-        p["subtitle_info"] = [
+        var params = [String: Any]()
+        params["media_id"] = mediaID
+        params["media_category"] = mediaCategory
+        params["subtitle_info"] = [
             "subtitles": subtitles.map {
                 [
                     "media_id": $0.mediaID,
@@ -52,7 +52,7 @@ open class PostMediaSubtitlesCreateRequestV1: TwitterAPIRequest {
                 ]
             },
         ]
-        return p
+        return params
     }
 
     public init(
@@ -63,5 +63,9 @@ open class PostMediaSubtitlesCreateRequestV1: TwitterAPIRequest {
         self.mediaID = mediaID
         self.mediaCategory = mediaCategory
         self.subtitles = subtitles
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

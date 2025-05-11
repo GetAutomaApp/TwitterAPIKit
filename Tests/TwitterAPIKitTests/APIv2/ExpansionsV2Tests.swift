@@ -16,10 +16,13 @@ internal class ExpansionsV2Tests: XCTestCase {
             .other("~~~"),
         ]
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.TweetExpansionsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.TweetExpansionsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
-            "attachments.media_keys,attachments.poll_ids,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id,~~~"
+            "attachments.media_keys,attachments.poll_ids,author_id," +
+            "entities.mentions.username,geo.place_id,in_reply_to_user_id," +
+            "referenced_tweets.id,referenced_tweets.id.author_id,~~~"
         )
     }
 
@@ -33,7 +36,8 @@ internal class ExpansionsV2Tests: XCTestCase {
             .other("~~~"),
         ]
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.UserExpansionsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.UserExpansionsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "pinned_tweet_id,~~~"
@@ -50,7 +54,8 @@ internal class ExpansionsV2Tests: XCTestCase {
             .other("~~~"),
         ]
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.ListExpansionsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.ListExpansionsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "owner_id,~~~"
@@ -71,7 +76,8 @@ internal class ExpansionsV2Tests: XCTestCase {
             .other("~~~"),
         ]
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.SpaceExpansionsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.SpaceExpansionsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "creator_id,host_ids,invited_user_ids,speaker_ids,topic_ids,~~~"
@@ -91,7 +97,8 @@ internal class ExpansionsV2Tests: XCTestCase {
             .other("~~~"),
         ].shuffled()
 
-        // curl https://api.twitter.com/2/openapi.json | jq '.components.parameters.DmEventExpansionsParameter.schema.items.enum | sort | join(",")'
+        // curl https://api.twitter.com/2/openapi.json | \
+        // jq '.components.parameters.DmEventExpansionsParameter.schema.items.enum | sort | join(",")'
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "attachments.media_keys,participant_ids,referenced_tweets.id,sender_id,~~~"

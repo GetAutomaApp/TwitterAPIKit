@@ -17,13 +17,13 @@ open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["banner"] = banner.base64EncodedString()
-        width.map { p["width"] = $0 }
-        height.map { p["height"] = $0 }
-        offsetTop.map { p["offset_top"] = $0 }
-        offsetLeft.map { p["offset_left"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["banner"] = banner.base64EncodedString()
+        width.map { params["width"] = $0 }
+        height.map { params["height"] = $0 }
+        offsetTop.map { params["offset_top"] = $0 }
+        offsetLeft.map { params["offset_left"] = $0 }
+        return params
     }
 
     public init(
@@ -38,5 +38,9 @@ open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
         self.height = height
         self.offsetTop = offsetTop
         self.offsetLeft = offsetLeft
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

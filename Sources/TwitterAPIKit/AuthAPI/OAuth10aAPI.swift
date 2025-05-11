@@ -63,4 +63,8 @@ open class OAuth10aAPI: TwitterAPIBase {
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

@@ -9,7 +9,9 @@ internal class TwitterAPIResponseTests: XCTestCase {
             "x-rate-limit-reset": "10000",
         ])
         let data = Data("{}".utf8)
-        let url = URL(string: "https://example.com")!
+        guard let url = URL(string: "https://example.com") else {
+            XCTFail("Failed to decode url Response")
+        }
 
         let response: TwitterAPIResponse<Data> = TwitterAPIResponse(
             request: .init(url: url),
@@ -28,17 +30,17 @@ internal class TwitterAPIResponseTests: XCTestCase {
         XCTAssertTrue(response.prettyString.hasPrefix("-- Request success --"))
 
         XCTContext.runActivity(named: "map") { _ in
-            let mapped = response.map { data in
-                try! JSONSerialization.jsonObject(with: data, options: [])
+            let mapped = response.compactMap { data in
+                try? JSONSerialization.jsonObject(with: data, options: [])
             }
-            XCTAssertEqual(mapped.success as! [String: String], [:])
+            XCTAssertEqual(mapped.success as? [String: String], [:])
         }
 
         XCTContext.runActivity(named: "tryMap") { _ in
             let mapped = response.tryMap { data in
                 try JSONSerialization.jsonObject(with: data, options: [])
             }
-            XCTAssertEqual(mapped.success as! [String: String], [:])
+            XCTAssertEqual(mapped.success as? [String: String], [:])
         }
 
         XCTContext.runActivity(named: "tryMapWithError") { _ in
@@ -46,7 +48,7 @@ internal class TwitterAPIResponseTests: XCTestCase {
                 throw NSError(domain: "", code: 0, userInfo: nil)
             }
             XCTAssertTrue(mapped.isError)
-            XCTAssertTrue(mapped.error!.isUnkonwn)
+            XCTAssertTrue(mapped.error.isMockURLProtocolUnkonwn)
             XCTAssertTrue(mapped.prettyString.hasPrefix("-- Request failure --"))
 
             XCTContext.runActivity(named: "mapError") { _ in
@@ -54,7 +56,7 @@ internal class TwitterAPIResponseTests: XCTestCase {
                     .responseFailed(reason: .invalidResponse(error: nil))
                 }
 
-                XCTAssertTrue(errored.error!.isResponseFailed)
+                XCTAssertTrue(errored.error.isResponseFailed)
             }
         }
 

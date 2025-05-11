@@ -15,4 +15,8 @@ open class PostOAuthInvalidateTokenRequestV1: TwitterAPIRequest {
     }
 
     public init() {}
+
+    deinit {
+        // De-init Logic Here
+    }
 }

@@ -1,7 +1,7 @@
 import TwitterAPIKit
 import XCTest
 
-final internal class TwitterAPIKitTests: XCTestCase {
+internal final class TwitterAPIKitTests: XCTestCase {
     public func testExample() throws {}
 
     deinit {

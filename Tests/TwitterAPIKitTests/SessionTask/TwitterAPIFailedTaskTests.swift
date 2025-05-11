@@ -1,12 +1,8 @@
 import TwitterAPIKit
 import XCTest
 
-class TwitterAPIFailedTaskTests: XCTestCase {
-    override func setUpWithError() throws {}
-
-    override func tearDownWithError() throws {}
-
-    func test() throws {
+internal class TwitterAPIFailedTaskTests: XCTestCase {
+    public func test() throws {
         let task = TwitterAPIFailedTask(.responseFailed(reason: .invalidResponse(error: nil)))
 
         XCTAssertTrue(task.error.isResponseFailed)
@@ -59,8 +55,11 @@ class TwitterAPIFailedTaskTests: XCTestCase {
             dispatchPrecondition(condition: .onQueue(.main))
             exp.fulfill()
         }
-        .responseDecodable(type: DecodableObj.self, decoder: JSONDecoder(), queue: .global(qos: .userInteractive)) {
-            response in
+        .responseDecodable(
+            type: DecodableObj.self,
+            decoder: JSONDecoder(),
+            queue: .global(qos: .userInteractive)
+        ) { response in
 
             XCTAssertNotNil(response.error)
             XCTAssertTrue(response.isError)
@@ -71,7 +70,7 @@ class TwitterAPIFailedTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testStream() throws {
+    public func testStream() throws {
         let task = TwitterAPIFailedTask(.responseFailed(reason: .invalidResponse(error: nil)))
 
         let exp = expectation(description: "")
@@ -90,5 +89,9 @@ class TwitterAPIFailedTaskTests: XCTestCase {
         }
 
         wait(for: [exp], timeout: 10)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

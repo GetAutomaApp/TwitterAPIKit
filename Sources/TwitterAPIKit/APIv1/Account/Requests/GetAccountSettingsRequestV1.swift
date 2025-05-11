@@ -15,4 +15,8 @@ open class GetAccountSettingsRequestV1: TwitterAPIRequest {
     }
 
     public init() {}
+
+    deinit {
+        // De-init Logic Here
+    }
 }

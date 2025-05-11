@@ -47,7 +47,7 @@ public struct TwitterOAuth2AccessToken {
 }
 
 extension TwitterOAuth2AccessToken {
-    static func fromResponse(data: Data) throws -> Self {
+    public static func fromResponse(data: Data) throws -> Self {
         do {
             guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
                 throw TwitterAPIKitError.responseSerializeFailed(

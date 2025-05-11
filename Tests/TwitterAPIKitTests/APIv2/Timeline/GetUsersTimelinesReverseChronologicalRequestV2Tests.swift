@@ -1,6 +1,7 @@
 import TwitterAPIKit
 import XCTest
 
+// swiftlint:disable:next type_name
 internal class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
     public func test() throws {
         let req = GetUsersTimelinesReverseChronologicalRequestV2(

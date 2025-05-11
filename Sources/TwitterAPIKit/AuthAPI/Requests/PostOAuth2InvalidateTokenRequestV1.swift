@@ -13,14 +13,18 @@ open class PostOAuth2InvalidateTokenRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["access_token"] = accessToken
-        return p
+        var params = [String: Any]()
+        params["access_token"] = accessToken
+        return params
     }
 
     public init(
         accessToken: String
     ) {
         self.accessToken = accessToken
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -14,10 +14,10 @@ open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["oauth_token"] = oauthToken
-        p["oauth_verifier"] = oauthVerifier
-        return p
+        var params = [String: Any]()
+        params["oauth_token"] = oauthToken
+        params["oauth_verifier"] = oauthVerifier
+        return params
     }
 
     public init(
@@ -26,5 +26,9 @@ open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
     ) {
         self.oauthToken = oauthToken
         self.oauthVerifier = oauthVerifier
+    }
+
+    deinit {
+        // De-init logic here
     }
 }

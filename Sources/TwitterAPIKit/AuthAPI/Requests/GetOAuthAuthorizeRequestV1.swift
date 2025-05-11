@@ -15,11 +15,11 @@ open class GetOAuthAuthorizeRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["oauth_token"] = oauthToken
-        forceLogin.map { p["force_login"] = $0 }
-        screenName.map { p["screen_name"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["oauth_token"] = oauthToken
+        forceLogin.map { params["force_login"] = $0 }
+        screenName.map { params["screen_name"] = $0 }
+        return params
     }
 
     public init(
@@ -30,5 +30,9 @@ open class GetOAuthAuthorizeRequestV1: TwitterAPIRequest {
         self.oauthToken = oauthToken
         self.forceLogin = forceLogin
         self.screenName = screenName
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

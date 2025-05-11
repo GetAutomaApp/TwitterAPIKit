@@ -17,13 +17,13 @@ open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
     }
 
     public var parameters: [String: Any] {
-        var p = [String: String]()
-        p["code"] = code
-        p["grant_type"] = grantType
-        clientID.map { p["client_id"] = $0 }
-        p["redirect_uri"] = redirectURI
-        p["code_verifier"] = codeVerifier
-        return p
+        var params = [String: String]()
+        params["code"] = code
+        params["grant_type"] = grantType
+        clientID.map { params["client_id"] = $0 }
+        params["redirect_uri"] = redirectURI
+        params["code_verifier"] = codeVerifier
+        return params
     }
 
     public init(
@@ -38,5 +38,9 @@ open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
         self.clientID = clientID
         self.redirectURI = redirectURI
         self.codeVerifier = codeVerifier
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

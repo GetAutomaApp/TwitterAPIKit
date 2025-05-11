@@ -30,14 +30,12 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        let p: [String: MultipartFormDataPart] = [
+        return [
             "command": .value(name: "command", value: command),
             "media_id": .value(name: "media_id", value: mediaID),
             "media": .data(name: "media", value: media, filename: filename, mimeType: mimeType),
             "segment_index": .value(name: "segment_index", value: segmentIndex),
         ]
-
-        return p
     }
 
     public init(
@@ -55,7 +53,7 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
     }
 
     open func segments(maxBytes: Int) -> [UploadMediaAppendRequestV1] {
-        var requests = [UploadMediaAppendRequestV1]()
+        var requests = [Self]()
         let totalDataSize = media.count
         var currentSegmentIndex = 0
         repeat {
@@ -73,5 +71,9 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
         } while ((currentSegmentIndex + 1) * maxBytes) < totalDataSize
 
         return requests
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -18,7 +18,10 @@ import XCTest
                 task.append(chunk: Data(":\"value\"}".utf8))
 
                 mockTask.httpResponse = .init(
-                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                    url: URL(string: "http://example.com"),
+                    statusCode: 200,
+                    httpVersion: "1.1",
+                    headerFields: [:]
                 )
 
                 task.complete(error: nil)
@@ -36,7 +39,7 @@ import XCTest
 
             do {
                 let obj = await responseObj.success
-                AssertEqualAnyDict(obj as! [String: Any], ["key": "value"])
+                AssertEqualAnyDict(obj as? [String: Any], ["key": "value"])
             }
 
             do {
@@ -45,8 +48,8 @@ import XCTest
             }
 
             do {
-                let a = await aResponse.success
-                XCTAssertEqual(a, "a")
+                let aSuccess = await aResponse.success
+                XCTAssertEqual(aSuccess, "a")
             }
         }
 
@@ -73,22 +76,22 @@ import XCTest
 
             do {
                 let error = await response.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error.isCancelled)
             }
 
             do {
                 let error = await responseObj.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error.isCancelled)
             }
 
             do {
                 let error = await responseDecodable.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error.isCancelled)
             }
 
             do {
                 let error = await aResponse.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error.isCancelled)
             }
 
             XCTAssertTrue(mockTask.cancelled)
@@ -102,11 +105,11 @@ import XCTest
             )
 
             let asyncTask = Task { () -> [TwitterAPIResponse<Void>] in
-                async let r0 = task.responseData.map { _ in () }
-                async let r1 = task.responseObject.map { _ in () }
-                async let r2 = task.responseDecodable(type: DecodableObj.self).map { _ in () }
-                async let r3 = task.specialized { _ in () }.responseObject
-                return await [r0, r1, r2, r3]
+                async let rt0 = task.responseData.map { _ in () }
+                async let rt1 = task.responseObject.map { _ in () }
+                async let rt2 = task.responseDecodable(type: DecodableObj.self).map { _ in () }
+                async let rt3 = task.specialized { _ in () }.responseObject
+                return await [rt0, rt1, rt2, rt3]
             }
 
             DispatchQueue.global(qos: .default).async {
@@ -117,12 +120,12 @@ import XCTest
                 task.complete(error: URLError(.cancelled))
             }
 
-            let rs = await asyncTask.value
+            let rss = await asyncTask.value
             XCTAssertTrue(mockTask.cancelled)
             XCTAssertTrue(asyncTask.isCancelled)
             XCTAssertEqual(rs.count, 4)
-            for r in rs {
-                XCTAssertTrue(r.error!.isCancelled)
+            for res in rss {
+                XCTAssertTrue(r.error.isCancelled)
             }
         }
 
@@ -132,7 +135,10 @@ import XCTest
                 currentRequest: nil,
                 originalRequest: nil,
                 httpResponse: .init(
-                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                    url: URL(string: "http://example.com"),
+                    statusCode: 200,
+                    httpVersion: "1.1",
+                    headerFields: [:]
                 )
             )
 
@@ -156,7 +162,7 @@ import XCTest
                 case 3:
                     XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "あ")
                 default:
-                    XCTFail()
+                    XCTFail("Invalid Response")
                 }
                 count += 1
                 if count == 4 {
@@ -199,13 +205,17 @@ import XCTest
                 currentRequest: nil,
                 originalRequest: nil,
                 httpResponse: .init(
-                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                    url: URL(string: "http://example.com"),
+                    statusCode: 200,
+                    httpVersion: "1.1",
+                    headerFields: [:]
                 )
             )
 
             let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
-            let stream = task.streamResponse(queue: .main).map { resp in resp.map { String(data: $0, encoding: .utf8)! }
-            }
+            let stream = task.streamResponse(
+                queue: .main
+            ).map {resp in resp.compactMap { String(data: $0, encoding: .utf8) }}
             let asyncTask = Task {
                 var count = 0
                 for await resp in stream {
@@ -219,7 +229,7 @@ import XCTest
                     case 2:
                         XCTAssertTrue(resp.isError)
                     default:
-                        XCTFail()
+                        XCTFail('Invalid Response')
                     }
                     count += 1
                 }
@@ -234,8 +244,8 @@ import XCTest
             await asyncTask.value
         }
 
-    deinit {
-        // De-init Logic Here
-    }
+        deinit {
+            // De-init Logic Here
+        }
     }
 #endif

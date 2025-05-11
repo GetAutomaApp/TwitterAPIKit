@@ -30,12 +30,12 @@ internal class TwitterAPISessionTests: XCTestCase {
     private let environment = TwitterAPIEnvironment(
         twitterURL: URL(string: "https://twitter.example.com")!,
         apiURL: URL(string: "https://api.example.com")!,
-        uploadURL: URL(string: "https://upload.example.com")!
+        uploadURL: URL(string: "https://upload.xample.com")!
     )
 
     lazy var session: TwitterAPISession = {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         return TwitterAPISession(
             auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -95,7 +95,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testStream() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .bearer("bearer_token"),
@@ -132,7 +132,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testBasicAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .basic(apiKey: "api_key", apiSecretKey: "api_secret_key"),
@@ -153,7 +153,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testBearerAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .bearer("bearer_token"),
@@ -174,7 +174,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testNoneAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let session = TwitterAPISession(
             auth: .none,
@@ -195,7 +195,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testOAuth10aAuth() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
             configuration: config,
@@ -215,7 +215,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testOAuth20() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .oauth20(
                 .init(
@@ -244,7 +244,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testRequestOAuth20WithPKCEConfidentialClient() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .requestOAuth20WithPKCE(.confidentialClient(clientID: "client_id", clientSecret: "client_secret")),
             configuration: config,
@@ -264,7 +264,7 @@ internal class TwitterAPISessionTests: XCTestCase {
 
     public func testRequestOAuth20WithPKCEPublicClient() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
             auth: .requestOAuth20WithPKCE(.publicClient),
             configuration: config,

@@ -27,4 +27,8 @@ open class UploadMediaFinalizeRequestV1: TwitterAPIRequest {
     public init(mediaID: String) {
         self.mediaID = mediaID
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

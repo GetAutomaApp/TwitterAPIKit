@@ -15,11 +15,11 @@ open class GetAccountVerifyCredentialsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        skipStatus.map { p["skip_status"] = $0 }
-        includeEmail.map { p["include_email"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        skipStatus.map { params["skip_status"] = $0 }
+        includeEmail.map { params["include_email"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(
@@ -30,5 +30,9 @@ open class GetAccountVerifyCredentialsRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
         self.includeEmail = includeEmail
         self.includeEntities = includeEntities
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

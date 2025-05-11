@@ -15,11 +15,11 @@ open class PostAccountUpdateProfileImageRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["image"] = image.base64EncodedString()
-        skipStatus.map { p["skip_status"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["image"] = image.base64EncodedString()
+        skipStatus.map { params["skip_status"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(
@@ -30,5 +30,9 @@ open class PostAccountUpdateProfileImageRequestV1: TwitterAPIRequest {
         self.image = image
         self.skipStatus = skipStatus
         self.includeEntities = includeEntities
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

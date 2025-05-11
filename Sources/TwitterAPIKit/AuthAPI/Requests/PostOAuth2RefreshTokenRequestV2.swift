@@ -16,13 +16,13 @@ open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
     }
 
     public var parameters: [String: Any] {
-        var p = [String: String]()
+        var params = [String: String]()
 
-        p["refresh_token"] = refreshToken
-        p["grant_type"] = grantType
+        params["refresh_token"] = refreshToken
+        params["grant_type"] = grantType
         clientID.map { p["client_id"] = $0 }
 
-        return p
+        return params
     }
 
     public init(
@@ -33,5 +33,9 @@ open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
         self.refreshToken = refreshToken
         self.grantType = grantType
         self.clientID = clientID
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

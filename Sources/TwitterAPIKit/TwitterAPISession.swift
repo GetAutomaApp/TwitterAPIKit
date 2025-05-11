@@ -4,7 +4,8 @@ open class TwitterAPISession {
     public private(set) var auth: TwitterAuthenticationMethod
     public let session: URLSession
     public let environment: TwitterAPIEnvironment
-    let sessionDelegate = TwitterAPISessionDelegate()
+    internal let sessionDelegate = TwitterAPISessionDelegate()
+
     public init(
         auth: TwitterAuthenticationMethod,
         configuration: URLSessionConfiguration,
@@ -95,7 +96,7 @@ open class TwitterAPISession {
         return urlRequest
     }
 
-    func refreshOAuth20Token(_ refreshedToken: TwitterAuthenticationMethod.OAuth20) {
+    internal func refreshOAuth20Token(_ refreshedToken: TwitterAuthenticationMethod.OAuth20) {
         guard case .oauth20 = auth else {
             return
         }

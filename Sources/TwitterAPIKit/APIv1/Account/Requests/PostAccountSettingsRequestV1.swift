@@ -48,4 +48,8 @@ open class PostAccountSettingsRequestV1: TwitterAPIRequest {
         self.sleepTimeEnabled = sleepTimeEnabled
         self.trendLocationWoeid = trendLocationWoeid
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

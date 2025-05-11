@@ -53,15 +53,15 @@ public extension TwitterAPIClient {
         }
 
         public var enumState: State {
-            if state == "pending", let checkAfterSecs = checkAfterSecs {
+            if state == "pending", let checkAfterSecs{
                 return .pending(checkAfterSecs: checkAfterSecs)
             }
 
-            if state == "in_progress", let checkAfterSecs = checkAfterSecs, let progressPercent = progressPercent {
+            if state == "in_progress", let checkAfterSecs, let progressPercent {
                 return .inProgress(checkAfterSecs: checkAfterSecs, progressPercent: progressPercent)
             }
 
-            if state == "failed", let error = error {
+            if state == "failed", let error {
                 return .failed(error: error)
             }
 

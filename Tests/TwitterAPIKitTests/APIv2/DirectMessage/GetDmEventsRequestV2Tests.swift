@@ -1,7 +1,7 @@
 import TwitterAPIKit
 import XCTest
 
-class GetDmEventsRequestV2Tests: XCTestCase {
+internal class GetDmEventsRequestV2Tests: XCTestCase {
     public func test() throws {
         let req = GetDmEventsRequestV2(
             maxResults: 10,

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol TwitterAPISessionDelegatedJSONTaskDelegate: AnyObject {
+internal protocol TwitterAPISessionDelegatedJSONTaskDelegate: AnyObject {
     func didFinishQueueInJsonTask(task: TwitterAPISessionDelegatedJSONTask)
 }
 
@@ -21,7 +21,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         return task.httpResponse
     }
 
-    weak var delegate: TwitterAPISessionDelegatedJSONTaskDelegate?
+    internal weak var delegate: TwitterAPISessionDelegatedJSONTaskDelegate?
 
     public private(set) var error: Error?
     public var data: Data? {
@@ -31,7 +31,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
 
     public private(set) var completed = false
 
-    let task: TwitterAPISessionTask
+    internal let task: TwitterAPISessionTask
 
     private let taskQueue: DispatchQueue
     private var dataChunk: Data = .init()
@@ -52,27 +52,27 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         }
     }
 
-    func append(chunk: Data) {
+    private func append(chunk: Data) {
         dataChunk.append(chunk)
     }
 
-    func complete(error: Error?) {
+    private func complete(error: Error?) {
         self.error = error
         completed = true
 
         group.notify(queue: taskQueue) { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             self.delegate?.didFinishQueueInJsonTask(task: self)
         }
         taskQueue.resume()
     }
 
     private func getResponse() -> TwitterAPIResponse<Data> {
-        guard completed, let data = data else {
+        guard completed, let data else {
             fatalError("Request not completed yet.")
         }
 
-        guard error == nil, let httpResponse = httpResponse else {
+        guard error == nil, let httpResponse else {
             return TwitterAPIResponse(
                 request: currentRequest,
                 response: httpResponse,
@@ -93,7 +93,9 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
                     .responseFailed(
                         reason: .unacceptableStatusCode(
                             statusCode: httpResponse.statusCode, error: .init(data: data), rateLimit: rateLimit
-                        ))),
+                        )
+                    )
+                ),
                 rateLimit: rateLimit
             )
         }
@@ -114,12 +116,12 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
     ) -> Self {
         group.enter()
         taskQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
 
-            let response = self.getResponse().flatMap(transform)
+            let response = getResponse().flatMap(transform)
 
             queue.async { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
                 block(response)
                 self.group.leave()
             }
