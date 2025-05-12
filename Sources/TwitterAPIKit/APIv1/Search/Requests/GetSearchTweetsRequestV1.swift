@@ -8,7 +8,7 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
         case popular
     }
 
-    public let q: String
+    public let query: String
     public let lang: String?
     public let count: Int?
     public let until: String?
@@ -29,7 +29,7 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
 
     open var parameters: [String: Any] {
         var params = [String: Any]()
-        params["q"] = q
+        params["q"] = query
         lang.map { params["lang"] = $0 }
         count.map { params["count"] = $0 }
         until.map { params["until"] = $0 }
@@ -43,7 +43,7 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
     }
 
     public init(
-        q: String,
+        query: String,
         lang: String? = .none,
         count: Int? = .none,
         until: String? = .none,
@@ -54,7 +54,7 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
         resultType: ResultType? = .none,
         includeEntities: Bool? = .none
     ) {
-        self.q = q
+        self.query = query
         self.lang = lang
         self.count = count
         self.until = until
