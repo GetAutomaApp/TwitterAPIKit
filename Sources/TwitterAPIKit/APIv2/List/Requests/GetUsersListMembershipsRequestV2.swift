@@ -19,13 +19,13 @@ open class GetUsersListMembershipsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        expansions?.bind(param: &p)
-        listFields?.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        paginationToken.map { p["pagination_token"] = $0 }
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        expansions?.bind(param: &params)
+        listFields?.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        paginationToken.map { params["pagination_token"] = $0 }
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(

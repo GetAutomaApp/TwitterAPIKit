@@ -14,10 +14,10 @@ open class GetListsListRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        reverse.map { p["reverse"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        reverse.map { params["reverse"] = $0 }
+        return params
     }
 
     public init(

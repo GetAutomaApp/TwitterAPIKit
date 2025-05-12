@@ -16,12 +16,12 @@ open class PostCollectionsEntriesAddRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        p["tweet_id"] = tweetID
-        above.map { p["above"] = $0 }
-        relativeTo.map { p["relative_to"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        params["tweet_id"] = tweetID
+        above.map { params["above"] = $0 }
+        relativeTo.map { params["relative_to"] = $0 }
+        return params
     }
 
     public init(

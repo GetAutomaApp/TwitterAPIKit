@@ -14,10 +14,10 @@ open class PostListsMembersCreateAllRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        list.bind(param: &p)
-        users.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        list.bind(param: &params)
+        users.bind(param: &params)
+        return params
     }
 
     public init(

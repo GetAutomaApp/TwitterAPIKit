@@ -23,14 +23,14 @@ open class PostAccountSettingsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        lang.map { p["lang"] = $0 }
-        timeZone.map { p["time_zone"] = $0 }
-        startSleepTime.map { p["start_sleep_time"] = $0 }
-        endSleepTime.map { p["end_sleep_time"] = $0 }
-        sleepTimeEnabled.map { p["sleep_time_enabled"] = $0 }
-        trendLocationWoeid.map { p["trend_location_woeid"] = $0 }
-        return p
+        var params = [String: Any]()
+        lang.map { params["lang"] = $0 }
+        timeZone.map { params["time_zone"] = $0 }
+        startSleepTime.map { params["start_sleep_time"] = $0 }
+        endSleepTime.map { params["end_sleep_time"] = $0 }
+        sleepTimeEnabled.map { params["sleep_time_enabled"] = $0 }
+        trendLocationWoeid.map { params["trend_location_woeid"] = $0 }
+        return params
     }
 
     public init(

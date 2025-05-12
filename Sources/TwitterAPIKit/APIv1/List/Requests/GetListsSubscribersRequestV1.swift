@@ -17,13 +17,13 @@ open class GetListsSubscribersRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        list.bind(param: &p)
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        skipStatus.map { p["skip_status"] = $0 }
-        return p
+        var params = [String: Any]()
+        list.bind(param: &params)
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        skipStatus.map { params["skip_status"] = $0 }
+        return params
     }
 
     public init(

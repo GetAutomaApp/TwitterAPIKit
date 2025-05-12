@@ -85,7 +85,7 @@ open class MediaAPIv1: TwitterAPIBase {
 
                 guard let self else { return }
 
-                if let error = responses.first { $0.isError } {
+                if let error = responses.first(where: \.isError) {
                     completionHandler(error)
                     return
                 }

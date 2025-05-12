@@ -19,9 +19,9 @@ open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["hidden"] = hidden
-        return p
+        var params = [String: Any]()
+        params["hidden"] = hidden
+        return params
     }
 
     public init(

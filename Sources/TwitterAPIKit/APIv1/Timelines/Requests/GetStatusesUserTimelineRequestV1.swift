@@ -19,15 +19,15 @@ open class GetStatusesUserTimelineRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        count.map { p["count"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        trimUser.map { p["trim_user"] = $0 }
-        includeRTs.map { p["include_rts"] = $0 }
-        excludeReplies.map { p["exclude_replies"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        count.map { params["count"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        trimUser.map { params["trim_user"] = $0 }
+        includeRTs.map { params["include_rts"] = $0 }
+        excludeReplies.map { params["exclude_replies"] = $0 }
+        return params
     }
 
     public init(

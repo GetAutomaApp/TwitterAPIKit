@@ -23,12 +23,12 @@ open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
         if let attachments = attachments {
-            p["attachments"] = attachments.map { ["media_id": $0] }
+            params["attachments"] = attachments.map { ["media_id": $0] }
         }
-        text.map { p["text"] = $0 }
-        return p
+        text.map { params["text"] = $0 }
+        return params
     }
 
     public init(

@@ -27,14 +27,14 @@ open class GetSpacesSearchRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["query"] = query
-        expansions?.bind(param: &p)
-        spaceFields?.bind(param: &p)
-        state?.bind(param: &p)
-        topicFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        params["query"] = query
+        expansions?.bind(param: &params)
+        spaceFields?.bind(param: &params)
+        state?.bind(param: &params)
+        topicFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(

@@ -15,12 +15,12 @@ open class GetDirectMessageListRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
 
-        return p
+        return params
     }
 
     public init(count: Int? = .none, cursor: String? = .none) {

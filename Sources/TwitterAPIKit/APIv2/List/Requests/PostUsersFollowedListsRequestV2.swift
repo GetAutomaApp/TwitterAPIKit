@@ -18,9 +18,9 @@ open class PostUsersFollowedListsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["list_id"] = listID
-        return p
+        var params = [String: Any]()
+        params["list_id"] = listID
+        return params
     }
 
     public init(

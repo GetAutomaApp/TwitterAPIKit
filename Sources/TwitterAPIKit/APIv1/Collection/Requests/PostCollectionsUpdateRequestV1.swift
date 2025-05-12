@@ -16,12 +16,12 @@ open class PostCollectionsUpdateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        url.map { p["url"] = $0 }
-        name.map { p["name"] = $0 }
-        description.map { p["description"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        url.map { params["url"] = $0 }
+        name.map { params["name"] = $0 }
+        description.map { params["description"] = $0 }
+        return params
     }
 
     public init(

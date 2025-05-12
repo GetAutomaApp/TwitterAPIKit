@@ -17,12 +17,12 @@ open class GetSpaceRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        expansions?.bind(param: &p)
-        spaceFields?.bind(param: &p)
-        topicFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        expansions?.bind(param: &params)
+        spaceFields?.bind(param: &params)
+        topicFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(

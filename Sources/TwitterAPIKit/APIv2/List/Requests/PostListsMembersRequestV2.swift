@@ -18,9 +18,9 @@ open class PostListsMembersRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["user_id"] = userID
-        return p
+        var params = [String: Any]()
+        params["user_id"] = userID
+        return params
     }
 
     public init(

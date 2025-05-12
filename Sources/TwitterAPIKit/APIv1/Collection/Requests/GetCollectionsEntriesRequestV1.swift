@@ -16,12 +16,12 @@ open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        count.map { p["count"] = $0 }
-        maxPosition.map { p["max_position"] = $0 }
-        minPosition.map { p["min_position"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        count.map { params["count"] = $0 }
+        maxPosition.map { params["max_position"] = $0 }
+        minPosition.map { params["min_position"] = $0 }
+        return params
     }
 
     public init(

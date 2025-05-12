@@ -26,21 +26,21 @@ open class GetUsersTweetsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        endTime?.bind(param: &p, for: "end_time")
-        exclude?.bind(param: &p)
-        expansions?.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        mediaFields?.bind(param: &p)
-        paginationToken.map { p["pagination_token"] = $0 }
-        placeFields?.bind(param: &p)
-        pollFields?.bind(param: &p)
-        sinceID.map { p["since_id"] = $0 }
-        startTime?.bind(param: &p, for: "start_time")
-        tweetFields?.bind(param: &p)
-        untilID.map { p["until_id"] = $0 }
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        endTime?.bind(param: &params, for: "end_time")
+        exclude?.bind(param: &params)
+        expansions?.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        mediaFields?.bind(param: &params)
+        paginationToken.map { params["pagination_token"] = $0 }
+        placeFields?.bind(param: &params)
+        pollFields?.bind(param: &params)
+        sinceID.map { params["since_id"] = $0 }
+        startTime?.bind(param: &params, for: "start_time")
+        tweetFields?.bind(param: &params)
+        untilID.map { params["until_id"] = $0 }
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(

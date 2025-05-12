@@ -16,12 +16,12 @@ open class PostListsUpdateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        list.bind(param: &p)
-        name.map { p["name"] = $0 }
-        mode?.bind(param: &p)
-        description.map { p["description"] = $0 }
-        return p
+        var params = [String: Any]()
+        list.bind(param: &params)
+        name.map { params["name"] = $0 }
+        mode?.bind(param: &params)
+        description.map { params["description"] = $0 }
+        return params
     }
 
     public init(

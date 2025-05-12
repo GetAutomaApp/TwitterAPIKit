@@ -29,16 +29,16 @@ open class GetDmEventsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        maxResults.map { p["max_results"] = $0 }
-        paginationToken.map { p["pagination_token"] = $0 }
-        eventTypes?.bind(param: &p)
-        dmEventFields?.bind(param: &p)
-        expansions?.bind(param: &p)
-        mediaFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        tweetFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        maxResults.map { params["max_results"] = $0 }
+        paginationToken.map { params["pagination_token"] = $0 }
+        eventTypes?.bind(param: &params)
+        dmEventFields?.bind(param: &params)
+        expansions?.bind(param: &params)
+        mediaFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        tweetFields?.bind(param: &params)
+        return params
     }
 
     public init(

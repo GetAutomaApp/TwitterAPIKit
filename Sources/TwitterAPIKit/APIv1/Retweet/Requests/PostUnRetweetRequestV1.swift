@@ -14,9 +14,9 @@ open class PostUnRetweetRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        trimUser.map { p["trim_user"] = $0 }
-        return p
+        var params = [String: Any]()
+        trimUser.map { params["trim_user"] = $0 }
+        return params
     }
 
     public init(

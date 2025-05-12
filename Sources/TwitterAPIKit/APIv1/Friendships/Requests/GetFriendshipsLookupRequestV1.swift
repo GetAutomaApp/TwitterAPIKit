@@ -13,9 +13,9 @@ open class GetFriendshipsLookupRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        users.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        users.bind(param: &params)
+        return params
     }
 
     public init(

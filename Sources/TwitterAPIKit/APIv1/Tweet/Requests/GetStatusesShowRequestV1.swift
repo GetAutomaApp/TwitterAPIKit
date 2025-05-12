@@ -18,14 +18,14 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        trimUser.map { p["trim_user"] = $0 }
-        includeCardUri.map { p["include_card_uri"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        includeMyRetweet.map { p["include_my_retweet"] = $0 }
-        includeExtAltText.map { p["include_ext_alt_text"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        trimUser.map { params["trim_user"] = $0 }
+        includeCardUri.map { params["include_card_uri"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        includeMyRetweet.map { params["include_my_retweet"] = $0 }
+        includeExtAltText.map { params["include_ext_alt_text"] = $0 }
+        return params
     }
 
     public init(

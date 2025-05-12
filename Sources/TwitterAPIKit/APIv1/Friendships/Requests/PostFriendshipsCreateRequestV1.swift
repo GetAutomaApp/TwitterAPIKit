@@ -14,10 +14,10 @@ open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        follow.map { p["follow"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        follow.map { params["follow"] = $0 }
+        return params
     }
 
     public init(

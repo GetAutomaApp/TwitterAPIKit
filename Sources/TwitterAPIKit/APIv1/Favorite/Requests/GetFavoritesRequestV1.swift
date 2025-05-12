@@ -17,15 +17,15 @@ open class GetFavoritesRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        target.bind(param: &p)
-        count.map { p["count"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
+        target.bind(param: &params)
+        count.map { params["count"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
 
-        return p
+        return params
     }
 
     public init(

@@ -28,18 +28,18 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["q"] = q
-        lang.map { p["lang"] = $0 }
-        count.map { p["count"] = $0 }
-        until.map { p["until"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        locale.map { p["locale"] = $0 }
-        geocode.map { p["geocode"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        resultType.map { p["result_type"] = $0.rawValue }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["q"] = q
+        lang.map { params["lang"] = $0 }
+        count.map { params["count"] = $0 }
+        until.map { params["until"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        locale.map { params["locale"] = $0 }
+        geocode.map { params["geocode"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        resultType.map { params["result_type"] = $0.rawValue }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(

@@ -17,10 +17,10 @@ open class GetRetweetsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        count.map { p["count"] = $0 }
-        trimUser.map { p["trim_user"] = $0 }
-        return p
+        var params = [String: Any]()
+        count.map { params["count"] = $0 }
+        trimUser.map { params["trim_user"] = $0 }
+        return params
     }
 
     public init(

@@ -16,12 +16,12 @@ open class GetUsersSearchRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["q"] = q
-        page.map { p["page"] = $0 }
-        count.map { p["count"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["q"] = q
+        page.map { params["page"] = $0 }
+        count.map { params["count"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(

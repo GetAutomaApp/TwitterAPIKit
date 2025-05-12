@@ -14,10 +14,10 @@ open class PostCollectionsEntriesRemoveRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        p["tweet_id"] = tweetID
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        params["tweet_id"] = tweetID
+        return params
     }
 
     public init(

@@ -30,16 +30,16 @@ open class PostDmConversationRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["conversation_type"] = conversationType.rawValue
-        p["participant_ids"] = participantIDs
+        var params = [String: Any]()
+        params["conversation_type"] = conversationType.rawValue
+        params["participant_ids"] = participantIDs
         var message = [String: Any]()
         text.map { message["text"] = $0 }
-        if let attachments = attachments {
+        if let attachments {
             message["attachments"] = attachments.map { ["media_id": $0] }
         }
-        p["message"] = message
-        return p
+        params["message"] = message
+        return params
     }
 
     public init(

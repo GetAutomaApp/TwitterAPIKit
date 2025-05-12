@@ -15,11 +15,11 @@ open class GetUsersLookupRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        users.bind(param: &p)
-        tweetMode.map { p["tweet_mode"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        users.bind(param: &params)
+        tweetMode.map { params["tweet_mode"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(

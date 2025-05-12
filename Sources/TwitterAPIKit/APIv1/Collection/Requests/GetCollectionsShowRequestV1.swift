@@ -13,9 +13,9 @@ open class GetCollectionsShowRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        return params
     }
 
     public init(

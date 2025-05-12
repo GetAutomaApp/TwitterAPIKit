@@ -12,10 +12,10 @@ open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        performBlock.map { p["perform_block"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        performBlock.map { params["perform_block"] = $0 }
+        return params
     }
 
     public init(

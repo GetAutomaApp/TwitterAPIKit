@@ -13,9 +13,9 @@ open class GetTrendsClosestRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        location.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        location.bind(param: &paramsarams)
+        return params
     }
 
     public init(

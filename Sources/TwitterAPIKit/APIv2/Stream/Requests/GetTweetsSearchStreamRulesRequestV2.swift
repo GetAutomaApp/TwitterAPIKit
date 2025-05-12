@@ -13,9 +13,9 @@ open class GetTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        ids.map { p["ids"] = $0.joined(separator: ",") }
-        return p
+        var params = [String: Any]()
+        ids.map { params["ids"] = $0.joined(separator: ",") }
+        return params
     }
 
     public init(

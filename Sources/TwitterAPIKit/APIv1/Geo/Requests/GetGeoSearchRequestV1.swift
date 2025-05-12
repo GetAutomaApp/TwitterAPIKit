@@ -31,11 +31,11 @@ open class GetGeoSearchRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        location.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        granularity?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        location.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        granularity?.bind(param: &params)
+        return params
     }
 
     public init(

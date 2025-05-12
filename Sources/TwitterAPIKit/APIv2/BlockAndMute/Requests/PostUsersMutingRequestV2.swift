@@ -18,9 +18,9 @@ open class PostUsersMutingRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["target_user_id"] = targetUserID
-        return p
+        var params = [String: Any]()
+        params["target_user_id"] = targetUserID
+        return params
     }
 
     public init(

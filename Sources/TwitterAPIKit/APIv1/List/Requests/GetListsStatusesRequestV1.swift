@@ -18,14 +18,14 @@ open class GetListsStatusesRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        list.bind(param: &p)
-        count.map { p["count"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        includeRTs.map { p["include_rts"] = $0 }
-        return p
+        var params = [String: Any]()
+        list.bind(param: &params)
+        count.map { params["count"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        includeRTs.map { params["include_rts"] = $0 }
+        return params
     }
 
     public init(

@@ -13,9 +13,9 @@ open class GetUsersProfileBannerRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        return params
     }
 
     public init(

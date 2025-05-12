@@ -13,9 +13,9 @@ open class GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        resources.map { p["resources"] = $0.joined(separator: ",") }
-        return p
+        var params = [String: Any]()
+        resources.map { params["resources"] = $0.joined(separator: ",") }
+        return params
     }
 
     public init(

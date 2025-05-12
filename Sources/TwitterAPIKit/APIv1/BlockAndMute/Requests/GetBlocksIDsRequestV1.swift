@@ -14,10 +14,10 @@ open class GetBlocksIDsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        stringifyIDs.map { p["stringify_ids"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        return p
+        var params = [String: Any]()
+        stringifyIDs.map { params["stringify_ids"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        return params
     }
 
     public init(

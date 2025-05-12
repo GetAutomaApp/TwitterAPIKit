@@ -16,12 +16,12 @@ open class GetCollectionsListRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        tweetID.map { p["tweet_id"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        tweetID.map { params["tweet_id"] = $0 }
+        return params
     }
 
     public init(

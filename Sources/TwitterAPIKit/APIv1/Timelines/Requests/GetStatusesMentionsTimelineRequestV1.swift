@@ -17,13 +17,13 @@ open class GetStatusesMentionsTimelineRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        count.map { p["count"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        trimUser.map { p["trim_user"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        count.map { params["count"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        trimUser.map { params["trim_user"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(

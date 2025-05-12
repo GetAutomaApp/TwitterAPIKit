@@ -24,10 +24,10 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        type.bind(param: &p)
-        status?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        type.bind(param: &params)
+        status?.bind(param: &params)
+        return params
     }
 
     public init(

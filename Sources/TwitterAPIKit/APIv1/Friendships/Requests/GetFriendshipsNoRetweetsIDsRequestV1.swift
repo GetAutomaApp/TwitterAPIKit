@@ -13,9 +13,9 @@ open class GetFriendshipsNoRetweetsIDsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        stringifyIDs.map { p["stringify_ids"] = $0 }
-        return p
+        var params = [String: Any]()
+        stringifyIDs.map { params["stringify_ids"] = $0 }
+        return params
     }
 
     public init(

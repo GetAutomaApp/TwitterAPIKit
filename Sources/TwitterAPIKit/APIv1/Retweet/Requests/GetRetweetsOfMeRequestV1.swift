@@ -18,16 +18,16 @@ open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        count.map { p["count"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        trimUser.map { p["trim_user"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        includeUserEntities.map { p["include_user_entities"] = $0 }
+        count.map { params["count"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        trimUser.map { params["trim_user"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        includeUserEntities.map { params["include_user_entities"] = $0 }
 
-        return p
+        return params
     }
 
     public init(

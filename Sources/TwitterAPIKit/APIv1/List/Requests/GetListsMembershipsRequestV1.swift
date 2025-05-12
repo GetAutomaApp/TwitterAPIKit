@@ -16,13 +16,13 @@ open class GetListsMembershipsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        filterToOwnedLists.map { p["filter_to_owned_lists"] = $0 }
+        var params = [String: Any]()
+        user.bind(param: &params)
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        filterToOwnedLists.map { params["filter_to_owned_lists"] = $0 }
 
-        return p
+        return params
     }
 
     public init(

@@ -32,27 +32,27 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     }
 
     open var queryParameters: [String: Any] {
-        var p = [String: Any]()
-        dryRun.map { p["dry_run"] = $0 }
-        return p
+        var params = [String: Any]()
+        dryRun.map { params["dry_run"] = $0 }
+        return params
     }
 
     open var bodyParameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
         switch operation {
         case let .add(rules):
-            p["add"] = rules.map {
+            params["add"] = rules.map {
                 [
                     "value": $0.value,
                     "tag": $0.tag,
                 ].compactMapValues { $0 }
             }
         case let .delete(ids):
-            p["delete"] = ["ids": ids]
+            params["delete"] = ["ids": ids]
         }
 
-        return p
+        return params
     }
 
     public init(

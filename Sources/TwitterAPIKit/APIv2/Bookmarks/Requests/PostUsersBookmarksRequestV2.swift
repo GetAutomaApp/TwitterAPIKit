@@ -19,9 +19,9 @@ open class PostUsersBookmarksRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["tweet_id"] = tweetID
-        return p
+        var params = [String: Any]()
+        params["tweet_id"] = tweetID
+        return params
     }
 
     public init(

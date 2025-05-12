@@ -19,11 +19,11 @@ open class PostComplianceJobsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        type.bind(param: &p)
-        name.map { p["name"] = $0 }
-        resumable.map { p["resumable"] = $0 }
-        return p
+        var params = [String: Any]()
+        type.bind(param: &params)
+        name.map { params["name"] = $0 }
+        resumable.map { params["resumable"] = $0 }
+        return params
     }
 
     public init(

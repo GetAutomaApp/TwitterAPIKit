@@ -10,11 +10,11 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
 
         func bind(param: inout [String: Any]) {
-            var p = [String: Any]()
+            var params = [String: Any]()
 
-            p["place_id"] = placeID
+            params["place_id"] = placeID
 
-            param["geo"] = p
+            param["geo"] = params
         }
     }
 
@@ -31,12 +31,12 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
 
         func bind(param: inout [String: Any]) {
-            var p = [String: Any]()
+            var params = [String: Any]()
 
-            p["media_ids"] = mediaIDs
-            taggedUserIDs.map { p["tagged_user_ids"] = $0 }
+            params["media_ids"] = mediaIDs
+            taggedUserIDs.map { params["tagged_user_ids"] = $0 }
 
-            param["media"] = p
+            param["media"] = params
         }
     }
 
@@ -53,12 +53,12 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
 
         func bind(param: inout [String: Any]) {
-            var p = [String: Any]()
+            var params = [String: Any]()
 
-            p["duration_minutes"] = durationMinutes
-            p["options"] = options
+            params["duration_minutes"] = durationMinutes
+            params["options"] = options
 
-            param["poll"] = p
+            param["poll"] = params
         }
     }
 
@@ -75,12 +75,12 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
 
         func bind(param: inout [String: Any]) {
-            var p = [String: Any]()
+            var params = [String: Any]()
 
-            excludeReplyUserIDs.map { p["exclude_reply_user_ids"] = $0 }
-            p["in_reply_to_tweet_id"] = inReplyToTweetID
+            excludeReplyUserIDs.map { params["exclude_reply_user_ids"] = $0 }
+            params["in_reply_to_tweet_id"] = inReplyToTweetID
 
-            param["reply"] = p
+            param["reply"] = params
         }
     }
 
@@ -117,17 +117,17 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        directMessageDeepLink.map { p["direct_message_deep_link"] = $0 }
-        forSuperFollowersOnly.map { p["for_super_followers_only"] = $0 }
-        geo?.bind(param: &p)
-        media?.bind(param: &p)
-        poll?.bind(param: &p)
-        quoteTweetID.map { p["quote_tweet_id"] = $0 }
-        reply?.bind(param: &p)
-        replySettings?.bind(param: &p)
-        text.map { p["text"] = $0 }
-        return p
+        var params = [String: Any]()
+        directMessageDeepLink.map { params["direct_message_deep_link"] = $0 }
+        forSuperFollowersOnly.map { params["for_super_followers_only"] = $0 }
+        geo?.bind(param: &params)
+        media?.bind(param: &params)
+        poll?.bind(param: &params)
+        quoteTweetID.map { params["quote_tweet_id"] = $0 }
+        reply?.bind(param: &params)
+        replySettings?.bind(param: &params)
+        text.map { params["text"] = $0 }
+        return params
     }
 
     public init(

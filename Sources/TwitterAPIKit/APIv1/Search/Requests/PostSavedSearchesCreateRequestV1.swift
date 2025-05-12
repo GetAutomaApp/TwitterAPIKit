@@ -13,9 +13,9 @@ open class PostSavedSearchesCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["query"] = query
-        return p
+        var params = [String: Any]()
+        params["query"] = query
+        return params
     }
 
     public init(

@@ -15,12 +15,12 @@ open class PostBlocksDestroyRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        user.bind(param: &p)
-        includeEntities.map { p["include_entities"] = $0 }
-        skipStatus.map { p["skip_status"] = $0 }
-        return p
+        user.bind(param: &params)
+        includeEntities.map { params["include_entities"] = $0 }
+        skipStatus.map { params["skip_status"] = $0 }
+        return params
     }
 
     public init(

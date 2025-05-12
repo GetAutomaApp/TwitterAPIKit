@@ -17,13 +17,13 @@ open class GetFollowersListRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        skipStatus.map { p["skip_status"] = $0 }
-        includeUserEntities.map { p["include_user_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        skipStatus.map { params["skip_status"] = $0 }
+        includeUserEntities.map { params["include_user_entities"] = $0 }
+        return params
     }
 
     public init(

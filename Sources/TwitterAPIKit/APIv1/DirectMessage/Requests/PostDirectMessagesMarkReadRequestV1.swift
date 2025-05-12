@@ -17,12 +17,12 @@ open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        p["last_read_event_id"] = lastReadEventID
-        p["recipient_id"] = recipientID
+        params["last_read_event_id"] = lastReadEventID
+        params["recipient_id"] = recipientID
 
-        return p
+        return params
     }
 
     public init(

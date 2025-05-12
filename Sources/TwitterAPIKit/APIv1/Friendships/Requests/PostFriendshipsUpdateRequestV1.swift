@@ -15,11 +15,11 @@ open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        device.map { p["device"] = $0 }
-        retweets.map { p["retweets"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        device.map { params["device"] = $0 }
+        retweets.map { params["retweets"] = $0 }
+        return params
     }
 
     public init(

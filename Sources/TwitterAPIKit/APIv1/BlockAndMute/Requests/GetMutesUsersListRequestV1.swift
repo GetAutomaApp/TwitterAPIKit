@@ -15,11 +15,11 @@ open class GetMutesUsersListRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        cursor.map { p["cursor"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        skipStatus.map { p["skip_status"] = $0 }
-        return p
+        var params = [String: Any]()
+        cursor.map { params["cursor"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        skipStatus.map { params["skip_status"] = $0 }
+        return params
     }
 
     public init(

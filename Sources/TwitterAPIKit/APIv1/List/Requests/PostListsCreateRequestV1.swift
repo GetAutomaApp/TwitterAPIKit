@@ -15,11 +15,11 @@ open class PostListsCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["name"] = name
-        mode?.bind(param: &p)
-        description.map { p["description"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["name"] = name
+        mode?.bind(param: &params)
+        description.map { params["description"] = $0 }
+        return params
     }
 
     public init(

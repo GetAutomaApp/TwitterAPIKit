@@ -20,11 +20,11 @@ open class PutListRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        description.map { p["description"] = $0 }
-        name.map { p["name"] = $0 }
-        `private`.map { p["private"] = $0 }
-        return p
+        var params = [String: Any]()
+        description.map { params["description"] = $0 }
+        name.map { params["name"] = $0 }
+        `private`.map { params["private"] = $0 }
+        return params
     }
 
     public init(

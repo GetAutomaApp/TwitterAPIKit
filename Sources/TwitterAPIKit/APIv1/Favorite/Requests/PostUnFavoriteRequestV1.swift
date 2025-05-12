@@ -14,10 +14,10 @@ open class PostUnFavoriteRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(

@@ -26,12 +26,12 @@ open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["name"] = name
-        url.map { p["url"] = $0 }
-        description.map { p["description"] = $0 }
-        timelineOrder?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        params["name"] = name
+        url.map { params["url"] = $0 }
+        description.map { params["description"] = $0 }
+        timelineOrder?.bind(param: &params)
+        return params
     }
 
     public init(

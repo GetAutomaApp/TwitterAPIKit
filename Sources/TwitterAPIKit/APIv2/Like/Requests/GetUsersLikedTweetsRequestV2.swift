@@ -1,4 +1,4 @@
-import Foundation
+TweetCountAPIv2import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
 open class GetUsersLikedTweetsRequestV2: TwitterAPIRequest {
@@ -22,16 +22,16 @@ open class GetUsersLikedTweetsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        expansions?.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        mediaFields?.bind(param: &p)
-        paginationToken.map { p["pagination_token"] = $0 }
-        placeFields?.bind(param: &p)
-        pollFields?.bind(param: &p)
-        tweetFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        expansions?.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        mediaFields?.bind(param: &params)
+        paginationToken.map { params["pagination_token"] = $0 }
+        placeFields?.bind(param: &params)
+        pollFields?.bind(param: &params)
+        tweetFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(

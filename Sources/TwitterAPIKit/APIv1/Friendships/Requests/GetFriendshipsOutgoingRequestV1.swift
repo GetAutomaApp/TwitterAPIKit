@@ -14,10 +14,10 @@ open class GetFriendshipsOutgoingRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        cursor.map { p["cursor"] = $0 }
-        stringifyIDs.map { p["stringify_ids"] = $0 }
-        return p
+        var params = [String: Any]()
+        cursor.map { params["cursor"] = $0 }
+        stringifyIDs.map { params["stringify_ids"] = $0 }
+        return params
     }
 
     public init(

@@ -17,10 +17,10 @@ open class GetTrendsPlaceRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["woeid"] = woeid
-        exclude.map { p["exclude"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["woeid"] = woeid
+        exclude.map { params["exclude"] = $0 }
+        return params
     }
 
     public init(
