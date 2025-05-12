@@ -1,13 +1,13 @@
 import TwitterAPIKit
 import XCTest
 
-internal internal class CustomListsListRequestV1: GetListsListRequestV1 {
+internal class CustomListsListRequestV1: GetListsListRequestV1 {
     public let custom: String
 
     override public var parameters: [String: Any] {
-        var p = super.parameters
-        p["custom"] = custom
-        return p
+        var params = super.parameters
+        params["custom"] = custom
+        return params
     }
 
     public init(custom: String, user: TwitterUserIdentifierV1, reverse: Bool? = .none) {
@@ -16,13 +16,13 @@ internal internal class CustomListsListRequestV1: GetListsListRequestV1 {
     }
 }
 
-internal internal class CapsuledListsListRequestV1: GetListsListRequestV1 {
+internal class CapsuledListsListRequestV1: GetListsListRequestV1 {
     init() {
         super.init(user: .userID("100"), reverse: true)
     }
 }
 
-internal internal class ListRequestV1Tests: XCTestCase {
+internal class ListRequestV1Tests: XCTestCase {
     // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-list
     public func testGetListsListRequestV1() throws {
         XCTContext.runActivity(named: "with only required parameters") { _ in
