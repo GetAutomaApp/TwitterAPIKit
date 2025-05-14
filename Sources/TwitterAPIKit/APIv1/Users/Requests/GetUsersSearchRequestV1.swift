@@ -35,4 +35,8 @@ open class GetUsersSearchRequestV1: TwitterAPIRequest {
         self.count = count
         self.includeEntities = includeEntities
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

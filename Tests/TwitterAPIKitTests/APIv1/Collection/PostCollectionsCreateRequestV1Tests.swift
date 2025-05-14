@@ -1,7 +1,7 @@
 import TwitterAPIKit
 import XCTest
 
-class PostCollectionsCreateRequestV1Tests: XCTestCase {
+internal class PostCollectionsCreateRequestV1Tests: XCTestCase {
     public func test() throws {
         let req = PostCollectionsCreateRequestV1(
             name: "_n_",

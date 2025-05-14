@@ -1,7 +1,7 @@
 import TwitterAPIKit
 import XCTest
 
-class GetGeoSearchRequestV1Tests: XCTestCase {
+internal class GetGeoSearchRequestV1Tests: XCTestCase {
     public func test() throws {
         XCTContext.runActivity(named: "coordinate") { _ in
 

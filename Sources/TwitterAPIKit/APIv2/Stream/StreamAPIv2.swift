@@ -28,4 +28,8 @@ open class StreamAPIv2: TwitterAPIBase {
     ) -> TwitterAPISessionStreamTask {
         return session.send(streamRequest: request)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

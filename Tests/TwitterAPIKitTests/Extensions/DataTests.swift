@@ -7,7 +7,7 @@ internal class DataTests: XCTestCase {
         XCTContext.runActivity(named: "success") { _ in
             let data = Data("{\"a\":1}".utf8)
             let serialized = data.serialize()
-            XCTAssertEqual(serialized.success as! [String: Int], ["a": 1])
+            XCTAssertEqual(serialized.success as? [String: Int], ["a": 1])
         }
 
         XCTContext.runActivity(named: "failure") { _ in
@@ -19,12 +19,12 @@ internal class DataTests: XCTestCase {
 
     public func testDecode() throws {
         struct Obj: Decodable {
-            let a: Int
+            let abc: Int
         }
         XCTContext.runActivity(named: "success") { _ in
-            let data = Data("{\"a\":1}".utf8)
+            let data = Data("{\"abc\":1}".utf8)
             let serialized = data.decode(Obj.self, decoder: JSONDecoder())
-            XCTAssertEqual(serialized.success?.a, 1)
+            XCTAssertEqual(serialized.success?.abc, 1)
         }
 
         XCTContext.runActivity(named: "failure") { _ in

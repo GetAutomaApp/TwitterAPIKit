@@ -14,11 +14,19 @@ internal class CustomListsListRequestV1: GetListsListRequestV1 {
         self.custom = custom
         super.init(user: user, reverse: reverse)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
 
 internal class CapsuledListsListRequestV1: GetListsListRequestV1 {
-    init() {
+    public init() {
         super.init(user: .userID("100"), reverse: true)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
 

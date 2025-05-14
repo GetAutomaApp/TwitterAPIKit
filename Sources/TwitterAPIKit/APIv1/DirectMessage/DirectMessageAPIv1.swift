@@ -42,4 +42,8 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     ) -> TwitterAPISessionDataTask {
         return session.send(request)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

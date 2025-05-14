@@ -31,4 +31,8 @@ open class GetUsersLookupRequestV1: TwitterAPIRequest {
         self.tweetMode = tweetMode
         self.includeEntities = includeEntities
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

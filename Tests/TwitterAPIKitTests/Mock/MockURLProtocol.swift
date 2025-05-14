@@ -4,23 +4,23 @@ internal class MockURLProtocol: URLProtocol {
     public static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
     public static var requestAssert: ((URLRequest) throws -> Void)?
 
-    override class func canInit(with _: URLRequest) -> Bool {
+    override public class func canInit(with _: URLRequest) -> Bool {
         return true
     }
 
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+    override public class func canonicalRequest(for request: URLRequest) -> URLRequest {
         return request
     }
 
-    static func cleanup() {
+    public static func cleanup() {
         Self.requestHandler = nil
         Self.requestAssert = nil
     }
 
-    override func startLoading() {
+    override public func startLoading() {
         let handler: (URLRequest) throws -> (HTTPURLResponse, Data?)
-        if let h = Self.requestHandler {
-            handler = h
+        if let reqHandler = Self.requestHandler {
+            handler = reqHandler
         } else {
             handler = { request in
                 (
@@ -35,7 +35,7 @@ internal class MockURLProtocol: URLProtocol {
             let (response, data): (URLResponse, Data?) = try handler(request)
             client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
 
-            if let data = data {
+            if let data {
                 client?.urlProtocol(self, didLoad: data)
             }
 
@@ -45,7 +45,7 @@ internal class MockURLProtocol: URLProtocol {
         }
     }
 
-    override func stopLoading() {}
+    override public func stopLoading() {}
 
     deinit {
         // De-init Logic Here

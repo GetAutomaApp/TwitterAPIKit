@@ -43,4 +43,8 @@ open class GetListsStatusesRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
         self.includeRTs = includeRTs
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

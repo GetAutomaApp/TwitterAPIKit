@@ -39,7 +39,7 @@ import XCTest
 
             do {
                 let obj = await responseObj.success
-                AssertEqualAnyDict(obj as? [String: Any], ["key": "value"])
+                AssertEqualAnyDict(obj as? [String: Any] ?? [:], ["key": "value"])
             }
 
             do {
@@ -76,22 +76,22 @@ import XCTest
 
             do {
                 let error = await response.error
-                XCTAssertTrue(error.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             do {
                 let error = await responseObj.error
-                XCTAssertTrue(error.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             do {
                 let error = await responseDecodable.error
-                XCTAssertTrue(error.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             do {
                 let error = await aResponse.error
-                XCTAssertTrue(error.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             XCTAssertTrue(mockTask.cancelled)
@@ -123,7 +123,7 @@ import XCTest
             let rss = await asyncTask.value
             XCTAssertTrue(mockTask.cancelled)
             XCTAssertTrue(asyncTask.isCancelled)
-            XCTAssertEqual(rs.count, 4)
+            XCTAssertEqual(rss.count, 4)
             for res in rss {
                 XCTAssertTrue(r.error.isCancelled)
             }
@@ -213,9 +213,11 @@ import XCTest
             )
 
             let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
-            let stream = task.streamResponse(
-                queue: .main
-            ).map {resp in resp.compactMap { String(data: $0, encoding: .utf8) }}
+            let stream = task
+                .streamResponse(
+                    queue: .main
+                )
+                .map { resp in resp.compactMap { String(data: $0, encoding: .utf8) } }
             let asyncTask = Task {
                 var count = 0
                 for await resp in stream {
@@ -229,7 +231,7 @@ import XCTest
                     case 2:
                         XCTAssertTrue(resp.isError)
                     default:
-                        XCTFail('Invalid Response')
+                        XCTFail("Invalid Response")
                     }
                     count += 1
                 }

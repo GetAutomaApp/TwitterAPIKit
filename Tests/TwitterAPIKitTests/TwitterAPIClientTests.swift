@@ -16,11 +16,12 @@ internal class TwitterAPIClientTests: XCTestCase {
 
     public func testRefreshToken() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth20(
-                .init(clientID: "c", scope: [], tokenType: "t", expiresIn: 0, accessToken: "a", refreshToken: "r")),
+                .init(clientID: "c", scope: [], tokenType: "t", expiresIn: 0, accessToken: "a", refreshToken: "r")
+            ),
             configuration: config
         )
 
@@ -34,7 +35,8 @@ internal class TwitterAPIClientTests: XCTestCase {
                 "access_token" : "<token>",
                 "refresh_token" : "<refresh token>"
                 }
-                """#.utf8)
+                """#.utf8
+            )
             return (
                 HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
             )
@@ -44,7 +46,7 @@ internal class TwitterAPIClientTests: XCTestCase {
             XCTAssertEqual(token.accessToken, "a")
             XCTAssertEqual(token.refreshToken, "r")
         } else {
-            XCTFail()
+            XCTFail("Invalid Response")
         }
 
         let exp = expectation(description: "")
@@ -66,17 +68,17 @@ internal class TwitterAPIClientTests: XCTestCase {
             XCTAssertEqual(token.accessToken, "<token>")
             XCTAssertEqual(token.refreshToken, "<refresh token>")
         } else {
-            XCTFail()
+            XCTFail("Invalid Response")
         }
     }
 
     public func testRefreshTokenForceRefresh() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth20(
-                .init(clientID: "c", scope: [], tokenType: "t", expiresIn: 1000, accessToken: "a", refreshToken: "r")
+                .init(clientID: "c", scope: [], tokenType: "t", expiresIn: 1_000, accessToken: "a", refreshToken: "r")
             ),
             configuration: config
         )
@@ -91,7 +93,8 @@ internal class TwitterAPIClientTests: XCTestCase {
                 "access_token" : "<token>",
                 "refresh_token" : "<refresh token>"
                 }
-                """#.utf8)
+                """#.utf8
+            )
             return (
                 HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
             )
@@ -116,7 +119,7 @@ internal class TwitterAPIClientTests: XCTestCase {
             XCTAssertEqual(token.accessToken, "<token>")
             XCTAssertEqual(token.refreshToken, "<refresh token>")
         } else {
-            XCTFail()
+            XCTFail("Invalid Response")
         }
     }
 
@@ -128,7 +131,7 @@ internal class TwitterAPIClientTests: XCTestCase {
             case .failure(.refreshOAuth20TokenFailed(reason: .invalidAuthenticationMethod(.none))):
                 break
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
             exp.fulfill()
         }
@@ -145,14 +148,16 @@ internal class TwitterAPIClientTests: XCTestCase {
                     expiresIn: 0,
                     accessToken: "",
                     refreshToken: nil
-                )))
+                )
+            )
+        )
         let exp = expectation(description: "")
         client.refreshOAuth20Token(type: .publicClient) { result in
             switch result {
             case .failure(.refreshOAuth20TokenFailed(reason: .refreshTokenIsMissing)):
                 break
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
             exp.fulfill()
         }
@@ -171,7 +176,9 @@ internal class TwitterAPIClientTests: XCTestCase {
                     accessToken: "a",
                     refreshToken: "r",
                     createdAt: now
-                )))
+                )
+            )
+        )
 
         let exp = expectation(description: "")
         client.refreshOAuth20Token(type: .publicClient) { result in
@@ -182,7 +189,7 @@ internal class TwitterAPIClientTests: XCTestCase {
                 XCTAssertEqual(newToken.token.refreshToken, "r")
                 XCTAssertEqual(newToken.token.createdAt, now)
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
             exp.fulfill()
         }
@@ -194,11 +201,12 @@ internal class TwitterAPIClientTests: XCTestCase {
         @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
         public func testRefreshTokenAsync() async throws {
             let config = URLSessionConfiguration.default
-            config.protocolinternal classes = [MockURLProtocol.self]
+            config.protocolClasses = [MockURLProtocol.self]
 
             let client = TwitterAPIClient(
                 .oauth20(
-                    .init(clientID: "c", scope: [], tokenType: "t", expiresIn: 0, accessToken: "a", refreshToken: "r")),
+                    .init(clientID: "c", scope: [], tokenType: "t", expiresIn: 0, accessToken: "a", refreshToken: "r")
+                ),
                 configuration: config
             )
 
@@ -212,7 +220,8 @@ internal class TwitterAPIClientTests: XCTestCase {
                     "access_token" : "<token>",
                     "refresh_token" : "<refresh token>"
                     }
-                    """#.utf8)
+                    """#.utf8
+                )
                 return (
                     HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
                 )
@@ -228,7 +237,7 @@ internal class TwitterAPIClientTests: XCTestCase {
                 XCTAssertEqual(token.accessToken, "<token>")
                 XCTAssertEqual(token.refreshToken, "<refresh token>")
             } else {
-                XCTFail()
+                XCTFail("Invalid Response")
             }
         }
 
@@ -238,13 +247,13 @@ internal class TwitterAPIClientTests: XCTestCase {
 
             do {
                 _ = try await client.refreshOAuth20Token(type: .publicClient)
-                XCTFail()
+                XCTFail("Invalid Response")
             } catch {
                 switch error {
                 case TwitterAPIKitError.refreshOAuth20TokenFailed(reason: .invalidAuthenticationMethod(.none)):
                     break
                 default:
-                    XCTFail()
+                    XCTFail("Invalid Response")
                 }
             }
         }

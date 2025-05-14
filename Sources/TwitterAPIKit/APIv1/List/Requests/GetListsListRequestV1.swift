@@ -27,4 +27,8 @@ open class GetListsListRequestV1: TwitterAPIRequest {
         self.user = user
         self.reverse = reverse
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

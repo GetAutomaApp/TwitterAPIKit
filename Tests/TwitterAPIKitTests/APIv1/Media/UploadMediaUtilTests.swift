@@ -8,7 +8,7 @@ internal class UploadMediaUtilTests: XCTestCase {
 
     public func testWithProcessing() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -35,7 +35,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 data = try! JSONSerialization.data(
                     withJSONObject: [
                         "media_id_string": "123",
-                        "expires_after_secs": 1000,
+                        "expires_after_secs": 1_000,
                     ], options: []
                 )
             case 1: // APPEND
@@ -94,7 +94,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     ], options: []
                 )
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
 
             return (
@@ -145,7 +145,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 statusCode = 404
 
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
 
             return (
@@ -203,7 +203,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 data = try! JSONSerialization.data(
                     withJSONObject: [
                         "media_id_string": "123",
-                        "expires_after_secs": 1000,
+                        "expires_after_secs": 1_000,
                     ], options: []
                 )
             case 1: // APPEND
@@ -215,7 +215,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
                 statusCode = 200
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
 
             return (
@@ -273,7 +273,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 data = try! JSONSerialization.data(
                     withJSONObject: [
                         "media_id_string": "123",
-                        "expires_after_secs": 1000,
+                        "expires_after_secs": 1_000,
                     ], options: []
                 )
             case 1: // APPEND
@@ -287,7 +287,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
                 statusCode = 500
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
 
             return (
@@ -343,7 +343,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 data = try! JSONSerialization.data(
                     withJSONObject: [
                         "media_id_string": "123",
-                        "expires_after_secs": 1000,
+                        "expires_after_secs": 1_000,
                     ], options: []
                 )
             case 1: // APPEND
@@ -404,7 +404,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     ], options: []
                 )
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
 
             return (
@@ -453,7 +453,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 data = try! JSONSerialization.data(
                     withJSONObject: [
                         "media_id_string": "123",
-                        "expires_after_secs": 1000,
+                        "expires_after_secs": 1_000,
                     ], options: []
                 )
 
@@ -474,7 +474,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                 )
 
             default:
-                XCTFail()
+                XCTFail("Invalid Response")
             }
 
             return (

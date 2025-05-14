@@ -7,4 +7,8 @@ open class ApplicationAPIv1: TwitterAPIBase {
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

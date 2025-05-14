@@ -27,4 +27,8 @@ open class PostListsMembersDestroyAllRequestV1: TwitterAPIRequest {
         self.list = list
         self.users = users
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

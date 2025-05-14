@@ -23,4 +23,8 @@ open class GetUsersProfileBannerRequestV1: TwitterAPIRequest {
     ) {
         self.user = user
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

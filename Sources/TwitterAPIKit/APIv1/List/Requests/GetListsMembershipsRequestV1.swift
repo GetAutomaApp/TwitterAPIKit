@@ -36,4 +36,8 @@ open class GetListsMembershipsRequestV1: TwitterAPIRequest {
         self.cursor = cursor
         self.filterToOwnedLists = filterToOwnedLists
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

@@ -1,14 +1,14 @@
 import Foundation
 import TwitterAPIKit
 
-class MockTwitterAPISessionTask: TwitterAPISessionTask {
-    var taskIdentifier: Int
-    var currentRequest: URLRequest?
-    var originalRequest: URLRequest?
-    var httpResponse: HTTPURLResponse?
-    var cancelled = false
+internal class MockTwitterAPISessionTask: TwitterAPISessionTask {
+    public var taskIdentifier: Int
+    public var currentRequest: URLRequest?
+    public var originalRequest: URLRequest?
+    public var httpResponse: HTTPURLResponse?
+    public var cancelled = false
 
-    init(
+    public init(
         taskIdentifier: Int,
         currentRequest: URLRequest? = nil,
         originalRequest: URLRequest? = nil,
@@ -20,15 +20,19 @@ class MockTwitterAPISessionTask: TwitterAPISessionTask {
         self.httpResponse = httpResponse
     }
 
-    func cancel() {
+    public func cancel() {
         cancelled = true
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
 
-class MockTwitterAPISessionDataTask: MockTwitterAPISessionTask, TwitterAPISessionDataTask {
-    var data: Data
+internal class MockTwitterAPISessionDataTask: MockTwitterAPISessionTask, TwitterAPISessionDataTask {
+    public var data: Data
 
-    init(
+    public init(
         data: Data,
         taskIdentifier: Int,
         currentRequest: URLRequest? = nil,
@@ -37,27 +41,34 @@ class MockTwitterAPISessionDataTask: MockTwitterAPISessionTask, TwitterAPISessio
     ) {
         self.data = data
         super.init(
-            taskIdentifier: taskIdentifier, currentRequest: currentRequest, originalRequest: originalRequest,
+            taskIdentifier: taskIdentifier,
+            currentRequest: currentRequest,
+            originalRequest: originalRequest,
             httpResponse: httpResponse
         )
     }
 
-    func responseData(queue: DispatchQueue, _ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
+    public func responseData(queue: DispatchQueue, _ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
         queue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             block(
                 .init(
-                    request: self.currentRequest,
-                    response: self.httpResponse,
-                    data: self.data,
-                    result: .success(self.data),
+                    request: currentRequest,
+                    response: httpResponse,
+                    data: data,
+                    result: .success(data),
                     rateLimit: TwitterRateLimit(header: [:])
-                ))
+                )
+            )
         }
         return self
     }
 
-    func responseData(_ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
+    public func responseData(_ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
         return responseData(queue: .main, block)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

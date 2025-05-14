@@ -2,12 +2,12 @@ import XCTest
 
 @testable import TwitterAPIKit
 
-class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
-    override func setUpWithError() throws {}
+internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
+    override public func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {}
+    override public func tearDownWithError() throws {}
 
-    func testProps() throws {
+    public func testProps() throws {
         let cReq = URLRequest(url: URL(string: "http://example.com/current")!)
         let oReq = URLRequest(url: URL(string: "http://example.com/original")!)
         let resp = HTTPURLResponse(
@@ -30,7 +30,7 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(task.httpResponse, resp)
     }
 
-    func test() throws {
+    public func test() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: nil,
@@ -59,40 +59,42 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         exp.expectedFulfillmentCount = 8
 
         var count = 0
-        task.streamResponse { response in
+        task
+            .streamResponse { response in
 
-            XCTAssertTrue(Thread.isMainThread)
+                XCTAssertTrue(Thread.isMainThread)
 
-            XCTAssertNotNil(response.rateLimit)
-            XCTAssertEqual(response.rateLimit?.limit, 15)
-            XCTAssertEqual(response.rateLimit?.remaining, 1)
-            XCTAssertEqual(response.rateLimit?.reset, 1_647_099_944)
+                XCTAssertNotNil(response.rateLimit)
+                XCTAssertEqual(response.rateLimit?.limit, 15)
+                XCTAssertEqual(response.rateLimit?.remaining, 1)
+                XCTAssertEqual(response.rateLimit?.reset, 1_647_099_944)
 
-            switch count {
-            case 0:
-                XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "aaaa")
-            case 1:
-                XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "bbbb")
-            case 2:
-                XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "🥓🥓")
-            case 3:
-                XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "あ")
-            default:
-                XCTFail()
+                switch count {
+                case 0:
+                    XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "aaaa")
+                case 1:
+                    XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "bbbb")
+                case 2:
+                    XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "🥓🥓")
+                case 3:
+                    XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "あ")
+                default:
+                    XCTFail("Invalid Response")
+                }
+
+                count += 1
+                exp.fulfill()
             }
-
-            count += 1
-            exp.fulfill()
-        }.streamResponse(queue: .global(qos: .default)) { _ in
-            XCTAssertFalse(Thread.isMainThread)
-            exp.fulfill()
-        }
+            .streamResponse(queue: .global(qos: .default)) { _ in
+                XCTAssertFalse(Thread.isMainThread)
+                exp.fulfill()
+            }
 
         wait(for: [exp], timeout: 100)
         XCTAssertEqual(count, 4)
     }
 
-    func testInvalidStatusCode() throws {
+    public func testInvalidStatusCode() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 2,
             currentRequest: nil,
@@ -123,35 +125,37 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         exp.expectedFulfillmentCount = 2
 
         var count = 0
-        task.streamResponse { response in
+        task
+            .streamResponse { response in
 
-            XCTAssertTrue(Thread.isMainThread)
+                XCTAssertTrue(Thread.isMainThread)
 
-            XCTAssertNotNil(response.rateLimit)
-            XCTAssertEqual(response.rateLimit?.limit, 15)
-            XCTAssertEqual(response.rateLimit?.remaining, 1)
-            XCTAssertEqual(response.rateLimit?.reset, 1_647_099_944)
+                XCTAssertNotNil(response.rateLimit)
+                XCTAssertEqual(response.rateLimit?.limit, 15)
+                XCTAssertEqual(response.rateLimit?.remaining, 1)
+                XCTAssertEqual(response.rateLimit?.reset, 1_647_099_944)
 
-            switch count {
-            case 0:
-                XCTAssertTrue(response.error!.isResponseFailed)
-            default:
-                XCTFail()
+                switch count {
+                case 0:
+                    XCTAssertTrue(response.error!.isResponseFailed)
+                default:
+                    XCTFail("Invalid Response")
+                }
+
+                count += 1
+                exp.fulfill()
             }
-
-            count += 1
-            exp.fulfill()
-        }.streamResponse(queue: .global(qos: .default)) { response in
-            XCTAssertFalse(Thread.isMainThread)
-            XCTAssertTrue(response.error!.isResponseFailed)
-            exp.fulfill()
-        }
+            .streamResponse(queue: .global(qos: .default)) { response in
+                XCTAssertFalse(Thread.isMainThread)
+                XCTAssertTrue(response.error!.isResponseFailed)
+                exp.fulfill()
+            }
 
         wait(for: [exp], timeout: 100)
         XCTAssertEqual(count, 1)
     }
 
-    func testNilResponse() throws {
+    public func testNilResponse() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: nil,
@@ -169,30 +173,32 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         exp.expectedFulfillmentCount = 2
 
         var count = 0
-        task.streamResponse { response in
+        task
+            .streamResponse { response in
 
-            XCTAssertTrue(Thread.isMainThread)
+                XCTAssertTrue(Thread.isMainThread)
 
-            switch count {
-            case 0:
-                XCTAssertTrue(response.isError)
-                XCTAssertTrue(response.error!.isResponseFailed)
-            default:
-                XCTFail()
+                switch count {
+                case 0:
+                    XCTAssertTrue(response.isError)
+                    XCTAssertTrue(response.error!.isResponseFailed)
+                default:
+                    XCTFail("Invalid Response")
+                }
+
+                count += 1
+                exp.fulfill()
             }
-
-            count += 1
-            exp.fulfill()
-        }.streamResponse(queue: .global(qos: .default)) { _ in
-            XCTAssertFalse(Thread.isMainThread)
-            exp.fulfill()
-        }
+            .streamResponse(queue: .global(qos: .default)) { _ in
+                XCTAssertFalse(Thread.isMainThread)
+                exp.fulfill()
+            }
 
         wait(for: [exp], timeout: 10)
         XCTAssertEqual(count, 1)
     }
 
-    func testError() throws {
+    public func testError() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: nil,
@@ -210,29 +216,35 @@ class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         exp.expectedFulfillmentCount = 2
 
         var count = 0
-        task.streamResponse { response in
+        task
+            .streamResponse { response in
 
-            XCTAssertTrue(Thread.isMainThread)
+                XCTAssertTrue(Thread.isMainThread)
 
-            XCTAssertNil(response.rateLimit)
+                XCTAssertNil(response.rateLimit)
 
-            switch count {
-            case 0:
-                XCTAssertTrue(response.isError)
+                switch count {
+                case 0:
+                    XCTAssertTrue(response.isError)
 
-            default:
-                XCTFail()
+                default:
+                    XCTFail("Invalid Response")
+                }
+
+                count += 1
+                exp.fulfill()
             }
-
-            count += 1
-            exp.fulfill()
-        }.streamResponse(queue: .global(qos: .default)) { response in
-            XCTAssertFalse(Thread.isMainThread)
-            XCTAssertTrue(response.isError)
-            exp.fulfill()
-        }
+            .streamResponse(queue: .global(qos: .default)) { response in
+                XCTAssertFalse(Thread.isMainThread)
+                XCTAssertTrue(response.isError)
+                exp.fulfill()
+            }
 
         wait(for: [exp], timeout: 100)
         XCTAssertEqual(count, 1)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -28,4 +28,8 @@ open class SearchAPIv1: TwitterAPIBase {
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

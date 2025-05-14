@@ -23,4 +23,8 @@ open class PostSavedSearchesCreateRequestV1: TwitterAPIRequest {
     ) {
         self.query = query
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

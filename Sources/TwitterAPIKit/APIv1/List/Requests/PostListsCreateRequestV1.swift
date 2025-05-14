@@ -31,4 +31,8 @@ open class PostListsCreateRequestV1: TwitterAPIRequest {
         self.mode = mode
         self.description = description
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

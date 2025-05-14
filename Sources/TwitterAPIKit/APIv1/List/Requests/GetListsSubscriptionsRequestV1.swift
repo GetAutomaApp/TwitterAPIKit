@@ -2,9 +2,9 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-subscriptions
 open class GetListsSubscriptionsRequestV1: TwitterAPIRequest {
-    let user: TwitterUserIdentifierV1
-    let count: Int?
-    let cursor: String?
+    internal let user: TwitterUserIdentifierV1
+    internal let count: Int?
+    internal let cursor: String?
 
     public var method: HTTPMethod {
         return .get
@@ -30,5 +30,9 @@ open class GetListsSubscriptionsRequestV1: TwitterAPIRequest {
         self.user = user
         self.count = count
         self.cursor = cursor
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -39,4 +39,8 @@ open class GetListsSubscribersRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
         self.skipStatus = skipStatus
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

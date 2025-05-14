@@ -31,4 +31,8 @@ open class GetListsOwnershipsRequestV1: TwitterAPIRequest {
         self.count = count
         self.cursor = cursor
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

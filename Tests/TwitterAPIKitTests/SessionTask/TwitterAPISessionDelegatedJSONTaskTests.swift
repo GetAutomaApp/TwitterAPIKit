@@ -84,21 +84,24 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         let exp = expectation(description: "")
         exp.expectedFulfillmentCount = 3
 
-        _ = task.responseData(queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            XCTAssertNotNil(response.rateLimit)
-            XCTAssertEqual(response.rateLimit?.limit, 100)
-            XCTAssertEqual(response.rateLimit?.remaining, 2)
-            XCTAssertEqual(response.rateLimit?.reset, 1_647_099_945)
+        _ = task
+            .responseData(queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                XCTAssertNotNil(response.rateLimit)
+                XCTAssertEqual(response.rateLimit?.limit, 100)
+                XCTAssertEqual(response.rateLimit?.remaining, 2)
+                XCTAssertEqual(response.rateLimit?.reset, 1_647_099_945)
 
-            exp.fulfill()
-        }.responseObject(queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            exp.fulfill()
-        }.responseDecodable(type: DecodableObj.self, queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            exp.fulfill()
-        }
+                exp.fulfill()
+            }
+            .responseObject(queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                exp.fulfill()
+            }
+            .responseDecodable(type: DecodableObj.self, queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                exp.fulfill()
+            }
 
         DispatchQueue.global(qos: .background).async {
             task.append(chunk: Data("{\"key\"".utf8))
@@ -132,17 +135,20 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         let exp = expectation(description: "")
         exp.expectedFulfillmentCount = 3
 
-        _ = task.responseData(queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            XCTAssertEqual(response.error?.underlyingError as! URLError, URLError(.badServerResponse))
-            exp.fulfill()
-        }.responseObject(queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            exp.fulfill()
-        }.responseDecodable(type: DecodableObj.self, queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            exp.fulfill()
-        }
+        _ = task
+            .responseData(queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                XCTAssertEqual(response.error?.underlyingError as! URLError, URLError(.badServerResponse))
+                exp.fulfill()
+            }
+            .responseObject(queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                exp.fulfill()
+            }
+            .responseDecodable(type: DecodableObj.self, queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                exp.fulfill()
+            }
 
         DispatchQueue.global(qos: .background).async {
             task.append(chunk: Data("{\"key\"".utf8))
@@ -168,17 +174,20 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         let exp = expectation(description: "")
         exp.expectedFulfillmentCount = 3
 
-        _ = task.responseData(queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            XCTAssertEqual(response.error?.underlyingError as! URLError, URLError(.cancelled))
-            exp.fulfill()
-        }.responseObject(queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            exp.fulfill()
-        }.responseDecodable(type: DecodableObj.self, queue: .global(qos: .background)) { response in
-            XCTAssertTrue(response.isError)
-            exp.fulfill()
-        }
+        _ = task
+            .responseData(queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                XCTAssertEqual(response.error?.underlyingError as! URLError, URLError(.cancelled))
+                exp.fulfill()
+            }
+            .responseObject(queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                exp.fulfill()
+            }
+            .responseDecodable(type: DecodableObj.self, queue: .global(qos: .background)) { response in
+                XCTAssertTrue(response.isError)
+                exp.fulfill()
+            }
 
         DispatchQueue.global(qos: .background).async {
             task.append(chunk: Data("{\"key\"".utf8))

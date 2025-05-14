@@ -27,4 +27,8 @@ open class GetUsersShowRequestV1: TwitterAPIRequest {
         self.user = user
         self.includeEntities = includeEntities
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

@@ -23,4 +23,8 @@ open class PostListsDestroyRequestV1: TwitterAPIRequest {
     ) {
         self.list = list
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

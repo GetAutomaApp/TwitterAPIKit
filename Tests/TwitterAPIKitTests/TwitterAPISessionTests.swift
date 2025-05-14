@@ -8,6 +8,10 @@ private class GetTwitterReqeust: TwitterAPIRequest {
     var parameters: [String: Any] {
         return ["hoge": "😀"] // = %F0%9F%98%80
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
 
 private class PostTwitterReqeust: TwitterAPIRequest {
@@ -16,6 +20,10 @@ private class PostTwitterReqeust: TwitterAPIRequest {
     var parameters: [String: Any] {
         return ["hoge": "😀"] // = %F0%9F%98%80
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
 
 private class EmptyRequest: TwitterAPIRequest {
@@ -23,6 +31,10 @@ private class EmptyRequest: TwitterAPIRequest {
     var path: String { return "/empty.json" }
     var parameters: [String: Any] {
         return [:]
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
 
@@ -33,7 +45,7 @@ internal class TwitterAPISessionTests: XCTestCase {
         uploadURL: URL(string: "https://upload.xample.com")!
     )
 
-    lazy var session: TwitterAPISession = {
+    private lazy var session: TwitterAPISession = {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -104,8 +116,7 @@ internal class TwitterAPISessionTests: XCTestCase {
         )
 
         MockURLProtocol.requestHandler = { request in
-
-            let data = "aaaa\r\nbbbb\r\n".data(using: .utf8)!
+            let data = Data("aaaa\r\nbbbb\r\n".utf8)
 
             return (
                 HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
@@ -121,7 +132,8 @@ internal class TwitterAPISessionTests: XCTestCase {
         session.send(streamRequest: GetTwitterReqeust())
             .streamResponse(queue: .global(qos: .default)) { _ in
                 exp.fulfill()
-            }.streamResponse { _ in
+            }
+            .streamResponse { _ in
                 XCTAssertTrue(Thread.isMainThread)
                 exp.fulfill()
             }
@@ -288,14 +300,14 @@ internal class TwitterAPISessionTests: XCTestCase {
 }
 
 extension Data {
-    init(reading input: InputStream) throws {
+    public init(reading input: InputStream) throws {
         self.init()
         input.open()
         defer {
             input.close()
         }
 
-        let bufferSize = 1024
+        let bufferSize = 1_024
         let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
         defer {
             buffer.deallocate()
