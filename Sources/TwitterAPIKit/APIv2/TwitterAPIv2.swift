@@ -36,6 +36,10 @@ open class TwitterAPIv2 {
         user = .init(session: session)
         dm = .init(session: session)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
 
 public protocol TwitterAPIv2RequestParameter {

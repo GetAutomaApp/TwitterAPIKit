@@ -76,4 +76,8 @@ open class GetTweetsSearchAllRequestV2: TwitterAPIRequest {
         self.untilID = untilID
         self.userFields = userFields
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

@@ -20,12 +20,14 @@ internal class TwitterAPIKitErrorTests: XCTestCase {
     public func testRequestFailed() throws {
         XCTAssertTrue(TwitterAPIKitError.requestFailed(reason: .invalidURL(url: "")).isRequestFailed)
         XCTAssertTrue(
-            TwitterAPIKitError.requestFailed(reason: .invalidParameter(parameter: [:], cause: "hoge")).isRequestFailed)
+            TwitterAPIKitError.requestFailed(reason: .invalidParameter(parameter: [:], cause: "hoge")).isRequestFailed
+        )
         XCTAssertTrue(TwitterAPIKitError.requestFailed(reason: .cannotEncodeStringToData(string: "")).isRequestFailed)
         XCTAssertTrue(
             TwitterAPIKitError.requestFailed(
                 reason: .jsonSerializationFailed(obj: [:])
-            ).isRequestFailed)
+            ).isRequestFailed
+        )
     }
 
     public func testResponseFailed() throws {
@@ -33,31 +35,38 @@ internal class TwitterAPIKitErrorTests: XCTestCase {
         XCTAssertTrue(
             TwitterAPIKitError.responseFailed(
                 reason: .unacceptableStatusCode(statusCode: 200, error: .unknown(Data()), rateLimit: .init(header: [:]))
-            ).isResponseFailed)
+            ).isResponseFailed
+        )
     }
 
     public func testResponseSerializationFailure() throws {
         XCTAssertTrue(
             TwitterAPIKitError.responseSerializeFailed(
                 reason: .jsonSerializationFailed(error: NSError(domain: "", code: 0, userInfo: nil))
-            ).isResponseSerializeFailed)
+            ).isResponseSerializeFailed
+        )
         XCTAssertTrue(
             TwitterAPIKitError.responseSerializeFailed(
                 reason: .jsonDecodeFailed(
                     error: DecodingError.typeMismatch(
                         Any.self, .init(codingPath: [], debugDescription: "", underlyingError: nil)
-                    ))
-            ).isResponseSerializeFailed)
+                    )
+                )
+            ).isResponseSerializeFailed
+        )
         XCTAssertTrue(
-            TwitterAPIKitError.responseSerializeFailed(reason: .cannotConvert(data: Data(), toTypeName: ""))
-                .isResponseSerializeFailed)
+            TwitterAPIKitError.responseSerializeFailed(
+                reason: .cannotConvert(data: Data(), toTypeName: "")
+            ).isResponseSerializeFailed
+        )
     }
 
     public func testUploadMediaFailure() throws {
         XCTAssertTrue(
             TwitterAPIKitError.uploadMediaFailed(
                 reason: .processingFailed(error: .init(code: 1, name: "n", message: "m"))
-            ).isUploadMediaFailed)
+            ).isUploadMediaFailed
+        )
     }
 
     public func testUnknown() throws {

@@ -14,11 +14,12 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
                 "expires_in" : 7200,
                 "access_token" : "<token>"
                 }
-                """#.utf8)
+                """#.utf8
+            )
             let token = try TwitterOAuth2AccessToken(jsonData: data)!
             XCTAssertEqual(token.scope, ["tweet.write", "tweet.read"])
             XCTAssertEqual(token.tokenType, "bearer")
-            XCTAssertEqual(token.expiresIn, 7200)
+            XCTAssertEqual(token.expiresIn, 7_200)
             XCTAssertEqual(token.accessToken, "<token>")
             XCTAssertNil(token.refreshToken)
         }
@@ -34,11 +35,12 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
                 "access_token" : "<token>",
                 "refresh_token" : "<refresh token>"
                 }
-                """#.utf8)
+                """#.utf8
+            )
             let token = try TwitterOAuth2AccessToken(jsonData: data)!
             XCTAssertEqual(token.scope, ["tweet.write", "tweet.read", "offline.access"])
             XCTAssertEqual(token.tokenType, "bearer")
-            XCTAssertEqual(token.expiresIn, 7200)
+            XCTAssertEqual(token.expiresIn, 7_200)
             XCTAssertEqual(token.accessToken, "<token>")
             XCTAssertEqual(token.refreshToken, "<refresh token>")
         }

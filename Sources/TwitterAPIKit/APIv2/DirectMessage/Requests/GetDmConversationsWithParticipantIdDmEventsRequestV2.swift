@@ -64,4 +64,8 @@ open class GetDmConversationsWithParticipantIdDmEventsRequestV2: TwitterAPIReque
         self.userFields = userFields
         self.tweetFields = tweetFields
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

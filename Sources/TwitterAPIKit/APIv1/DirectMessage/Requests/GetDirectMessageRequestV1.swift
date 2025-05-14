@@ -20,4 +20,8 @@ open class GetDirectMessageRequestV1: TwitterAPIRequest {
     public init(id: String) {
         self.id = id
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

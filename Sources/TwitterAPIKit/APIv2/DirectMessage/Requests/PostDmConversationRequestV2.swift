@@ -53,4 +53,8 @@ open class PostDmConversationRequestV2: TwitterAPIRequest {
         self.attachments = attachments
         self.text = text
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
