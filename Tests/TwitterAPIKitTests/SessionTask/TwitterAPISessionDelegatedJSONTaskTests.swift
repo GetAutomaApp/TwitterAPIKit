@@ -142,7 +142,11 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         _ = task
             .responseData(queue: .global(qos: .background)) { response in
                 XCTAssertTrue(response.isError)
-                XCTAssertEqual(response.error?.underlyingError as! URLError, URLError(.badServerResponse))
+                if let urlError = response.error?.underlyingError as? URLError {
+                    XCTAssertEqual(urlError, URLError(.badServerResponse))
+                } else {
+                    XCTFail("Expected URLError")
+                }
                 exp.fulfill()
             }
             .responseObject(queue: .global(qos: .background)) { response in
@@ -181,7 +185,11 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         _ = task
             .responseData(queue: .global(qos: .background)) { response in
                 XCTAssertTrue(response.isError)
-                XCTAssertEqual(response.error?.underlyingError as! URLError, URLError(.cancelled))
+                if let urlError = response.error?.underlyingError as? URLError {
+                    XCTAssertEqual(urlError, URLError(.cancelled))
+                } else {
+                    XCTFail("Expected URLError")
+                }
                 exp.fulfill()
             }
             .responseObject(queue: .global(qos: .background)) { response in
@@ -190,6 +198,11 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
             }
             .responseDecodable(type: DecodableObj.self, queue: .global(qos: .background)) { response in
                 XCTAssertTrue(response.isError)
+                if let urlError = response.error?.underlyingError as? URLError {
+                    XCTAssertEqual(urlError, URLError(.cancelled))
+                } else {
+                    XCTFail("Expected URLError")
+                }
                 exp.fulfill()
             }
 
