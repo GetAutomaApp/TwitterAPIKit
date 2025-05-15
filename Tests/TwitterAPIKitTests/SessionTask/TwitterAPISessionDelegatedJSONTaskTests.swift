@@ -35,7 +35,11 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
             exp.fulfill()
         }
         .responseObject(queue: .global(qos: .background)) { response in
-            AssertEqualAnyDict(response.success as! [String: Any], ["key": "value"])
+            if let dict = response.success as? [String: Any] {
+                AssertEqualAnyDict(dict, ["key": "value"])
+            } else {
+                XCTFail("Expected response.success to be [String: Any]")
+            }
             XCTAssertFalse(Thread.isMainThread)
             exp.fulfill()
         }
