@@ -1,29 +1,26 @@
-//===----------------------------------------------------------------------===//
-//
+// ===----------------------------------------------------------------------===//
+// 
 // This source file is part of the Swift Algorithms open source project
-//
+// 
 // Copyright (c) 2020-2021 Apple Inc. and the Swift project authors
 // Licensed under Apache License v2.0 with Runtime Library Exception
-//
+// 
 // See https://swift.org/LICENSE.txt for license information
-//
-//===----------------------------------------------------------------------===//
+// 
+// ===----------------------------------------------------------------------===//
 
 /// A collection wrapper that generates combinations of a base collection.
 public struct CombinationsSequence<Base: Collection> {
     /// The collection to iterate over for combinations.
-    @usableFromInline
-    let base: Base
+    @usableFromInline internal let base: Base
 
-    @usableFromInline
-    let baseCount: Int
+    @usableFromInline internal let baseCount: Int
 
     /// The range of accepted sizes of combinations.
     ///
     /// - Note: This may be `nil` if the attempted range entirely exceeds the
     /// upper bounds of the size of the `base` collection.
-    @usableFromInline
-    let kRange: Range<Int>?
+    @usableFromInline internal let kRange: Range<Int>?
 
     /// Initializes a `CombinationsSequence` for all combinations of `base` of
     /// size `k`.
@@ -32,7 +29,7 @@ public struct CombinationsSequence<Base: Collection> {
     ///   - base: The collection to iterate over for combinations.
     ///   - k: The expected size of each combination.
     @inlinable
-    init(_ base: Base, k: Int) {
+    internal init(_ base: Base, k: Int) {
         self.init(base, kRange: k ... k)
     }
 
@@ -43,7 +40,7 @@ public struct CombinationsSequence<Base: Collection> {
     ///   - base: The collection to iterate over for combinations.
     ///   - kRange: The range of accepted sizes of combinations.
     @inlinable
-    init<R: RangeExpression>(
+    internal init<R: RangeExpression>(
         _ base: Base, kRange: R
     ) where R.Bound == Int {
         let range = kRange.relative(to: 0 ..< .max)
@@ -66,7 +63,7 @@ public struct CombinationsSequence<Base: Collection> {
             return 1 << n
         }
 
-        public func binomial(n: Int, k: Int) -> Int {
+        internal func binomial(n: Int, k: Int) -> Int {
             switch k {
             case n, 0: return 1
             case n...: return 0
@@ -85,7 +82,7 @@ extension CombinationsSequence: Sequence {
     /// The iterator for a `CombinationsSequence` instance.
     public struct Iterator: IteratorProtocol {
         @usableFromInline
-        let base: Base
+        internal let base: Base
 
         /// The current range of accepted sizes of combinations.
         ///
@@ -93,19 +90,19 @@ extension CombinationsSequence: Sequence {
         /// combinations of different sizes. When the range is empty, iteration is
         /// finished.
         @usableFromInline
-        var kRange: Range<Int>
+        internal var kRange: Range<Int>
 
         /// Whether or not iteration is finished (`kRange` is empty)
         @inlinable
-        var isFinished: Bool {
+        internal var isFinished: Bool {
             return kRange.isEmpty
         }
 
         @usableFromInline
-        var indexes: [Base.Index]
+        internal var indexes: [Base.Index]
 
         @inlinable
-        init(_ combinations: CombinationsSequence) {
+        internal init(_ combinations: CombinationsSequence) {
             base = combinations.base
             kRange = combinations.kRange ?? 0 ..< 0
             indexes = Array(combinations.base.indices.prefix(kRange.lowerBound))
@@ -130,10 +127,10 @@ extension CombinationsSequence: Sequence {
         ///     // Can't advance without needing to go past `base.endIndex`,
         ///     // so the iteration is finished.
         @inlinable
-        mutating public func advance() {
+        internal mutating func advance() {
             /// Advances `kRange` by incrementing its `lowerBound` until the range is
             /// empty, when iteration is finished.
-            public func advanceKRange() {
+            internal func advanceKRange() {
                 if kRange.lowerBound < kRange.upperBound {
                     let advancedLowerBound = kRange.lowerBound + 1
                     kRange = advancedLowerBound ..< kRange.upperBound
@@ -174,7 +171,7 @@ extension CombinationsSequence: Sequence {
         }
 
         @inlinable
-        public mutating public func next() -> [Base.Element]? {
+        public mutating func next() -> [Base.Element]? {
             guard !isFinished else { return nil }
             defer { advance() }
             return indexes.map { i in base[i] }
@@ -182,7 +179,7 @@ extension CombinationsSequence: Sequence {
     }
 
     @inlinable
-    public public func makeIterator() -> Iterator {
+    public func makeIterator() -> Iterator {
         Iterator(self)
     }
 }
@@ -190,9 +187,9 @@ extension CombinationsSequence: Sequence {
 extension CombinationsSequence: LazySequenceProtocol
     where Base: LazySequenceProtocol {}
 
-//===----------------------------------------------------------------------===//
+// ===----------------------------------------------------------------------===//
 // combinations(ofCount:)
-//===----------------------------------------------------------------------===//
+// ===----------------------------------------------------------------------===//
 
 public extension Collection {
     /// Returns a collection of combinations of this collection's elements, with

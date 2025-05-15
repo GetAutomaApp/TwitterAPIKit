@@ -169,8 +169,13 @@ internal class TwitterAPIRequestTests: XCTestCase {
     }
 
     public func testBodyContentType() throws {
+        try testWWWFormUrlEncoded()
+        try testMultipartFormData()
+        try testJSON()
+    }
+    
+    private func testWWWFormUrlEncoded() throws {
         try XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
-
             let req = try MockTwitterAPIRequest(
                 method: .post,
                 parameters: ["key": "value,🥓"],
@@ -178,10 +183,11 @@ internal class TwitterAPIRequestTests: XCTestCase {
             ).buildRequest(environment: env)
 
             let body = String(data: req.httpBody!, encoding: .utf8)
-
             XCTAssertEqual(body, "key=value%2C%F0%9F%A5%93")
         }
-
+    }
+    
+    private func testMultipartFormData() throws {
         try XCTContext.runActivity(named: "multipartFormData") { _ in
             let req = try MockTwitterAPIRequest(
                 method: .post,
@@ -220,20 +226,25 @@ internal class TwitterAPIRequestTests: XCTestCase {
             """
 
             XCTAssertEqual(body, expect)
-            try XCTContext.runActivity(named: "Invalid parameter") { _ in
-
-                XCTAssertThrowsError(
-                    try MockTwitterAPIRequest(
-                        method: .post,
-                        parameters: ["key": "value,🥓"],
-                        bodyContentType: .multipartFormData
-                    ).buildRequest(environment: env)
-                ) { error in
-                    XCTAssertTrue(error is TwitterAPIKitError)
-                }
+            try testInvalidMultipartFormData()
+        }
+    }
+    
+    private func testInvalidMultipartFormData() throws {
+        try XCTContext.runActivity(named: "Invalid parameter") { _ in
+            XCTAssertThrowsError(
+                try MockTwitterAPIRequest(
+                    method: .post,
+                    parameters: ["key": "value,🥓"],
+                    bodyContentType: .multipartFormData
+                ).buildRequest(environment: env)
+            ) { error in
+                XCTAssertTrue(error is TwitterAPIKitError)
             }
         }
-
+    }
+    
+    private func testJSON() throws {
         try XCTContext.runActivity(named: "json") { _ in
             let req = try MockTwitterAPIRequest(
                 method: .post,
@@ -244,44 +255,47 @@ internal class TwitterAPIRequestTests: XCTestCase {
             let body = try JSONSerialization.jsonObject(with: req.httpBody!, options: [])
             XCTAssertEqual(body as? [String: String], ["key": "value,🥓"])
 
-            try XCTContext.runActivity(
-                named: "Invalid",
-            ) { _ in
-                XCTAssertThrowsError(
-                    try MockTwitterAPIRequest(
-                        method: .post,
-                        parameters: ["key": Data()],
-                        bodyContentType: .json
-                    ).buildRequest(environment: env)
-                ) { error in
-                    if
-                        let error = error as? TwitterAPIKitError,
-                        case .jsonSerializationFailed = error.requestFailureReason {
-                    } else {
-                        XCTFail("Unknown Error")
-                    }
+            try testInvalidJSON()
+            try testInvalidJSONValue()
+        }
+    }
+    
+    private func testInvalidJSON() throws {
+        try XCTContext.runActivity(named: "Invalid") { _ in
+            XCTAssertThrowsError(
+                try MockTwitterAPIRequest(
+                    method: .post,
+                    parameters: ["key": Data()],
+                    bodyContentType: .json
+                ).buildRequest(environment: env)
+            ) { error in
+                if
+                    let error = error as? TwitterAPIKitError,
+                    case .jsonSerializationFailed = error.requestFailureReason {
+                } else {
+                    XCTFail("Unknown Error")
                 }
             }
-
-            try XCTContext.runActivity(
-                named: "Invalid value",
-            ) { _ in
-                XCTAssertThrowsError(
-                    try MockTwitterAPIRequest(
-                        method: .post,
-                        parameters: [
-                            String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!:
-                                String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!,
-                        ],
-                        bodyContentType: .json
-                    ).buildRequest(environment: env)
-                ) { error in
-                    if
-                        let error = error as? TwitterAPIKitError,
-                        case .jsonSerializationFailed = error.requestFailureReason {
-                    } else {
-                        XCTFail("Unknown Error")
-                    }
+        }
+    }
+    
+    private func testInvalidJSONValue() throws {
+        try XCTContext.runActivity(named: "Invalid value") { _ in
+            XCTAssertThrowsError(
+                try MockTwitterAPIRequest(
+                    method: .post,
+                    parameters: [
+                        String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!:
+                            String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!,
+                    ],
+                    bodyContentType: .json
+                ).buildRequest(environment: env)
+            ) { error in
+                if
+                    let error = error as? TwitterAPIKitError,
+                    case .jsonSerializationFailed = error.requestFailureReason {
+                } else {
+                    XCTFail("Unknown Error")
                 }
             }
         }
