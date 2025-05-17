@@ -9,10 +9,10 @@ import Foundation
 /// This enum can handle both v1 and v2 API error formats, as well as unknown error responses.
 public enum TwitterAPIErrorResponse: Equatable {
     /// An error response from the Twitter API v1.1.
-    case v1(TwitterAPIErrorResponseV1)
+    case apiVersion1(TwitterAPIErrorResponseV1)
     
     /// An error response from the Twitter API v2.
-    case v2(TwitterAPIErrorResponseV2)
+    case apiVersion2(TwitterAPIErrorResponseV2)
     
     /// An unknown error response containing raw data.
     case unknown(Data)
@@ -26,10 +26,10 @@ public enum TwitterAPIErrorResponse: Equatable {
             return
         }
 
-        if let v1 = TwitterAPIErrorResponseV1(obj: obj) {
-            self = .v1(v1)
-        } else if let v2 = TwitterAPIErrorResponseV2(obj: obj) {
-            self = .v2(v2)
+        if let version1 = TwitterAPIErrorResponseV1(obj: obj) {
+            self = .apiVersion1(version1)
+        } else if let version2 = TwitterAPIErrorResponseV2(obj: obj) {
+            self = .apiVersion2(version2)
         } else {
             self = .unknown(data)
         }
@@ -43,10 +43,10 @@ public extension TwitterAPIErrorResponse {
     /// For unknown errors, this is the raw data as a string.
     var message: String {
         switch self {
-        case let .v1(twitterAPIErrorResponseV1):
-            return twitterAPIErrorResponseV1.message
-        case let .v2(twitterAPIErrorResponseV2):
-            return twitterAPIErrorResponseV2.detail
+        case let .apiVersion1(version1Response):
+            return version1Response.message
+        case let .apiVersion2(version2Response):
+            return version2Response.detail
         case let .unknown(data):
             return String(data: data, encoding: .utf8) ?? "Unknown"
         }
@@ -55,34 +55,34 @@ public extension TwitterAPIErrorResponse {
     /// The error code from the response.
     /// Only available for v1 errors.
     var code: Int? {
-        if case let .v1(v1) = self {
-            return v1.code
+        if case let .apiVersion1(version1) = self {
+            return version1.code
         }
         return nil
     }
 
     /// Indicates whether this is a v1 error response.
-    var isV1: Bool {
-        return v1 != nil
+    var isVersion1: Bool {
+        return version1 != nil
     }
 
     /// The v1 error response if this is a v1 error, nil otherwise.
-    var v1: TwitterAPIErrorResponseV1? {
-        if case let .v1(v1) = self {
-            return v1
+    var version1: TwitterAPIErrorResponseV1? {
+        if case let .apiVersion1(version1) = self {
+            return version1
         }
         return nil
     }
 
     /// Indicates whether this is a v2 error response.
-    var isV2: Bool {
-        return v2 != nil
+    var isVersion2: Bool {
+        return version2 != nil
     }
 
     /// The v2 error response if this is a v2 error, nil otherwise.
-    var v2: TwitterAPIErrorResponseV2? {
-        if case let .v2(v2) = self {
-            return v2
+    var version2: TwitterAPIErrorResponseV2? {
+        if case let .apiVersion2(version2) = self {
+            return version2
         }
         return nil
     }

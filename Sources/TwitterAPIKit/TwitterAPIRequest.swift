@@ -63,16 +63,16 @@ public enum MultipartFormDataPart {
 extension MultipartFormDataPart: Equatable {
     public static func == (lhs: MultipartFormDataPart, rhs: MultipartFormDataPart) -> Bool {
         switch (lhs, rhs) {
-        case let (.value(name: ln, value: lv), .value(name: rn, value: rv)):
-            return ln == rn && type(of: lv) == type(of: rv) && String(describing: lv) == String(describing: rv)
+        case let (.value(name: leftName, value: leftValue), .value(name: rightName, value: rightValue)):
+            return leftName == rightName && type(of: leftValue) == type(of: rightValue) && String(describing: leftValue) == String(describing: rightValue)
         case let (
-            .data(name: ln, value: lv, filename: lf, mimeType: lm),
-            .data(name: rn, value: rv, filename: rf, mimeType: rm)
+            .data(name: leftName, value: leftValue, filename: leftFilename, mimeType: leftMimeType),
+            .data(name: rightName, value: rightValue, filename: rightFilename, mimeType: rightMimeType)
         ):
-            return ln == rn
-                && lv == rv
-                && lf == rf
-                && lm == rm
+            return leftName == rightName
+                && leftValue == rightValue
+                && leftFilename == rightFilename
+                && leftMimeType == rightMimeType
         default:
             return false
         }
@@ -150,7 +150,7 @@ extension TwitterAPIRequest {
         if !queryParameters.isEmpty {
             urlComponent.percentEncodedQueryItems =
                 queryParameters
-                    .sorted { a, b in a.key < b.key }
+                    .sorted { first, second in first.key < second.key }
                     .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
         }
 
