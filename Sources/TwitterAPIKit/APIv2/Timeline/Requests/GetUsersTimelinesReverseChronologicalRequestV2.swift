@@ -79,4 +79,7 @@ open class GetUsersTimelinesReverseChronologicalRequestV2: TwitterAPIRequest {
         self.untilID = untilID
         self.userFields = userFields
     }
+    deinit {
+        // de-init logic here
+    }
 }

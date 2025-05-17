@@ -28,4 +28,7 @@ open class GetFriendshipsNoRetweetsIDsRequestV1: TwitterAPIRequest {
     ) {
         self.stringifyIDs = stringifyIDs
     }
+    deinit {
+        // de-init logic here
+    }
 }

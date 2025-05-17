@@ -32,4 +32,7 @@ open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
         self.user = user
         self.follow = follow
     }
+    deinit {
+        // de-init logic here
+    }
 }

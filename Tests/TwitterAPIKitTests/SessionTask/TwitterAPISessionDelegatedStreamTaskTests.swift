@@ -147,7 +147,10 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         DispatchQueue.main.async {
             task.append(
                 chunk: Data(
-                    "{\"detail\":\"Authenticating with OAuth 1.0a User Context is forbidden for this endpoint.  Supported authentication types are [OAuth 2.0 Application-Only].\",\"title\":\"Unsupported Authentication\",\"status\":403,\"type\":\"https://api.twitter.com/2/problems/unsupported-authentication\"}"
+                    "{\"detail\":\"Authenticating with OAuth 1.0a User Context is forbidden for this endpoint.  " +
+                    "Supported authentication types are [OAuth 2.0 Application-Only].\",\"title\":\"Unsupported " +
+                    "Authentication\",\"status\":403,\"type\":\"https://api.twitter.com/2/problems/unsupported-" +
+                    "authentication\"}"
                         .utf8
                 )
             )

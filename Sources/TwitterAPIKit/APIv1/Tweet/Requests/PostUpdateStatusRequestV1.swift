@@ -80,4 +80,7 @@ open class PostStatusesUpdateRequestV1: TwitterAPIRequest {
         self.failDMcommands = failDMcommands
         self.cardUri = cardUri
     }
+    deinit {
+        // de-init logic here
+    }
 }

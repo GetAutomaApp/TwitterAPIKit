@@ -32,4 +32,7 @@ open class GetDirectMessageListRequestV1: TwitterAPIRequest {
         self.count = count
         self.cursor = cursor
     }
+    deinit {
+        // de-init logic here
+    }
 }

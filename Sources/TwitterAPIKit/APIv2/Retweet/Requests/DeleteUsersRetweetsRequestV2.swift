@@ -29,4 +29,7 @@ open class DeleteUsersRetweetsRequestV2: TwitterAPIRequest {
         self.id = id
         self.sourceTweetID = sourceTweetID
     }
+    deinit {
+        // de-init logic here
+    }
 }

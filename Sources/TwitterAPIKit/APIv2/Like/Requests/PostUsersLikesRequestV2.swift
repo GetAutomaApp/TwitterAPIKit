@@ -36,4 +36,7 @@ open class PostUsersLikesRequestV2: TwitterAPIRequest {
         self.id = id
         self.tweetID = tweetID
     }
+    deinit {
+        // de-init logic here
+    }
 }

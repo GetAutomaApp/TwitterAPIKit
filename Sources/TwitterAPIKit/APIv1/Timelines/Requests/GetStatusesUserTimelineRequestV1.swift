@@ -52,4 +52,7 @@ open class GetStatusesUserTimelineRequestV1: TwitterAPIRequest {
         self.includeRTs = includeRTs
         self.excludeReplies = excludeReplies
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -36,4 +36,7 @@ open class GetBlocksListRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
         self.cursor = cursor
     }
+    deinit {
+        // de-init logic here
+    }
 }

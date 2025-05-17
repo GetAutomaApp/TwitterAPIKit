@@ -13,7 +13,7 @@ internal struct DecodableObj: Decodable, Equatable {
 
 internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
     // swiftlint:disable:next force_unwrapping
-    let testURL = URL(string: "http://example.com")! // This is fine as it's a constant test URL that we know is valid
+    internal let testURL = URL(string: "http://example.com")! // This is fine as it's a constant test URL that we know is valid
 
     public func testSuccess() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)

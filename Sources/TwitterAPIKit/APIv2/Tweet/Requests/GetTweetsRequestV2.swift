@@ -50,6 +50,10 @@ open class GetTweetsRequestV2: TwitterAPIRequest {
         self.placeFields = placeFields
         self.pollFields = pollFields
         self.tweetFields = tweetFields
-        self.userFields = userFields
+        self.userFields = userFields 
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -36,4 +36,7 @@ open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
         self.device = device
         self.retweets = retweets
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -44,4 +44,7 @@ open class GetFollowersListRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
         self.includeUserEntities = includeUserEntities
     }
+    deinit {
+        // de-init logic here
+    }
 }

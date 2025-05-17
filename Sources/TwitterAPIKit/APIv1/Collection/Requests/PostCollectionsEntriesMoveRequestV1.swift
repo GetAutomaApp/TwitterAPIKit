@@ -40,4 +40,7 @@ open class PostCollectionsEntriesMoveRequestV1: TwitterAPIRequest {
         self.above = above
         self.relativeTo = relativeTo
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -49,8 +49,7 @@ public struct CombinationsSequence<Base: Collection> {
     }
 
     /// The total number of combinations.
-    @inlinable
-    public var count: Int {
+    @inlinable public var count: Int {
         guard let range = combinationRange else { return 0 }
         let total = baseCount
         if range == 0 ..< (total + 1) {
@@ -66,34 +65,32 @@ public struct CombinationsSequence<Base: Collection> {
             }
         }
 
-        return range.map {
-            binomial(total: total, size: $0)
-        }.reduce(0, +)
+        return range
+            .map {
+                binomial(total: total, size: $0)
+            }
+            .reduce(0, +)
     }
 }
 
 extension CombinationsSequence: Sequence {
     /// The iterator for a `CombinationsSequence` instance.
     public struct Iterator: IteratorProtocol {
-        @usableFromInline
-        internal let base: Base
+        @usableFromInline internal let base: Base
 
         /// The current range of accepted sizes of combinations.
         ///
         /// - Note: The range is contracted until empty while iterating over
         /// combinations of different sizes. When the range is empty, iteration is
         /// finished.
-        @usableFromInline
-        internal var kRange: Range<Int>
+        @usableFromInline internal var kRange: Range<Int>
 
         /// Whether or not iteration is finished (`kRange` is empty)
-        @inlinable
-        internal var isFinished: Bool {
+        @inlinable internal var isFinished: Bool {
             return kRange.isEmpty
         }
 
-        @usableFromInline
-        internal var indexes: [Base.Index]
+        @usableFromInline internal var indexes: [Base.Index]
 
         @inlinable
         internal init(_ combinations: CombinationsSequence) {

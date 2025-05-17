@@ -57,4 +57,7 @@ open class GetSpacesSearchRequestV2: TwitterAPIRequest {
         self.topicFields = topicFields
         self.userFields = userFields
     }
+    deinit {
+        // de-init logic here
+    }
 }

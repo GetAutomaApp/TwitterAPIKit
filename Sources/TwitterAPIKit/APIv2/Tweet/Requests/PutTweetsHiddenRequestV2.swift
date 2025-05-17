@@ -36,4 +36,8 @@ open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
         self.id = id
         self.hidden = hidden
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

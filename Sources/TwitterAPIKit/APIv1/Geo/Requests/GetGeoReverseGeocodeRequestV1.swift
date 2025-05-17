@@ -40,4 +40,7 @@ open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
         self.maxResults = maxResults
         self.granularity = granularity
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -28,4 +28,7 @@ open class GetTrendsClosestRequestV1: TwitterAPIRequest {
     ) {
         self.location = location
     }
+    deinit {
+        // de-init logic here
+    }
 }

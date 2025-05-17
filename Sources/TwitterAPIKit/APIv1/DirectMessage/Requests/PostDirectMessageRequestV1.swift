@@ -146,4 +146,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         self.attachment = attachment
         self.quickReplyOptions = quickReplyOptions
     }
+    deinit {
+        // de-init logic here
+    }
 }

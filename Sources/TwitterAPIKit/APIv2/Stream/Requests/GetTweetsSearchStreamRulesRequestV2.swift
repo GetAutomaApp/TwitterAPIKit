@@ -28,4 +28,7 @@ open class GetTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     ) {
         self.ids = ids
     }
+    deinit {
+        // de-init logic here
+    }
 }

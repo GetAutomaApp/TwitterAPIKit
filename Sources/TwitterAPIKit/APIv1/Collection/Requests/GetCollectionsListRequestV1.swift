@@ -40,4 +40,7 @@ open class GetCollectionsListRequestV1: TwitterAPIRequest {
         self.cursor = cursor
         self.tweetID = tweetID
     }
+    deinit {
+        // de-init logic here
+    }
 }

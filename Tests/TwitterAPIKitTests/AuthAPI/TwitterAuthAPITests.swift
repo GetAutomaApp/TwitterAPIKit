@@ -7,11 +7,11 @@ import TwitterAPIKit
 import XCTest
 
 internal class TwitterAuthAPITests: XCTestCase {
-    var client: TwitterAuthAPI!
+    public var client: TwitterAuthAPI!
 
     override public func setUpWithError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         client =
             TwitterAPIClient(
@@ -59,8 +59,10 @@ internal class TwitterAuthAPITests: XCTestCase {
         )
 
         XCTAssertEqual(
-            url!.absoluteString,
-            "https://twitter.com/i/oauth2/authorize?client_id=cid&code_challenge=challenge&code_challenge_method=plain&redirect_uri=callback&response_type=code&scope=users.read%20tweet.read&state=state"
+            url?.absoluteString,
+            "https://twitter.com/i/oauth2/authorize?client_id=cid&code_challenge=challenge&" +
+            "code_challenge_method=plain&redirect_uri=callback&response_type=code&" + 
+            "scope=users.read%20tweet.read&state=state"
         )
     }
 

@@ -40,4 +40,7 @@ open class PostComplianceJobsRequestV2: TwitterAPIRequest {
         self.name = name
         self.resumable = resumable
     }
+    deinit {
+        // de-init logic here
+    }
 }

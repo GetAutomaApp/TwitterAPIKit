@@ -46,4 +46,7 @@ open class GetFavoritesRequestV1: TwitterAPIRequest {
         self.maxID = maxID
         self.includeEntities = includeEntities
     }
+    deinit {
+        // de-init logic here
+    }
 }

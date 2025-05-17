@@ -37,4 +37,7 @@ open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
         self.lastReadEventID = lastReadEventID
         self.recipientID = recipientID
     }
+    deinit {
+        // de-init logic here
+    }
 }

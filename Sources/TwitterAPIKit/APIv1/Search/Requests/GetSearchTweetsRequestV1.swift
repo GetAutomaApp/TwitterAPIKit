@@ -70,4 +70,7 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
         self.resultType = resultType
         self.includeEntities = includeEntities
     }
+    deinit {
+        // de-init logic here
+    }
 }

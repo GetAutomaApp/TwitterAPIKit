@@ -51,4 +51,8 @@ open class GetTweetRequestV2: TwitterAPIRequest {
         self.tweetFields = tweetFields
         self.userFields = userFields
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }

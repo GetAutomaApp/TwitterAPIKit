@@ -35,4 +35,7 @@ open class PostUsersFollowedListsRequestV2: TwitterAPIRequest {
         self.id = id
         self.listID = listID
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -37,4 +37,7 @@ open class GetRetweetsRequestV1: TwitterAPIRequest {
         self.count = count
         self.trimUser = trimUser
     }
+    deinit {
+        // de-init logic here
+    }
 }

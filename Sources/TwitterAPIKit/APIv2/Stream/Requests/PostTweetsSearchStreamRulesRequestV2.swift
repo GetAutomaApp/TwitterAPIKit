@@ -67,4 +67,7 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
         self.operation = operation
         self.dryRun = dryRun
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -32,4 +32,7 @@ open class PostUnFavoriteRequestV1: TwitterAPIRequest {
         self.id = id
         self.includeEntities = includeEntities
     }
+    deinit {
+        // de-init logic here
+    }
 }

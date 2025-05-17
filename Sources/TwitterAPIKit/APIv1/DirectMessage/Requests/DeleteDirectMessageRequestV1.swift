@@ -26,4 +26,7 @@ open class DeleteDirectMessageRequestV1: TwitterAPIRequest {
     public init(id: String) {
         self.id = id
     }
+    deinit {
+        // de-init logic here
+    }
 }

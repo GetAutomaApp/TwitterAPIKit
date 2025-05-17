@@ -52,4 +52,7 @@ open class GetTweetsCountsAllRequestV2: TwitterAPIRequest {
         self.startTime = startTime
         self.untilID = untilID
     }
+    deinit {
+        // de-init logic here
+    }
 }

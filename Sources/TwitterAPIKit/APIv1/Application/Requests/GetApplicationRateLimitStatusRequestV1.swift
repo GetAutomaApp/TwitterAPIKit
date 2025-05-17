@@ -28,4 +28,7 @@ open class GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
     ) {
         self.resources = resources
     }
+    deinit {
+        // de-init logic here
+    }
 }

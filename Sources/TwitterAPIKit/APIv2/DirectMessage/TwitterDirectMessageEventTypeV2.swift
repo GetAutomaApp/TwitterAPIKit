@@ -17,7 +17,7 @@ extension TwitterDirectMessageEventTypeV2: TwitterAPIv2RequestParameter {
 }
 
 extension Set where Element == TwitterDirectMessageEventTypeV2 {
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         param["event_types"] = commaSeparatedString
     }
 }

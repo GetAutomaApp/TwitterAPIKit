@@ -31,4 +31,7 @@ open class PostRetweetRequestV1: TwitterAPIRequest {
         self.id = id
         self.trimUser = trimUser
     }
+    deinit {
+        // de-init logic here
+    }
 }

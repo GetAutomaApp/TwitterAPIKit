@@ -32,6 +32,7 @@ internal class UploadMediaUtilTests: XCTestCase {
         )
 
         var requestCount = 0
+        // swiftlint:disable:next closure_body_length
         MockURLProtocol.requestHandler = { [weak self] request in
             guard let self else {
                 throw URLError(.unknown)

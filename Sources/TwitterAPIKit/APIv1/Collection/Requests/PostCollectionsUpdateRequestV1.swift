@@ -40,4 +40,7 @@ open class PostCollectionsUpdateRequestV1: TwitterAPIRequest {
         self.name = name
         self.description = description
     }
+    deinit {
+        // de-init logic here
+    }
 }

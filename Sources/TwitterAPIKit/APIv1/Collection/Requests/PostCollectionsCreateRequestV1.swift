@@ -50,4 +50,7 @@ open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
         self.description = description
         self.timelineOrder = timelineOrder
     }
+    deinit {
+        // de-init logic here
+    }
 }

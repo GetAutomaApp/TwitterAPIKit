@@ -32,4 +32,7 @@ open class GetMutesUsersIDsRequestV1: TwitterAPIRequest {
         self.stringifyIDs = stringifyIDs
         self.cursor = cursor
     }
+    deinit {
+        // de-init logic here
+    }
 }

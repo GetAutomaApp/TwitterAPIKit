@@ -44,4 +44,7 @@ open class GetSpacesRequestV2: TwitterAPIRequest {
         self.topicFields = topicFields
         self.userFields = userFields
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -48,4 +48,7 @@ open class GetStatusesLookupRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
         self.includeExtAltText = includeExtAltText
     }
+    deinit {
+        // de-init logic here
+    }
 }

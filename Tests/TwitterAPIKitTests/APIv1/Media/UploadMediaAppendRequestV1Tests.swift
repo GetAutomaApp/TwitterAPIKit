@@ -22,7 +22,7 @@ internal class UploadMediaAppendRequestV1Tests: XCTestCase {
         XCTAssertEqual(req.path, "/1.1/media/upload.json")
         XCTAssertEqual(req.bodyContentType, .multipartFormData)
         XCTAssertEqual(
-            req.parameters as! [String: MultipartFormDataPart],
+            req.parameters as? [String: MultipartFormDataPart],
             [
                 "command": MultipartFormDataPart.value(name: "command", value: "APPEND"),
                 "media_id": MultipartFormDataPart.value(name: "media_id", value: "m"),

@@ -50,4 +50,7 @@ open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
         self.includeUserEntities = includeUserEntities
     }
+    deinit {
+        // de-init logic here
+    }
 }

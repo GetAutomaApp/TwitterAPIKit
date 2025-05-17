@@ -48,4 +48,7 @@ open class GetUsersListMembershipsRequestV2: TwitterAPIRequest {
         self.paginationToken = paginationToken
         self.userFields = userFields
     }
+    deinit {
+        // de-init logic here
+    }
 }

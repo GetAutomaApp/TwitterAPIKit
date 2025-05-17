@@ -39,4 +39,7 @@ open class GetUsersPinnedListsRequestV2: TwitterAPIRequest {
         self.listFields = listFields
         self.userFields = userFields
     }
+    deinit {
+        // de-init logic here
+    }
 }

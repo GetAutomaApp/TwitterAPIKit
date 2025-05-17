@@ -25,4 +25,7 @@ open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
         self.user = user
         self.performBlock = performBlock
     }
+    deinit {
+        // de-init logic here
+    }
 }

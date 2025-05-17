@@ -5,6 +5,7 @@
 
 import Foundation
 
+// swiflint:disable:next type_name
 /// Returns DM Events for a DM Conversation
 /// Required OAuth 2.0 scopes: dm.read, tweet.read, users.read
 open class GetDmConversationsWithParticipantIdDmEventsRequestV2: TwitterAPIRequest {

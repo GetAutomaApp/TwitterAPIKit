@@ -14,7 +14,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
             self.placeID = placeID
         }
 
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             var params = [String: Any]()
 
             params["place_id"] = placeID
@@ -35,7 +35,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
             self.taggedUserIDs = taggedUserIDs
         }
 
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             var params = [String: Any]()
 
             params["media_ids"] = mediaIDs
@@ -57,7 +57,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
             self.options = options
         }
 
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             var params = [String: Any]()
 
             params["duration_minutes"] = durationMinutes
@@ -79,7 +79,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
             self.inReplyToTweetID = inReplyToTweetID
         }
 
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             var params = [String: Any]()
 
             excludeReplyUserIDs.map { params["exclude_reply_user_ids"] = $0 }
@@ -94,7 +94,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         case following
         case everyone
 
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             param["reply_settings"] = rawValue
         }
     }
@@ -155,5 +155,9 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         self.reply = reply
         self.replySettings = replySettings
         self.text = text
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

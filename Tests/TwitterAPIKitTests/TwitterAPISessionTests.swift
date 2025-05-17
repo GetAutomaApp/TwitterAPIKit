@@ -335,6 +335,9 @@ internal class TwitterAPISessionTests: XCTestCase {
 }
 
 public extension Data {
+    /// Initialize a Data object by reading from an InputStream.
+    /// - Parameter input: The InputStream to read from.
+    /// - Throws: An error if the InputStream is nil or an error occurs while reading.
     init(reading input: InputStream) throws {
         self.init()
         input.open()
@@ -351,7 +354,7 @@ public extension Data {
             let read = input.read(buffer, maxLength: bufferSize)
             if read < 0 {
                 // Stream error occured
-                throw input.streamError!
+                throw input.streamError ?? URLError(.unknown)
             } else if read == 0 {
                 // EOF
                 break

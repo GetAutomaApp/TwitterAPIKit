@@ -40,4 +40,7 @@ open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
         self.maxPosition = maxPosition
         self.minPosition = minPosition
     }
+    deinit {
+        // de-init logic here
+    }
 }

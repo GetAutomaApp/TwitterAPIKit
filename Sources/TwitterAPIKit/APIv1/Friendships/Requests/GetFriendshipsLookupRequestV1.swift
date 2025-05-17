@@ -28,4 +28,7 @@ open class GetFriendshipsLookupRequestV1: TwitterAPIRequest {
     ) {
         self.users = users
     }
+    deinit {
+        // de-init logic here
+    }
 }

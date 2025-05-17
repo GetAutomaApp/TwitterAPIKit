@@ -11,16 +11,19 @@ internal class TwitterOAuthTokenV1Tests: XCTestCase {
         let token = TwitterOAuthTokenV1(oauthToken: "token", oauthTokenSecret: "secret", oauthCallbackConfirmed: true)
         XCTAssertEqual(token.oauthToken, "token")
         XCTAssertEqual(token.oauthTokenSecret, "secret")
-        XCTAssertTrue(token.oauthCallbackConfirmed!)
+        XCTAssertTrue(token.oauthCallbackConfirmed ?? false)
     }
 
     public func testQueryStringData() {
         let data = Data("oauth_token=token&oauth_token_secret=secret&oauth_callback_confirmed=true".utf8)
-        let token = TwitterOAuthTokenV1(queryStringData: data)!
+        guard let token = TwitterOAuthTokenV1(queryStringData: data) else {
+            XCTFail("Failed to create test token")
+            return
+        }
 
         XCTAssertEqual(token.oauthToken, "token")
         XCTAssertEqual(token.oauthTokenSecret, "secret")
-        XCTAssertTrue(token.oauthCallbackConfirmed!)
+        XCTAssertTrue(token.oauthCallbackConfirmed ?? false)
     }
 
     public func testNil() {

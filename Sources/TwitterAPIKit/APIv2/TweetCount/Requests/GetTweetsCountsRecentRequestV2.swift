@@ -48,4 +48,7 @@ open class GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
         self.startTime = startTime
         self.untilID = untilID
     }
+    deinit {
+        // de-init logic here
+    }
 }

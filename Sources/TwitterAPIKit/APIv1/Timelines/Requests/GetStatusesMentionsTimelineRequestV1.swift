@@ -44,4 +44,7 @@ open class GetStatusesMentionsTimelineRequestV1: TwitterAPIRequest {
         self.trimUser = trimUser
         self.includeEntities = includeEntities
     }
+    deinit {
+        // de-init logic here
+    }
 }

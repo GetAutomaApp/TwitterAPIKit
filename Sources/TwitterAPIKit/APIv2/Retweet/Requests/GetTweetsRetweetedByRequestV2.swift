@@ -60,4 +60,7 @@ open class GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
         self.tweetFields = tweetFields
         self.userFields = userFields
     }
+    deinit {
+        // de-init logic here
+    }
 }

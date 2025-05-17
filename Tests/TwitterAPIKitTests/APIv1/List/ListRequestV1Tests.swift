@@ -36,7 +36,8 @@ internal class CapsuledListsListRequestV1: GetListsListRequestV1 {
 }
 
 internal class ListRequestV1Tests: XCTestCase {
-    // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-list
+    // https://developer.twitter.com/en/docs/twitter-api/v1/ \
+    // accounts-and-users/create-manage-lists/api-reference/get-lists-list
     public func testGetListsListRequestV1() throws {
         XCTContext.runActivity(named: "with only required parameters") { _ in
             let list = GetListsListRequestV1(user: .userID("1234"))

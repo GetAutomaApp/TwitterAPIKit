@@ -26,4 +26,7 @@ open class PostSavedSearchesDestroyRequestV1: TwitterAPIRequest {
     ) {
         self.id = id
     }
+    deinit {
+        // de-init logic here
+    }
 }

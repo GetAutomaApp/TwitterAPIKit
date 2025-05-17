@@ -48,4 +48,7 @@ open class GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
         self.excludeReplies = excludeReplies
         self.includeEntities = includeEntities
     }
+    deinit {
+        // de-init logic here
+    }
 }

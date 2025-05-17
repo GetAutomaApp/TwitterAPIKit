@@ -43,4 +43,7 @@ open class PutListRequestV2: TwitterAPIRequest {
         self.name = name
         self.private = `private`
     }
+    deinit {
+        // de-init logic here
+    }
 }

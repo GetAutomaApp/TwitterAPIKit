@@ -47,4 +47,7 @@ open class GetUsersOwnedListsRequestV2: TwitterAPIRequest {
         self.paginationToken = paginationToken
         self.userFields = userFields
     }
+    deinit {
+        // de-init logic here
+    }
 }

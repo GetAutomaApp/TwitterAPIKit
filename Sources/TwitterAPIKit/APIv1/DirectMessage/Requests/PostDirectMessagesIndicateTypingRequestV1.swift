@@ -26,4 +26,7 @@ open class PostDirectMessagesIndicateTypingRequestV1: TwitterAPIRequest {
     ) {
         self.recipientID = recipientID
     }
+    deinit {
+        // de-init logic here
+    }
 }

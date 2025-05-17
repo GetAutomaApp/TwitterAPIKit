@@ -28,4 +28,7 @@ open class PostMutesUsersCreateRequestV1: TwitterAPIRequest {
     ) {
         self.user = user
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -42,7 +42,10 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
                 }
                 """#.utf8
             )
-            let token = try TwitterOAuth2AccessToken(jsonData: data)!
+kj            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
+                XCTFail("Failed to create test token")
+                return
+            }
             XCTAssertEqual(token.scope, ["tweet.write", "tweet.read", "offline.access"])
             XCTAssertEqual(token.tokenType, "bearer")
             XCTAssertEqual(token.expiresIn, 7_200)
@@ -54,13 +57,21 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
     public func testError() throws {
         try XCTContext.runActivity(named: "Not json") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("aa".utf8))) { error in
-                XCTAssertTrue((error as! TwitterAPIKitError).isResponseSerializeFailed)
+                guard error is TwitterAPIKitError else {
+                    XCTFail("Expected TwitterAPIKitError")
+                    return
+                }
+                XCTAssertTrue(error.isResponseSerializeFailed)
             }
         }
 
         try XCTContext.runActivity(named: "valid json but invalid object") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("{}".utf8))) { error in
-                XCTAssertTrue((error as! TwitterAPIKitError).isResponseSerializeFailed)
+                guard error is TwitterAPIKitError else {kj
+                    XCTFail("Expected TwitterAPIKitError")
+                    return
+                }
+                XCTAssertTrue(error.isResponseSerializeFailed)
             }
         }
     }

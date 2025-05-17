@@ -35,4 +35,7 @@ open class PostUsersMutingRequestV2: TwitterAPIRequest {
         self.id = id
         self.targetUserID = targetUserID
     }
+    deinit {
+        // de-init logic here
+    }
 }

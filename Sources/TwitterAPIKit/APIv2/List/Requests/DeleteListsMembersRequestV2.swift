@@ -29,4 +29,7 @@ open class DeleteListsMembersRequestV2: TwitterAPIRequest {
         self.id = id
         self.userID = userID
     }
+    deinit {
+        // de-init logic here
+    }
 }

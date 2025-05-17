@@ -28,4 +28,7 @@ open class PostCollectionsDestroyRequestV1: TwitterAPIRequest {
     ) {
         self.id = id
     }
+    deinit {
+        // de-init logic here
+    }
 }

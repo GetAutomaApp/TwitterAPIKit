@@ -32,4 +32,7 @@ open class GetFriendshipsShowRequestV1: TwitterAPIRequest {
         self.sourceUser = sourceUser
         self.targetUser = targetUser
     }
+    deinit {
+        // de-init logic here
+    }
 }

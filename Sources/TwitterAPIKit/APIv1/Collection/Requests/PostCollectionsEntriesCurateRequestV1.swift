@@ -50,4 +50,7 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
         self.id = id
         self.changes = changes
     }
+    deinit {
+        // de-init logic here
+    }
 }

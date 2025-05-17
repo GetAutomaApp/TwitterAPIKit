@@ -29,4 +29,7 @@ open class DeleteUsersBlockingRequestV2: TwitterAPIRequest {
         self.sourceUserID = sourceUserID
         self.targetUserID = targetUserID
     }
+    deinit {
+        // de-init logic here
+    }
 }

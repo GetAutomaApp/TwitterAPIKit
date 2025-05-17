@@ -30,4 +30,7 @@ open class DeleteUsersLikesRequestV2: TwitterAPIRequest {
         self.id = id
         self.tweetID = tweetID
     }
+    deinit {
+        // de-init logic here
+    }
 }

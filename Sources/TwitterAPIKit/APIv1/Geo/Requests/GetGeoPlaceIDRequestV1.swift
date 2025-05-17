@@ -26,4 +26,7 @@ open class GetGeoPlaceIDRequestV1: TwitterAPIRequest {
     ) {
         self.placeID = placeID
     }
+    deinit {
+        // de-init logic here
+    }
 }

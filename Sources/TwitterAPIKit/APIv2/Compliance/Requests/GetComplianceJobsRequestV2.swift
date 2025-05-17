@@ -42,4 +42,7 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
         self.type = type
         self.status = status
     }
+    deinit {
+        // de-init logic here
+    }
 }

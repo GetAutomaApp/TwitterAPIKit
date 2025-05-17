@@ -20,4 +20,7 @@ open class GetTrendsAvailableRequestV1: TwitterAPIRequest {
     }
 
     public init() {}
+    deinit {
+        // de-init logic here
+    }
 }

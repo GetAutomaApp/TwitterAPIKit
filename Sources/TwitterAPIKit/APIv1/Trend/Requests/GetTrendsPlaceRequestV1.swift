@@ -35,4 +35,7 @@ open class GetTrendsPlaceRequestV1: TwitterAPIRequest {
         self.woeid = woeid
         self.exclude = exclude
     }
+    deinit {
+        // de-init logic here
+    }
 }

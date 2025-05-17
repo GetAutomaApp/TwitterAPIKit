@@ -9,7 +9,10 @@ import XCTest
 internal class TwitterOAuth2BearerTokenTests: XCTestCase {
     public func testJsonData() throws {
         let data = Data(#"{"token_type":"bearer","access_token":"token"}"#.utf8)
-        let token = try TwitterOAuth2BearerToken(jsonData: data)!
+        guard let token = try TwitterOAuth2BearerToken(jsonData: data) else {
+            XCTFail("Failed to create test token")
+            return
+        }
 
         XCTAssertEqual(token.tokenType, "bearer")
         XCTAssertEqual(token.accessToken, "token")

@@ -15,9 +15,14 @@ internal class OAuthHelperTests: XCTestCase {
     // https://developer.twitter.com/en/docs/authentication/oauth-1-0a/authorizing-a-request
     // https://developer.twitter.com/en/docs/authentication/oauth-1-0a/creating-a-signature
     public func test() throws {
+        guard let url = URL(string: "https://api.twitter.com/1.1/statuses/update.json") else {
+            XCTFail("Failed to create test URL")
+            return
+        }
+        
         let header = authorizationHeader(
             for: .post,
-            url: URL(string: "https://api.twitter.com/1.1/statuses/update.json")!,
+            url: url,
             parameters: ["status": "Hello Ladies + Gentlemen, a signed OAuth request!", "include_entities": true],
             consumerKey: "xvz1evFS4wEEPTGEFPHBog",
             consumerSecret: "kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw",

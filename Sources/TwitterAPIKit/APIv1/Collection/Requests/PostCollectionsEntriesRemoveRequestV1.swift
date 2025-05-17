@@ -32,4 +32,7 @@ open class PostCollectionsEntriesRemoveRequestV1: TwitterAPIRequest {
         self.id = id
         self.tweetID = tweetID
     }
+    deinit {
+        // de-init logic here
+    }
 }

@@ -36,4 +36,7 @@ open class PostBlocksCreateRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
         self.skipStatus = skipStatus
     }
+    deinit {
+        // de-init logic here
+    }
 }

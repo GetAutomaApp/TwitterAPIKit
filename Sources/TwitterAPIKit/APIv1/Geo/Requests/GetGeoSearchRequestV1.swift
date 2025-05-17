@@ -52,4 +52,7 @@ open class GetGeoSearchRequestV1: TwitterAPIRequest {
         self.maxResults = maxResults
         self.granularity = granularity
     }
+    deinit {
+        // de-init logic here
+    }
 }

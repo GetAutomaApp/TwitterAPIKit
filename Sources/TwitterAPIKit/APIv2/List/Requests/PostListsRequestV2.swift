@@ -40,4 +40,7 @@ open class PostListsRequestV2: TwitterAPIRequest {
         self.description = description
         self.private = `private`
     }
+    deinit {
+        // de-init logic here
+    }
 }

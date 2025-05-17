@@ -234,4 +234,3 @@ public struct TwitterAPIErrorResponseV2 {
 }
 
 extension TwitterAPIErrorResponseV2: Equatable {}
-

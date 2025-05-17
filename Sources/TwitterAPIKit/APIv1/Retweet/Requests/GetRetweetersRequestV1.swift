@@ -43,4 +43,7 @@ open class GetRetweetersRequestV1: TwitterAPIRequest {
         self.cursor = cursor
         self.stringifyIDs = stringifyIDs
     }
+    deinit {
+        // de-init logic here
+    }
 }

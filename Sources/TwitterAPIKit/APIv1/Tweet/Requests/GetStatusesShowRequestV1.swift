@@ -48,4 +48,7 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
         self.includeMyRetweet = includeMyRetweet
         self.includeExtAltText = includeExtAltText
     }
+    deinit {
+        // de-init logic here
+    }
 }

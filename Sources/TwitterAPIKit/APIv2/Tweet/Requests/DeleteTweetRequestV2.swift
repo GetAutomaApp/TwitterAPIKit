@@ -26,4 +26,7 @@ open class DeleteTweetRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
     }
+    deinit {
+        // de-init logic here
+    }
 }
