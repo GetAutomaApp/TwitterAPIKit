@@ -5,16 +5,34 @@
 
 import Foundation
 
+/// Parameters for uploading media to Twitter's API.
 public struct UploadMediaRequestParameters {
+    /// The raw media data to upload.
     public let media: Data
+    
+    /// The MIME type of the media (e.g., "image/jpeg", "video/mp4").
     public let mediaType: String
+    
+    /// The filename to use for the uploaded media.
     public let filename: String
+    
+    /// The category of media being uploaded (e.g., "tweet_image", "tweet_video").
     public let mediaCategory: String?
+    
+    /// Additional Twitter user IDs that should have permission to use this media.
     public let additionalOwners: [String]?
-    /// Byte
+    
+    /// The size of each chunk when uploading large media files, in bytes.
     public let uploadChunkSize: Int?
 
-    /// filename can be any value. ex) hoge.mp4
+    /// Creates parameters for a media upload request.
+    /// - Parameters:
+    ///   - media: The raw media data to upload.
+    ///   - mediaType: The MIME type of the media.
+    ///   - filename: The filename to use (can be any value, e.g., "photo.jpg").
+    ///   - mediaCategory: The category of media being uploaded (optional).
+    ///   - additionalOwners: Additional user IDs that can use this media (optional).
+    ///   - uploadChunkSize: Size of each chunk for chunked uploads, in bytes (optional).
     public init(
         media: Data,
         mediaType: String,

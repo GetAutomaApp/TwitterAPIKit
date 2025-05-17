@@ -5,7 +5,12 @@
 
 import Foundation
 
+/// Main client class for interacting with the Twitter API.
+/// This class provides access to both v1.1 and v2 Twitter APIs, as well as authentication endpoints.
+/// It handles authentication, request signing, and provides specialized API clients for different Twitter features.
 open class TwitterAPIClient {
+    /// Default JSON decoder configured for Twitter API responses.
+    /// This decoder handles both v1 and v2 date formats and uses snake_case key decoding.
     public static var defaultJSONDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -39,18 +44,31 @@ open class TwitterAPIClient {
         return decoder
     }()
 
+    /// Client for handling Twitter authentication flows (OAuth 1.0a and OAuth 2.0).
     public let auth: TwitterAuthAPI
+    
+    /// Client for accessing Twitter API v1.1 endpoints.
     public let v1: TwitterAPIv1
+    
+    /// Client for accessing Twitter API v2 endpoints.
     public let v2: TwitterAPIv2
 
+    /// The session used for making API requests.
     public let session: TwitterAPISession
+    
+    /// The current authentication method being used.
     public var apiAuth: TwitterAuthenticationMethod {
         return session.auth
     }
 
-    /// for refresh token
+    /// Client used for refreshing OAuth 2.0 tokens.
     private var refreshOAuth20TokenClient: TwitterAPIClient?
 
+    /// Creates a new TwitterAPIClient instance.
+    /// - Parameters:
+    ///   - auth: The authentication method to use for API requests.
+    ///   - configuration: The URLSession configuration to use. Defaults to .default.
+    ///   - environment: The Twitter API environment configuration. Defaults to standard Twitter endpoints.
     public init(
         _ auth: TwitterAuthenticationMethod,
         configuration: URLSessionConfiguration = .default,
@@ -66,7 +84,12 @@ open class TwitterAPIClient {
         v2 = TwitterAPIv2(session: session)
     }
 
-    /// for OAuth1.0a
+    /// Convenience initializer for OAuth 1.0a authentication.
+    /// - Parameters:
+    ///   - consumerKey: The application's consumer key.
+    ///   - consumerSecret: The application's consumer secret.
+    ///   - oauthToken: The user's OAuth token.
+    ///   - oauthTokenSecret: The user's OAuth token secret.
     public convenience init(
         consumerKey: String,
         consumerSecret: String,
@@ -93,9 +116,16 @@ open class TwitterAPIClient {
 
 // MARK: - Refresh OAuth2.0 token
 
+/// Extension providing OAuth 2.0 token refresh functionality.
 public extension TwitterAPIClient {
+    /// Type alias for the result of a token refresh operation.
     typealias RefreshOAuth20TokenResultValue = (token: TwitterAuthenticationMethod.OAuth20, refreshed: Bool)
-    /// Refresh OAuth2.0 token
+    
+    /// Refreshes the OAuth 2.0 access token if necessary.
+    /// - Parameters:
+    ///   - type: The type of OAuth 2.0 client to use for token refresh.
+    ///   - forceRefresh: Whether to force a token refresh even if the current token is still valid.
+    ///   - block: Completion handler called with the result of the token refresh.
     func refreshOAuth20Token(
         type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType,
         forceRefresh: Bool = false,
@@ -146,16 +176,25 @@ public extension TwitterAPIClient {
     }
 }
 
+/// Base class for Twitter API clients.
+/// Provides common functionality and session management for API clients.
 open class TwitterAPIBase {
+    /// The session used for making API requests.
     public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
     public init(session: TwitterAPISession) {
         self.session = session
     }
 }
 
+/// Extension providing notification names and user info keys for OAuth 2.0 token refresh events.
 public extension TwitterAPIClient {
-    // swift-format-ignore
+    /// Notification posted when an OAuth 2.0 token is refreshed.
     static let didRefreshOAuth20Token = Notification
         .Name(rawValue: "TwitterAPIKit.TwitterAPIClient.Notification.didRefreshOAuth20Token")
+    
+    /// User info key for accessing the refreshed token in the notification.
     static let tokenUserInfoKey = "TwitterAPIKit.TwitterAPIClient.UserInfoKey.tokenUser"
 }

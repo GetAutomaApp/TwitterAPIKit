@@ -5,8 +5,8 @@
 
 import Foundation
 
-/* ex
- confidential client
+/* Example responses:
+ Confidential client:
  {
     "scope" : "tweet.write tweet.read",
     "token_type" : "bearer",
@@ -14,7 +14,7 @@ import Foundation
     "access_token" : "<token>"
  }
 
- public client
+ Public client:
  {
     "refresh_token" : "<refresh token>",
     "scope" : "tweet.write tweet.read offline.access",
@@ -24,15 +24,29 @@ import Foundation
  }
  */
 
+/// Represents an OAuth 2.0 access token response from Twitter's API.
+/// Contains the access token and associated metadata for both confidential and public clients.
 public struct TwitterOAuth2AccessToken {
+    /// The scopes granted to this access token, as an array of permission strings.
     public let scope: [String]
+    
+    /// The type of token, typically "bearer".
     public let tokenType: String
+    
+    /// The number of seconds until the token expires.
     public let expiresIn: Int
+    
+    /// The access token string used for API authentication.
     public let accessToken: String
 
-    /// Only Public Client
+    /// The refresh token for obtaining new access tokens without re-authentication.
+    /// Only available for public clients using PKCE flow.
     public let refreshToken: String?
 
+    /// Creates an OAuth 2.0 access token from JSON response data.
+    /// - Parameter jsonData: The raw JSON data from Twitter's OAuth 2.0 token endpoint.
+    /// - Throws: An error if JSON parsing fails.
+    /// - Returns: An initialized access token if the JSON contains valid data, nil otherwise.
     public init?(jsonData: Data) throws {
         let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
 
@@ -52,6 +66,10 @@ public struct TwitterOAuth2AccessToken {
 }
 
 public extension TwitterOAuth2AccessToken {
+    /// Creates an OAuth 2.0 access token from a Twitter API response.
+    /// - Parameter data: The raw response data from Twitter's OAuth 2.0 token endpoint.
+    /// - Throws: A `TwitterAPIKitError` if parsing fails.
+    /// - Returns: An initialized access token.
     static func fromResponse(data: Data) throws -> Self {
         do {
             guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {

@@ -5,11 +5,21 @@
 
 import Foundation
 
+/// Represents error responses from the Twitter API.
+/// This enum can handle both v1 and v2 API error formats, as well as unknown error responses.
 public enum TwitterAPIErrorResponse: Equatable {
+    /// An error response from the Twitter API v1.1.
     case v1(TwitterAPIErrorResponseV1)
+    
+    /// An error response from the Twitter API v2.
     case v2(TwitterAPIErrorResponseV2)
+    
+    /// An unknown error response containing raw data.
     case unknown(Data)
 
+    /// Creates a new TwitterAPIErrorResponse from raw response data.
+    /// Attempts to parse the data as either a v1 or v2 error response.
+    /// - Parameter data: The raw response data from the Twitter API.
     public init(data: Data) {
         guard let obj = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
             self = .unknown(data)
@@ -27,6 +37,10 @@ public enum TwitterAPIErrorResponse: Equatable {
 }
 
 public extension TwitterAPIErrorResponse {
+    /// The error message from the response.
+    /// For v1 errors, this is the first error message.
+    /// For v2 errors, this is the detail field.
+    /// For unknown errors, this is the raw data as a string.
     var message: String {
         switch self {
         case let .v1(twitterAPIErrorResponseV1):
@@ -38,6 +52,8 @@ public extension TwitterAPIErrorResponse {
         }
     }
 
+    /// The error code from the response.
+    /// Only available for v1 errors.
     var code: Int? {
         if case let .v1(v1) = self {
             return v1.code
@@ -45,10 +61,12 @@ public extension TwitterAPIErrorResponse {
         return nil
     }
 
+    /// Indicates whether this is a v1 error response.
     var isV1: Bool {
         return v1 != nil
     }
 
+    /// The v1 error response if this is a v1 error, nil otherwise.
     var v1: TwitterAPIErrorResponseV1? {
         if case let .v1(v1) = self {
             return v1
@@ -56,10 +74,12 @@ public extension TwitterAPIErrorResponse {
         return nil
     }
 
+    /// Indicates whether this is a v2 error response.
     var isV2: Bool {
         return v2 != nil
     }
 
+    /// The v2 error response if this is a v2 error, nil otherwise.
     var v2: TwitterAPIErrorResponseV2? {
         if case let .v2(v2) = self {
             return v2
@@ -67,10 +87,12 @@ public extension TwitterAPIErrorResponse {
         return nil
     }
 
+    /// Indicates whether this is an unknown error response.
     var isUnknown: Bool {
         return unknownData != nil
     }
 
+    /// The raw data if this is an unknown error, nil otherwise.
     var unknownData: Data? {
         if case let .unknown(data) = self {
             return data
@@ -79,21 +101,32 @@ public extension TwitterAPIErrorResponse {
     }
 }
 
-/// https://developer.twitter.com/ja/docs/basics/response-codes
+/// Represents an error response from the Twitter API v1.1.
+/// Format: {"errors":[{"message":"Sorry, that page does not exist","code":34}]}
 public struct TwitterAPIErrorResponseV1 {
-    /// first error message
+    /// The first error message in the response.
     public let message: String
-    /// first error code
+    
+    /// The first error code in the response.
     public let code: Int
+    
+    /// All errors included in the response.
     public let errors: [Self]
 
+    /// Creates a new TwitterAPIErrorResponseV1.
+    /// - Parameters:
+    ///   - message: The error message.
+    ///   - code: The error code.
+    ///   - errors: Additional errors in the response.
     public init(message: String, code: Int, errors: [Self]) {
         self.message = message
         self.code = code
         self.errors = errors
     }
 
-    /// {"errors":[{"message":"Sorry, that page does not exist","code":34}]}
+    /// Creates a new TwitterAPIErrorResponseV1 from a dictionary.
+    /// - Parameter obj: A dictionary containing the error response data.
+    /// - Returns: An initialized error response if the dictionary contains valid data, nil otherwise.
     public init?(obj: [String: Any]) {
         guard let errors = obj["errors"] as? [[String: Any]] else {
             return nil
@@ -113,6 +146,9 @@ public struct TwitterAPIErrorResponseV1 {
         self.errors = tErrors
     }
 
+    /// Checks if this error response contains a specific error code.
+    /// - Parameter code: The error code to check for.
+    /// - Returns: true if the error code is present in this response or any nested errors.
     public func contains(code: Int) -> Bool {
         return code == self.code || errors.contains { $0.code == code }
     }
@@ -121,27 +157,52 @@ public struct TwitterAPIErrorResponseV1 {
 extension TwitterAPIErrorResponseV1: Equatable {}
 
 /// https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
+/// Represents an error response from the Twitter API v2.
+/// See: https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
 public struct TwitterAPIErrorResponseV2 {
+    /// Represents a specific error in a v2 error response.
     public struct Error: Equatable {
+        /// The error message.
         public let message: String
-        public let parameters: [String /* paramter name */: [String] /* values */ ]
+        
+        /// Additional parameters associated with the error.
+        public let parameters: [String: [String]]
 
+        /// Creates a new Error.
+        /// - Parameters:
+        ///   - message: The error message.
+        ///   - parameters: Additional parameters describing the error.
         public init(message: String, parameters: [String: [String]]) {
             self.message = message
             self.parameters = parameters
         }
 
+        /// Creates a new Error from a dictionary.
+        /// - Parameter obj: A dictionary containing the error data.
         public init(obj: [String: Any]) {
             message = obj["message"].map { String(describing: $0) } ?? ""
             parameters = (obj["parameters"] as? [String: [String]]) ?? [:]
         }
     }
 
+    /// The title of the error.
     public let title: String
+    
+    /// A detailed description of the error.
     public let detail: String
+    
+    /// The type of error.
     public let type: String
+    
+    /// Specific errors included in the response.
     public let errors: [Error]
 
+    /// Creates a new TwitterAPIErrorResponseV2.
+    /// - Parameters:
+    ///   - title: The error title.
+    ///   - detail: The detailed error description.
+    ///   - type: The error type.
+    ///   - errors: Specific errors included in the response.
     public init(
         title: String,
         detail: String,
@@ -154,6 +215,9 @@ public struct TwitterAPIErrorResponseV2 {
         self.errors = errors
     }
 
+    /// Creates a new TwitterAPIErrorResponseV2 from a dictionary.
+    /// - Parameter obj: A dictionary containing the error response data.
+    /// - Returns: An initialized error response if the dictionary contains valid data, nil otherwise.
     public init?(obj: [String: Any]) {
         guard let title = obj["title"] as? String,
               let detail = obj["detail"] as? String,
@@ -170,3 +234,4 @@ public struct TwitterAPIErrorResponseV2 {
 }
 
 extension TwitterAPIErrorResponseV2: Equatable {}
+

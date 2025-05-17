@@ -327,23 +327,38 @@ public extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
 }
 
 public extension TwitterAPIKitError {
+    /// Returns the request failure reason if this error represents a request failure.
+    /// - Returns: The `RequestFailureReason` if present, nil otherwise.
     var requestFailureReason: RequestFailureReason? {
         guard case let .requestFailed(reason: reason) = self else { return nil }
         return reason
     }
 
+    /// Returns the response failure reason if this error represents a response failure.
+    /// - Returns: The `ResponseFailureReason` if present, nil otherwise.
     var responseFailureReason: ResponseFailureReason? {
         guard case let .responseFailed(reason) = self else { return nil }
         return reason
     }
 
+    /// Returns the response serialization failure reason if this error represents a serialization failure.
+    /// - Returns: The `ResponseSerializationFailureReason` if present, nil otherwise.
     var responseSerializationFailureReason: ResponseSerializationFailureReason? {
         guard case let .responseSerializeFailed(reason) = self else { return nil }
         return reason
     }
 
+    /// Returns the OAuth 2.0 token refresh failure reason if this error represents a token refresh failure.
+    /// - Returns: The `RefreshOAuth20TokenFailureReason` if present, nil otherwise.
     var refreshOAuth20TokenFailureReason: RefreshOAuth20TokenFailureReason? {
         guard case let .refreshOAuth20TokenFailed(reason) = self else { return nil }
+        return reason
+    }
+
+    /// Returns the upload media failure reason if this error represents a media upload failure.
+    /// - Returns: The `UploadMediaFailureReason` if present, nil otherwise.
+    var uploadMediaFailureReason: UploadMediaFailureReason? {
+        guard case let .uploadMediaFailed(reason) = self else { return nil }
         return reason
     }
 }

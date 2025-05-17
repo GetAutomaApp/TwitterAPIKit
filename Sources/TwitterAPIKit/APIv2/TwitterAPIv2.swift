@@ -7,23 +7,57 @@ import Foundation
 
 // https://developer.twitter.com/en/docs/api-reference-index
 
+/// Main class for interacting with Twitter API v2 endpoints.
+/// This class provides access to various API modules for different Twitter functionalities.
+/// Each property represents a specialized API client for specific Twitter features.
 open class TwitterAPIv2 {
+    /// Client for managing block and mute relationships between users.
     public let blockAndMute: BlockAndMuteAPIv2
+    
+    /// Client for managing tweet bookmarks.
     public let bookmarks: BookmarksAPIv2
+    
+    /// Client for accessing Twitter's compliance and data management endpoints.
     public let compliance: ComplianceAPIv2
+    
+    /// Client for managing follow relationships between users.
     public let friendships: FriendshipsAPIv2
+    
+    /// Client for managing tweet likes (favorites).
     public let like: LikeAPIv2
+    
+    /// Client for managing Twitter lists.
     public let list: ListAPIv2
+    
+    /// Client for managing retweets.
     public let retweet: RetweetAPIv2
+    
+    /// Client for searching tweets.
     public let search: SearchAPIv2
+    
+    /// Client for managing Twitter Spaces.
     public let spaces: SpacesAPIv2
+    
+    /// Client for accessing Twitter's streaming endpoints.
     public let stream: StreamAPIv2
+    
+    /// Client for accessing user timelines.
     public let timeline: TimelineAPIv2
+    
+    /// Client for managing tweets.
     public let tweet: TweetAPIv2
+    
+    /// Client for retrieving tweet counts and metrics.
     public let tweetCount: TweetCountAPIv2
+    
+    /// Client for managing user profiles and information.
     public let user: UserAPIv2
+    
+    /// Client for managing direct messages.
     public let dm: DirectMessageAPIv2
 
+    /// Initializes a new TwitterAPIv2 instance.
+    /// - Parameter session: The session to use for making API requests.
     public init(session: TwitterAPISession) {
         blockAndMute = .init(session: session)
         bookmarks = .init(session: session)
@@ -47,11 +81,14 @@ open class TwitterAPIv2 {
     }
 }
 
+/// Protocol defining parameters that can be used in Twitter API v2 requests.
 public protocol TwitterAPIv2RequestParameter {
+    /// The string representation of the parameter value.
     var stringValue: String { get }
 }
 
 extension Collection where Element: TwitterAPIv2RequestParameter {
+    /// Joins multiple parameter values into a comma-separated string.
     var commaSeparatedString: String {
         return map(\.stringValue).sorted().joined(separator: ",")
     }
