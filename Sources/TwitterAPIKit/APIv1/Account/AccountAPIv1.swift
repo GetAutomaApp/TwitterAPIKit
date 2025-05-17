@@ -7,8 +7,8 @@ import Foundation
 
 open class AccountAPIv1: TwitterAPIBase {
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
-    /// manage-account-settings/api-reference/get-account-settings
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
+    /// api-reference/get-account-settings
     public func getAccountSetting(
         _ request: GetAccountSettingsRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -16,8 +16,8 @@ open class AccountAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
-    /// manage-account-settings/api-reference/get-account-verify_credentials
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
+    /// api-reference/get-account-verify_credentials
     public func getAccountVerify(
         _ request: GetAccountVerifyCredentialsRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -25,8 +25,8 @@ open class AccountAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
-    /// manage-account-settings/api-reference/post-account-remove_profile_banner
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
+    /// api-reference/post-account-remove_profile_banner
     public func postRemoveProfileBanner(
         _ request: PostAccountRemoveProfileBannerRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -34,8 +34,8 @@ open class AccountAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
-    /// manage-account-settings/api-reference/post-account-settings
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
+    /// api-reference/post-account-settings
     public func postAccountSettings(
         _ request: PostAccountSettingsRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -43,8 +43,8 @@ open class AccountAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
-    /// manage-account-settings/api-reference/post-account-update_profile
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
+    /// api-reference/post-account-update_profile
     public func postAccountProfile(
         _ request: PostAccountUpdateProfileRequestV1
     ) -> TwitterAPISessionJSONTask {

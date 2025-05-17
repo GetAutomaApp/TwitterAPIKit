@@ -20,7 +20,9 @@ open class GeoAPIv1: TwitterAPIBase {
         return session.send(request)
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/places-near-location/api-reference/get-geo-search
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/places-near-location/
+    /// api-reference/get-geo-search
     public func searchGeo(
         _ request: GetGeoSearchRequestV1
     ) -> TwitterAPISessionJSONTask {

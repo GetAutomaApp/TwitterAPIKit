@@ -102,7 +102,10 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind tweet fields to request parameters
 public extension Set where Element == TwitterTweetFieldsV2 {
+    /// Binds the tweet fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["tweet.fields"] = commaSeparatedString
     }
@@ -179,7 +182,10 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind user fields to request parameters
 public extension Set where Element == TwitterUserFieldsV2 {
+    /// Binds the user fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["user.fields"] = commaSeparatedString
     }
@@ -232,7 +238,10 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind place fields to request parameters
 public extension Set where Element == TwitterPlaceFieldsV2 {
+    /// Binds the place fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["place.fields"] = commaSeparatedString
     }
@@ -273,7 +282,10 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind poll fields to request parameters
 public extension Set where Element == TwitterPollFieldsV2 {
+    /// Binds the poll fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["poll.fields"] = commaSeparatedString
     }
@@ -332,7 +344,10 @@ public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind media fields to request parameters
 public extension Set where Element == TwitterMediaFieldsV2 {
+    /// Binds the media fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["media.fields"] = commaSeparatedString
     }
@@ -376,7 +391,10 @@ public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind list fields to request parameters
 public extension Set where Element == TwitterListFieldsV2 {
+    /// Binds the list fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["list.fields"] = commaSeparatedString
     }
@@ -447,7 +465,10 @@ public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind space fields to request parameters
 public extension Set where Element == TwitterSpaceFieldsV2 {
+    /// Binds the space fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["space.fields"] = commaSeparatedString
     }
@@ -476,7 +497,10 @@ public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind topic fields to request parameters
 public extension Set where Element == TwitterTopicFieldsV2 {
+    /// Binds the topic fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["topic.fields"] = commaSeparatedString
     }
@@ -524,7 +548,10 @@ public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
+/// Extension to bind DM event fields to request parameters
 public extension Set where Element == TwitterDmEventFieldsV2 {
+    /// Binds the DM event fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["dm_event.fields"] = commaSeparatedString
     }
@@ -548,7 +575,10 @@ public enum TwitterDmConversationFieldsV2: TwitterAPIv2RequestParameter, Hashabl
     ]
 }
 
+/// Extension to bind DM conversation fields to request parameters
 public extension Set where Element == TwitterDmConversationFieldsV2 {
+    /// Binds the DM conversation fields to the request parameters
+    /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
         param["dm_conversation.fields"] = commaSeparatedString
     }

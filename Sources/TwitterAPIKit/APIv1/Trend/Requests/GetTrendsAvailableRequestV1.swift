@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/trends/locations-with-trending-topics/api-reference/get-trends-available
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/trends/trends-for-location/
+/// api-reference/get-trends-available
 open class GetTrendsAvailableRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         return .get
