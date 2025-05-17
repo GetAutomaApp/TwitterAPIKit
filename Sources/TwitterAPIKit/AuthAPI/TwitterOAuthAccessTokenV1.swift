@@ -5,21 +5,30 @@
 
 import Foundation
 
+/// Represents an OAuth 1.0a access token for Twitter API v1 authentication.
 public struct TwitterOAuthAccessTokenV1 {
+    /// The OAuth token string used for authentication.
     public let oauthToken: String
+    
+    /// The OAuth token secret used for signing requests.
     public let oauthTokenSecret: String
 
     // According to RFC5849, there is no mention of the user_id and screen_name parameters,
     // but TwitterAPI does include them in its response.
 
+    /// The unique identifier of the authenticated user.
     public let userID: String?
+    
+    /// The screen name (username) of the authenticated user.
     public let screenName: String?
 
-    /// From:
-    /// oauth_token=your_oauth_token
-    /// &oauth_token_secret=your_oauth_token_secret
-    /// &user_id=numeric_user_id
-    /// &screen_name=your_screen_name
+    /// Creates an OAuth access token from a query string response.
+    /// - Parameter queryStringData: The raw data containing the OAuth response in query string format.
+    /// The expected format is:
+    /// ```
+    /// oauth_token=your_oauth_token&oauth_token_secret=your_oauth_token_secret&user_id=numeric_user_id&screen_name=your_screen_name
+    /// ```
+    /// - Returns: An initialized access token if the query string contains valid OAuth token and secret, nil otherwise.
     public init?(queryStringData: Data) {
         let query = String(data: queryStringData, encoding: .utf8)
 
@@ -37,6 +46,12 @@ public struct TwitterOAuthAccessTokenV1 {
         screenName = comp.queryItems?.first { $0.name == "screen_name" }?.value
     }
 
+    /// Creates an OAuth access token with the specified values.
+    /// - Parameters:
+    ///   - oauthToken: The OAuth token string.
+    ///   - oauthTokenSecret: The OAuth token secret.
+    ///   - userID: The unique identifier of the authenticated user (optional).
+    ///   - screenName: The screen name of the authenticated user (optional).
     public init(
         oauthToken: String,
         oauthTokenSecret: String,

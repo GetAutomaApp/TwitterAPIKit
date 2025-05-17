@@ -5,12 +5,26 @@
 
 import Foundation
 
+/// A session class that handles Twitter API requests and authentication.
+/// This class manages the authentication state, network requests, and environment configuration.
 open class TwitterAPISession {
+    /// The current authentication method being used for API requests.
+    /// This property can be read publicly but only modified internally.
     public private(set) var auth: TwitterAuthenticationMethod
+    
+    /// The URLSession instance used for making network requests.
     public let session: URLSession
+    
+    /// The Twitter API environment configuration (e.g., API endpoints, version).
     public let environment: TwitterAPIEnvironment
+    
     internal let sessionDelegate = TwitterAPISessionDelegate()
 
+    /// Creates a new TwitterAPISession instance.
+    /// - Parameters:
+    ///   - auth: The authentication method to use for API requests.
+    ///   - configuration: The URLSession configuration to use for network requests.
+    ///   - environment: The Twitter API environment configuration.
     public init(
         auth: TwitterAuthenticationMethod,
         configuration: URLSessionConfiguration,
@@ -25,6 +39,9 @@ open class TwitterAPISession {
         session.invalidateAndCancel()
     }
 
+    /// Sends a Twitter API request and returns a JSON task.
+    /// - Parameter request: The Twitter API request to send.
+    /// - Returns: A task that will return JSON data when completed.
     public func send(_ request: TwitterAPIRequest) -> TwitterAPISessionJSONTask {
         do {
             let urlRequest: URLRequest = try tryBuildURLRequest(request)
@@ -35,6 +52,9 @@ open class TwitterAPISession {
         }
     }
 
+    /// Sends a streaming Twitter API request.
+    /// - Parameter streamRequest: The Twitter API request to stream.
+    /// - Returns: A task that will stream data continuously.
     public func send(streamRequest: TwitterAPIRequest) -> TwitterAPISessionStreamTask {
         do {
             let urlRequest: URLRequest = try tryBuildURLRequest(streamRequest)
