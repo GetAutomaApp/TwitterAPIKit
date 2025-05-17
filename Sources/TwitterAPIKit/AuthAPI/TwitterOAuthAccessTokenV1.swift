@@ -26,7 +26,8 @@ public struct TwitterOAuthAccessTokenV1 {
     /// - Parameter queryStringData: The raw data containing the OAuth response in query string format.
     /// The expected format is:
     /// ```
-    /// oauth_token=your_oauth_token&oauth_token_secret=your_oauth_token_secret&user_id=numeric_user_id&screen_name=your_screen_name
+    /// oauth_token=your_oauth_token&oauth_token_secret=your_oauth_token_secret \
+    /// &user_id=numeric_user_id&screen_name=your_screen_name
     /// ```
     /// - Returns: An initialized access token if the query string contains valid OAuth token and secret, nil otherwise.
     public init?(queryStringData: Data) {

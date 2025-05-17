@@ -51,5 +51,5 @@ public struct TwitterAPIEnvironment {
         self.apiURL = apiURL
         self.uploadURL = uploadURL
     }
-    // swiftlint:disable force_unwrapping
+    // swiftlint:enable force_unwrapping
 }

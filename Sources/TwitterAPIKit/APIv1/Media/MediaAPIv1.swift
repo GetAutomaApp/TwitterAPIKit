@@ -193,14 +193,18 @@ open class MediaAPIv1: TwitterAPIBase {
         return session.send(request)
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-subtitles-create
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/
+    /// post-media-subtitles-create
     public func createSubtitle(
         _ request: PostMediaSubtitlesCreateRequestV1
     ) -> TwitterAPISessionDataTask {
         return session.send(request)
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-subtitles-delete
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/
+    /// post-media-subtitles-delete
     public func deleteSubtitle(
         _ request: PostMediaSubtitlesDeleteRequestV1
     ) -> TwitterAPISessionDataTask {
