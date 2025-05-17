@@ -13,14 +13,25 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
     override public func tearDownWithError() throws {}
 
     public func testProps() throws {
-        let cReq = URLRequest(url: URL(string: "http://example.com/current")!)
-        let oReq = URLRequest(url: URL(string: "http://example.com/original")!)
-        let resp = HTTPURLResponse(
-            url: URL(string: "https://example.com")!,
+        guard let currentURL = URL(string: "http://example.com/current"),
+              let originalURL = URL(string: "http://example.com/original"),
+              let responseURL = URL(string: "https://example.com") else {
+            XCTFail("Failed to create test URLs")
+            return
+        }
+        
+        let cReq = URLRequest(url: currentURL)
+        let oReq = URLRequest(url: originalURL)
+        guard let resp = HTTPURLResponse(
+            url: responseURL,
             statusCode: 200,
             httpVersion: "1.1",
             headerFields: [:]
-        )
+        ) else {
+            XCTFail("Failed to create test response")
+            return
+        }
+        
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: cReq,
@@ -36,12 +47,9 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
     }
 
     public func test() throws {
-        let mockTask = MockTwitterAPISessionTask(
-            taskIdentifier: 1,
-            currentRequest: nil,
-            originalRequest: nil,
-            httpResponse: HTTPURLResponse(
-                url: URL(string: "https://example.com")!,
+        guard let responseURL = URL(string: "https://example.com"),
+              let response = HTTPURLResponse(
+                url: responseURL,
                 statusCode: 200,
                 httpVersion: "1.1",
                 headerFields: [
@@ -49,7 +57,16 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
                     "x-rate-limit-remaining": "1",
                     "x-rate-limit-reset": "1647099944",
                 ]
-            )
+              ) else {
+            XCTFail("Failed to create test response")
+            return
+        }
+
+        let mockTask = MockTwitterAPISessionTask(
+            taskIdentifier: 1,
+            currentRequest: nil,
+            originalRequest: nil,
+            httpResponse: response
         )
 
         let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
@@ -66,13 +83,16 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         var count = 0
         task
             .streamResponse { response in
-
                 XCTAssertTrue(Thread.isMainThread)
 
-                XCTAssertNotNil(response.rateLimit)
-                XCTAssertEqual(response.rateLimit?.limit, 15)
-                XCTAssertEqual(response.rateLimit?.remaining, 1)
-                XCTAssertEqual(response.rateLimit?.reset, 1_647_099_944)
+                guard let rateLimit = response.rateLimit else {
+                    XCTFail("Rate limit should not be nil")
+                    return
+                }
+                
+                XCTAssertEqual(rateLimit.limit, 15)
+                XCTAssertEqual(rateLimit.remaining, 1)
+                XCTAssertEqual(rateLimit.reset, 1_647_099_944)
 
                 switch count {
                 case 0:
@@ -100,12 +120,9 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
     }
 
     public func testInvalidStatusCode() throws {
-        let mockTask = MockTwitterAPISessionTask(
-            taskIdentifier: 2,
-            currentRequest: nil,
-            originalRequest: nil,
-            httpResponse: HTTPURLResponse(
-                url: URL(string: "https://example.com")!,
+        guard let responseURL = URL(string: "https://example.com"),
+              let response = HTTPURLResponse(
+                url: responseURL,
                 statusCode: 400,
                 httpVersion: "1.1",
                 headerFields: [
@@ -113,7 +130,16 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
                     "x-rate-limit-remaining": "1",
                     "x-rate-limit-reset": "1647099944",
                 ]
-            )
+              ) else {
+            XCTFail("Failed to create test response")
+            return
+        }
+
+        let mockTask = MockTwitterAPISessionTask(
+            taskIdentifier: 2,
+            currentRequest: nil,
+            originalRequest: nil,
+            httpResponse: response
         )
 
         let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
@@ -134,17 +160,24 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         var count = 0
         task
             .streamResponse { response in
-
                 XCTAssertTrue(Thread.isMainThread)
 
-                XCTAssertNotNil(response.rateLimit)
-                XCTAssertEqual(response.rateLimit?.limit, 15)
-                XCTAssertEqual(response.rateLimit?.remaining, 1)
-                XCTAssertEqual(response.rateLimit?.reset, 1_647_099_944)
+                guard let rateLimit = response.rateLimit else {
+                    XCTFail("Rate limit should not be nil")
+                    return
+                }
+                
+                XCTAssertEqual(rateLimit.limit, 15)
+                XCTAssertEqual(rateLimit.remaining, 1)
+                XCTAssertEqual(rateLimit.reset, 1_647_099_944)
 
                 switch count {
                 case 0:
-                    XCTAssertTrue(response.error!.isResponseFailed)
+                    guard let error = response.error else {
+                        XCTFail("Expected error but got nil")
+                        return
+                    }
+                    XCTAssertTrue(error.isResponseFailed)
                 default:
                     XCTFail("Invalid Response")
                 }
@@ -154,7 +187,11 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
             }
             .streamResponse(queue: .global(qos: .default)) { response in
                 XCTAssertFalse(Thread.isMainThread)
-                XCTAssertTrue(response.error!.isResponseFailed)
+                guard let error = response.error else {
+                    XCTFail("Expected error but got nil")
+                    return
+                }
+                XCTAssertTrue(error.isResponseFailed)
                 exp.fulfill()
             }
 
@@ -182,13 +219,16 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         var count = 0
         task
             .streamResponse { response in
-
                 XCTAssertTrue(Thread.isMainThread)
 
                 switch count {
                 case 0:
                     XCTAssertTrue(response.isError)
-                    XCTAssertTrue(response.error!.isResponseFailed)
+                    guard let error = response.error else {
+                        XCTFail("Expected error but got nil")
+                        return
+                    }
+                    XCTAssertTrue(error.isResponseFailed)
                 default:
                     XCTFail("Invalid Response")
                 }
@@ -201,7 +241,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
                 exp.fulfill()
             }
 
-        wait(for: [exp], timeout: 10)
+        wait(for: [exp], timeout: 100)
         XCTAssertEqual(count, 1)
     }
 

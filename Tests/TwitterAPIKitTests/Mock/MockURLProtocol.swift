@@ -23,15 +23,24 @@ internal class MockURLProtocol: URLProtocol {
     }
 
     override public func startLoading() {
-        let handler: (URLRequest) throws -> (HTTPURLResponse, Data?)
-        if let reqHandler = Self.requestHandler {
-            handler = reqHandler
-        } else {
-            handler = { request in
-                (
-                    HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, Data()
-                )
+        guard let url = request.url else {
+            client?.urlProtocol(self, didFailWithError: URLError(.badURL))
+            return
+        }
+
+        let handler: (URLRequest) throws -> (HTTPURLResponse, Data?) = Self.requestHandler ?? { request in
+            guard let requestURL = request.url else {
+                throw URLError(.badURL)
             }
+            return (
+                HTTPURLResponse(
+                    url: requestURL,
+                    statusCode: 200,
+                    httpVersion: "2.0",
+                    headerFields: nil
+                ) ?? HTTPURLResponse(),
+                Data()
+            )
         }
 
         do {

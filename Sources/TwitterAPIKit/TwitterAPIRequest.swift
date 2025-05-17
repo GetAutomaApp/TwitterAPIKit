@@ -5,12 +5,18 @@
 
 import Foundation
 
+/// Represents HTTP methods supported by the Twitter API.
 public enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
+    /// DELETE method, typically used for removing resources.
     case delete = "DELETE"
+    /// GET method, typically used for retrieving resources.
+    case get = "GET"
+    /// POST method, typically used for creating new resources.
+    case post = "POST"
+    /// PUT method, typically used for updating existing resources.
+    case put = "PUT"
 
+    /// Indicates whether the method prefers parameters to be sent as query parameters.
     public var prefersQueryParameters: Bool {
         switch self {
         case .get, .delete:
@@ -21,19 +27,29 @@ public enum HTTPMethod: String {
     }
 }
 
+/// Represents the content type of the request body.
 public enum BodyContentType: String {
-    case wwwFormUrlEncoded = "application/x-www-form-urlencoded"
-
-    /// In this case use MultipartFormDataPart as a parameter
-    /// example: UploadMediaAppendRequestV1.swift
-    case multipartFormData = "multipart/form-data"
+    /// JSON content type with UTF-8 encoding.
     case json = "application/json; charset=UTF-8"
+    
+    /// Multipart form data content type, used for file uploads.
+    /// Use MultipartFormDataPart as a parameter.
+    /// Example: UploadMediaAppendRequestV1.swift
+    case multipartFormData = "multipart/form-data"
+    
+    /// URL-encoded form data content type.
+    case wwwFormUrlEncoded = "application/x-www-form-urlencoded"
 }
 
+/// Represents a part of a multipart form data request.
 public enum MultipartFormDataPart {
-    case value(name: String, value: Any) // value is stringified with "String(describing:)"
+    /// A simple key-value pair where the value is stringified using String(describing:).
+    case value(name: String, value: Any)
+    
+    /// A file upload part containing binary data and metadata.
     case data(name: String, value: Data, filename: String, mimeType: String)
 
+    /// The name of the form part.
     var name: String {
         switch self {
         case let .value(name, _):
@@ -63,29 +79,48 @@ extension MultipartFormDataPart: Equatable {
     }
 }
 
+/// Protocol defining the requirements for a Twitter API request.
 public protocol TwitterAPIRequest {
+    /// The HTTP method to be used for the request.
     var method: HTTPMethod { get }
+    
+    /// The base URL type for the request (api, upload, etc.).
     var baseURLType: TwitterBaseURLType { get }
+    
+    /// The path component of the request URL.
     var path: String { get }
+    
+    /// The complete set of parameters for the request.
     var parameters: [String: Any] { get }
+    
+    /// Parameters to be included in the URL query string.
     var queryParameters: [String: Any] { get }
+    
+    /// Parameters to be included in the request body.
     var bodyParameters: [String: Any] { get }
+    
+    /// The content type of the request body.
     var bodyContentType: BodyContentType { get }
 }
 
+/// Default implementations for TwitterAPIRequest.
 public extension TwitterAPIRequest {
+    /// Default base URL type is .api.
     var baseURLType: TwitterBaseURLType {
         return .api
     }
 
+    /// Default body content type is .wwwFormUrlEncoded.
     var bodyContentType: BodyContentType {
         return .wwwFormUrlEncoded
     }
 
+    /// Default parameters is an empty dictionary.
     var parameters: [String: Any] {
         return [:]
     }
 
+    /// Query parameters are derived from parameters if the method prefers query parameters.
     var queryParameters: [String: Any] {
         if method.prefersQueryParameters {
             return parameters
@@ -93,6 +128,7 @@ public extension TwitterAPIRequest {
         return [:]
     }
 
+    /// Body parameters are derived from parameters if the method doesn't prefer query parameters.
     var bodyParameters: [String: Any] {
         if !method.prefersQueryParameters {
             return parameters

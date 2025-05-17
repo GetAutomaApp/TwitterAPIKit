@@ -215,13 +215,21 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 bodyContentType: .multipartFormData
             ).buildRequest(environment: env)
 
-            let contentType = try XCTUnwrap(req.allHTTPHeaderFields?["Content-Type"])
+            guard let contentType = req.allHTTPHeaderFields?["Content-Type"] else {
+                XCTFail("Content-Type header not found")
+                return
+            }
             XCTAssertTrue(contentType.hasPrefix("multipart/form-data; boundary=TwitterAPIKit-"))
 
             let boundary = contentType.replacingOccurrences(
                 of: "multipart/form-data; boundary=", with: ""
             )
-            let body = try XCTUnwrap(String(data: req.httpBody!, encoding: .utf8))
+            
+            guard let httpBody = req.httpBody,
+                  let body = String(data: httpBody, encoding: .utf8) else {
+                XCTFail("Failed to get HTTP body or decode as UTF-8")
+                return
+            }
 
             let expect = """
             --\(boundary)\r\n
@@ -294,13 +302,18 @@ internal class TwitterAPIRequestTests: XCTestCase {
 
     public func testInvalidJSONValue() throws {
         try XCTContext.runActivity(named: "Invalid value") { _ in
+            // Create invalid UTF-16 string bytes
+            let invalidBytes: [UInt8] = [0xD8, 0x00]
+            
+            guard let invalidString = String(bytes: invalidBytes, encoding: .utf16BigEndian) else {
+                XCTFail("Failed to create test string")
+                return
+            }
+            
             XCTAssertThrowsError(
                 try MockTwitterAPIRequest(
                     method: .post,
-                    parameters: [
-                        String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!:
-                            String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!,
-                    ],
+                    parameters: [invalidString: invalidString],
                     bodyContentType: .json
                 ).buildRequest(environment: env)
             ) { error in

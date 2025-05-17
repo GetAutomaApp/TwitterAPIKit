@@ -7,6 +7,17 @@ import TwitterAPIKit
 import XCTest
 
 internal class UploadMediaUtilTests: XCTestCase {
+    
+    // Helper function to safely serialize JSON
+    private func serializeJSON(_ object: [String: Any]) throws -> Data {
+        do {
+            return try JSONSerialization.data(withJSONObject: object, options: [])
+        } catch {
+            XCTFail("Failed to serialize JSON: \(error)")
+            throw error
+        }
+    }
+    
     override public func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
@@ -21,7 +32,11 @@ internal class UploadMediaUtilTests: XCTestCase {
         )
 
         var requestCount = 0
-        MockURLProtocol.requestHandler = { request in
+        MockURLProtocol.requestHandler = { [weak self] request in
+            guard let self else {
+                throw URLError(.unknown)
+            }
+            
             defer {
                 requestCount += 1
             }
@@ -35,77 +50,101 @@ internal class UploadMediaUtilTests: XCTestCase {
             switch requestCount {
             case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=INIT"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=INIT"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "expires_after_secs": 1_000,
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "expires_after_secs": 1_000,
+                ])
             case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
             case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
             case 3: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=FINALIZE"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "size": 10,
-                        "expires_after_secs": 200,
-                        "processingInfo": [
-                            "state": "pending",
-                            "check_after_secs": 0,
-                        ],
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "size": 10,
+                    "expires_after_secs": 200,
+                    "processingInfo": [
+                        "state": "pending",
+                        "check_after_secs": 0,
+                    ],
+                ])
             case 4:
-
                 XCTAssertEqual(request.httpMethod, "GET")
                 XCTAssertEqual(request.url?.path, "/1.1/media/upload.json")
-                XCTAssertTrue(request.url!.query!.contains("command=STATUS"))
+                if let url = request.url, let query = url.query {
+                    XCTAssertTrue(query.contains("command=STATUS"))
+                } else {
+                    XCTFail("URL or query is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "processing_info": [
-                            "state": "in_progress",
-                            "progress_percent": 99,
-                            "check_after_secs": 0,
-                        ],
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "processing_info": [
+                        "state": "in_progress",
+                        "progress_percent": 99,
+                        "check_after_secs": 0,
+                    ],
+                ])
             case 5:
-
                 XCTAssertEqual(request.httpMethod, "GET")
                 XCTAssertEqual(request.url?.path, "/1.1/media/upload.json")
-                XCTAssertTrue(request.url!.query!.contains("command=STATUS"))
+                if let url = request.url, let query = url.query {
+                    XCTAssertTrue(query.contains("command=STATUS"))
+                } else {
+                    XCTFail("URL or query is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "video": [
-                            "video_type": "video/mp4",
-                        ],
-                        "processing_info": [
-                            "state": "succeeded",
-                            "progress_percent": 100,
-                        ],
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "video": [
+                        "video_type": "video/mp4",
+                    ],
+                    "processing_info": [
+                        "state": "succeeded",
+                        "progress_percent": 100,
+                    ],
+                ])
             default:
                 XCTFail("Invalid Response")
             }
 
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: [:])!,
-                data
-            )
+            if let url = request.url {
+                return (
+                    HTTPURLResponse(
+                        url: url,
+                        statusCode: 200,
+                        httpVersion: "2.0",
+                        headerFields: [:]
+                    ) ?? HTTPURLResponse(),
+                    data
+                )
+            } else {
+                XCTFail("Request URL is nil")
+                return (HTTPURLResponse(), data)
+            }
         }
 
         let exp = expectation(description: "")
@@ -145,18 +184,31 @@ internal class UploadMediaUtilTests: XCTestCase {
             switch requestCount {
             case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=INIT"))
-
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=INIT"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
                 statusCode = 404
 
             default:
                 XCTFail("Invalid Response")
             }
 
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: "2.0", headerFields: [:])!,
-                data
-            )
+            if let url = request.url {
+                return (
+                    HTTPURLResponse(
+                        url: url,
+                        statusCode: statusCode,
+                        httpVersion: "2.0",
+                        headerFields: [:]
+                    ) ?? HTTPURLResponse(),
+                    data
+                )
+            } else {
+                XCTFail("Request URL is nil")
+                return (HTTPURLResponse(), data)
+            }
         }
 
         let exp = expectation(description: "")
@@ -180,7 +232,7 @@ internal class UploadMediaUtilTests: XCTestCase {
 
     public func testAppendError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -188,7 +240,11 @@ internal class UploadMediaUtilTests: XCTestCase {
         )
 
         var requestCount = 0
-        MockURLProtocol.requestHandler = { request in
+        MockURLProtocol.requestHandler = { [weak self] request in
+            guard let self else {
+                throw URLError(.unknown)
+            }
+            
             defer {
                 requestCount += 1
             }
@@ -203,30 +259,50 @@ internal class UploadMediaUtilTests: XCTestCase {
             switch requestCount {
             case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=INIT"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=INIT"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "expires_after_secs": 1_000,
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "expires_after_secs": 1_000,
+                ])
             case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
                 statusCode = 400
             case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
                 statusCode = 200
             default:
                 XCTFail("Invalid Response")
             }
 
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: "2.0", headerFields: [:])!,
-                data
-            )
+            if let url = request.url {
+                return (
+                    HTTPURLResponse(
+                        url: url,
+                        statusCode: statusCode,
+                        httpVersion: "2.0",
+                        headerFields: [:]
+                    ) ?? HTTPURLResponse(),
+                    data
+                )
+            } else {
+                XCTFail("Request URL is nil")
+                return (HTTPURLResponse(), data)
+            }
         }
 
         let exp = expectation(description: "")
@@ -250,7 +326,7 @@ internal class UploadMediaUtilTests: XCTestCase {
 
     public func testFinalizeError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -259,7 +335,11 @@ internal class UploadMediaUtilTests: XCTestCase {
 
         var statusCode = 200
         var requestCount = 0
-        MockURLProtocol.requestHandler = { request in
+        MockURLProtocol.requestHandler = { [weak self] request in
+            guard let self else {
+                throw URLError(.unknown)
+            }
+            
             defer {
                 requestCount += 1
             }
@@ -273,32 +353,56 @@ internal class UploadMediaUtilTests: XCTestCase {
             switch requestCount {
             case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=INIT"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=INIT"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "expires_after_secs": 1_000,
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "expires_after_secs": 1_000,
+                ])
             case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
             case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
             case 3: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=FINALIZE"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
                 statusCode = 500
             default:
                 XCTFail("Invalid Response")
             }
 
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: "2.0", headerFields: [:])!,
-                data
-            )
+            if let url = request.url {
+                return (
+                    HTTPURLResponse(
+                        url: url,
+                        statusCode: statusCode,
+                        httpVersion: "2.0",
+                        headerFields: [:]
+                    ) ?? HTTPURLResponse(),
+                    data
+                )
+            } else {
+                XCTFail("Request URL is nil")
+                return (HTTPURLResponse(), data)
+            }
         }
 
         let exp = expectation(description: "")
@@ -321,7 +425,7 @@ internal class UploadMediaUtilTests: XCTestCase {
 
     public func testWithProcessingError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -329,7 +433,11 @@ internal class UploadMediaUtilTests: XCTestCase {
         )
 
         var requestCount = 0
-        MockURLProtocol.requestHandler = { request in
+        MockURLProtocol.requestHandler = { [weak self] request in
+            guard let self else {
+                throw URLError(.unknown)
+            }
+            
             defer {
                 requestCount += 1
             }
@@ -343,79 +451,101 @@ internal class UploadMediaUtilTests: XCTestCase {
             switch requestCount {
             case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=INIT"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=INIT"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "expires_after_secs": 1_000,
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "expires_after_secs": 1_000,
+                ])
             case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
             case 2: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
             case 3: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=FINALIZE"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "size": 10,
-                        "expires_after_secs": 200,
-                        "processingInfo": [
-                            "state": "pending",
-                            "check_after_secs": 0,
-                        ],
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "size": 10,
+                    "expires_after_secs": 200,
+                    "processingInfo": [
+                        "state": "pending",
+                        "check_after_secs": 0,
+                    ],
+                ])
             case 4:
-
                 XCTAssertEqual(request.httpMethod, "GET")
                 XCTAssertEqual(request.url?.path, "/1.1/media/upload.json")
-                XCTAssertTrue(request.url!.query!.contains("command=STATUS"))
+                if let url = request.url, let query = url.query {
+                    XCTAssertTrue(query.contains("command=STATUS"))
+                } else {
+                    XCTFail("URL or query is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "processing_info": [
-                            "state": "in_progress",
-                            "progress_percent": 99,
-                            "check_after_secs": 0,
-                        ],
-                    ], options: []
-                )
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "processing_info": [
+                        "state": "in_progress",
+                        "progress_percent": 99,
+                        "check_after_secs": 0,
+                    ],
+                ])
             case 5:
-
                 XCTAssertEqual(request.httpMethod, "GET")
                 XCTAssertEqual(request.url?.path, "/1.1/media/upload.json")
-                XCTAssertTrue(request.url!.query!.contains("command=STATUS"))
+                if let url = request.url, let query = url.query {
+                    XCTAssertTrue(query.contains("command=STATUS"))
+                } else {
+                    XCTFail("URL or query is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "processing_info": [
-                            "state": "failed",
-                            "progress_percent": 99,
-                            "error": [
-                                "code": 1,
-                                "name": "InvalidMedia",
-                                "message": "Unsupported video format",
-                            ],
+                data = try self.serializeJSON([
+                    "media_id_string": "123",
+                    "processing_info": [
+                        "state": "failed",
+                        "error": [
+                            "message": "Invalid media",
+                            "code": 1,
                         ],
-                    ], options: []
-                )
+                    ],
+                ])
             default:
                 XCTFail("Invalid Response")
             }
 
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: [:])!,
-                data
-            )
+            if let url = request.url {
+                return (
+                    HTTPURLResponse(
+                        url: url,
+                        statusCode: 200,
+                        httpVersion: "2.0",
+                        headerFields: [:]
+                    ) ?? HTTPURLResponse(),
+                    data
+                )
+            } else {
+                XCTFail("Request URL is nil")
+                return (HTTPURLResponse(), data)
+            }
         }
 
         let exp = expectation(description: "")
@@ -453,39 +583,71 @@ internal class UploadMediaUtilTests: XCTestCase {
             switch requestCount {
             case 0: // INIT
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=INIT"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=INIT"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "expires_after_secs": 1_000,
-                    ], options: []
-                )
+                do {
+                    data = try JSONSerialization.data(
+                        withJSONObject: [
+                            "media_id_string": "123",
+                            "expires_after_secs": 1_000,
+                        ],
+                        options: []
+                    )
+                } catch {
+                    XCTFail("Failed to serialize JSON: \(error)")
+                }
 
             case 1: // APPEND
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("\r\nAPPEND\r\n"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("\r\nAPPEND\r\n"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
             case 2: // FINALIZE
                 XCTAssertEqual(request.url?.absoluteString, "https://upload.twitter.com/1.1/media/upload.json")
-                XCTAssertTrue(requestBodyString!.contains("command=FINALIZE"))
+                if let bodyString = requestBodyString {
+                    XCTAssertTrue(bodyString.contains("command=FINALIZE"))
+                } else {
+                    XCTFail("Request body string is nil")
+                }
 
-                data = try! JSONSerialization.data(
-                    withJSONObject: [
-                        "media_id_string": "123",
-                        "size": 10,
-                        "expires_after_secs": 200,
-                    ], options: []
-                )
+                do {
+                    data = try JSONSerialization.data(
+                        withJSONObject: [
+                            "media_id_string": "123",
+                            "size": 10,
+                            "expires_after_secs": 200,
+                        ],
+                        options: []
+                    )
+                } catch {
+                    XCTFail("Failed to serialize JSON: \(error)")
+                }
 
             default:
                 XCTFail("Invalid Response")
             }
 
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: [:])!,
-                data
-            )
+            if let url = request.url {
+                return (
+                    HTTPURLResponse(
+                        url: url,
+                        statusCode: 200,
+                        httpVersion: "2.0",
+                        headerFields: [:]
+                    ) ?? HTTPURLResponse(),
+                    data
+                )
+            } else {
+                XCTFail("Request URL is nil")
+                return (HTTPURLResponse(), data)
+            }
         }
 
         let exp = expectation(description: "")

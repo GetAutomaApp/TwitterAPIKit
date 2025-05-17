@@ -31,6 +31,10 @@ internal class TwitterAPIClientTests: XCTestCase {
         )
 
         MockURLProtocol.requestHandler = { request in
+            guard let url = request.url else {
+                throw URLError(.badURL)
+            }
+            
             let data = Data(
                 #"""
                 {
@@ -42,9 +46,17 @@ internal class TwitterAPIClientTests: XCTestCase {
                 }
                 """#.utf8
             )
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
-            )
+            
+            guard let response = HTTPURLResponse(
+                url: url,
+                statusCode: 200,
+                httpVersion: "2.0",
+                headerFields: nil
+            ) else {
+                throw URLError(.badServerResponse)
+            }
+            
+            return (response, data)
         }
 
         if case let .oauth20(token) = client.apiAuth {
@@ -89,6 +101,10 @@ internal class TwitterAPIClientTests: XCTestCase {
         )
 
         MockURLProtocol.requestHandler = { request in
+            guard let url = request.url else {
+                throw URLError(.badURL)
+            }
+            
             let data = Data(
                 #"""
                 {
@@ -100,9 +116,17 @@ internal class TwitterAPIClientTests: XCTestCase {
                 }
                 """#.utf8
             )
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
-            )
+            
+            guard let response = HTTPURLResponse(
+                url: url,
+                statusCode: 200,
+                httpVersion: "2.0",
+                headerFields: nil
+            ) else {
+                throw URLError(.badServerResponse)
+            }
+            
+            return (response, data)
         }
 
         let exp = expectation(description: "")
@@ -216,6 +240,10 @@ internal class TwitterAPIClientTests: XCTestCase {
             )
 
             MockURLProtocol.requestHandler = { request in
+                guard let url = request.url else {
+                    throw URLError(.badURL)
+                }
+                
                 let data = Data(
                     #"""
                     {
@@ -227,9 +255,17 @@ internal class TwitterAPIClientTests: XCTestCase {
                     }
                     """#.utf8
                 )
-                return (
-                    HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
-                )
+                
+                guard let response = HTTPURLResponse(
+                    url: url,
+                    statusCode: 200,
+                    httpVersion: "2.0",
+                    headerFields: nil
+                ) else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                return (response, data)
             }
 
             let newToken = try await client.refreshOAuth20Token(type: .publicClient)

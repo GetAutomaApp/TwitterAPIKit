@@ -18,7 +18,11 @@ internal class DataTests: XCTestCase {
         XCTContext.runActivity(named: "failure") { _ in
             let data = Data()
             let serialized = data.serialize()
-            XCTAssertTrue(serialized.error!.isResponseSerializeFailed)
+            guard let error = serialized.error else {
+                XCTFail("Expected error but got nil")
+                return
+            }
+            XCTAssertTrue(error.isResponseSerializeFailed)
         }
     }
 
@@ -35,7 +39,11 @@ internal class DataTests: XCTestCase {
         XCTContext.runActivity(named: "failure") { _ in
             let data = Data()
             let serialized = data.decode(Obj.self, decoder: JSONDecoder())
-            XCTAssertTrue(serialized.error!.isResponseSerializeFailed)
+            guard let error = serialized.error else {
+                XCTFail("Expected error but got nil")
+                return
+            }
+            XCTAssertTrue(error.isResponseSerializeFailed)
         }
     }
 

@@ -44,11 +44,18 @@ private class EmptyRequest: TwitterAPIRequest {
 }
 
 internal class TwitterAPISessionTests: XCTestCase {
-    private let environment = TwitterAPIEnvironment(
-        twitterURL: URL(string: "https://twitter.example.com")!,
-        apiURL: URL(string: "https://api.example.com")!,
-        uploadURL: URL(string: "https://upload.xample.com")!
-    )
+    private let environment: TwitterAPIEnvironment = {
+        guard let twitterURL = URL(string: "https://twitter.example.com"),
+              let apiURL = URL(string: "https://api.example.com"),
+              let uploadURL = URL(string: "https://upload.xample.com") else {
+            fatalError("Invalid test URLs")
+        }
+        return TwitterAPIEnvironment(
+            twitterURL: twitterURL,
+            apiURL: apiURL,
+            uploadURL: uploadURL
+        )
+    }()
 
     private lazy var session: TwitterAPISession = {
         let config = URLSessionConfiguration.default
@@ -84,9 +91,22 @@ internal class TwitterAPISessionTests: XCTestCase {
             XCTAssertEqual(request.httpMethod, "POST")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/post.json")
             XCTAssertNil(request.httpBody)
-            let data = try! Data(reading: request.httpBodyStream!)
-            let body = String(data: data, encoding: .utf8)!
-            XCTAssertEqual(body, "hoge=%F0%9F%98%80")
+            
+            guard let bodyStream = request.httpBodyStream else {
+                XCTFail("HTTP body stream is nil")
+                return
+            }
+            
+            do {
+                let data = try Data(reading: bodyStream)
+                guard let body = String(data: data, encoding: .utf8) else {
+                    XCTFail("Failed to decode body data as UTF-8")
+                    return
+                }
+                XCTAssertEqual(body, "hoge=%F0%9F%98%80")
+            } catch {
+                XCTFail("Failed to read HTTP body stream: \(error)")
+            }
         }
 
         let exp = expectation(description: "")
@@ -121,11 +141,21 @@ internal class TwitterAPISessionTests: XCTestCase {
         )
 
         MockURLProtocol.requestHandler = { request in
+            guard let url = request.url else {
+                throw URLError(.badURL)
+            }
+            
             let data = Data("aaaa\r\nbbbb\r\n".utf8)
+            guard let response = HTTPURLResponse(
+                url: url,
+                statusCode: 200,
+                httpVersion: "2.0",
+                headerFields: nil
+            ) else {
+                throw URLError(.badServerResponse)
+            }
 
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
-            )
+            return (response, data)
         }
 
         MockURLProtocol.requestAssert = { request in

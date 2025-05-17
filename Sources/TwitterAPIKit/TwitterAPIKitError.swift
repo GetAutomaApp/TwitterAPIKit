@@ -5,42 +5,73 @@
 
 import Foundation
 
+/// Represents errors that can occur while using the Twitter API Kit.
 public enum TwitterAPIKitError: Error {
     case requestFailed(reason: RequestFailureReason)
+    
+    /// Represents specific reasons why a request might fail.
     public enum RequestFailureReason {
+        /// Indicates that the provided URL was invalid.
         case invalidURL(url: String)
+        
+        /// Indicates that a parameter was invalid with details about why.
         case invalidParameter(parameter: [String: Any], cause: String)
-
+        
+        /// Indicates that a string could not be encoded to data.
         case cannotEncodeStringToData(string: String)
+        
+        /// Indicates that JSON serialization failed for an object.
         case jsonSerializationFailed(obj: Any)
     }
 
     case responseFailed(reason: ResponseFailureReason)
+    
+    /// Represents specific reasons why a response might fail.
     public enum ResponseFailureReason {
+        /// Indicates that the response was invalid.
         case invalidResponse(error: Error?)
+        
+        /// Indicates that the response status code was unacceptable.
         case unacceptableStatusCode(statusCode: Int, error: TwitterAPIErrorResponse, rateLimit: TwitterRateLimit?)
     }
 
     case responseSerializeFailed(reason: ResponseSerializationFailureReason)
+    
+    /// Represents specific reasons why response serialization might fail.
     public enum ResponseSerializationFailureReason {
+        /// Indicates that JSON serialization failed.
         case jsonSerializationFailed(error: Error)
+        
+        /// Indicates that JSON decoding failed.
         case jsonDecodeFailed(error: Error)
+        
+        /// Indicates that data could not be converted to the expected type.
         case cannotConvert(data: Data, toTypeName: String)
     }
 
     case uploadMediaFailed(reason: UploadMediaFailureReason)
+    
+    /// Represents specific reasons why media upload might fail.
     public enum UploadMediaFailureReason {
+        /// Indicates that media processing failed.
         case processingFailed(error: UploadMediaError)
     }
 
     case refreshOAuth20TokenFailed(reason: RefreshOAuth20TokenFailureReason)
+    
+    /// Represents specific reasons why OAuth 2.0 token refresh might fail.
     public enum RefreshOAuth20TokenFailureReason {
+        /// Indicates that the authentication method was invalid.
         case invalidAuthenticationMethod(TwitterAuthenticationMethod)
+        
+        /// Indicates that the refresh token is missing.
         case refreshTokenIsMissing
     }
 
     case unkonwn(error: Error)
 
+    /// Initializes a TwitterAPIKitError from a generic Error.
+    /// - Parameter error: The error to convert to TwitterAPIKitError.
     public init(error: Error) {
         if let error = error as? Self {
             self = error
@@ -51,36 +82,43 @@ public enum TwitterAPIKitError: Error {
 }
 
 public extension TwitterAPIKitError {
+    /// Indicates whether the error is a request failure.
     var isRequestFailed: Bool {
         if case .requestFailed = self { return true }
         return false
     }
 
+    /// Indicates whether the error is a response failure.
     var isResponseFailed: Bool {
         if case .responseFailed = self { return true }
         return false
     }
 
+    /// Indicates whether the error is a response serialization failure.
     var isResponseSerializeFailed: Bool {
         if case .responseSerializeFailed = self { return true }
         return false
     }
 
+    /// Indicates whether the error is a media upload failure.
     var isUploadMediaFailed: Bool {
         if case .uploadMediaFailed = self { return true }
         return false
     }
 
+    /// Indicates whether the error is an OAuth 2.0 token refresh failure.
     var isRefreshOAuth20TokenFailed: Bool {
         if case .refreshOAuth20TokenFailed = self { return true }
         return false
     }
 
+    /// Indicates whether the error is unknown.
     var isUnkonwn: Bool {
         if case .unkonwn = self { return true }
         return false
     }
 
+    /// The underlying error if one exists.
     var underlyingError: Error? {
         switch self {
         case let .requestFailed(reason):
@@ -98,6 +136,7 @@ public extension TwitterAPIKitError {
         }
     }
 
+    /// Indicates whether the error was due to request cancellation.
     var isCancelled: Bool {
         guard let error = underlyingError as? URLError else {
             return false
@@ -107,11 +146,22 @@ public extension TwitterAPIKitError {
 }
 
 public extension TwitterAPIKitError {
+    /// Represents an error that occurred during media upload.
     struct UploadMediaError: Decodable, Error {
+        /// The error code returned by the Twitter API.
         public let code: Int
+        
+        /// The name of the error.
         public let name: String
+        
+        /// A detailed message describing the error.
         public let message: String
 
+        /// Initializes a new UploadMediaError.
+        /// - Parameters:
+        ///   - code: The error code
+        ///   - name: The error name
+        ///   - message: The error message
         public init(code: Int, name: String, message: String) {
             self.code = code
             self.name = name
@@ -140,12 +190,14 @@ extension TwitterAPIKitError: LocalizedError {
 }
 
 extension TwitterAPIKitError.UploadMediaError: LocalizedError {
+    /// A localized description of the error.
     public var errorDescription: String? {
         return "\(name)[code:\(code)]: \(message)"
     }
 }
 
 public extension TwitterAPIKitError.RequestFailureReason {
+    /// A localized description of the request failure reason.
     var localizedDescription: String {
         switch self {
         case let .invalidURL(url):
@@ -159,6 +211,7 @@ public extension TwitterAPIKitError.RequestFailureReason {
         }
     }
 
+    /// The underlying error if one exists.
     var underlyingError: Error? {
         switch self {
         case .invalidURL,
@@ -171,6 +224,7 @@ public extension TwitterAPIKitError.RequestFailureReason {
 }
 
 public extension TwitterAPIKitError.ResponseFailureReason {
+    /// A localized description of the response failure reason.
     var localizedDescription: String {
         switch self {
         case let .invalidResponse(error: error):
@@ -183,6 +237,7 @@ public extension TwitterAPIKitError.ResponseFailureReason {
         }
     }
 
+    /// The underlying error if one exists.
     var underlyingError: Error? {
         switch self {
         case let .invalidResponse(error: error):
@@ -192,7 +247,7 @@ public extension TwitterAPIKitError.ResponseFailureReason {
         }
     }
 
-    /// A status code in the case of unacceptableStatusCode.
+    /// The status code in the case of unacceptableStatusCode.
     var statusCode: Int? {
         if case .unacceptableStatusCode(statusCode: let statusCode, error: _, rateLimit: _) = self {
             return statusCode
@@ -200,7 +255,7 @@ public extension TwitterAPIKitError.ResponseFailureReason {
         return nil
     }
 
-    /// A rate limit in the case of unacceptableStatusCode.
+    /// The rate limit in the case of unacceptableStatusCode.
     var rateLimit: TwitterRateLimit? {
         if case .unacceptableStatusCode(statusCode: _, error: _, rateLimit: let rateLimit) = self {
             return rateLimit
@@ -210,6 +265,7 @@ public extension TwitterAPIKitError.ResponseFailureReason {
 }
 
 public extension TwitterAPIKitError.ResponseSerializationFailureReason {
+    /// A localized description of the response serialization failure reason.
     var localizedDescription: String {
         switch self {
         case let .jsonSerializationFailed(error):
@@ -221,6 +277,7 @@ public extension TwitterAPIKitError.ResponseSerializationFailureReason {
         }
     }
 
+    /// The underlying error if one exists.
     var underlyingError: Error? {
         switch self {
         case let .jsonSerializationFailed(error: error),
@@ -233,6 +290,7 @@ public extension TwitterAPIKitError.ResponseSerializationFailureReason {
 }
 
 public extension TwitterAPIKitError.UploadMediaFailureReason {
+    /// A localized description of the upload media failure reason.
     var localizedDescription: String {
         switch self {
         case let .processingFailed(error):
@@ -240,6 +298,7 @@ public extension TwitterAPIKitError.UploadMediaFailureReason {
         }
     }
 
+    /// The underlying error if one exists.
     var underlyingError: Error? {
         switch self {
         case let .processingFailed(error: error):
