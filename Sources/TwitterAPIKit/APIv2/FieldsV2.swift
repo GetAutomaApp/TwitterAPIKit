@@ -1,4 +1,4 @@
-// FieldsV2.swift
+// TwitterAPIv2Fields.swift
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
@@ -20,16 +20,16 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case inReplyToUserID
     case lang
     case nonPublicMetrics
-    case publicMetrics
     case organicMetrics
-    case promotedMetrics
+    case other(String)
     case possiblySensitive
+    case promotedMetrics
+    case publicMetrics
     case referencedTweets
     case replySettings
     case source
     case text
     case withheld
-    case other(String)
 
     public var stringValue: String {
         switch self {
@@ -55,14 +55,16 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "lang"
         case .nonPublicMetrics:
             return "non_public_metrics"
-        case .publicMetrics:
-            return "public_metrics"
         case .organicMetrics:
             return "organic_metrics"
-        case .promotedMetrics:
-            return "promoted_metrics"
+        case let .other(other):
+            return other
         case .possiblySensitive:
             return "possibly_sensitive"
+        case .promotedMetrics:
+            return "promoted_metrics"
+        case .publicMetrics:
+            return "public_metrics"
         case .referencedTweets:
             return "referenced_tweets"
         case .replySettings:
@@ -73,8 +75,6 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "text"
         case .withheld:
             return "withheld"
-        case let .other(other):
-            return other
         }
     }
 
@@ -90,10 +90,10 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         .inReplyToUserID,
         .lang,
         .nonPublicMetrics,
-        .publicMetrics,
         .organicMetrics,
-        .promotedMetrics,
         .possiblySensitive,
+        .promotedMetrics,
+        .publicMetrics,
         .referencedTweets,
         .replySettings,
         .source,
@@ -102,7 +102,7 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
-extension Set where Element == TwitterTweetFieldsV2 {
+public extension Set where Element == TwitterTweetFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["tweet.fields"] = commaSeparatedString
     }
@@ -116,6 +116,7 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case id
     case location
     case name
+    case other(String)
     case pinnedTweetID
     case profileImageUrl
     case protected
@@ -124,7 +125,6 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case username
     case verified
     case withheld
-    case other(String)
 
     public var stringValue: String {
         switch self {
@@ -140,6 +140,8 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "location"
         case .name:
             return "name"
+        case let .other(other):
+            return other
         case .pinnedTweetID:
             return "pinned_tweet_id"
         case .profileImageUrl:
@@ -156,8 +158,6 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "verified"
         case .withheld:
             return "withheld"
-        case let .other(other):
-            return other
         }
     }
 
@@ -179,7 +179,7 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
-extension Set where Element == TwitterUserFieldsV2 {
+public extension Set where Element == TwitterUserFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["user.fields"] = commaSeparatedString
     }
@@ -194,8 +194,8 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case geo
     case id
     case name
-    case placeType
     case other(String)
+    case placeType
 
     public var stringValue: String {
         switch self {
@@ -213,10 +213,10 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "id"
         case .name:
             return "name"
-        case .placeType:
-            return "place_type"
         case let .other(other):
             return other
+        case .placeType:
+            return "place_type"
         }
     }
 
@@ -232,7 +232,7 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
-extension Set where Element == TwitterPlaceFieldsV2 {
+public extension Set where Element == TwitterPlaceFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["place.fields"] = commaSeparatedString
     }
@@ -244,8 +244,8 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case endDatetime
     case id
     case options
-    case votingStatus
     case other(String)
+    case votingStatus
 
     public var stringValue: String {
         switch self {
@@ -257,10 +257,10 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
             return "id"
         case .options:
             return "options"
-        case .votingStatus:
-            return "voting_status"
         case let .other(other):
             return other
+        case .votingStatus:
+            return "voting_status"
         }
     }
 
@@ -273,7 +273,7 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
-extension Set where Element == TwitterPollFieldsV2 {
+public extension Set where Element == TwitterPollFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["poll.fields"] = commaSeparatedString
     }
@@ -281,58 +281,58 @@ extension Set where Element == TwitterPollFieldsV2 {
 
 /// media.fields
 public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+    case altText
     case durationMs
     case height
     case mediaKey
-    case previewImageUrl
-    case type
-    case url
-    case width
-    case publicMetrics
     case nonPublicMetrics
     case organicMetrics
-    case promotedMetrics
-    case altText
-    case variants
     case other(String)
+    case previewImageUrl
+    case promotedMetrics
+    case publicMetrics
+    case type
+    case url
+    case variants
+    case width
 
     public var stringValue: String {
         switch self {
+        case .altText: return "alt_text"
         case .durationMs: return "duration_ms"
         case .height: return "height"
         case .mediaKey: return "media_key"
-        case .previewImageUrl: return "preview_image_url"
-        case .type: return "type"
-        case .url: return "url"
-        case .width: return "width"
-        case .publicMetrics: return "public_metrics"
         case .nonPublicMetrics: return "non_public_metrics"
         case .organicMetrics: return "organic_metrics"
-        case .promotedMetrics: return "promoted_metrics"
-        case .altText: return "alt_text"
-        case .variants: return "variants"
         case let .other(string): return string
+        case .previewImageUrl: return "preview_image_url"
+        case .promotedMetrics: return "promoted_metrics"
+        case .publicMetrics: return "public_metrics"
+        case .type: return "type"
+        case .url: return "url"
+        case .variants: return "variants"
+        case .width: return "width"
         }
     }
 
     public static let all: Set<Self> = [
+        .altText,
         .durationMs,
         .height,
         .mediaKey,
-        .previewImageUrl,
-        .type,
-        .url,
-        .width,
-        .publicMetrics,
         .nonPublicMetrics,
         .organicMetrics,
+        .previewImageUrl,
         .promotedMetrics,
-        .altText,
+        .publicMetrics,
+        .type,
+        .url,
         .variants,
+        .width,
     ]
 }
 
-extension Set where Element == TwitterMediaFieldsV2 {
+public extension Set where Element == TwitterMediaFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["media.fields"] = commaSeparatedString
     }
@@ -341,42 +341,42 @@ extension Set where Element == TwitterMediaFieldsV2 {
 /// list.fields
 public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case createdAt
-    case followerCount
-    case memberCount
-    case `private`
     case description
+    case followerCount
     case id
+    case memberCount
     case name
-    case ownerID
     case other(String)
+    case ownerID
+    case `private`
 
     public var stringValue: String {
         switch self {
         case .createdAt: return "created_at"
-        case .followerCount: return "follower_count"
-        case .memberCount: return "member_count"
-        case .private: return "private"
         case .description: return "description"
+        case .followerCount: return "follower_count"
         case .id: return "id"
+        case .memberCount: return "member_count"
         case .name: return "name"
-        case .ownerID: return "owner_id"
         case let .other(string): return string
+        case .ownerID: return "owner_id"
+        case .private: return "private"
         }
     }
 
     public static let all: Set<Self> = [
         .createdAt,
-        .followerCount,
-        .memberCount,
-        .private,
         .description,
+        .followerCount,
         .id,
+        .memberCount,
         .name,
         .ownerID,
+        .private,
     ]
 }
 
-extension Set where Element == TwitterListFieldsV2 {
+public extension Set where Element == TwitterListFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["list.fields"] = commaSeparatedString
     }
@@ -384,70 +384,70 @@ extension Set where Element == TwitterListFieldsV2 {
 
 /// space.fields
 public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
-    case id
-    case state
-    case hostIDs
     case createdAt
     case creatorID
-    case lang
+    case endedAt
+    case hostIDs
+    case id
     case invitedUserIDs
+    case isTicketed
+    case lang
+    case other(String)
     case participantCount
+    case scheduledStart
     case speakerIDs
     case startedAt
-    case endedAt
+    case state
     case subscriberCount
-    case topicIDs
     case title
+    case topicIDs
     case updatedAt
-    case scheduledStart
-    case isTicketed
-    case other(String)
 
     public var stringValue: String {
         switch self {
-        case .id: return "id"
-        case .state: return "state"
-        case .hostIDs: return "host_ids"
         case .createdAt: return "created_at"
         case .creatorID: return "creator_id"
-        case .lang: return "lang"
+        case .endedAt: return "ended_at"
+        case .hostIDs: return "host_ids"
+        case .id: return "id"
         case .invitedUserIDs: return "invited_user_ids"
+        case .isTicketed: return "is_ticketed"
+        case .lang: return "lang"
+        case let .other(string): return string
         case .participantCount: return "participant_count"
+        case .scheduledStart: return "scheduled_start"
         case .speakerIDs: return "speaker_ids"
         case .startedAt: return "started_at"
-        case .endedAt: return "ended_at"
+        case .state: return "state"
         case .subscriberCount: return "subscriber_count"
-        case .topicIDs: return "topic_ids"
         case .title: return "title"
+        case .topicIDs: return "topic_ids"
         case .updatedAt: return "updated_at"
-        case .scheduledStart: return "scheduled_start"
-        case .isTicketed: return "is_ticketed"
-        case let .other(string): return string
         }
     }
 
     public static let all: Set<Self> = [
-        .id,
-        .state,
-        .hostIDs,
         .createdAt,
         .creatorID,
-        .lang,
+        .endedAt,
+        .hostIDs,
+        .id,
         .invitedUserIDs,
+        .isTicketed,
+        .lang,
         .participantCount,
+        .scheduledStart,
         .speakerIDs,
         .startedAt,
-        .endedAt,
+        .state,
         .subscriberCount,
-        .topicIDs,
         .title,
+        .topicIDs,
         .updatedAt,
-        .scheduledStart,
-        .isTicketed,
     ]
 }
 
-extension Set where Element == TwitterSpaceFieldsV2 {
+public extension Set where Element == TwitterSpaceFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["space.fields"] = commaSeparatedString
     }
@@ -455,28 +455,28 @@ extension Set where Element == TwitterSpaceFieldsV2 {
 
 /// topic.fields
 public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+    case description
     case id
     case name
-    case description
     case other(String)
 
     public var stringValue: String {
         switch self {
+        case .description: return "description"
         case .id: return "id"
         case .name: return "name"
-        case .description: return "description"
         case let .other(string): return string
         }
     }
 
     public static let all: Set<Self> = [
+        .description,
         .id,
         .name,
-        .description,
     ]
 }
 
-extension Set where Element == TwitterTopicFieldsV2 {
+public extension Set where Element == TwitterTopicFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["topic.fields"] = commaSeparatedString
     }
@@ -490,11 +490,11 @@ public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     case dmConversationID
     case eventType
     case id
+    case other(String)
     case participantIDs
     case referencedTweets
     case senderID
     case text
-    case other(String)
 
     public var stringValue: String {
         switch self {
@@ -503,11 +503,11 @@ public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         case .dmConversationID: return "dm_conversation_id"
         case .eventType: return "event_type"
         case .id: return "id"
+        case let .other(string): return string
         case .participantIDs: return "participant_ids"
         case .referencedTweets: return "referenced_tweets"
         case .senderID: return "sender_id"
         case .text: return "text"
-        case let .other(string): return string
         }
     }
 
@@ -524,7 +524,7 @@ public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     ]
 }
 
-extension Set where Element == TwitterDmEventFieldsV2 {
+public extension Set where Element == TwitterDmEventFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["dm_event.fields"] = commaSeparatedString
     }
@@ -548,7 +548,7 @@ public enum TwitterDmConversationFieldsV2: TwitterAPIv2RequestParameter, Hashabl
     ]
 }
 
-extension Set where Element == TwitterDmConversationFieldsV2 {
+public extension Set where Element == TwitterDmConversationFieldsV2 {
     func bind(param: inout [String: Any]) {
         param["dm_conversation.fields"] = commaSeparatedString
     }
