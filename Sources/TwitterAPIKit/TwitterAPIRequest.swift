@@ -1,3 +1,8 @@
+// TwitterAPIRequest.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 public enum HTTPMethod: String {
@@ -109,7 +114,7 @@ extension TwitterAPIRequest {
         if !queryParameters.isEmpty {
             urlComponent.percentEncodedQueryItems =
                 queryParameters
-                    .sorted(by: { a, b in a.key < b.key })
+                    .sorted { a, b in a.key < b.key }
                     .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
         }
 
@@ -133,7 +138,8 @@ extension TwitterAPIRequest {
                             parameter: bodyParameters,
                             cause:
                             "Parameter must be specified in `MultipartFormDataPart` for `BodyContentType.multipartFormData`."
-                        ))
+                        )
+                    )
                 }
 
                 let boundary = "TwitterAPIKit-\(UUID().uuidString)"
@@ -141,7 +147,7 @@ extension TwitterAPIRequest {
                 request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
                 request.httpBody = try multipartFormData(
-                    boundary: boundary, parts: parts.sorted(by: { $0.name < $1.name })
+                    boundary: boundary, parts: parts.sorted { $0.name < $1.name }
                 )
                 request.setValue(
                     String(request.httpBody?.count ?? 0), forHTTPHeaderField: "Content-Length"

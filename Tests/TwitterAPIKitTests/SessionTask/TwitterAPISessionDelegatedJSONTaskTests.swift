@@ -1,3 +1,8 @@
+// TwitterAPISessionDelegatedJSONTaskTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -7,6 +12,9 @@ internal struct DecodableObj: Decodable, Equatable {
 }
 
 internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
+    // swiftlint:disable:next force_unwrapping
+    let testURL = URL(string: "http://example.com")! // This is fine as it's a constant test URL that we know is valid
+
     public func testSuccess() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
@@ -62,7 +70,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
             task.append(chunk: Data(":\"value\"}".utf8))
 
             mockTask.httpResponse = .init(
-                url: URL(string: "http://example.com")!,
+                url: self.testURL,
                 statusCode: 200,
                 httpVersion: "1.1",
                 headerFields: [
@@ -113,7 +121,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
 
             // Status code is 400
             mockTask.httpResponse = .init(
-                url: URL(string: "http://example.com")!,
+                url: self.testURL,
                 statusCode: 400,
                 httpVersion: "1.1",
                 headerFields: [
@@ -163,7 +171,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
             task.append(chunk: Data(":\"value\"}".utf8))
 
             mockTask.httpResponse = .init(
-                url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                url: self.testURL, statusCode: 200, httpVersion: "1.1", headerFields: [:]
             )
 
             task.complete(error: URLError(.badServerResponse))
@@ -211,7 +219,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
             task.append(chunk: Data(":\"value\"}".utf8))
 
             mockTask.httpResponse = .init(
-                url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                url: self.testURL, statusCode: 200, httpVersion: "1.1", headerFields: [:]
             )
 
             task.complete(error: URLError(.cancelled))

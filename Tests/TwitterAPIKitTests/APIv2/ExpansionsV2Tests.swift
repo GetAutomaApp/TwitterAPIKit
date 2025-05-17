@@ -1,3 +1,8 @@
+// ExpansionsV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -21,8 +26,8 @@ internal class ExpansionsV2Tests: XCTestCase {
         XCTAssertEqual(
             allCases.commaSeparatedString,
             "attachments.media_keys,attachments.poll_ids,author_id," +
-            "entities.mentions.username,geo.place_id,in_reply_to_user_id," +
-            "referenced_tweets.id,referenced_tweets.id.author_id,~~~"
+                "entities.mentions.username,geo.place_id,in_reply_to_user_id," +
+                "referenced_tweets.id,referenced_tweets.id.author_id,~~~"
         )
     }
 

@@ -1,3 +1,8 @@
+// TwitterAPISessionTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -299,8 +304,8 @@ internal class TwitterAPISessionTests: XCTestCase {
     }
 }
 
-extension Data {
-    public init(reading input: InputStream) throws {
+public extension Data {
+    init(reading input: InputStream) throws {
         self.init()
         input.open()
         defer {

@@ -1,3 +1,8 @@
+// GetOAuthAuthenticateRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/authenticate
@@ -17,8 +22,8 @@ open class GetOAuthAuthenticateRequestV1: TwitterAPIRequest {
     open var parameters: [String: Any] {
         var params = [String: Any]()
         params["oauth_token"] = oauthToken
-        forceLogin.map { p["force_login"] = $0 }
-        screenName.map { p["screen_name"] = $0 }
+        forceLogin.map { params["force_login"] = $0 }
+        screenName.map { params["screen_name"] = $0 }
         return params
     }
 

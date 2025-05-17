@@ -1,3 +1,8 @@
+// PostDirectMessageRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/new-event
@@ -113,7 +118,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         quickReplyOptions.map {
             messageData["quick_reply"] = [
                 "type": "options",
-                "options": $0.map { $0.parameter },
+                "options": $0.map(\.parameter),
             ]
         }
 

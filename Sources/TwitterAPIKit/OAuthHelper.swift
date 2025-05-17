@@ -1,3 +1,8 @@
+// OAuthHelper.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 private let oauthVersion = "1.0"
@@ -21,7 +26,7 @@ func authorizationHeader(
     authorizationParameters["oauth_timestamp"] = oauthTimestamp ?? String(Int(Date().timeIntervalSince1970))
     authorizationParameters["oauth_nonce"] = oauthNonce ?? UUID().uuidString
 
-    if let oauthToken = oauthToken {
+    if let oauthToken {
         authorizationParameters["oauth_token"] = oauthToken
     }
 

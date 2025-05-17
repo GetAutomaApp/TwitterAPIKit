@@ -1,3 +1,8 @@
+// TwitterOAuth2AccessToken.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /* ex
@@ -46,8 +51,8 @@ public struct TwitterOAuth2AccessToken {
     }
 }
 
-extension TwitterOAuth2AccessToken {
-    public static func fromResponse(data: Data) throws -> Self {
+public extension TwitterOAuth2AccessToken {
+    static func fromResponse(data: Data) throws -> Self {
         do {
             guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
                 throw TwitterAPIKitError.responseSerializeFailed(

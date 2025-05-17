@@ -1,3 +1,8 @@
+// TwitterAPISessionDelegatedJSONTask.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 internal protocol TwitterAPISessionDelegatedJSONTaskDelegate: AnyObject {
@@ -52,17 +57,17 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         }
     }
 
-    private func append(chunk: Data) {
+    internal func append(chunk: Data) {
         dataChunk.append(chunk)
     }
 
-    private func complete(error: Error?) {
+    internal func complete(error: Error?) {
         self.error = error
         completed = true
 
         group.notify(queue: taskQueue) { [weak self] in
             guard let self else { return }
-            self.delegate?.didFinishQueueInJsonTask(task: self)
+            delegate?.didFinishQueueInJsonTask(task: self)
         }
         taskQueue.resume()
     }
@@ -123,7 +128,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
             queue.async { [weak self] in
                 guard let self else { return }
                 block(response)
-                self.group.leave()
+                group.leave()
             }
         }
 

@@ -1,3 +1,8 @@
+// TwitterAuthenticationMethod.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 public enum TwitterAuthenticationMethod {
@@ -58,7 +63,8 @@ public extension TwitterAuthenticationMethod {
         public var createdAt: Date
 
         /// Estimates the expiration time of a token based on "expiresIn" and "createdAt".
-        /// Since the server response does not include the creation time of the token, it contains a margin of error of a few seconds.
+        /// Since the server response does not include the creation time of the token, it contains a margin of error of
+        /// a few seconds.
         public var expiresAt: Date {
             return createdAt.addingTimeInterval(TimeInterval(expiresIn))
         }

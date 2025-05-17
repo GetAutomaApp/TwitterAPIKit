@@ -1,3 +1,8 @@
+// PostOAuth2RefreshTokenRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
@@ -20,7 +25,7 @@ open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
 
         params["refresh_token"] = refreshToken
         params["grant_type"] = grantType
-        clientID.map { p["client_id"] = $0 }
+        clientID.map { params["client_id"] = $0 }
 
         return params
     }

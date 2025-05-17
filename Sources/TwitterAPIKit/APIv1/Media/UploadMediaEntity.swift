@@ -1,3 +1,8 @@
+// UploadMediaEntity.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 public struct UploadMediaRequestParameters {
@@ -53,7 +58,7 @@ public extension TwitterAPIClient {
         }
 
         public var enumState: State {
-            if state == "pending", let checkAfterSecs{
+            if state == "pending", let checkAfterSecs {
                 return .pending(checkAfterSecs: checkAfterSecs)
             }
 

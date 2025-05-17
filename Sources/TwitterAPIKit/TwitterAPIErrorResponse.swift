@@ -1,3 +1,8 @@
+// TwitterAPIErrorResponse.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 public enum TwitterAPIErrorResponse: Equatable {
@@ -94,9 +99,9 @@ public struct TwitterAPIErrorResponseV1 {
             return nil
         }
 
-        let tErrors: [TwitterAPIErrorResponseV1] = errors.compactMap { error in
+        let tErrors: [Self] = errors.compactMap { error in
             guard let message = error["message"] as? String, let code = error["code"] as? Int else { return nil }
-            return TwitterAPIErrorResponseV1(message: message, code: code, errors: [])
+            return Self(message: message, code: code, errors: [])
         }
 
         guard !tErrors.isEmpty else {
@@ -109,7 +114,7 @@ public struct TwitterAPIErrorResponseV1 {
     }
 
     public func contains(code: Int) -> Bool {
-        return code == self.code || errors.contains(where: { $0.code == code })
+        return code == self.code || errors.contains { $0.code == code }
     }
 }
 

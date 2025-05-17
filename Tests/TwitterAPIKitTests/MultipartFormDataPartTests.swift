@@ -1,3 +1,8 @@
+// MultipartFormDataPartTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
@@ -19,7 +24,12 @@ internal class MultipartFormDataPartTests: XCTestCase {
         let dataB = MultipartFormDataPart.data(name: "m", value: data, filename: "f", mimeType: "m")
         let dataC = MultipartFormDataPart.data(name: "n", value: data, filename: "ff", mimeType: "m")
         let dataD = MultipartFormDataPart.data(name: "n", value: data, filename: "f", mimeType: "mm")
-        let dataE = MultipartFormDataPart.data(name: "n", value: Data(repeating: 1, count: 1), filename: "f", mimeType: "m")
+        let dataE = MultipartFormDataPart.data(
+            name: "n",
+            value: Data(repeating: 1, count: 1),
+            filename: "f",
+            mimeType: "m"
+        )
         let dataF = MultipartFormDataPart.value(name: "n", value: data)
 
         let dataA1 = MultipartFormDataPart.data(name: "n", value: Data(), filename: "f", mimeType: "m")

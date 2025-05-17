@@ -1,3 +1,8 @@
+// TwitterAPIv1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 open class TwitterAPIv1 {
     public let account: AccountAPIv1
     public let application: ApplicationAPIv1

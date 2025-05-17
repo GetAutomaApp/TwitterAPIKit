@@ -1,3 +1,8 @@
+// PostCollectionsEntriesCurateRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/post-collections-entries-curate
@@ -34,7 +39,7 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
     open var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
-        params["changes"] = changes.map { $0.keyValue }
+        params["changes"] = changes.map(\.keyValue)
         return params
     }
 

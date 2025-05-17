@@ -1,5 +1,7 @@
-// Generated using Sourcery 1.9.0 — https://github.com/krzysztofzablocki/Sourcery
-// DO NOT EDIT
+// TwitterAPI+Flat.generated.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
 
 // swift-format-ignore-file
 import Foundation
@@ -11,7 +13,9 @@ public extension TwitterAuthAPI {
         return oauth10a.postOAuthRequestTokenData(request)
     }
 
-    func postOAuthRequestToken(_ request: PostOAuthRequestTokenRequestV1) -> TwitterAPISessionSpecializedTask<TwitterOAuthTokenV1> {
+    func postOAuthRequestToken(_ request: PostOAuthRequestTokenRequestV1)
+        -> TwitterAPISessionSpecializedTask<TwitterOAuthTokenV1>
+    {
         return oauth10a.postOAuthRequestToken(request)
     }
 
@@ -27,7 +31,9 @@ public extension TwitterAuthAPI {
         return oauth10a.postOAuthAccessTokenData(request)
     }
 
-    func postOAuthAccessToken(_ request: PostOAuthAccessTokenRequestV1) -> TwitterAPISessionSpecializedTask<TwitterOAuthAccessTokenV1> {
+    func postOAuthAccessToken(_ request: PostOAuthAccessTokenRequestV1)
+        -> TwitterAPISessionSpecializedTask<TwitterOAuthAccessTokenV1>
+    {
         return oauth10a.postOAuthAccessToken(request)
     }
 
@@ -41,7 +47,9 @@ public extension TwitterAuthAPI {
         return oauth20.postOAuth2BearerTokenData(request)
     }
 
-    func postOAuth2BearerToken(_ request: PostOAuth2TokenRequestV1) -> TwitterAPISessionSpecializedTask<TwitterOAuth2BearerToken> {
+    func postOAuth2BearerToken(_ request: PostOAuth2TokenRequestV1)
+        -> TwitterAPISessionSpecializedTask<TwitterOAuth2BearerToken>
+    {
         return oauth20.postOAuth2BearerToken(request)
     }
 
@@ -57,7 +65,9 @@ public extension TwitterAuthAPI {
         return oauth20.postOAuth2AccessTokenData(request)
     }
 
-    func postOAuth2AccessToken(_ request: PostOAuth2AccessTokenRequestV2) -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken> {
+    func postOAuth2AccessToken(_ request: PostOAuth2AccessTokenRequestV2)
+        -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken>
+    {
         return oauth20.postOAuth2AccessToken(request)
     }
 
@@ -65,7 +75,9 @@ public extension TwitterAuthAPI {
         return oauth20.postOAuth2RefreshTokenData(request)
     }
 
-    func postOAuth2RefreshToken(_ request: PostOAuth2RefreshTokenRequestV2) -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken> {
+    func postOAuth2RefreshToken(_ request: PostOAuth2RefreshTokenRequestV2)
+        -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken>
+    {
         return oauth20.postOAuth2RefreshToken(request)
     }
 
@@ -213,7 +225,9 @@ public extension TwitterAPIv1 {
         return directMessage.postDirectMessageMarkRead(request)
     }
 
-    func postDirectMessageTypingIndicator(_ request: PostDirectMessagesIndicateTypingRequestV1) -> TwitterAPISessionDataTask {
+    func postDirectMessageTypingIndicator(_ request: PostDirectMessagesIndicateTypingRequestV1)
+        -> TwitterAPISessionDataTask
+    {
         return directMessage.postDirectMessageTypingIndicator(request)
     }
 
@@ -393,7 +407,10 @@ public extension TwitterAPIv1 {
         return media.uploadMediaAppend(request)
     }
 
-    func uploadMediaAppendSplitChunks(_ request: UploadMediaAppendRequestV1, maxBytes: Int = 5_242_880) -> [TwitterAPISessionSpecializedTask<String /* mediaID */>] {
+    func uploadMediaAppendSplitChunks(_ request: UploadMediaAppendRequestV1,
+                                      maxBytes: Int = 5_242_880) -> [TwitterAPISessionSpecializedTask<
+        String /* mediaID */
+    >] {
         return media.uploadMediaAppendSplitChunks(request, maxBytes: maxBytes)
     }
 
@@ -401,15 +418,29 @@ public extension TwitterAPIv1 {
         return media.uploadMediaFinalize(request)
     }
 
-    func uploadMedia(_ parameters: UploadMediaRequestParameters, completionHandler: @escaping (TwitterAPIResponse<String>) -> Void) {
+    func uploadMedia(
+        _ parameters: UploadMediaRequestParameters,
+        completionHandler: @escaping (TwitterAPIResponse<String>) -> Void
+    ) {
         media.uploadMedia(parameters, completionHandler: completionHandler)
     }
 
-    func waitMediaProcessing(mediaID: String, initialWaitSec: Int, completionHandler: @escaping (TwitterAPIResponse<TwitterAPIClient.UploadMediaStatusResponse>) -> Void) {
-        media.waitMediaProcessing(mediaID: mediaID, initialWaitSec: initialWaitSec, completionHandler: completionHandler)
+    func waitMediaProcessing(
+        mediaID: String,
+        initialWaitSec: Int,
+        completionHandler: @escaping (TwitterAPIResponse<TwitterAPIClient.UploadMediaStatusResponse>) -> Void
+    ) {
+        media.waitMediaProcessing(
+            mediaID: mediaID,
+            initialWaitSec: initialWaitSec,
+            completionHandler: completionHandler
+        )
     }
 
-    func waitMediaProcessing(mediaID: String, completionHandler: @escaping (TwitterAPIResponse<TwitterAPIClient.UploadMediaStatusResponse>) -> Void) {
+    func waitMediaProcessing(
+        mediaID: String,
+        completionHandler: @escaping (TwitterAPIResponse<TwitterAPIClient.UploadMediaStatusResponse>) -> Void
+    ) {
         media.waitMediaProcessing(mediaID: mediaID, completionHandler: completionHandler)
     }
 
@@ -769,7 +800,9 @@ public extension TwitterAPIv2 {
         return timeline.getUserMensions(request)
     }
 
-    func getUserReverseChronological(_ request: GetUsersTimelinesReverseChronologicalRequestV2) -> TwitterAPISessionJSONTask {
+    func getUserReverseChronological(_ request: GetUsersTimelinesReverseChronologicalRequestV2)
+        -> TwitterAPISessionJSONTask
+    {
         return timeline.getUserReverseChronological(request)
     }
 
@@ -837,7 +870,9 @@ public extension TwitterAPIv2 {
         return dm.getDmEvents(request)
     }
 
-    func getDmEventsWithParticipantId(_ request: GetDmConversationsWithParticipantIdDmEventsRequestV2) -> TwitterAPISessionJSONTask {
+    func getDmEventsWithParticipantId(_ request: GetDmConversationsWithParticipantIdDmEventsRequestV2)
+        -> TwitterAPISessionJSONTask
+    {
         return dm.getDmEventsWithParticipantId(request)
     }
 

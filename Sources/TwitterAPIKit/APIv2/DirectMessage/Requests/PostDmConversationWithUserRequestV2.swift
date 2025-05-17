@@ -1,3 +1,8 @@
+// PostDmConversationWithUserRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// Creates a new message for a DM Conversation with a participant user by ID
@@ -24,7 +29,7 @@ open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
 
     open var parameters: [String: Any] {
         var params = [String: Any]()
-        if let attachments = attachments {
+        if let attachments {
             params["attachments"] = attachments.map { ["media_id": $0] }
         }
         text.map { params["text"] = $0 }

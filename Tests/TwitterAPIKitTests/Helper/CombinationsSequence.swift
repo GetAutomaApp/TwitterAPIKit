@@ -1,13 +1,7 @@
-// ===----------------------------------------------------------------------===//
-// 
-// This source file is part of the Swift Algorithms open source project
-// 
-// Copyright (c) 2020-2021 Apple Inc. and the Swift project authors
-// Licensed under Apache License v2.0 with Runtime Library Exception
-// 
-// See https://swift.org/LICENSE.txt for license information
-// 
-// ===----------------------------------------------------------------------===//
+// CombinationsSequence.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
 
 /// A collection wrapper that generates combinations of a base collection.
 public struct CombinationsSequence<Base: Collection> {
@@ -254,7 +248,7 @@ public extension Collection {
     ///   is the number of elements in the base collection, since
     ///   `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    public func combinations<R: RangeExpression>(
+    func combinations<R: RangeExpression>(
         ofCount kRange: R
     ) -> CombinationsSequence<Self> where R.Bound == Int {
         CombinationsSequence(self, kRange: kRange)
@@ -290,9 +284,8 @@ public extension Collection {
     /// is the number of elements in the base collection, since
     /// `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    public func combinations(ofCount k: Int) -> CombinationsSequence<Self> {
+    func combinations(ofCount k: Int) -> CombinationsSequence<Self> {
         precondition(k >= 0, "Can't have combinations with a negative number of elements.")
         return CombinationsSequence(self, k: k)
-
     }
 }

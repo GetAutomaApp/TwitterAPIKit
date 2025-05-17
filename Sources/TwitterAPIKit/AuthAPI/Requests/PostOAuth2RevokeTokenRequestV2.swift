@@ -1,3 +1,8 @@
+// PostOAuth2RevokeTokenRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
@@ -22,8 +27,8 @@ open class PostOAuth2RevokeTokenRequestV2: TwitterAPIRequest {
     open var parameters: [String: Any] {
         var params = [String: String]()
         params["token"] = token
-        tokenTypeHint.map { p["token_type_hint"] = $0 }
-        clientID.map { p["client_id"] = $0 }
+        tokenTypeHint.map { params["token_type_hint"] = $0 }
+        clientID.map { params["client_id"] = $0 }
 
         return params
     }

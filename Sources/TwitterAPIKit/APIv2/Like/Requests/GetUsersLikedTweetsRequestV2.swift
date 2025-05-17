@@ -1,4 +1,9 @@
-TweetCountAPIv2import Foundation
+// GetUsersLikedTweetsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
+import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
 open class GetUsersLikedTweetsRequestV2: TwitterAPIRequest {

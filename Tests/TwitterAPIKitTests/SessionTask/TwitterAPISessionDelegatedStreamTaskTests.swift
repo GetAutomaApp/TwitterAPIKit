@@ -1,3 +1,8 @@
+// TwitterAPISessionDelegatedStreamTaskTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -117,7 +122,9 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
             task.append(
                 chunk: Data(
                     "{\"detail\":\"Authenticating with OAuth 1.0a User Context is forbidden for this endpoint.  Supported authentication types are [OAuth 2.0 Application-Only].\",\"title\":\"Unsupported Authentication\",\"status\":403,\"type\":\"https://api.twitter.com/2/problems/unsupported-authentication\"}"
-                        .utf8))
+                        .utf8
+                )
+            )
             task.complete(error: nil)
         }
 

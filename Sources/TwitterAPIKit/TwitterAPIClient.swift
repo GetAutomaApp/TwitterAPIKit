@@ -1,3 +1,8 @@
+// TwitterAPIClient.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class TwitterAPIClient {
@@ -27,7 +32,8 @@ open class TwitterAPIClient {
                 return date
             }
             throw DecodingError.dataCorrupted(
-                .init(codingPath: decoder.codingPath, debugDescription: "Unexpected date format: \(dateStr)"))
+                .init(codingPath: decoder.codingPath, debugDescription: "Unexpected date format: \(dateStr)")
+            )
         }
 
         return decoder
@@ -74,7 +80,8 @@ open class TwitterAPIClient {
                     consumerSecret: consumerSecret,
                     oauthToken: oauthToken,
                     oauthTokenSecret: oauthTokenSecret
-                )),
+                )
+            ),
             environment: .init()
         )
     }
@@ -119,7 +126,7 @@ public extension TwitterAPIClient {
             .init(refreshToken: refreshToken, clientID: token.clientID)
         )
         .responseObject { [weak self] response in
-            guard let self = self else { return }
+            guard let self else { return }
             switch response.result {
             case let .success(refreshedToken):
                 var token = token
@@ -148,6 +155,7 @@ open class TwitterAPIBase {
 
 public extension TwitterAPIClient {
     // swift-format-ignore
-    static let didRefreshOAuth20Token = Notification.Name(rawValue: "TwitterAPIKit.TwitterAPIClient.Notification.didRefreshOAuth20Token")
+    static let didRefreshOAuth20Token = Notification
+        .Name(rawValue: "TwitterAPIKit.TwitterAPIClient.Notification.didRefreshOAuth20Token")
     static let tokenUserInfoKey = "TwitterAPIKit.TwitterAPIClient.UserInfoKey.tokenUser"
 }

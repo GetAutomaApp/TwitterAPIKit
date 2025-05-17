@@ -1,4 +1,7 @@
-// swift-format-ignore-file
+// Concurrency.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
 
 import Foundation
 
@@ -45,7 +48,10 @@ import Foundation
             }
         }
 
-        func responseDecodable<T: Decodable>(type: T.Type, decoder _: JSONDecoder = TwitterAPIClient.defaultJSONDecoder) async -> TwitterAPIResponse<T> {
+        func responseDecodable<T: Decodable>(
+            type: T.Type,
+            decoder _: JSONDecoder = TwitterAPIClient.defaultJSONDecoder
+        ) async -> TwitterAPIResponse<T> {
             return await withTaskCancellationHandler(
                 operation: {
                     await withCheckedContinuation { c in
@@ -99,7 +105,10 @@ import Foundation
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension TwitterAPIClient {
-        func refreshOAuth20Token(type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType, forceRefresh: Bool = false) async throws -> RefreshOAuth20TokenResultValue {
+        func refreshOAuth20Token(
+            type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType,
+            forceRefresh: Bool = false
+        ) async throws -> RefreshOAuth20TokenResultValue {
             return try await withCheckedThrowingContinuation { c in
                 refreshOAuth20Token(type: type, forceRefresh: forceRefresh) { result in
                     c.resume(with: result)

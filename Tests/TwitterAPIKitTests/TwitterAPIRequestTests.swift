@@ -1,3 +1,8 @@
+// TwitterAPIRequestTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -97,7 +102,9 @@ internal class TwitterAPIRequestTests: XCTestCase {
 
             XCTAssertEqual(urlReq.httpMethod, "POST")
             XCTAssertNil(urlReq.url?.query)
-            XCTAssertEqual(String(data: urlReq.httpBody!, encoding: .utf8)!, "key=value%2C%F0%9F%A5%93")
+            let httpBody = try XCTUnwrap(urlReq.httpBody)
+            let bodyString = try XCTUnwrap(String(data: httpBody, encoding: .utf8))
+            XCTAssertEqual(bodyString, "key=value%2C%F0%9F%A5%93")
         }
 
         try XCTContext.runActivity(named: "PUT") { _ in
@@ -113,7 +120,9 @@ internal class TwitterAPIRequestTests: XCTestCase {
 
             XCTAssertEqual(urlReq.httpMethod, "PUT")
             XCTAssertNil(urlReq.url?.query)
-            XCTAssertEqual(String(data: urlReq.httpBody!, encoding: .utf8)!, "key=value%2C%F0%9F%A5%93")
+            let httpBody = try XCTUnwrap(urlReq.httpBody)
+            let bodyString = try XCTUnwrap(String(data: httpBody, encoding: .utf8))
+            XCTAssertEqual(bodyString, "key=value%2C%F0%9F%A5%93")
         }
 
         try XCTContext.runActivity(named: "DELETE") { _ in
@@ -165,7 +174,9 @@ internal class TwitterAPIRequestTests: XCTestCase {
 
         XCTAssertEqual(urlReq.httpMethod, "POST")
         XCTAssertEqual(urlReq.url?.query, "key=value%2C%F0%9F%A5%93")
-        XCTAssertEqual(String(data: urlReq.httpBody!, encoding: .utf8)!, "body=%E3%81%82")
+        let httpBody = try XCTUnwrap(urlReq.httpBody)
+        let bodyString = try XCTUnwrap(String(data: httpBody, encoding: .utf8))
+        XCTAssertEqual(bodyString, "body=%E3%81%82")
     }
 
     public func testBodyContentType() throws {
@@ -173,8 +184,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
         try testMultipartFormData()
         try testJSON()
     }
-    
-    private func testWWWFormUrlEncoded() throws {
+
+    public func testWWWFormUrlEncoded() throws {
         try XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
             let req = try MockTwitterAPIRequest(
                 method: .post,
@@ -182,12 +193,13 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 bodyContentType: .wwwFormUrlEncoded
             ).buildRequest(environment: env)
 
-            let body = String(data: req.httpBody!, encoding: .utf8)
+            let httpBody = try XCTUnwrap(req.httpBody)
+            let body = try XCTUnwrap(String(data: httpBody, encoding: .utf8))
             XCTAssertEqual(body, "key=value%2C%F0%9F%A5%93")
         }
     }
-    
-    private func testMultipartFormData() throws {
+
+    public func testMultipartFormData() throws {
         try XCTContext.runActivity(named: "multipartFormData") { _ in
             let req = try MockTwitterAPIRequest(
                 method: .post,
@@ -203,14 +215,13 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 bodyContentType: .multipartFormData
             ).buildRequest(environment: env)
 
-            XCTAssertTrue(
-                req.allHTTPHeaderFields!["Content-Type"]!.hasPrefix("multipart/form-data; boundary=TwitterAPIKit-")
-            )
+            let contentType = try XCTUnwrap(req.allHTTPHeaderFields?["Content-Type"])
+            XCTAssertTrue(contentType.hasPrefix("multipart/form-data; boundary=TwitterAPIKit-"))
 
-            let boundary = req.allHTTPHeaderFields!["Content-Type"]!.replacingOccurrences(
+            let boundary = contentType.replacingOccurrences(
                 of: "multipart/form-data; boundary=", with: ""
             )
-            let body = String(data: req.httpBody!, encoding: .utf8)!
+            let body = try XCTUnwrap(String(data: req.httpBody!, encoding: .utf8))
 
             let expect = """
             --\(boundary)\r\n
@@ -229,8 +240,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
             try testInvalidMultipartFormData()
         }
     }
-    
-    private func testInvalidMultipartFormData() throws {
+
+    public func testInvalidMultipartFormData() throws {
         try XCTContext.runActivity(named: "Invalid parameter") { _ in
             XCTAssertThrowsError(
                 try MockTwitterAPIRequest(
@@ -243,8 +254,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
             }
         }
     }
-    
-    private func testJSON() throws {
+
+    public func testJSON() throws {
         try XCTContext.runActivity(named: "json") { _ in
             let req = try MockTwitterAPIRequest(
                 method: .post,
@@ -252,15 +263,16 @@ internal class TwitterAPIRequestTests: XCTestCase {
                 bodyContentType: .json
             ).buildRequest(environment: env)
 
-            let body = try JSONSerialization.jsonObject(with: req.httpBody!, options: [])
+            let httpBody = try XCTUnwrap(req.httpBody)
+            let body = try JSONSerialization.jsonObject(with: httpBody, options: [])
             XCTAssertEqual(body as? [String: String], ["key": "value,🥓"])
 
             try testInvalidJSON()
             try testInvalidJSONValue()
         }
     }
-    
-    private func testInvalidJSON() throws {
+
+    public func testInvalidJSON() throws {
         try XCTContext.runActivity(named: "Invalid") { _ in
             XCTAssertThrowsError(
                 try MockTwitterAPIRequest(
@@ -271,15 +283,16 @@ internal class TwitterAPIRequestTests: XCTestCase {
             ) { error in
                 if
                     let error = error as? TwitterAPIKitError,
-                    case .jsonSerializationFailed = error.requestFailureReason {
+                    case .jsonSerializationFailed = error.requestFailureReason
+                {
                 } else {
                     XCTFail("Unknown Error")
                 }
             }
         }
     }
-    
-    private func testInvalidJSONValue() throws {
+
+    public func testInvalidJSONValue() throws {
         try XCTContext.runActivity(named: "Invalid value") { _ in
             XCTAssertThrowsError(
                 try MockTwitterAPIRequest(
@@ -293,7 +306,8 @@ internal class TwitterAPIRequestTests: XCTestCase {
             ) { error in
                 if
                     let error = error as? TwitterAPIKitError,
-                    case .jsonSerializationFailed = error.requestFailureReason {
+                    case .jsonSerializationFailed = error.requestFailureReason
+                {
                 } else {
                     XCTFail("Unknown Error")
                 }

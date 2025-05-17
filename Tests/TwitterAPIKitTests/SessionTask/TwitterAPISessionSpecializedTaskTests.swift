@@ -1,3 +1,8 @@
+// TwitterAPISessionSpecializedTaskTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -9,7 +14,11 @@ internal class TwitterAPISessionSpecializedTaskTests: XCTestCase {
         )
 
         let task = TwitterAPISessionSpecializedTask(task: mockTask) { data in
-            String(data: data, encoding: .utf8)!
+            guard let str = String(data: data, encoding: .utf8) else {
+                XCTFail("Failed to decode UTF-8 string")
+                return ""
+            }
+            return str
         }
 
         let exp = expectation(description: "")
@@ -36,11 +45,19 @@ internal class TwitterAPISessionSpecializedTaskTests: XCTestCase {
         )
 
         let task1 = TwitterAPISessionSpecializedTask(task: mockTask1) { data in
-            String(data: data, encoding: .utf8)!
+            guard let str = String(data: data, encoding: .utf8) else {
+                XCTFail("Failed to decode UTF-8 string")
+                return ""
+            }
+            return str
         }
 
         let task2 = TwitterAPISessionSpecializedTask(task: mockTask2) { data in
-            String(data: data, encoding: .utf8)!
+            guard let str = String(data: data, encoding: .utf8) else {
+                XCTFail("Failed to decode UTF-8 string")
+                return ""
+            }
+            return str
         }
 
         let exp = expectation(description: "")

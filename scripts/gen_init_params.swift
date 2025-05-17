@@ -1,3 +1,8 @@
+// gen_init_params.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /*
@@ -47,15 +52,13 @@ func initializer(input: String) -> String {
         "self.\(name) = \(name)"
     }
 
-    let body = """
+    return """
     public init(
         \(initArgs.joined(separator: ",\n    "))
     ) {
         \(initBody.joined(separator: "\n    "))
     }
     """
-
-    return body
 }
 
 // Thanks https://gist.github.com/dmsl1805/ad9a14b127d0409cf9621dc13d237457
@@ -136,14 +139,13 @@ func body(input: String) -> String {
                 return "p[\"\(snakeCaseName)\"] = \(name) "
             }
         }
-    let body = """
+    return """
         open var parameters: [String: Any] {
             var p = [String: Any]()
             \(params.joined(separator: "\n    "))
             return p
         }
     """
-    return body
 }
 
 func exec() {

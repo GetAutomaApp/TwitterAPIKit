@@ -1,3 +1,8 @@
+// PostOAuthAccessTokenRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/access_token

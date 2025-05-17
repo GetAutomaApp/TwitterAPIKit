@@ -1,3 +1,8 @@
+// TwitterAPIKitError.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 public enum TwitterAPIKitError: Error {
@@ -37,7 +42,7 @@ public enum TwitterAPIKitError: Error {
     case unkonwn(error: Error)
 
     public init(error: Error) {
-        if let error = error as? TwitterAPIKitError {
+        if let error = error as? Self {
             self = error
         } else {
             self = .unkonwn(error: error)
@@ -169,7 +174,7 @@ public extension TwitterAPIKitError.ResponseFailureReason {
     var localizedDescription: String {
         switch self {
         case let .invalidResponse(error: error):
-            if let error = error {
+            if let error {
                 return "Response is invalid: \(error.localizedDescription)"
             }
             return "Response is invalid"
@@ -182,7 +187,7 @@ public extension TwitterAPIKitError.ResponseFailureReason {
         switch self {
         case let .invalidResponse(error: error):
             return error
-        case .unacceptableStatusCode(statusCode: _, error: _, rateLimit: _):
+        case .unacceptableStatusCode:
             return nil
         }
     }
