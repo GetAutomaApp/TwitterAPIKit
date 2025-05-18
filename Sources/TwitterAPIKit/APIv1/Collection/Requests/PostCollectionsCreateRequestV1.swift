@@ -14,7 +14,7 @@ open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
         case tweetChron = "tweet_chron"
         case tweetReverseChron = "tweet_reverse_chron"
 
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             param["timeline_order"] = rawValue
         }
     }

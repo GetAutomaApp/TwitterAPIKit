@@ -89,7 +89,7 @@ public protocol TwitterAPIv2RequestParameter {
 
 extension Collection where Element: TwitterAPIv2RequestParameter {
     /// Joins multiple parameter values into a comma-separated string.
-    var commaSeparatedString: String {
+    public var commaSeparatedString: String {
         return map(\.stringValue).sorted().joined(separator: ",")
     }
 }

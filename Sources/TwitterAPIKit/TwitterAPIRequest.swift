@@ -50,7 +50,7 @@ public enum MultipartFormDataPart {
     case data(name: String, value: Data, filename: String, mimeType: String)
 
     /// The name of the form part.
-    var name: String {
+    public var name: String {
         switch self {
         case let .value(name, _):
             return name
@@ -150,7 +150,7 @@ public extension TwitterAPIRequest {
 }
 
 extension TwitterAPIRequest {
-    func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
+    public func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
         guard
             var urlComponent = URLComponents(
                 url: requestURL(for: environment),
@@ -223,11 +223,11 @@ extension TwitterAPIRequest {
         return request
     }
 
-    func requestURL(for environment: TwitterAPIEnvironment) -> URL {
+    public func requestURL(for environment: TwitterAPIEnvironment) -> URL {
         return environment.baseURL(for: baseURLType).appendingPathComponent(path)
     }
 
-    var parameterForOAuth: [String: Any] {
+    public var parameterForOAuth: [String: Any] {
         switch bodyContentType {
         case .wwwFormUrlEncoded:
             return parameters

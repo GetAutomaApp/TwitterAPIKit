@@ -57,11 +57,11 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         }
     }
 
-    internal func append(chunk: Data) {
+    public func append(chunk: Data) {
         dataChunk.append(chunk)
     }
 
-    internal func complete(error: Error?) {
+    public func complete(error: Error?) {
         self.error = error
         completed = true
 
@@ -139,6 +139,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         return registerResponseBlock(queue: queue, flatMap: { .success($0) }, response: block)
     }
 
+    @discardableResult
     public func responseData(_ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
         return responseData(queue: .main, block)
     }

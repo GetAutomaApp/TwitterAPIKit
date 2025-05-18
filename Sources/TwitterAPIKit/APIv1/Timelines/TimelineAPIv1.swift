@@ -6,8 +6,14 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/overview
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
+/// overview
 open class TimelineAPIv1: TwitterAPIBase {
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
+    /// api-reference/get-statuses-home_timeline
     public func getHomeTimeline(
         _ request: GetStatusesHomeTimelineRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -16,6 +22,7 @@ open class TimelineAPIv1: TwitterAPIBase {
 
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
+    /// overview
     /// api-reference/get-statuses-mentions_timeline
     public func getMentionsTimeline(
         _ request: GetStatusesMentionsTimelineRequestV1
@@ -23,7 +30,9 @@ open class TimelineAPIv1: TwitterAPIBase {
         return session.send(request)
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
+    /// api-reference/get-statuses-user_timeline
     public func getUserTimeline(
         _ request: GetStatusesUserTimelineRequestV1
     ) -> TwitterAPISessionJSONTask {

@@ -15,7 +15,7 @@ public enum TwitterTimelineExcludeV2: String, TwitterAPIv2RequestParameter {
 }
 
 extension Set where Element == TwitterTimelineExcludeV2 {
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         param["exclude"] = commaSeparatedString
     }
 }

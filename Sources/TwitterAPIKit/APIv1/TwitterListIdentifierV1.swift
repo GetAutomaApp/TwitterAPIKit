@@ -20,7 +20,7 @@ public enum TwitterListIdentifierV1 {
 }
 
 extension TwitterListIdentifierV1 {
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         switch self {
         case let .listID(string):
             param["list_id"] = string

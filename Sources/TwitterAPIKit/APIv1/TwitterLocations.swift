@@ -6,15 +6,15 @@
 import Foundation
 
 public struct TwitterCoordinateV1 {
-    var lat: Double
-    var long: Double
+    public var lat: Double
+    public var long: Double
 
     public init(lat: Double, long: Double) {
         self.lat = lat
         self.long = long
     }
 
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         param["lat"] = lat
         param["long"] = long
     }
@@ -26,7 +26,7 @@ public enum TwitterAccuracyV1 {
     /// feet
     case ft(Int)
 
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         switch self {
         case let .m(int):
             param["accuracy"] = "\(int)m"
@@ -42,7 +42,7 @@ public enum TwitterGranularityV1: String {
     case admin
     case country
 
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         param["granularity"] = rawValue
     }
 }

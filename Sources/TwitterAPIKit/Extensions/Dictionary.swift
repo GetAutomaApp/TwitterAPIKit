@@ -6,7 +6,7 @@
 import Foundation
 
 extension Dictionary {
-    var urlEncodedQueryString: String {
+    public var urlEncodedQueryString: String {
         var parts = [String]()
 
         for (key, value) in self {

@@ -34,14 +34,14 @@ import Foundation
         }
     }
 
-    func createHMACSHA1(key: Data, message: Data) -> Data {
+    public func createHMACSHA1(key: Data, message: Data) -> Data {
         return message.hmac(key: key)
     }
 
 #elseif canImport(Crypto) // for Linux
     import Crypto
 
-    func createHMACSHA1(key: Data, message: Data) -> Data {
+    public func createHMACSHA1(key: Data, message: Data) -> Data {
         return Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
     }
 #else

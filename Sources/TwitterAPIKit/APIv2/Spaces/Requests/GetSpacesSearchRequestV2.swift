@@ -11,7 +11,7 @@ open class GetSpacesSearchRequestV2: TwitterAPIRequest {
         case all
         case live
         case scheduled
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             param["state"] = rawValue
         }
     }

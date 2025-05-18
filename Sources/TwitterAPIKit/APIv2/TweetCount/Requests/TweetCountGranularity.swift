@@ -10,7 +10,7 @@ public enum TweetCountGranularityV2: String {
     case hour
     case day
 
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         param["granularity"] = rawValue
     }
 }

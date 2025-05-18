@@ -8,7 +8,7 @@ import Foundation
 private let oauthVersion = "1.0"
 private let oauthSignatureMethod = "HMAC-SHA1"
 
-func authorizationHeader(
+public func authorizationHeader(
     for method: HTTPMethod,
     url: URL,
     parameters: [String: Any],

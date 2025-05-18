@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
+public protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
     associatedtype Success
     @discardableResult
     func responseObject(
@@ -77,7 +77,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     }
 }
 
-extension Array where Element: TwitterAPISessionSpecializedTask_ {
+public extension Array where Element: TwitterAPISessionSpecializedTask_ {
     func responseObject(
         queue: DispatchQueue = .main, _ block: @escaping ([TwitterAPIResponse<Element.Success>]) -> Void
     ) {

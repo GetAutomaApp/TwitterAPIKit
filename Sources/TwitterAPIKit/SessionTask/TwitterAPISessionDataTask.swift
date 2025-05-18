@@ -21,7 +21,7 @@ public protocol TwitterAPISessionDataTask: TwitterAPISessionTask {
 // MARK: - internal
 
 extension TwitterAPISessionDataTask {
-    func specialized<NewSuccess>(
+    public func specialized<NewSuccess>(
         _ transform: @escaping (Data) throws -> NewSuccess
     )
         -> TwitterAPISessionSpecializedTask<NewSuccess>

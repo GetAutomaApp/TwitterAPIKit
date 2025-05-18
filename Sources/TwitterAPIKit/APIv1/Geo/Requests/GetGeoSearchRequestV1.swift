@@ -11,7 +11,7 @@ open class GetGeoSearchRequestV1: TwitterAPIRequest {
         case coordinate(TwitterCoordinateV1)
         case query(String)
         case ip(String)
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             switch self {
             case let .coordinate(twitterCoordinate):
                 twitterCoordinate.bind(param: &param)

@@ -30,7 +30,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
          */
         case location(Location)
 
-        var parameter: [String: Any] {
+        public var parameter: [String: Any] {
             switch self {
             case let .media(mediaID):
                 return [
@@ -81,7 +81,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
             self.metadata = metadata
         }
 
-        var parameter: [String: String] {
+        public var parameter: [String: String] {
             return [
                 "label": label,
                 "description": description,

@@ -18,7 +18,7 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
     private var dataBlocks = [(queue: DispatchQueue, block: (TwitterAPIResponse<Data>) -> Void)]()
     private lazy var taskQueue = DispatchQueue(label: "TwitterAPISessionDelegatedStreamTask_\(taskIdentifier)")
 
-    init(task: TwitterAPISessionTask) {
+    public init(task: TwitterAPISessionTask) {
         self.task = task
     }
 
@@ -43,7 +43,7 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
         task.cancel()
     }
 
-    func append(chunk: Data) {
+    public func append(chunk: Data) {
         taskQueue.async { [weak self] in
             guard let self else { return }
 
@@ -77,7 +77,7 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
         }
     }
 
-    func complete(error: Error?) {
+    public func complete(error: Error?) {
         if let error {
             taskQueue.async { [weak self] in
                 guard let self else { return }

@@ -13,7 +13,7 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
         case add(tweetID: String)
         case remove(tweetID: String)
 
-        var keyValue: [String: String] {
+        public var keyValue: [String: String] {
             switch self {
             case let .add(tweetID):
                 return ["op": "add", "tweet_id": tweetID]

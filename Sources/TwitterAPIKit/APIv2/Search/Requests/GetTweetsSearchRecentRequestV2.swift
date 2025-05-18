@@ -11,7 +11,7 @@ open class GetTweetsSearchRecentRequestV2: TwitterAPIRequest {
         case recency
         case relevancy
 
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             param["sort_order"] = rawValue
         }
     }

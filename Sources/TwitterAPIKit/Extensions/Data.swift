@@ -6,7 +6,7 @@
 import Foundation
 
 extension Data {
-    func split(separator: Data, omittingEmptySubsequences: Bool = true) -> [Data] {
+    public func split(separator: Data, omittingEmptySubsequences: Bool = true) -> [Data] {
         var current = startIndex
         var chunks = [Data]()
 
@@ -25,7 +25,7 @@ extension Data {
         return chunks
     }
 
-    func serialize() -> Result<Any, TwitterAPIKitError> {
+    public func serialize() -> Result<Any, TwitterAPIKitError> {
         do {
             let jsonObj = try JSONSerialization.jsonObject(with: self, options: [])
             return .success(jsonObj)
@@ -38,7 +38,7 @@ extension Data {
         }
     }
 
-    func decode<T: Decodable>(
+    public func decode<T: Decodable>(
         _ type: T.Type,
         decoder: JSONDecoder
     ) -> Result<T, TwitterAPIKitError> {

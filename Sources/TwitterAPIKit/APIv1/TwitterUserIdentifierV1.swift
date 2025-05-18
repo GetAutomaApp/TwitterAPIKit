@@ -30,7 +30,7 @@ public enum TwitterUsersIdentifierV1 {
 // MARK: - extensions
 
 extension TwitterUserIdentifierV1 {
-    func bind(param: inout [String: Any], userIDKey: String = "user_id", screenNameKey: String = "screen_name") {
+    public func bind(param: inout [String: Any], userIDKey: String = "user_id", screenNameKey: String = "screen_name") {
         switch self {
         case let .userID(string):
             param[userIDKey] = string
@@ -41,7 +41,7 @@ extension TwitterUserIdentifierV1 {
 }
 
 extension TwitterUsersIdentifierV1 {
-    func bind(param: inout [String: Any]) {
+    public func bind(param: inout [String: Any]) {
         switch self {
         case let .userIDs(array):
             param["user_id"] = array.joined(separator: ",")

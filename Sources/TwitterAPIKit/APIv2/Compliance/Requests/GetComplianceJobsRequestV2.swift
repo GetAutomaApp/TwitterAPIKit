@@ -12,7 +12,7 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
         case inProgress = "in_progress"
         case failed
         case complete
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             param["status"] = rawValue
         }
     }
