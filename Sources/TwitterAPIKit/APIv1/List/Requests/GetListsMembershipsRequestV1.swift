@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-memberships
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-memberships
 open class GetListsMembershipsRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?

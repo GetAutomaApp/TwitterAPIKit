@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/developer-utilities/supported-languages/api-reference/get-help-languages
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/developer-utilities/
+/// supported-languages/api-reference/get-help-languages
 open class GetHelpLanguagesRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         return .get

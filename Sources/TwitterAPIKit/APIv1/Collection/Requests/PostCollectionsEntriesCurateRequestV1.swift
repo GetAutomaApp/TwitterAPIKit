@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/post-collections-entries-curate
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
+/// curate-a-collection/api-reference/post-collections-entries-curate
 open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
     public enum Operation {
         case add(tweetID: String)

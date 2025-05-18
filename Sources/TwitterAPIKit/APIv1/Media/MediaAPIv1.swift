@@ -6,21 +6,27 @@
 import Foundation
 
 open class MediaAPIv1: TwitterAPIBase {
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/get-media-upload-status
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
+    /// api-reference/get-media-upload-status
     public func getUploadMediaStatus(
         _ request: GetUploadMediaStatusRequestV1
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-init
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
+    /// api-reference/post-media-upload-init
     public func uploadMediaInit(
         _ request: UploadMediaInitRequestV1
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-append
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
+    /// api-reference/post-media-upload-append
     public func uploadMediaAppend(
         _ request: UploadMediaAppendRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -40,7 +46,9 @@ open class MediaAPIv1: TwitterAPIBase {
             }
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-finalize
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
+    /// api-reference/post-media-upload-finalize
     public func uploadMediaFinalize(
         _ request: UploadMediaFinalizeRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -186,7 +194,9 @@ open class MediaAPIv1: TwitterAPIBase {
             }
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-metadata-create
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
+    /// api-reference/post-media-metadata-create
     public func createMediaMetadata(
         _ request: PostMediaMetadataCreateRequestV1
     ) -> TwitterAPISessionDataTask {
@@ -194,7 +204,8 @@ open class MediaAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
+    /// api-reference/
     /// post-media-subtitles-create
     public func createSubtitle(
         _ request: PostMediaSubtitlesCreateRequestV1
@@ -203,7 +214,8 @@ open class MediaAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
+    /// api-reference/
     /// post-media-subtitles-delete
     public func deleteSubtitle(
         _ request: PostMediaSubtitlesDeleteRequestV1

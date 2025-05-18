@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/post-collections-entries-remove
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
+/// curate-a-collection/api-reference/post-collections-entries-remove
 open class PostCollectionsEntriesRemoveRequestV1: TwitterAPIRequest {
     public let id: String
     public let tweetID: String

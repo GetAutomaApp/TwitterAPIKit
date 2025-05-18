@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-members-create
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/post-lists-members-create
 open class PostListsMembersCreateRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
     public let user: TwitterUserIdentifierV1

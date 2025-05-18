@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/post-friendships-create
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/post-friendships-create
 open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let follow: Bool?

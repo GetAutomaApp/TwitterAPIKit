@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-no_retweets-ids
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/get-friendships-no_retweets-ids
 open class GetFriendshipsNoRetweetsIDsRequestV1: TwitterAPIRequest {
     public let stringifyIDs: Bool?
 

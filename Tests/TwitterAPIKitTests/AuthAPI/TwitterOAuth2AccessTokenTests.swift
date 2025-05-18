@@ -42,7 +42,7 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
                 }
                 """#.utf8
             )
-kj            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
+            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
                 XCTFail("Failed to create test token")
                 return
             }
@@ -67,7 +67,7 @@ kj            guard let token = try TwitterOAuth2AccessToken(jsonData: data) els
 
         try XCTContext.runActivity(named: "valid json but invalid object") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("{}".utf8))) { error in
-                guard error is TwitterAPIKitError else {kj
+                guard error is TwitterAPIKitError else {
                     XCTFail("Expected TwitterAPIKitError")
                     return
                 }

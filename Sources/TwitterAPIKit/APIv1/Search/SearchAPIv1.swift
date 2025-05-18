@@ -16,8 +16,8 @@ open class SearchAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
-    /// api-reference/get-saved_searches-list
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+    /// manage-account-settings/api-reference/get-saved_searches-list
     public func getSavedSearches(
         _ request: GetSavedSearchesListRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -25,8 +25,8 @@ open class SearchAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
-    /// api-reference/post-saved_searches-create
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+    /// manage-account-settings/api-reference/post-saved_searches-create
     public func postCreateSavedSearch(
         _ request: PostSavedSearchesCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
@@ -34,8 +34,8 @@ open class SearchAPIv1: TwitterAPIBase {
     }
 
     /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/
-    /// api-reference/post-saved_searches-destroy-id
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+    /// manage-account-settings/api-reference/post-saved_searches-destroy-id
     public func postDestroySavedSearch(
         _ request: PostSavedSearchesCreateRequestV1
     ) -> TwitterAPISessionJSONTask {

@@ -64,10 +64,22 @@ extension MultipartFormDataPart: Equatable {
     public static func == (lhs: MultipartFormDataPart, rhs: MultipartFormDataPart) -> Bool {
         switch (lhs, rhs) {
         case let (.value(name: leftName, value: leftValue), .value(name: rightName, value: rightValue)):
-            return leftName == rightName && type(of: leftValue) == type(of: rightValue) && String(describing: leftValue) == String(describing: rightValue)
+            return leftName == rightName 
+                && type(of: leftValue) == type(of: rightValue) 
+                && String(describing: leftValue) == String(describing: rightValue)
         case let (
-            .data(name: leftName, value: leftValue, filename: leftFilename, mimeType: leftMimeType),
-            .data(name: rightName, value: rightValue, filename: rightFilename, mimeType: rightMimeType)
+            .data(
+                name: leftName,
+                value: leftValue,
+                filename: leftFilename,
+                mimeType: leftMimeType
+            ),
+            .data(
+                name: rightName,
+                value: rightValue,
+                filename: rightFilename,
+                mimeType: rightMimeType
+            )
         ):
             return leftName == rightName
                 && leftValue == rightValue
@@ -172,8 +184,10 @@ extension TwitterAPIRequest {
                     throw TwitterAPIKitError.requestFailed(
                         reason: .invalidParameter(
                             parameter: bodyParameters,
-                            cause:
-                            "Parameter must be specified in `MultipartFormDataPart` for `BodyContentType.multipartFormData`."
+                            cause: """
+                            Parameter must be specified in `MultipartFormDataPart` \
+                            for `BodyContentType.multipartFormData`.
+                            """
                         )
                     )
                 }

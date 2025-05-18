@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-members-destroy_all
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/post-lists-members-destroy_all
 open class PostListsMembersDestroyAllRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
     public let users: TwitterUsersIdentifierV1

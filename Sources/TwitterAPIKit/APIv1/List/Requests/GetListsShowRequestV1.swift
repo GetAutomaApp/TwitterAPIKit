@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-show
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-show
 open class GetListsShowRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
 

@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-ownerships
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-ownerships
 open class GetListsOwnershipsRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?

@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream
+/// /api-reference/get-tweets-search-stream-rules
 open class GetTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     public let ids: [String]?
 

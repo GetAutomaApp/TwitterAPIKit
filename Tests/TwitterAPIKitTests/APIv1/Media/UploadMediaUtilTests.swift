@@ -434,6 +434,7 @@ internal class UploadMediaUtilTests: XCTestCase {
         )
 
         var requestCount = 0
+        // swiftlint:disable:next closure_body_length
         MockURLProtocol.requestHandler = { [weak self] request in
             guard let self else {
                 throw URLError(.unknown)
@@ -553,7 +554,7 @@ internal class UploadMediaUtilTests: XCTestCase {
         let data = Data([1, 2, 3])
         client.v1.media.uploadMedia(.init(media: data, mediaType: "m", filename: "f", uploadChunkSize: 2)) { response in
             XCTAssertTrue(response.isError)
-            XCTAssertTrue(response.error!.isUploadMediaFailed)
+            XCTAssertTrue(response.error?.isUploadMediaFailed ?? false)
             exp.fulfill()
         }
 

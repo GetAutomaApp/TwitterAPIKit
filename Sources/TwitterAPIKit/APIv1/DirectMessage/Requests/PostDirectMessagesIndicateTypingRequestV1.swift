@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/typing-indicator-and-read-receipts/api-reference/new-typing-indicator
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/
+/// typing-indicator-and-read-receipts/api-reference/new-typing-indicator
 open class PostDirectMessagesIndicateTypingRequestV1: TwitterAPIRequest {
     public let recipientID: String
 

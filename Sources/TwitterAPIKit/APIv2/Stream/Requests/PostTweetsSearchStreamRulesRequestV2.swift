@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules#Validate
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/
+/// api-reference/post-tweets-search-stream-rules#Validate
 open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     public struct Rule {
         public let value: String

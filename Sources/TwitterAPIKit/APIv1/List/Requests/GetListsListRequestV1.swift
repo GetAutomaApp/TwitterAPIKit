@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-list
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-list
 open class GetListsListRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let reverse: Bool?

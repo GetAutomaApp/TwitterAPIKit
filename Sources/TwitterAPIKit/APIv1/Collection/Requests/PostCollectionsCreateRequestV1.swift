@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/post-collections-create
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
+/// curate-a-collection/api-reference/post-collections-create
 open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
     public enum TimelineOrder: String {
         case curationReverseChron = "curation_reverse_chron"

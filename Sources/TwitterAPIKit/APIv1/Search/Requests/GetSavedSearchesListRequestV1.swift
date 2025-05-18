@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-saved_searches-list
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/get-saved_searches-list
 open class GetSavedSearchesListRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         return .get

@@ -1,4 +1,6 @@
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/post-users-report_spam
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// mute-block-report-users/api-reference/post-users-report_spam
 open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let performBlock: Bool?

@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friends-ids
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/get-friends-ids
 open class GetFriendsIDsRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?

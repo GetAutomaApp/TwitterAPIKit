@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/post-mutes-users-create
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// mute-block-report-users/api-reference/post-mutes-users-create
 open class PostMutesUsersCreateRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
 

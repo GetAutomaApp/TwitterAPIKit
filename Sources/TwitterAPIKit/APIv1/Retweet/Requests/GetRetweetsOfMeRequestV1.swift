@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-retweets_of_me
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
+/// post-and-engage/api-reference/get-statuses-retweets_of_me
 open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
     public let count: Int?
     public let sinceID: String?

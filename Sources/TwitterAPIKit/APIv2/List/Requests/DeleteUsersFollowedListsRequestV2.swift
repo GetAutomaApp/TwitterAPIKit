@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/delete-users-id-followed-lists-list_id
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/
+/// api-reference/delete-users-id-followed-lists-list_id
 open class DeleteUsersFollowedListsRequestV2: TwitterAPIRequest {
     public let id: String
     public let listID: String

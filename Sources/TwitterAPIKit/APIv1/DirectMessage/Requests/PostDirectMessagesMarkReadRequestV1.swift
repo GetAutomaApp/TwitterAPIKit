@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/typing-indicator-and-read-receipts/api-reference/new-read-receipt
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/
+/// typing-indicator-and-read-receipts/api-reference/new-read-receipt
 open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
     /// Message ID
     public let lastReadEventID: String

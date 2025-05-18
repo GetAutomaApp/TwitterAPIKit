@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/post-blocks-destroy
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// mute-block-report-users/api-reference/post-blocks-destroy
 open class PostBlocksDestroyRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let includeEntities: Bool?

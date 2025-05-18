@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/get-mutes-users-list
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// mute-block-report-users/api-reference/get-mutes-users-list
 open class GetMutesUsersListRequestV1: TwitterAPIRequest {
     public let cursor: String?
     public let includeEntities: Bool?

@@ -311,8 +311,10 @@ public extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
     var localizedDescription: String {
         switch self {
         case let .invalidAuthenticationMethod(method):
-            return
-                "Token refresh is possible only when TwitterAuthenticationMethod is .oauth20. You are currently \(method)."
+            return """
+                Token refresh is possible only when TwitterAuthenticationMethod is .oauth20. \
+                You are currently \(method).
+                """
         case .refreshTokenIsMissing:
             return "Refresh token is missing."
         }

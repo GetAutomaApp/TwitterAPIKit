@@ -684,10 +684,10 @@ public extension TwitterAPIv1 {
     ///   - request: The request parameters containing the media data.
     ///   - maxBytes: The maximum size of each chunk in bytes (default: 5MB).
     /// - Returns: An array of tasks that will return the media ID for each chunk.
-    func uploadMediaAppendSplitChunks(_ request: UploadMediaAppendRequestV1,
-                                      maxBytes: Int = 5_242_880) -> [TwitterAPISessionSpecializedTask<
-        String /* mediaID */
-    >] {
+    func uploadMediaAppendSplitChunks(
+        _ request: UploadMediaAppendRequestV1,
+        maxBytes: Int = 5_242_880
+    ) -> [TwitterAPISessionSpecializedTask<String /* mediaID */>] {
         return media.uploadMediaAppendSplitChunks(request, maxBytes: maxBytes)
     }
 

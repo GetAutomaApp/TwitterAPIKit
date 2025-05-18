@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile_banner
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/post-account-update_profile_banner
 open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
     public let banner: Data
     public let width: Int?

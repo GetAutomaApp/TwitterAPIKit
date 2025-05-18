@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-show
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/get-friendships-show
 open class GetFriendshipsShowRequestV1: TwitterAPIRequest {
     public let sourceUser: TwitterUserIdentifierV1
     public let targetUser: TwitterUserIdentifierV1

@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-remove_profile_banner
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/post-account-remove_profile_banner
 open class PostAccountRemoveProfileBannerRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         return .post

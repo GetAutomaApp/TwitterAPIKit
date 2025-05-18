@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-settings
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/post-account-settings
 open class PostAccountSettingsRequestV1: TwitterAPIRequest {
     /// two letter ISO 639-1
     public let lang: String?

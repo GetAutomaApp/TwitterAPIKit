@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-retweeters-ids
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
+/// post-and-engage/api-reference/get-statuses-retweeters-ids
 open class GetRetweetersRequestV1: TwitterAPIRequest {
     // Status ID
     let id: String

@@ -5,7 +5,9 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/delete-message-event
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/
+/// sending-and-receiving/api-reference/delete-message-event
 open class DeleteDirectMessageRequestV1: TwitterAPIRequest {
     public let id: String
 

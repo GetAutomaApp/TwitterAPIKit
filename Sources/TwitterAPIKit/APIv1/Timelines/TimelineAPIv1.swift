@@ -14,7 +14,9 @@ open class TimelineAPIv1: TwitterAPIBase {
         return session.send(request)
     }
 
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-mentions_timeline
+    /// For more details, see:
+    /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
+    /// api-reference/get-statuses-mentions_timeline
     public func getMentionsTimeline(
         _ request: GetStatusesMentionsTimelineRequestV1
     ) -> TwitterAPISessionJSONTask {
