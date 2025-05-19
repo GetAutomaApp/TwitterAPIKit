@@ -1,14 +1,13 @@
+// GetOAuthAuthorizeRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetOAuthAuthorizeRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetOAuthAuthorizeRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetOAuthAuthorizeRequestV1(
             oauthToken: "_o_",
             forceLogin: true,
@@ -29,7 +28,7 @@ class GetOAuthAuthorizeRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetOAuthAuthorizeRequestV1(
             oauthToken: "_o_"
         )
@@ -37,8 +36,12 @@ class GetOAuthAuthorizeRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "oauth_token": "_o_"
+                "oauth_token": "_o_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,8 +1,12 @@
+// PutTweetsHiddenRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
 open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
-
     /// Tweet ID
     public let id: String
     public let hidden: Bool
@@ -20,9 +24,9 @@ open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["hidden"] = hidden
-        return p
+        var params = [String: Any]()
+        params["hidden"] = hidden
+        return params
     }
 
     public init(
@@ -31,5 +35,9 @@ open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
         self.hidden = hidden
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

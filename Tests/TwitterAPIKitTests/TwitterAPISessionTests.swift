@@ -1,3 +1,8 @@
+// TwitterAPISessionTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -6,7 +11,11 @@ private class GetTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .get }
     var path: String { return "/get.json" }
     var parameters: [String: Any] {
-        return ["hoge": "😀"]  //= %F0%9F%98%80
+        return ["hoge": "😀"] // = %F0%9F%98%80
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
 
@@ -14,7 +23,11 @@ private class PostTwitterReqeust: TwitterAPIRequest {
     var method: HTTPMethod { return .post }
     var path: String { return "/post.json" }
     var parameters: [String: Any] {
-        return ["hoge": "😀"]  //= %F0%9F%98%80
+        return ["hoge": "😀"] // = %F0%9F%98%80
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
 
@@ -24,38 +37,42 @@ private class EmptyRequest: TwitterAPIRequest {
     var parameters: [String: Any] {
         return [:]
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
 
-class TwitterAPISessionTests: XCTestCase {
+internal class TwitterAPISessionTests: XCTestCase {
+    private let environment: TwitterAPIEnvironment = {
+        guard let twitterURL = URL(string: "https://twitter.example.com"),
+              let apiURL = URL(string: "https://api.example.com"),
+              let uploadURL = URL(string: "https://upload.xample.com") else {
+            fatalError("Invalid test URLs")
+        }
+        return TwitterAPIEnvironment(
+            twitterURL: twitterURL,
+            apiURL: apiURL,
+            uploadURL: uploadURL
+        )
+    }()
 
-    private let environment = TwitterAPIEnvironment(
-        twitterURL: URL(string: "https://twitter.example.com")!,
-        apiURL: URL(string: "https://api.example.com")!,
-        uploadURL: URL(string: "https://upload.example.com")!
-    )
+    private lazy var session: TwitterAPISession = {
+        let config = URLSessionConfiguration.default
+        config.protocolClasses = [MockURLProtocol.self]
 
-    lazy var session: TwitterAPISession =
-        ({
+        return TwitterAPISession(
+            auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
+            configuration: config,
+            environment: environment
+        )
+    }()
 
-            let config = URLSessionConfiguration.default
-            config.protocolClasses = [MockURLProtocol.self]
-
-            return TwitterAPISession(
-                auth: .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
-                configuration: config,
-                environment: environment
-            )
-        })()
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
+    override public func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
 
-    func testGET() throws {
-
+    public func testGET() throws {
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "GET")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/get.json?hoge=%F0%9F%98%80")
@@ -69,14 +86,27 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testPOST() throws {
+    public func testPOST() throws {
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "POST")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/post.json")
             XCTAssertNil(request.httpBody)
-            let data = try! Data(reading: request.httpBodyStream!)
-            let body = String(data: data, encoding: .utf8)!
-            XCTAssertEqual(body, "hoge=%F0%9F%98%80")
+            
+            guard let bodyStream = request.httpBodyStream else {
+                XCTFail("HTTP body stream is nil")
+                return
+            }
+            
+            do {
+                let data = try Data(reading: bodyStream)
+                guard let body = String(data: data, encoding: .utf8) else {
+                    XCTFail("Failed to decode body data as UTF-8")
+                    return
+                }
+                XCTAssertEqual(body, "hoge=%F0%9F%98%80")
+            } catch {
+                XCTFail("Failed to read HTTP body stream: \(error)")
+            }
         }
 
         let exp = expectation(description: "")
@@ -86,7 +116,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testEmpty() throws {
+    public func testEmpty() throws {
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "GET")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/empty.json")
@@ -100,8 +130,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testStream() throws {
-
+    public func testStream() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -112,12 +141,21 @@ class TwitterAPISessionTests: XCTestCase {
         )
 
         MockURLProtocol.requestHandler = { request in
+            guard let url = request.url else {
+                throw URLError(.badURL)
+            }
+            
+            let data = Data("aaaa\r\nbbbb\r\n".utf8)
+            guard let response = HTTPURLResponse(
+                url: url,
+                statusCode: 200,
+                httpVersion: "2.0",
+                headerFields: nil
+            ) else {
+                throw URLError(.badServerResponse)
+            }
 
-            let data = "aaaa\r\nbbbb\r\n".data(using: .utf8)!
-
-            return (
-                HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, data
-            )
+            return (response, data)
         }
 
         MockURLProtocol.requestAssert = { request in
@@ -127,9 +165,10 @@ class TwitterAPISessionTests: XCTestCase {
         let exp = expectation(description: "")
         exp.expectedFulfillmentCount = 4
         session.send(streamRequest: GetTwitterReqeust())
-            .streamResponse(queue: .global(qos: .default)) { response in
+            .streamResponse(queue: .global(qos: .default)) { _ in
                 exp.fulfill()
-            }.streamResponse { response in
+            }
+            .streamResponse { _ in
                 XCTAssertTrue(Thread.isMainThread)
                 exp.fulfill()
             }
@@ -138,7 +177,7 @@ class TwitterAPISessionTests: XCTestCase {
 
     // MARK: - Auth
 
-    func testBasicAuth() throws {
+    public func testBasicAuth() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -159,7 +198,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testBearerAuth() throws {
+    public func testBearerAuth() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -180,7 +219,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testNoneAuth() throws {
+    public func testNoneAuth() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
 
@@ -201,7 +240,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testOAuth10aAuth() throws {
+    public func testOAuth10aAuth() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
@@ -221,7 +260,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testOAuth20() throws {
+    public func testOAuth20() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
@@ -250,7 +289,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testRequestOAuth20WithPKCEConfidentialClient() throws {
+    public func testRequestOAuth20WithPKCEConfidentialClient() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
@@ -270,7 +309,7 @@ class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    func testRequestOAuth20WithPKCEPublicClient() throws {
+    public func testRequestOAuth20WithPKCEPublicClient() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
         let session = TwitterAPISession(
@@ -289,9 +328,16 @@ class TwitterAPISessionTests: XCTestCase {
         }
         wait(for: [exp], timeout: 10)
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
 
-extension Data {
+public extension Data {
+    /// Initialize a Data object by reading from an InputStream.
+    /// - Parameter input: The InputStream to read from.
+    /// - Throws: An error if the InputStream is nil or an error occurs while reading.
     init(reading input: InputStream) throws {
         self.init()
         input.open()
@@ -299,7 +345,7 @@ extension Data {
             input.close()
         }
 
-        let bufferSize = 1024
+        let bufferSize = 1_024
         let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
         defer {
             buffer.deallocate()
@@ -307,13 +353,13 @@ extension Data {
         while input.hasBytesAvailable {
             let read = input.read(buffer, maxLength: bufferSize)
             if read < 0 {
-                //Stream error occured
-                throw input.streamError!
+                // Stream error occured
+                throw input.streamError ?? URLError(.unknown)
             } else if read == 0 {
-                //EOF
+                // EOF
                 break
             }
-            self.append(buffer, count: read)
+            append(buffer, count: read)
         }
     }
 }

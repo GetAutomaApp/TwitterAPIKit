@@ -1,7 +1,11 @@
+// GetUploadMediaStatusRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class GetUploadMediaStatusRequestV1: TwitterAPIRequest {
-
     public let command: String = "STATUS"
     public let mediaID: String
 
@@ -26,5 +30,9 @@ open class GetUploadMediaStatusRequestV1: TwitterAPIRequest {
 
     public init(mediaID: String) {
         self.mediaID = mediaID
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

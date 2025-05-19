@@ -1,14 +1,13 @@
+// PostOAuth2RefreshTokenRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostOAuth2RefreshTokenRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostOAuth2RefreshTokenRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostOAuth2RefreshTokenRequestV2(
             refreshToken: "_r_",
             grantType: "_g_",
@@ -29,7 +28,7 @@ class PostOAuth2RefreshTokenRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostOAuth2RefreshTokenRequestV2(
             refreshToken: "_rt_"
         )
@@ -41,5 +40,9 @@ class PostOAuth2RefreshTokenRequestV2Tests: XCTestCase {
                 "grant_type": "refresh_token",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

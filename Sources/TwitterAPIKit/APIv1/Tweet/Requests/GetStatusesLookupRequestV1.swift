@@ -1,8 +1,12 @@
+// GetStatusesLookupRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-lookup
 open class GetStatusesLookupRequestV1: TwitterAPIRequest {
-
     public let ids: [String]
     public let map: Bool?
     public let trimUser: Bool?
@@ -19,14 +23,14 @@ open class GetStatusesLookupRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = ids.joined(separator: ",")
-        map.map { p["map"] = $0 }
-        trimUser.map { p["trim_user"] = $0 }
-        includeCardUri.map { p["include_card_uri"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        includeExtAltText.map { p["include_ext_alt_text"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = ids.joined(separator: ",")
+        map.map { params["map"] = $0 }
+        trimUser.map { params["trim_user"] = $0 }
+        includeCardUri.map { params["include_card_uri"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        includeExtAltText.map { params["include_ext_alt_text"] = $0 }
+        return params
     }
 
     public init(
@@ -43,5 +47,8 @@ open class GetStatusesLookupRequestV1: TwitterAPIRequest {
         self.includeCardUri = includeCardUri
         self.includeEntities = includeEntities
         self.includeExtAltText = includeExtAltText
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,3 +1,8 @@
+// GetOAuth2AuthorizeRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/authorization-code
@@ -24,16 +29,16 @@ open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
     }
 
     public var parameters: [String: Any] {
-        var p = [String: String]()
+        var params = [String: String]()
 
-        p["response_type"] = responseType
-        p["client_id"] = clientID
-        p["redirect_uri"] = redirectURI
-        p["state"] = state
-        p["code_challenge"] = codeChallenge
-        p["code_challenge_method"] = codeChallengeMethod
-        p["scope"] = scopes.joined(separator: " ")
-        return p
+        params["response_type"] = responseType
+        params["client_id"] = clientID
+        params["redirect_uri"] = redirectURI
+        params["state"] = state
+        params["code_challenge"] = codeChallenge
+        params["code_challenge_method"] = codeChallengeMethod
+        params["scope"] = scopes.joined(separator: " ")
+        return params
     }
 
     public init(
@@ -52,5 +57,9 @@ open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
         self.codeChallenge = codeChallenge
         self.codeChallengeMethod = codeChallengeMethod
         self.scopes = scopes
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

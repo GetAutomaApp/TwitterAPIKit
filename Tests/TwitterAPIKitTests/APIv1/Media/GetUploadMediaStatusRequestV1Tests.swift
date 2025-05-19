@@ -1,15 +1,13 @@
+// GetUploadMediaStatusRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUploadMediaStatusRequestV1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUploadMediaStatusRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetUploadMediaStatusRequestV1(mediaID: "m")
 
         XCTAssertEqual(req.method, .get)
@@ -20,7 +18,11 @@ class GetUploadMediaStatusRequestV1Tests: XCTestCase {
             [
                 "command": "STATUS",
                 "media_id": "m",
-            ])
+            ]
+        )
     }
 
+    deinit {
+        // De-init Logic Here
+    }
 }

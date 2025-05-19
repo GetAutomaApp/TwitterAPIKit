@@ -1,15 +1,13 @@
+// GetGeoSearchRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetGeoSearchRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
-
+internal class GetGeoSearchRequestV1Tests: XCTestCase {
+    public func test() throws {
         XCTContext.runActivity(named: "coordinate") { _ in
 
             let req = GetGeoSearchRequestV1(
@@ -66,7 +64,7 @@ class GetGeoSearchRequestV1Tests: XCTestCase {
         }
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetGeoSearchRequestV1(
             location: .coordinate(.init(lat: 10.123, long: -20.1))
         )
@@ -78,5 +76,9 @@ class GetGeoSearchRequestV1Tests: XCTestCase {
                 "long": -20.1,
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

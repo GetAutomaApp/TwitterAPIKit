@@ -1,3 +1,8 @@
+// ConcurrencyTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
@@ -5,15 +10,8 @@ import XCTest
 #if compiler(>=5.5.2) && canImport(_Concurrency)
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-    class ConcurrencyTests: XCTestCase {
-
-        override func setUpWithError() throws {
-        }
-
-        override func tearDownWithError() throws {
-        }
-
-        func test() async throws {
+    internal class ConcurrencyTests: XCTestCase {
+        public func test() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
             let task = TwitterAPISessionDelegatedJSONTask(
@@ -25,7 +23,11 @@ import XCTest
                 task.append(chunk: Data(":\"value\"}".utf8))
 
                 mockTask.httpResponse = .init(
-                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:])
+                    url: URL(string: "http://example.com"),
+                    statusCode: 200,
+                    httpVersion: "1.1",
+                    headerFields: [:]
+                )
 
                 task.complete(error: nil)
             }
@@ -42,7 +44,7 @@ import XCTest
 
             do {
                 let obj = await responseObj.success
-                AssertEqualAnyDict(obj as! [String: Any], ["key": "value"])
+                AssertEqualAnyDict(obj as? [String: Any] ?? [:], ["key": "value"])
             }
 
             do {
@@ -51,12 +53,12 @@ import XCTest
             }
 
             do {
-                let a = await aResponse.success
-                XCTAssertEqual(a, "a")
+                let aSuccess = await aResponse.success
+                XCTAssertEqual(aSuccess, "a")
             }
         }
 
-        func testCancel() async throws {
+        public func testCancel() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
             let task = TwitterAPISessionDelegatedJSONTask(
@@ -79,29 +81,28 @@ import XCTest
 
             do {
                 let error = await response.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             do {
                 let error = await responseObj.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             do {
                 let error = await responseDecodable.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             do {
                 let error = await aResponse.error
-                XCTAssertTrue(error!.isCancelled)
+                XCTAssertTrue(error ? error.isCancelled : false)
             }
 
             XCTAssertTrue(mockTask.cancelled)
         }
 
-        func testTaskCancel() async throws {
-
+        public func testTaskCancel() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
             let task = TwitterAPISessionDelegatedJSONTask(
@@ -109,11 +110,11 @@ import XCTest
             )
 
             let asyncTask = Task { () -> [TwitterAPIResponse<Void>] in
-                async let r0 = task.responseData.map { _ in () }
-                async let r1 = task.responseObject.map { _ in () }
-                async let r2 = task.responseDecodable(type: DecodableObj.self).map { _ in () }
-                async let r3 = task.specialized { _ in () }.responseObject
-                return await [r0, r1, r2, r3]
+                async let rt0 = task.responseData.map { _ in () }
+                async let rt1 = task.responseObject.map { _ in () }
+                async let rt2 = task.responseDecodable(type: DecodableObj.self).map { _ in () }
+                async let rt3 = task.specialized { _ in () }.responseObject
+                return await [rt0, rt1, rt2, rt3]
             }
 
             DispatchQueue.global(qos: .default).async {
@@ -124,22 +125,25 @@ import XCTest
                 task.complete(error: URLError(.cancelled))
             }
 
-            let rs = await asyncTask.value
+            let rss = await asyncTask.value
             XCTAssertTrue(mockTask.cancelled)
             XCTAssertTrue(asyncTask.isCancelled)
-            XCTAssertEqual(rs.count, 4)
-            for r in rs {
-                XCTAssertTrue(r.error!.isCancelled)
+            XCTAssertEqual(rss.count, 4)
+            for res in rss {
+                XCTAssertTrue(r.error.isCancelled)
             }
         }
 
-        func testStream() async throws {
+        public func testStream() async throws {
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
                 originalRequest: nil,
                 httpResponse: .init(
-                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                    url: URL(string: "http://example.com"),
+                    statusCode: 200,
+                    httpVersion: "1.1",
+                    headerFields: [:]
                 )
             )
 
@@ -153,7 +157,6 @@ import XCTest
 
             var count = 0
             for await response in stream {
-
                 switch count {
                 case 0:
                     XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "aaaa")
@@ -164,7 +167,7 @@ import XCTest
                 case 3:
                     XCTAssertEqual(response.success.map { String(data: $0, encoding: .utf8) }, "あ")
                 default:
-                    XCTFail()
+                    XCTFail("Invalid Response")
                 }
                 count += 1
                 if count == 4 {
@@ -174,8 +177,7 @@ import XCTest
             XCTAssertEqual(count, 4)
         }
 
-        func testStreamCancel() async throws {
-
+        public func testStreamCancel() async throws {
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
@@ -202,24 +204,28 @@ import XCTest
             XCTAssertTrue(mockTask.cancelled)
         }
 
-        func testStreamError() async throws {
-
+        public func testStreamError() async throws {
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
                 originalRequest: nil,
                 httpResponse: .init(
-                    url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: "1.1", headerFields: [:]
+                    url: URL(string: "http://example.com"),
+                    statusCode: 200,
+                    httpVersion: "1.1",
+                    headerFields: [:]
                 )
             )
 
             let task = TwitterAPISessionDelegatedStreamTask(task: mockTask)
-            let stream = task.streamResponse(queue: .main).map({ resp in resp.map { String(data: $0, encoding: .utf8)! }
-            })
+            let stream = task
+                .streamResponse(
+                    queue: .main
+                )
+                .map { resp in resp.compactMap { String(data: $0, encoding: .utf8) } }
             let asyncTask = Task {
                 var count = 0
                 for await resp in stream {
-
                     switch count {
                     case 0:
                         XCTAssertEqual(resp.success, "aaaa")
@@ -230,7 +236,7 @@ import XCTest
                     case 2:
                         XCTAssertTrue(resp.isError)
                     default:
-                        XCTFail()
+                        XCTFail("Invalid Response")
                     }
                     count += 1
                 }
@@ -243,6 +249,10 @@ import XCTest
             }
 
             await asyncTask.value
+        }
+
+        deinit {
+            // De-init Logic Here
         }
     }
 #endif

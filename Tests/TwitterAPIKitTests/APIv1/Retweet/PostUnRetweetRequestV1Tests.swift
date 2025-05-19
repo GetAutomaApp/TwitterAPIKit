@@ -1,14 +1,13 @@
+// PostUnRetweetRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostUnRetweetRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostUnRetweetRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostUnRetweetRequestV1(
             id: "_i_",
             trimUser: true
@@ -21,12 +20,12 @@ class PostUnRetweetRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "trim_user": true
+                "trim_user": true,
             ]
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostUnRetweetRequestV1(
             id: "_i_"
         )
@@ -35,5 +34,9 @@ class PostUnRetweetRequestV1Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

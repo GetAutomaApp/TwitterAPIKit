@@ -1,14 +1,13 @@
+// GetUsersSearchRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersSearchRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersSearchRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersSearchRequestV1(
             q: "_q_",
             page: 11,
@@ -31,7 +30,7 @@ class GetUsersSearchRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersSearchRequestV1(
             q: "qq"
         )
@@ -39,8 +38,12 @@ class GetUsersSearchRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "q": "qq"
+                "q": "qq",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

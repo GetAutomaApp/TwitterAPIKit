@@ -1,14 +1,13 @@
+// GetTweetsSearchAllRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsSearchAllRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetTweetsSearchAllRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsSearchAllRequestV2(
             query: "_q_",
             endTime: Date(timeIntervalSince1970: 2),
@@ -51,7 +50,7 @@ class GetTweetsSearchAllRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetTweetsSearchAllRequestV2(
             query: "_q1_"
         )
@@ -59,8 +58,12 @@ class GetTweetsSearchAllRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "query": "_q1_"
+                "query": "_q1_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

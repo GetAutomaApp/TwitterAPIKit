@@ -1,14 +1,13 @@
+// PostUsersMutingRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostUsersMutingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostUsersMutingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersMutingRequestV2(
             id: "_id_",
             targetUserID: "_targetUserID_"
@@ -21,8 +20,12 @@ class PostUsersMutingRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "target_user_id": "_targetUserID_"
+                "target_user_id": "_targetUserID_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

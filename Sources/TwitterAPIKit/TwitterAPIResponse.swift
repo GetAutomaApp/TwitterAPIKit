@@ -1,17 +1,43 @@
+// TwitterAPIResponse.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
+/// A generic response type that encapsulates the result of a Twitter API request.
 public struct TwitterAPIResponse<Success> {
+    /// The original URL request that was sent to the Twitter API.
     public let request: URLRequest?
+    
+    /// The HTTP response received from the Twitter API.
     public let response: HTTPURLResponse?
 
+    /// The raw data received in the response.
     public let data: Data?
+    
+    /// The result of the API call, containing either the successful response or an error.
     public let result: Result<Success, TwitterAPIKitError>
+    
+    /// Rate limit information returned by the Twitter API.
     public let rateLimit: TwitterRateLimit?
 
+    /// The successful response value if the request succeeded, nil otherwise.
     public var success: Success? { return result.success }
+    
+    /// The error that occurred during the request, if any.
     public var error: TwitterAPIKitError? { return result.error }
+    
+    /// A boolean indicating whether the request resulted in an error.
     public var isError: Bool { return error != nil }
 
+    /// Creates a new TwitterAPIResponse instance.
+    /// - Parameters:
+    ///   - request: The original URL request sent to the API.
+    ///   - response: The HTTP response received from the API.
+    ///   - data: The raw data received in the response.
+    ///   - result: The result containing either success or error.
+    ///   - rateLimit: Rate limit information from the API.
     public init(
         request: URLRequest?,
         response: HTTPURLResponse?,
@@ -27,9 +53,11 @@ public struct TwitterAPIResponse<Success> {
     }
 }
 
-extension TwitterAPIResponse {
-
-    public func map<NewSuccess>(_ transform: (Success) -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
+public extension TwitterAPIResponse {
+    /// Transforms the successful result to a new type using the provided transform function.
+    /// - Parameter transform: A closure that takes the current success value and returns a new value.
+    /// - Returns: A new TwitterAPIResponse with the transformed success type.
+    func map<NewSuccess>(_ transform: (Success) -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
         return .init(
             request: request,
             response: response,
@@ -39,7 +67,10 @@ extension TwitterAPIResponse {
         )
     }
 
-    public func flatMap<NewSuccess>(_ transform: (Success) -> Result<NewSuccess, TwitterAPIKitError>)
+    /// Transforms the successful result to a new type using a transform function that can return a Result.
+    /// - Parameter transform: A closure that takes the current success value and returns a Result.
+    /// - Returns: A new TwitterAPIResponse with the transformed success type.
+    func flatMap<NewSuccess>(_ transform: (Success) -> Result<NewSuccess, TwitterAPIKitError>)
         -> TwitterAPIResponse<NewSuccess>
     {
         return .init(
@@ -51,12 +82,15 @@ extension TwitterAPIResponse {
         )
     }
 
-    public func tryMap<NewSuccess>(_ transform: (Success) throws -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
+    /// Transforms the successful result to a new type using a transform function that can throw errors.
+    /// - Parameter transform: A closure that takes the current success value and can throw an error.
+    /// - Returns: A new TwitterAPIResponse with the transformed success type.
+    func tryMap<NewSuccess>(_ transform: (Success) throws -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
         let nextResult: Result<NewSuccess, TwitterAPIKitError> = result.flatMap { data in
-            let r: Result<NewSuccess, Error> = .init {
-                return try transform(data)
+            let result: Result<NewSuccess, Error> = .init {
+                try transform(data)
             }
-            return r.mapError { TwitterAPIKitError(error: $0) }
+            return result.mapError { TwitterAPIKitError(error: $0) }
         }
         return .init(
             request: request,
@@ -67,7 +101,10 @@ extension TwitterAPIResponse {
         )
     }
 
-    public func mapError(_ tranform: (TwitterAPIKitError) -> TwitterAPIKitError) -> TwitterAPIResponse {
+    /// Transforms the error in the response using the provided transform function.
+    /// - Parameter tranform: A closure that takes the current error and returns a new error.
+    /// - Returns: A new TwitterAPIResponse with the transformed error.
+    func mapError(_ tranform: (TwitterAPIKitError) -> TwitterAPIKitError) -> TwitterAPIResponse {
         return .init(
             request: request,
             response: response,
@@ -75,21 +112,26 @@ extension TwitterAPIResponse {
             result: result.mapError(tranform),
             rateLimit: rateLimit
         )
-
     }
 }
 
-extension TwitterAPIResponse {
-
-    /// for debug
-    public var prettyString: String {
-
+public extension TwitterAPIResponse {
+    /// Returns a formatted string representation of the API response for debugging purposes.
+    /// The string includes:
+    /// - Request method and URL
+    /// - Request headers (Content-Type, Content-Length)
+    /// - Response status code
+    /// - Response headers
+    /// - Rate limit information
+    /// - Response body (prettified if JSON)
+    /// - Error description (if any)
+    var prettyString: String {
         let body =
             data.map { data in
 
                 // make pretty
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []),
-                    let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+                   let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
                 {
                     return String(data: jsonData, encoding: .utf8) ?? ""
                 } else {
@@ -108,8 +150,8 @@ extension TwitterAPIResponse {
         let responseContentLength =
             "< Content-Length: \(response?.allHeaderFields["Content-Length"] ?? "No Content-Length")"
 
-        switch self.result {
-        case .failure(let error):
+        switch result {
+        case let .failure(error):
             return "-- Request failure --"
                 + "\n\(request)"
                 + "\n\(contentType)"
@@ -120,7 +162,7 @@ extension TwitterAPIResponse {
                 + "\n\(rateLimitStr)"
                 + "\n\(error.localizedDescription)"
                 + "\n<"
-                + "\n\(body.count == 0 ? "Empty body" : body.unescapeSlash)"
+                + "\n\(body.isEmpty ? "Empty body" : body.unescapeSlash)"
         case .success:
             return "-- Request success --"
                 + "\n\(request)"
@@ -131,18 +173,17 @@ extension TwitterAPIResponse {
                 + "\n\(responseContentLength)"
                 + "\n\(rateLimitStr)"
                 + "\n<"
-                + "\n\(body.count == 0 ? "Empty body" : body.unescapeSlash)"
+                + "\n\(body.isEmpty ? "Empty body" : body.unescapeSlash)"
         }
     }
 }
 
-extension String {
-
-    fileprivate var unescapeSlash: String {
+private extension String {
+    var unescapeSlash: String {
         return replacingOccurrences(of: #"\/"#, with: #"/"#)
     }
 
-    fileprivate var unescapingUnicodeCharacters: String {
+    var unescapingUnicodeCharacters: String {
         #if os(Linux)
             return self
         #else

@@ -1,23 +1,21 @@
+// PostTweetsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostTweetsRequestV2Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
-
+internal class PostTweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let request = PostTweetsRequestV2(
             directMessageDeepLink: "deep_link",
             forSuperFollowersOnly: true,
             geo: .init(placeID: "place"),
             media: .init(
                 mediaIDs: ["media_1", "media_2"],
-                taggedUserIDs: ["user_1", "user_2"]),
+                taggedUserIDs: ["user_1", "user_2"]
+            ),
             poll: .init(durationMinutes: 100, options: ["o1", "o2"]),
             quoteTweetID: "quote_id",
             reply: .init(excludeReplyUserIDs: ["r_1", "r_2"], inReplyToTweetID: "t_1"),
@@ -41,6 +39,11 @@ class PostTweetsRequestV2Tests: XCTestCase {
                 "reply": ["in_reply_to_tweet_id": "t_1", "exclude_reply_user_ids": ["r_1", "r_2"]],
                 "reply_settings": "following",
                 "text": "text",
-            ])
+            ]
+        )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

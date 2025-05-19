@@ -1,8 +1,12 @@
+// PutListRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
 open class PutListRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let description: String?
     public let name: String?
@@ -21,11 +25,11 @@ open class PutListRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        description.map { p["description"] = $0 }
-        name.map { p["name"] = $0 }
-        `private`.map { p["private"] = $0 }
-        return p
+        var params = [String: Any]()
+        description.map { params["description"] = $0 }
+        name.map { params["name"] = $0 }
+        `private`.map { params["private"] = $0 }
+        return params
     }
 
     public init(
@@ -38,5 +42,8 @@ open class PutListRequestV2: TwitterAPIRequest {
         self.description = description
         self.name = name
         self.private = `private`
+    }
+    deinit {
+        // de-init logic here
     }
 }

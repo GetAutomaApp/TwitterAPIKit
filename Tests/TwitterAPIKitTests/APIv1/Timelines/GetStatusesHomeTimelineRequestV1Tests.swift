@@ -1,14 +1,13 @@
+// GetStatusesHomeTimelineRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetStatusesHomeTimelineRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetStatusesHomeTimelineRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetStatusesHomeTimelineRequestV1(
             count: 11,
             maxID: "_m_",
@@ -35,12 +34,16 @@ class GetStatusesHomeTimelineRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetStatusesHomeTimelineRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

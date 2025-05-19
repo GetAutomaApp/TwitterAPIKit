@@ -1,14 +1,13 @@
+// GetListsTweetsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetListsTweetsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetListsTweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetListsTweetsRequestV2(
             id: "_id_",
             expansions: [.referencedTweetsIDAuthorID],
@@ -30,15 +29,19 @@ class GetListsTweetsRequestV2Tests: XCTestCase {
                 "pagination_token": "t",
                 "tweet.fields": "text",
                 "user.fields": "profile_image_url",
-
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetListsTweetsRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

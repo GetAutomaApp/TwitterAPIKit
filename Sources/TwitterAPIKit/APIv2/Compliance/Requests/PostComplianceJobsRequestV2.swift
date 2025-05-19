@@ -1,8 +1,12 @@
+// PostComplianceJobsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
 open class PostComplianceJobsRequestV2: TwitterAPIRequest {
-
     public let type: TwitterComplianceJobTypeV2
     public let name: String?
     public let resumable: Bool?
@@ -20,11 +24,11 @@ open class PostComplianceJobsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        type.bind(param: &p)
-        name.map { p["name"] = $0 }
-        resumable.map { p["resumable"] = $0 }
-        return p
+        var params = [String: Any]()
+        type.bind(param: &params)
+        name.map { params["name"] = $0 }
+        resumable.map { params["resumable"] = $0 }
+        return params
     }
 
     public init(
@@ -35,5 +39,8 @@ open class PostComplianceJobsRequestV2: TwitterAPIRequest {
         self.type = type
         self.name = name
         self.resumable = resumable
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,23 +1,21 @@
+// PostTweetsSearchStreamRulesRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
-
+internal class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
+    public func test() throws {
         XCTContext.runActivity(named: "add") { _ in
 
             let add = PostTweetsSearchStreamRulesRequestV2(
                 operation: .add([
                     .init(value: "value", tag: "tag"),
                     .init(value: "hoge"),
-                ]))
+                ])
+            )
 
             XCTAssertEqual(add.method, .post)
             XCTAssertEqual(add.path, "/2/tweets/search/stream/rules")
@@ -30,8 +28,9 @@ class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
                     "add": [
                         ["value": "value", "tag": "tag"],
                         ["value": "hoge"],
-                    ]
-                ])
+                    ],
+                ]
+            )
             AssertEqualAnyDict(add.queryParameters, [:])
         }
 
@@ -48,20 +47,21 @@ class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
                 delete.bodyParameters,
                 [
                     "delete": [
-                        "ids": ["1", "20"]
-                    ]
-                ])
+                        "ids": ["1", "20"],
+                    ],
+                ]
+            )
             AssertEqualAnyDict(delete.queryParameters, [:])
         }
     }
 
-    func testDryRun() throws {
-
+    public func testDryRun() throws {
         let add = PostTweetsSearchStreamRulesRequestV2(
             operation: .add([
                 .init(value: "value", tag: "tag"),
                 .init(value: "hoge"),
-            ]), dryRun: true)
+            ]), dryRun: true
+        )
 
         XCTAssertEqual(add.method, .post)
         XCTAssertEqual(add.path, "/2/tweets/search/stream/rules")
@@ -74,10 +74,14 @@ class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
                 "add": [
                     ["value": "value", "tag": "tag"],
                     ["value": "hoge"],
-                ]
-            ])
+                ],
+            ]
+        )
 
         AssertEqualAnyDict(add.queryParameters, ["dry_run": true])
     }
 
+    deinit {
+        // De-init Logic Here
+    }
 }

@@ -1,14 +1,13 @@
+// PostUsersBookmarksRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostUsersBookmarksRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostUsersBookmarksRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersBookmarksRequestV2(
             id: "_i_",
             tweetID: "_t_"
@@ -21,8 +20,12 @@ class PostUsersBookmarksRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "tweet_id": "_t_"
+                "tweet_id": "_t_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

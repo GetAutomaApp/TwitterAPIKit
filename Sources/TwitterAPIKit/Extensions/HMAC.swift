@@ -1,11 +1,20 @@
+// HMAC.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
+
+/// A protocol that represents a HMAC.
+public protocol HMAC {
+    // No Logic Here
+}
 
 #if canImport(CommonCrypto)
     import CommonCrypto
 
-    extension Data {
-        fileprivate func hmac(key: Data) -> Data {
-
+    fileprivate extension Data {
+        func hmac(key: Data) -> Data {
             // Thanks: https://github.com/jernejstrasner/SwiftCrypto
 
             let digestLen = Int(CC_SHA1_DIGEST_LENGTH)
@@ -19,7 +28,8 @@ import Foundation
                     CCHmac(
                         CCHmacAlgorithm(kCCHmacAlgSHA1),
                         body.baseAddress,
-                        key.count, bytes.baseAddress,
+                        key.count,
+                        bytes.baseAddress,
                         count,
                         result
                     )
@@ -30,13 +40,24 @@ import Foundation
         }
     }
 
-    func createHMACSHA1(key: Data, message: Data) -> Data {
+    /// Creates an HMAC-SHA1 signature for the given message using the provided key
+    /// - Parameters:
+    ///   - key: The key to use for signing
+    ///   - message: The message to sign
+    /// - Returns: The HMAC-SHA1 signature as Data
+    public func createHMACSHA1(key: Data, message: Data) -> Data {
         return message.hmac(key: key)
     }
 
-#elseif canImport(Crypto)  // for Linux
+#elseif canImport(Crypto) // for Linux
     import Crypto
-    func createHMACSHA1(key: Data, message: Data) -> Data {
+
+    /// Creates an HMAC-SHA1 signature for the given message using the provided key
+    /// - Parameters:
+    ///   - key: The key to use for signing
+    ///   - message: The message to sign
+    /// - Returns: The HMAC-SHA1 signature as Data
+    public func createHMACSHA1(key: Data, message: Data) -> Data {
         return Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
     }
 #else

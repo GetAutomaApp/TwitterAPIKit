@@ -1,8 +1,12 @@
+// DeleteListsMembersRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
 open class DeleteListsMembersRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let userID: String
 
@@ -24,5 +28,8 @@ open class DeleteListsMembersRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
         self.userID = userID
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,14 +1,13 @@
+// PostFriendshipsCreateRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostFriendshipsCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostFriendshipsCreateRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostFriendshipsCreateRequestV1(
             user: .userID("uid"),
             follow: true
@@ -27,7 +26,7 @@ class PostFriendshipsCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostFriendshipsCreateRequestV1(
             user: .screenName("s")
         )
@@ -35,8 +34,12 @@ class PostFriendshipsCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

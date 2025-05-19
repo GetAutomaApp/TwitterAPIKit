@@ -1,14 +1,13 @@
+// GetCollectionsShowRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetCollectionsShowRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetCollectionsShowRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetCollectionsShowRequestV1(
             id: "_i_"
         )
@@ -20,8 +19,12 @@ class GetCollectionsShowRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "id": "_i_"
+                "id": "_i_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

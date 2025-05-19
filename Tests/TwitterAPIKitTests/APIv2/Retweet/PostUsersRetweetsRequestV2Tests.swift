@@ -1,14 +1,13 @@
+// PostUsersRetweetsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostUsersRetweetsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostUsersRetweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostUsersRetweetsRequestV2(
             id: "_id_",
             tweetID: "_tweetID_"
@@ -21,7 +20,12 @@ class PostUsersRetweetsRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "tweet_id": "_tweetID_"
-            ])
+                "tweet_id": "_tweetID_",
+            ]
+        )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

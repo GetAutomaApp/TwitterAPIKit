@@ -1,14 +1,13 @@
+// PostOAuth2TokenRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostOAuth2TokenRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostOAuth2TokenRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostOAuth2TokenRequestV1(
             grantType: "_g_"
         )
@@ -20,19 +19,23 @@ class PostOAuth2TokenRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "grant_type": "_g_"
+                "grant_type": "_g_",
             ]
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostOAuth2TokenRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [
-                "grant_type": "client_credentials"
+                "grant_type": "client_credentials",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

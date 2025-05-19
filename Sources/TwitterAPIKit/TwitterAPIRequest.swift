@@ -1,11 +1,22 @@
+// TwitterAPIRequest.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
+/// Represents HTTP methods supported by the Twitter API.
 public enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
+    /// DELETE method, typically used for removing resources.
     case delete = "DELETE"
+    /// GET method, typically used for retrieving resources.
+    case get = "GET"
+    /// POST method, typically used for creating new resources.
+    case post = "POST"
+    /// PUT method, typically used for updating existing resources.
+    case put = "PUT"
 
+    /// Indicates whether the method prefers parameters to be sent as query parameters.
     public var prefersQueryParameters: Bool {
         switch self {
         case .get, .delete:
@@ -16,24 +27,33 @@ public enum HTTPMethod: String {
     }
 }
 
+/// Represents the content type of the request body.
 public enum BodyContentType: String {
-    case wwwFormUrlEncoded = "application/x-www-form-urlencoded"
-
-    /// In this case use MultipartFormDataPart as a parameter
-    /// example: UploadMediaAppendRequestV1.swift
-    case multipartFormData = "multipart/form-data"
+    /// JSON content type with UTF-8 encoding.
     case json = "application/json; charset=UTF-8"
+    
+    /// Multipart form data content type, used for file uploads.
+    /// Use MultipartFormDataPart as a parameter.
+    /// Example: UploadMediaAppendRequestV1.swift
+    case multipartFormData = "multipart/form-data"
+    
+    /// URL-encoded form data content type.
+    case wwwFormUrlEncoded = "application/x-www-form-urlencoded"
 }
 
+/// Represents a part of a multipart form data request.
 public enum MultipartFormDataPart {
-    case value(name: String, value: Any)  // value is stringified with "String(describing:)"
+    /// A file upload part containing binary data and metadata.
     case data(name: String, value: Data, filename: String, mimeType: String)
 
-    var name: String {
+    /// A simple key-value pair where the value is stringified using String(describing:).
+    case value(name: String, value: Any)
+    /// The name of the form part.
+    public var name: String {
         switch self {
-        case .value(let name, _):
+        case let .value(name, _):
             return name
-        case .data(let name, _, _, _):
+        case let .data(name, _, _, _):
             return name
         }
     }
@@ -42,53 +62,85 @@ public enum MultipartFormDataPart {
 extension MultipartFormDataPart: Equatable {
     public static func == (lhs: MultipartFormDataPart, rhs: MultipartFormDataPart) -> Bool {
         switch (lhs, rhs) {
-        case let (.value(name: ln, value: lv), .value(name: rn, value: rv)):
-            return ln == rn && type(of: lv) == type(of: rv) && String(describing: lv) == String(describing: rv)
+        case let (.value(name: leftName, value: leftValue), .value(name: rightName, value: rightValue)):
+            return leftName == rightName 
+                && type(of: leftValue) == type(of: rightValue) 
+                && String(describing: leftValue) == String(describing: rightValue)
         case let (
-            .data(name: ln, value: lv, filename: lf, mimeType: lm),
-            .data(name: rn, value: rv, filename: rf, mimeType: rm)
+            .data(
+                name: leftName,
+                value: leftValue,
+                filename: leftFilename,
+                mimeType: leftMimeType
+            ),
+            .data(
+                name: rightName,
+                value: rightValue,
+                filename: rightFilename,
+                mimeType: rightMimeType
+            )
         ):
-            return ln == rn
-                && lv == rv
-                && lf == rf
-                && lm == rm
+            return leftName == rightName
+                && leftValue == rightValue
+                && leftFilename == rightFilename
+                && leftMimeType == rightMimeType
         default:
             return false
         }
     }
 }
 
+/// Protocol defining the requirements for a Twitter API request.
 public protocol TwitterAPIRequest {
+    /// The HTTP method to be used for the request.
     var method: HTTPMethod { get }
+    
+    /// The base URL type for the request (api, upload, etc.).
     var baseURLType: TwitterBaseURLType { get }
+    
+    /// The path component of the request URL.
     var path: String { get }
+    
+    /// The complete set of parameters for the request.
     var parameters: [String: Any] { get }
+    
+    /// Parameters to be included in the URL query string.
     var queryParameters: [String: Any] { get }
+    
+    /// Parameters to be included in the request body.
     var bodyParameters: [String: Any] { get }
+    
+    /// The content type of the request body.
     var bodyContentType: BodyContentType { get }
 }
 
-extension TwitterAPIRequest {
-    public var baseURLType: TwitterBaseURLType {
+/// Default implementations for TwitterAPIRequest.
+public extension TwitterAPIRequest {
+    /// Default base URL type is .api.
+    var baseURLType: TwitterBaseURLType {
         return .api
     }
 
-    public var bodyContentType: BodyContentType {
+    /// Default body content type is .wwwFormUrlEncoded.
+    var bodyContentType: BodyContentType {
         return .wwwFormUrlEncoded
     }
 
-    public var parameters: [String: Any] {
+    /// Default parameters is an empty dictionary.
+    var parameters: [String: Any] {
         return [:]
     }
 
-    public var queryParameters: [String: Any] {
+    /// Query parameters are derived from parameters if the method prefers query parameters.
+    var queryParameters: [String: Any] {
         if method.prefersQueryParameters {
             return parameters
         }
         return [:]
     }
 
-    public var bodyParameters: [String: Any] {
+    /// Body parameters are derived from parameters if the method doesn't prefer query parameters.
+    var bodyParameters: [String: Any] {
         if !method.prefersQueryParameters {
             return parameters
         }
@@ -97,9 +149,11 @@ extension TwitterAPIRequest {
 }
 
 extension TwitterAPIRequest {
-
-    func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
-
+    /// Builds a URL request for the given environment.
+    /// - Parameters:
+    ///   - environment: The environment to build the request for.
+    /// - Returns: A URL request.
+    public func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
         guard
             var urlComponent = URLComponents(
                 url: requestURL(for: environment),
@@ -111,15 +165,17 @@ extension TwitterAPIRequest {
         if !queryParameters.isEmpty {
             urlComponent.percentEncodedQueryItems =
                 queryParameters
-                .sorted(by: { a, b in a.key < b.key })
-                .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
+                    .sorted { first, second in first.key < second.key }
+                    .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
         }
 
-        var request = URLRequest(url: urlComponent.url!)
+        guard let url = urlComponent.url else {
+            throw TwitterAPIKitError.requestFailed(reason: .invalidURL(url: ""))
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
 
         if !bodyParameters.isEmpty {
-
             switch bodyContentType {
             case .wwwFormUrlEncoded:
                 request.setValue(bodyContentType.rawValue, forHTTPHeaderField: "Content-Type")
@@ -134,9 +190,12 @@ extension TwitterAPIRequest {
                     throw TwitterAPIKitError.requestFailed(
                         reason: .invalidParameter(
                             parameter: bodyParameters,
-                            cause:
-                                "Parameter must be specified in `MultipartFormDataPart` for `BodyContentType.multipartFormData`."
-                        ))
+                            cause: """
+                            Parameter must be specified in `MultipartFormDataPart` \
+                            for `BodyContentType.multipartFormData`.
+                            """
+                        )
+                    )
                 }
 
                 let boundary = "TwitterAPIKit-\(UUID().uuidString)"
@@ -144,9 +203,11 @@ extension TwitterAPIRequest {
                 request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
                 request.httpBody = try multipartFormData(
-                    boundary: boundary, parts: parts.sorted(by: { $0.name < $1.name }))
+                    boundary: boundary, parts: parts.sorted { $0.name < $1.name }
+                )
                 request.setValue(
-                    String(request.httpBody?.count ?? 0), forHTTPHeaderField: "Content-Length")
+                    String(request.httpBody?.count ?? 0), forHTTPHeaderField: "Content-Length"
+                )
             case .json:
 
                 let param = bodyParameters
@@ -168,11 +229,13 @@ extension TwitterAPIRequest {
         return request
     }
 
-    func requestURL(for environment: TwitterAPIEnvironment) -> URL {
+    /// Returns the URL for the request.
+    public func requestURL(for environment: TwitterAPIEnvironment) -> URL {
         return environment.baseURL(for: baseURLType).appendingPathComponent(path)
     }
 
-    var parameterForOAuth: [String: Any] {
+    /// Returns the parameters for OAuth.
+    public var parameterForOAuth: [String: Any] {
         switch bodyContentType {
         case .wwwFormUrlEncoded:
             return parameters
@@ -224,8 +287,8 @@ extension TwitterAPIRequest {
     }
 }
 
-extension TwitterAPIEnvironment {
-    fileprivate func baseURL(for type: TwitterBaseURLType) -> URL {
+private extension TwitterAPIEnvironment {
+    func baseURL(for type: TwitterBaseURLType) -> URL {
         switch type {
         case .twitter: return twitterURL
         case .api: return apiURL
@@ -234,8 +297,8 @@ extension TwitterAPIEnvironment {
     }
 }
 
-extension Data {
-    fileprivate mutating func appendBody(_ string: String) throws {
+private extension Data {
+    mutating func appendBody(_ string: String) throws {
         if let data = string.data(using: .utf8) {
             append(data)
         } else {

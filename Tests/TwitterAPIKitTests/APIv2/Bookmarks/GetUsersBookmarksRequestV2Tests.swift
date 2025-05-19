@@ -1,14 +1,13 @@
+// GetUsersBookmarksRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersBookmarksRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersBookmarksRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersBookmarksRequestV2(
             id: "_i_",
             expansions: [.authorID],
@@ -40,7 +39,7 @@ class GetUsersBookmarksRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersBookmarksRequestV2(
             id: "_i_"
         )
@@ -49,5 +48,9 @@ class GetUsersBookmarksRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,8 +1,14 @@
+// GetListsMembershipsRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-memberships
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-memberships
 open class GetListsMembershipsRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -17,13 +23,13 @@ open class GetListsMembershipsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        filterToOwnedLists.map { p["filter_to_owned_lists"] = $0 }
+        var params = [String: Any]()
+        user.bind(param: &params)
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        filterToOwnedLists.map { params["filter_to_owned_lists"] = $0 }
 
-        return p
+        return params
     }
 
     public init(
@@ -36,5 +42,9 @@ open class GetListsMembershipsRequestV1: TwitterAPIRequest {
         self.count = count
         self.cursor = cursor
         self.filterToOwnedLists = filterToOwnedLists
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

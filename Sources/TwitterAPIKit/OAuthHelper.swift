@@ -1,9 +1,27 @@
+// OAuthHelper.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 private let oauthVersion = "1.0"
 private let oauthSignatureMethod = "HMAC-SHA1"
 
-func authorizationHeader(
+// swiftlint:disable function_parameter_count
+/// Generates an OAuth authorization header for a given HTTP method, URL, and parameters.
+/// - Parameters:
+///   - method: The HTTP method to use.
+///   - url: The URL to use.
+///   - parameters: The parameters to use.
+///   - consumerKey: The consumer key to use.
+///   - consumerSecret: The consumer secret to use.
+///   - oauthToken: The OAuth token to use.
+///   - oauthTokenSecret: The OAuth token secret to use.
+///   - oauthTimestamp: The OAuth timestamp to use.
+///   - oauthNonce: The OAuth nonce to use.
+/// - Returns: The OAuth authorization header.
+public func authorizationHeader(
     for method: HTTPMethod,
     url: URL,
     parameters: [String: Any],
@@ -14,6 +32,7 @@ func authorizationHeader(
     oauthTimestamp: String? = .none,
     oauthNonce: String? = .none
 ) -> String {
+// swiftlint:enable function_parameter_count
     var authorizationParameters = [String: Any]()
     authorizationParameters["oauth_version"] = oauthVersion
     authorizationParameters["oauth_signature_method"] = oauthSignatureMethod
@@ -21,7 +40,7 @@ func authorizationHeader(
     authorizationParameters["oauth_timestamp"] = oauthTimestamp ?? String(Int(Date().timeIntervalSince1970))
     authorizationParameters["oauth_nonce"] = oauthNonce ?? UUID().uuidString
 
-    if let oauthToken = oauthToken {
+    if let oauthToken {
         authorizationParameters["oauth_token"] = oauthToken
     }
 
@@ -32,12 +51,17 @@ func authorizationHeader(
     let combinedParameters = authorizationParameters.merging(parameters) { $1 }
 
     authorizationParameters["oauth_signature"] = oauthSignature(
-        for: method, url: url, parameters: combinedParameters, consumerSecret: consumerSecret,
-        oauthTokenSecret: oauthTokenSecret)
+        for: method,
+        url: url,
+        parameters: combinedParameters,
+        consumerSecret: consumerSecret,
+        oauthTokenSecret: oauthTokenSecret
+    )
 
-    let authorizationParameterComponents = authorizationParameters.urlEncodedQueryString.components(
-        separatedBy: "&"
-    ).sorted()
+    let authorizationParameterComponents = authorizationParameters
+        .urlEncodedQueryString
+        .components(separatedBy: "&")
+        .sorted()
 
     var headerComponents = [String]()
     for component in authorizationParameterComponents {
@@ -58,7 +82,7 @@ private func oauthSignature(
     oauthTokenSecret: String?
 ) -> String {
     let tokenSecret = oauthTokenSecret?.urlEncodedString ?? ""
-    let encodedConsumerSecret = consumerSecret.urlEncodedString
+        let encodedConsumerSecret = consumerSecret.urlEncodedString
     let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
     let parameterComponents = parameters.urlEncodedQueryString.components(separatedBy: "&").sorted()
     let parameterString = parameterComponents.joined(separator: "&")
@@ -66,8 +90,8 @@ private func oauthSignature(
     let encodedURL = url.absoluteString.urlEncodedString
     let signatureBaseString = "\(method.rawValue)&\(encodedURL)&\(encodedParameterString)"
 
-    let key = signingKey.data(using: .utf8)!
-    let msg = signatureBaseString.data(using: .utf8)!
+    let key = signingKey.data(using: .utf8) ?? Data()
+    let msg = signatureBaseString.data(using: .utf8) ?? Data()
     let sha1 = createHMACSHA1(key: key, message: msg)
     return sha1.base64EncodedString(options: [])
 }

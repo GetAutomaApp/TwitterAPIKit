@@ -1,8 +1,12 @@
+// GetFavoritesRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-favorites-list
 open class GetFavoritesRequestV1: TwitterAPIRequest {
-
     public let target: TwitterUserIdentifierV1
     public let count: Int?
     public let sinceID: String?
@@ -18,15 +22,15 @@ open class GetFavoritesRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        target.bind(param: &p)
-        count.map { p["count"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
+        target.bind(param: &params)
+        count.map { params["count"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
 
-        return p
+        return params
     }
 
     public init(
@@ -41,5 +45,8 @@ open class GetFavoritesRequestV1: TwitterAPIRequest {
         self.sinceID = sinceID
         self.maxID = maxID
         self.includeEntities = includeEntities
+    }
+    deinit {
+        // de-init logic here
     }
 }

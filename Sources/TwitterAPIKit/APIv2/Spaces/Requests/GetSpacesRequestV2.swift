@@ -1,8 +1,12 @@
+// GetSpacesRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
 open class GetSpacesRequestV2: TwitterAPIRequest {
-
     public let ids: [String]
     public let expansions: Set<TwitterSpaceExpansionsV2>?
     public let spaceFields: Set<TwitterSpaceFieldsV2>?
@@ -18,13 +22,13 @@ open class GetSpacesRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["ids"] = ids.joined(separator: ",")
-        expansions?.bind(param: &p)
-        spaceFields?.bind(param: &p)
-        topicFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        params["ids"] = ids.joined(separator: ",")
+        expansions?.bind(param: &params)
+        spaceFields?.bind(param: &params)
+        topicFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -39,5 +43,8 @@ open class GetSpacesRequestV2: TwitterAPIRequest {
         self.spaceFields = spaceFields
         self.topicFields = topicFields
         self.userFields = userFields
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,8 +1,14 @@
+// PostListsMembersDestroyRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-members-destroy
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/post-lists-members-destroy
 open class PostListsMembersDestroyRequestV1: TwitterAPIRequest {
-
     public let list: TwitterListIdentifierV1
     public let user: TwitterUserIdentifierV1
 
@@ -15,10 +21,10 @@ open class PostListsMembersDestroyRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        list.bind(param: &p)
-        user.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        list.bind(param: &params)
+        user.bind(param: &params)
+        return params
     }
 
     public init(
@@ -27,5 +33,9 @@ open class PostListsMembersDestroyRequestV1: TwitterAPIRequest {
     ) {
         self.list = list
         self.user = user
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

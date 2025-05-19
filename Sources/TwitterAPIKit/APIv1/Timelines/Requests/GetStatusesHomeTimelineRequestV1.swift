@@ -1,8 +1,14 @@
+// GetStatusesHomeTimelineRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
+/// api-reference/get-statuses-home_timeline
 open class GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
-
     public let count: Int?
     public let maxID: String?
     public let sinceID: String?
@@ -19,14 +25,14 @@ open class GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        count.map { p["count"] = $0 }
-        maxID.map { p["max_id"] = $0 }
-        sinceID.map { p["since_id"] = $0 }
-        trimUser.map { p["trim_user"] = $0 }
-        excludeReplies.map { p["exclude_replies"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        count.map { params["count"] = $0 }
+        maxID.map { params["max_id"] = $0 }
+        sinceID.map { params["since_id"] = $0 }
+        trimUser.map { params["trim_user"] = $0 }
+        excludeReplies.map { params["exclude_replies"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(
@@ -43,5 +49,8 @@ open class GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
         self.trimUser = trimUser
         self.excludeReplies = excludeReplies
         self.includeEntities = includeEntities
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,8 +1,14 @@
+// PostAccountSettingsRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-settings
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/post-account-settings
 open class PostAccountSettingsRequestV1: TwitterAPIRequest {
-
     /// two letter ISO 639-1
     public let lang: String?
     /// RailsTimeZone
@@ -24,14 +30,14 @@ open class PostAccountSettingsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        lang.map { p["lang"] = $0 }
-        timeZone.map { p["time_zone"] = $0 }
-        startSleepTime.map { p["start_sleep_time"] = $0 }
-        endSleepTime.map { p["end_sleep_time"] = $0 }
-        sleepTimeEnabled.map { p["sleep_time_enabled"] = $0 }
-        trendLocationWoeid.map { p["trend_location_woeid"] = $0 }
-        return p
+        var params = [String: Any]()
+        lang.map { params["lang"] = $0 }
+        timeZone.map { params["time_zone"] = $0 }
+        startSleepTime.map { params["start_sleep_time"] = $0 }
+        endSleepTime.map { params["end_sleep_time"] = $0 }
+        sleepTimeEnabled.map { params["sleep_time_enabled"] = $0 }
+        trendLocationWoeid.map { params["trend_location_woeid"] = $0 }
+        return params
     }
 
     public init(
@@ -48,5 +54,9 @@ open class PostAccountSettingsRequestV1: TwitterAPIRequest {
         self.endSleepTime = endSleepTime
         self.sleepTimeEnabled = sleepTimeEnabled
         self.trendLocationWoeid = trendLocationWoeid
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

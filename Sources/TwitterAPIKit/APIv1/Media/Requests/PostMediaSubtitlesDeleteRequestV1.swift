@@ -1,8 +1,12 @@
+// PostMediaSubtitlesDeleteRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-subtitles-delete
 open class PostMediaSubtitlesDeleteRequestV1: TwitterAPIRequest {
-
     public let mediaID: String
     public let mediaCategory: String
     /// //The language code should be a BCP47 code (e.g. 'en", "sp")
@@ -25,15 +29,15 @@ open class PostMediaSubtitlesDeleteRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["media_id"] = mediaID
-        p["media_category"] = mediaCategory
-        p["subtitle_info"] = [
+        var params = [String: Any]()
+        params["media_id"] = mediaID
+        params["media_category"] = mediaCategory
+        params["subtitle_info"] = [
             "subtitles": subtitleLanguageCodes.map {
-                return ["language_code": $0]
-            }
+                ["language_code": $0]
+            },
         ]
-        return p
+        return params
     }
 
     public init(
@@ -44,5 +48,9 @@ open class PostMediaSubtitlesDeleteRequestV1: TwitterAPIRequest {
         self.mediaID = mediaID
         self.mediaCategory = mediaCategory
         self.subtitleLanguageCodes = subtitleLanguageCodes
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

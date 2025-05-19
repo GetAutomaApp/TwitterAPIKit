@@ -1,8 +1,12 @@
+// GetRetweetsRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-retweets-id
 open class GetRetweetsRequestV1: TwitterAPIRequest {
-
     /// Status ID
     public let id: String
     /// max: 100
@@ -18,10 +22,10 @@ open class GetRetweetsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        count.map { p["count"] = $0 }
-        trimUser.map { p["trim_user"] = $0 }
-        return p
+        var params = [String: Any]()
+        count.map { params["count"] = $0 }
+        trimUser.map { params["trim_user"] = $0 }
+        return params
     }
 
     public init(
@@ -32,5 +36,8 @@ open class GetRetweetsRequestV1: TwitterAPIRequest {
         self.id = id
         self.count = count
         self.trimUser = trimUser
+    }
+    deinit {
+        // de-init logic here
     }
 }

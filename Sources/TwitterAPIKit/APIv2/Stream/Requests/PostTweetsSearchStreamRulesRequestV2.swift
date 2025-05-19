@@ -1,8 +1,14 @@
+// PostTweetsSearchStreamRulesRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules#Validate
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/
+/// api-reference/post-tweets-search-stream-rules#Validate
 open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
-
     public struct Rule {
         public let value: String
         public let tag: String?
@@ -14,7 +20,7 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
 
     public enum Operation {
         case add([Rule])
-        case delete([String] /* rule IDs */)
+        case delete([String] /* rule IDs */ )
     }
 
     public let dryRun: Bool?
@@ -33,27 +39,27 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     }
 
     open var queryParameters: [String: Any] {
-        var p = [String: Any]()
-        dryRun.map { p["dry_run"] = $0 }
-        return p
+        var params = [String: Any]()
+        dryRun.map { params["dry_run"] = $0 }
+        return params
     }
 
     open var bodyParameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
         switch operation {
-        case .add(let rules):
-            p["add"] = rules.map {
-                return [
+        case let .add(rules):
+            params["add"] = rules.map {
+                [
                     "value": $0.value,
                     "tag": $0.tag,
                 ].compactMapValues { $0 }
             }
-        case .delete(let ids):
-            p["delete"] = ["ids": ids]
+        case let .delete(ids):
+            params["delete"] = ["ids": ids]
         }
 
-        return p
+        return params
     }
 
     public init(
@@ -62,5 +68,8 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     ) {
         self.operation = operation
         self.dryRun = dryRun
+    }
+    deinit {
+        // de-init logic here
     }
 }

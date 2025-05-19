@@ -1,14 +1,13 @@
+// GetMutesUsersIDsRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetMutesUsersIDsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetMutesUsersIDsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetMutesUsersIDsRequestV1(
             stringifyIDs: true,
             cursor: "_c_"
@@ -27,12 +26,16 @@ class GetMutesUsersIDsRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetMutesUsersIDsRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

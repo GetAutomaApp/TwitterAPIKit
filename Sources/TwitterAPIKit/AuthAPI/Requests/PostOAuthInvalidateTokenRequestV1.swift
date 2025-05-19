@@ -1,8 +1,12 @@
+// PostOAuthInvalidateTokenRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/invalidate_access_token
 open class PostOAuthInvalidateTokenRequestV1: TwitterAPIRequest {
-
     public var method: HTTPMethod {
         return .post
     }
@@ -16,4 +20,8 @@ open class PostOAuthInvalidateTokenRequestV1: TwitterAPIRequest {
     }
 
     public init() {}
+
+    deinit {
+        // De-init Logic Here
+    }
 }

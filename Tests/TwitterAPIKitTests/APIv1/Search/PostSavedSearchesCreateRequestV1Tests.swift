@@ -1,14 +1,13 @@
+// PostSavedSearchesCreateRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostSavedSearchesCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostSavedSearchesCreateRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostSavedSearchesCreateRequestV1(
             query: "_q_"
         )
@@ -20,8 +19,12 @@ class PostSavedSearchesCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "query": "_q_"
+                "query": "_q_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

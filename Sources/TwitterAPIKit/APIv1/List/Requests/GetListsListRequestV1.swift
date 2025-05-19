@@ -1,8 +1,14 @@
+// GetListsListRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-list
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-list
 open class GetListsListRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let reverse: Bool?
 
@@ -15,10 +21,10 @@ open class GetListsListRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        reverse.map { p["reverse"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        reverse.map { params["reverse"] = $0 }
+        return params
     }
 
     public init(
@@ -27,5 +33,9 @@ open class GetListsListRequestV1: TwitterAPIRequest {
     ) {
         self.user = user
         self.reverse = reverse
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

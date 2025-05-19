@@ -1,14 +1,13 @@
+// PostCollectionsEntriesCurateRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostCollectionsEntriesCurateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostCollectionsEntriesCurateRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostCollectionsEntriesCurateRequestV1(
             id: "_i_",
             changes: [
@@ -31,5 +30,9 @@ class PostCollectionsEntriesCurateRequestV1Tests: XCTestCase {
                 ],
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

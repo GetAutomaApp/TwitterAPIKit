@@ -1,19 +1,24 @@
+// TwitterAPISessionDelegatedStreamTask.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-private let chunkSeparator = "\r\n".data(using: .utf8)!
+private let chunkSeparator = Data("\r\n".utf8)
 public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, TwitterAPISessionDelegatedTask {
-
     public var taskIdentifier: Int { return task.taskIdentifier }
     public var currentRequest: URLRequest? { return task.currentRequest }
     public var originalRequest: URLRequest? { return task.originalRequest }
     public var httpResponse: HTTPURLResponse? {
         return task.httpResponse
     }
+
     private let task: TwitterAPISessionTask
     private var dataBlocks = [(queue: DispatchQueue, block: (TwitterAPIResponse<Data>) -> Void)]()
     private lazy var taskQueue = DispatchQueue(label: "TwitterAPISessionDelegatedStreamTask_\(taskIdentifier)")
 
-    init(task: TwitterAPISessionTask) {
+    public init(task: TwitterAPISessionTask) {
         self.task = task
     }
 
@@ -38,21 +43,20 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
         task.cancel()
     }
 
-    func append(chunk: Data) {
+    public func append(chunk: Data) {
         taskQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
 
-            guard let httpResponse = self.httpResponse else {
-                self.notify(result: .failure(.responseFailed(reason: .invalidResponse(error: nil))), rateLimit: nil)
+            guard let httpResponse else {
+                notify(result: .failure(.responseFailed(reason: .invalidResponse(error: nil))), rateLimit: nil)
                 return
             }
 
             let rateLimit = TwitterRateLimit(header: httpResponse.allHeaderFields)
 
             guard httpResponse.statusCode < 300 else {
-
                 let error = TwitterAPIErrorResponse(data: chunk)
-                self.notify(
+                notify(
                     result: .failure(
                         .responseFailed(
                             reason: .unacceptableStatusCode(
@@ -60,22 +64,24 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
                                 error: error,
                                 rateLimit: rateLimit
                             )
-                        )), rateLimit: rateLimit)
+                        )
+                    ), rateLimit: rateLimit
+                )
 
                 return
             }
 
             for data in chunk.split(separator: chunkSeparator) {
-                self.notify(result: .success(data), rateLimit: rateLimit)
+                notify(result: .success(data), rateLimit: rateLimit)
             }
         }
     }
 
-    func complete(error: Error?) {
-        if let error = error {
+    public func complete(error: Error?) {
+        if let error {
             taskQueue.async { [weak self] in
-                guard let self = self else { return }
-                self.notify(result: .failure(.responseFailed(reason: .invalidResponse(error: error))), rateLimit: nil)
+                guard let self else { return }
+                notify(result: .failure(.responseFailed(reason: .invalidResponse(error: error))), rateLimit: nil)
             }
         }
     }
@@ -89,10 +95,14 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
             rateLimit: rateLimit
         )
 
-        dataBlocks.forEach { (queue, block) in
+        for (queue, block) in dataBlocks {
             queue.async {
                 block(response)
             }
         }
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

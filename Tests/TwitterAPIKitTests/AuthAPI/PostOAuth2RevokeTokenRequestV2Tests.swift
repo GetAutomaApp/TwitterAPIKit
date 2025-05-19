@@ -1,14 +1,13 @@
+// PostOAuth2RevokeTokenRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostOAuth2RevokeTokenRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostOAuth2RevokeTokenRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostOAuth2RevokeTokenRequestV2(
             token: "_t_",
             clientID: "_c_",
@@ -29,7 +28,7 @@ class PostOAuth2RevokeTokenRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostOAuth2RevokeTokenRequestV2(
             token: "_tt_"
         )
@@ -37,8 +36,12 @@ class PostOAuth2RevokeTokenRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "token": "_tt_"
+                "token": "_tt_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

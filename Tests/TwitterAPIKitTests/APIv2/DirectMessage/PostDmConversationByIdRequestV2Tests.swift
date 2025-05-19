@@ -1,14 +1,13 @@
+// PostDmConversationByIdRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostDmConversationByIdRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostDmConversationByIdRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostDmConversationByIdRequestV2(
             dmConversationID: "_d_id",
             attachments: ["1", "2"],
@@ -28,7 +27,7 @@ class PostDmConversationByIdRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostDmConversationByIdRequestV2(
             dmConversationID: "_d_"
         )
@@ -38,5 +37,9 @@ class PostDmConversationByIdRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

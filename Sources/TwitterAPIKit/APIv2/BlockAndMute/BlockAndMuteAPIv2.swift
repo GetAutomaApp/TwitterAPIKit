@@ -1,7 +1,11 @@
+// BlockAndMuteAPIv2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class BlockAndMuteAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
     public func getBlockUsers(
         _ request: GetUsersBlockingRequestV2
@@ -42,5 +46,9 @@ open class BlockAndMuteAPIv2: TwitterAPIBase {
         _ request: DeleteUsersMutingRequestV2
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,8 +1,14 @@
+// DeleteUsersPinnedListsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/delete-users-id-pinned-lists-list_id
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/
+/// api-reference/delete-users-id-pinned-lists-list_id
 open class DeleteUsersPinnedListsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let listID: String
 
@@ -24,5 +30,8 @@ open class DeleteUsersPinnedListsRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
         self.listID = listID
+    }
+    deinit {
+        // de-init logic here
     }
 }

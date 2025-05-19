@@ -1,9 +1,15 @@
+// PostUsersBookmarksRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks
 open class PostUsersBookmarksRequestV2: TwitterAPIRequest {
-
-    /// The user ID who you are bookmarking a Tweet on behalf of. It must match your own user ID or that of an authenticating user, meaning that you must pass the Access Token associated with the user ID when authenticating your request.
+    /// The user ID who you are bookmarking a Tweet on behalf of. It must match your own user ID or that of an
+    /// authenticating user, meaning that you must pass the Access Token associated with the user ID when authenticating
+    /// your request.
     public let id: String
     public let tweetID: String
 
@@ -20,9 +26,9 @@ open class PostUsersBookmarksRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["tweet_id"] = tweetID
-        return p
+        var params = [String: Any]()
+        params["tweet_id"] = tweetID
+        return params
     }
 
     public init(
@@ -31,5 +37,8 @@ open class PostUsersBookmarksRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
         self.tweetID = tweetID
+    }
+    deinit {
+        // de-init logic here
     }
 }

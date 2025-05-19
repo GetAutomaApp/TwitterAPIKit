@@ -1,23 +1,30 @@
+// GetFriendshipsIncomingRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-incoming
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/get-friendships-incoming
 open class GetFriendshipsIncomingRequestV1: TwitterAPIRequest {
-
     public let cursor: String?
     public let stringifyIDs: Bool?
 
     public var method: HTTPMethod {
         return .get
     }
+
     public var path: String {
         return "/1.1/friendships/incoming.json"
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        cursor.map { p["cursor"] = $0 }
-        stringifyIDs.map { p["stringify_ids"] = $0 }
-        return p
+        var params = [String: Any]()
+        cursor.map { params["cursor"] = $0 }
+        stringifyIDs.map { params["stringify_ids"] = $0 }
+        return params
     }
 
     public init(
@@ -26,5 +33,8 @@ open class GetFriendshipsIncomingRequestV1: TwitterAPIRequest {
     ) {
         self.cursor = cursor
         self.stringifyIDs = stringifyIDs
+    }
+    deinit {
+        // de-init logic here
     }
 }

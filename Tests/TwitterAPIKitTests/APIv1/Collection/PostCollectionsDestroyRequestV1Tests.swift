@@ -1,14 +1,13 @@
+// PostCollectionsDestroyRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostCollectionsDestroyRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostCollectionsDestroyRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostCollectionsDestroyRequestV1(
             id: "_i_"
         )
@@ -20,8 +19,12 @@ class PostCollectionsDestroyRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "id": "_i_"
+                "id": "_i_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

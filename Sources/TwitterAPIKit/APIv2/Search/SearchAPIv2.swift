@@ -1,7 +1,11 @@
+// SearchAPIv2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class SearchAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     public func searchTweetsRecent(
         _ request: GetTweetsSearchRecentRequestV2
@@ -15,5 +19,9 @@ open class SearchAPIv2: TwitterAPIBase {
         _ request: GetTweetsSearchAllRequestV2
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

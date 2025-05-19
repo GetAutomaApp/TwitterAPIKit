@@ -1,9 +1,13 @@
+// GetDmConversationsIdDmEventsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// Returns DM Events for a DM Conversation
 /// Required OAuth 2.0 scopes: dm.read, tweet.read, users.read
 open class GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
-
     /// The DM Conversation ID.
     public let id: String
     /// The maximum number of results.
@@ -32,16 +36,16 @@ open class GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        maxResults.map { p["max_results"] = $0 }
-        paginationToken.map { p["pagination_token"] = $0 }
-        eventTypes?.bind(param: &p)
-        dmEventFields?.bind(param: &p)
-        expansions?.bind(param: &p)
-        mediaFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        tweetFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        maxResults.map { params["max_results"] = $0 }
+        paginationToken.map { params["pagination_token"] = $0 }
+        eventTypes?.bind(param: &params)
+        dmEventFields?.bind(param: &params)
+        expansions?.bind(param: &params)
+        mediaFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        tweetFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -64,5 +68,9 @@ open class GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
         self.mediaFields = mediaFields
         self.userFields = userFields
         self.tweetFields = tweetFields
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

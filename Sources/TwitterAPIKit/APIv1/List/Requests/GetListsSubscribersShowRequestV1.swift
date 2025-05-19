@@ -1,8 +1,14 @@
+// GetListsSubscribersShowRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-subscribers-show
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-subscribers-show
 open class GetListsSubscribersShowRequestV1: TwitterAPIRequest {
-
     public let list: TwitterListIdentifierV1
     public let user: TwitterUserIdentifierV1
     public let includeEntities: Bool?
@@ -17,12 +23,12 @@ open class GetListsSubscribersShowRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        list.bind(param: &p)
-        user.bind(param: &p)
-        includeEntities.map { p["include_entities"] = $0 }
-        skipStatus.map { p["skip_status"] = $0 }
-        return p
+        var params = [String: Any]()
+        list.bind(param: &params)
+        user.bind(param: &params)
+        includeEntities.map { params["include_entities"] = $0 }
+        skipStatus.map { params["skip_status"] = $0 }
+        return params
     }
 
     public init(
@@ -35,5 +41,9 @@ open class GetListsSubscribersShowRequestV1: TwitterAPIRequest {
         self.user = user
         self.includeEntities = includeEntities
         self.skipStatus = skipStatus
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

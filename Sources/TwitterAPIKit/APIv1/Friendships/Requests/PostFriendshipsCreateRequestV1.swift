@@ -1,8 +1,14 @@
+// PostFriendshipsCreateRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/post-friendships-create
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/post-friendships-create
 open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let follow: Bool?
 
@@ -15,10 +21,10 @@ open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        follow.map { p["follow"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        follow.map { params["follow"] = $0 }
+        return params
     }
 
     public init(
@@ -27,5 +33,8 @@ open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
     ) {
         self.user = user
         self.follow = follow
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,14 +1,13 @@
+// GetBlocksListRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetBlocksListRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetBlocksListRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetBlocksListRequestV1(
             includeEntities: true,
             skipStatus: true,
@@ -29,12 +28,16 @@ class GetBlocksListRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetBlocksListRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,15 +1,19 @@
+// PostDirectMessageRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/new-event
 open class PostDirectMessageRequestV1: TwitterAPIRequest {
-
     public enum Attachment {
         public enum Location {
             case coordinate(TwitterCoordinateV1)
-            case place(String /* Place ID */)
+            case place(String /* Place ID */ )
         }
 
-        case media(String /* Media ID */)
+        case media(String /* Media ID */ )
 
         /**
          If you attach a Location, it will probably return the following error for unknown reasons.
@@ -26,14 +30,14 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
          */
         case location(Location)
 
-        var parameter: [String: Any] {
+        public var parameter: [String: Any] {
             switch self {
-            case .media(let mediaID):
+            case let .media(mediaID):
                 return [
                     "type": "media",
                     "media": ["id": mediaID],
                 ]
-            case .location(.coordinate(let coordinate)):
+            case let .location(.coordinate(coordinate)):
                 return [
                     "type": "location",
                     "location": [
@@ -42,19 +46,19 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
                             "coordinates": [
                                 "type": "Point",
                                 "coordinates": [coordinate.lat, coordinate.long],
-                            ]
+                            ],
                         ],
                     ],
                 ]
-            case .location(.place(let placeID)):
+            case let .location(.place(placeID)):
                 return [
                     "type": "location",
                     "location": [
                         "type": "shared_place",
                         "shared_place": [
                             "place": [
-                                "id": placeID
-                            ]
+                                "id": placeID,
+                            ],
                         ],
                     ],
                 ]
@@ -77,7 +81,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
             self.metadata = metadata
         }
 
-        var parameter: [String: String] {
+        public var parameter: [String: String] {
             return [
                 "label": label,
                 "description": description,
@@ -107,14 +111,14 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
 
     open var parameters: [String: Any] {
         var messageData: [String: Any] = [
-            "text": message
+            "text": message,
         ]
 
         attachment.map { messageData["attachment"] = $0.parameter }
         quickReplyOptions.map {
             messageData["quick_reply"] = [
                 "type": "options",
-                "options": $0.map { $0.parameter },
+                "options": $0.map(\.parameter),
             ]
         }
 
@@ -123,11 +127,11 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
                 "type": "message_create",
                 "message_create": [
                     "target": [
-                        "recipient_id": targetUserID
+                        "recipient_id": targetUserID,
                     ],
                     "message_data": messageData,
                 ],
-            ]
+            ],
         ]
     }
 
@@ -141,5 +145,8 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         self.message = message
         self.attachment = attachment
         self.quickReplyOptions = quickReplyOptions
+    }
+    deinit {
+        // de-init logic here
     }
 }

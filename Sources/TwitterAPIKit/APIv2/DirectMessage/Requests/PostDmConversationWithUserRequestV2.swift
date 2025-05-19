@@ -1,9 +1,13 @@
+// PostDmConversationWithUserRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// Creates a new message for a DM Conversation with a participant user by ID
 /// Required OAuth 2.0 scopes: dm.write, tweet.read, users.read
 open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
-
     /// The ID of the recipient user that will receive the DM.
     public let participantID: String
     /// Attachments to a DM Event.
@@ -24,12 +28,12 @@ open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        if let attachments = attachments {
-            p["attachments"] = attachments.map { ["media_id": $0] }
+        var params = [String: Any]()
+        if let attachments {
+            params["attachments"] = attachments.map { ["media_id": $0] }
         }
-        text.map { p["text"] = $0 }
-        return p
+        text.map { params["text"] = $0 }
+        return params
     }
 
     public init(
@@ -40,5 +44,9 @@ open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
         self.participantID = participantID
         self.attachments = attachments
         self.text = text
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

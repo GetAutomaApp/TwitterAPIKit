@@ -1,14 +1,14 @@
+// GetUsersTimelinesReverseChronologicalRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+// swiftlint:disable:next type_name
+internal class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersTimelinesReverseChronologicalRequestV2(
             id: "_i_",
             endTime: Date(timeIntervalSince1970: 50),
@@ -50,7 +50,7 @@ class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersTimelinesReverseChronologicalRequestV2(
             id: "_i_"
         )
@@ -59,5 +59,9 @@ class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

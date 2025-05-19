@@ -1,7 +1,11 @@
+// FavoriteAPIv1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class FavoriteAPIv1: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-favorites-create
     public func postFavorite(
         _ request: PostFavoriteRequestV1
@@ -21,5 +25,9 @@ open class FavoriteAPIv1: TwitterAPIBase {
         _ request: GetFavoritesRequestV1
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

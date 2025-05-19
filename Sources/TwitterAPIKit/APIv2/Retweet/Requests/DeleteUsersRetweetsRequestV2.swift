@@ -1,8 +1,12 @@
+// DeleteUsersRetweetsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
 open class DeleteUsersRetweetsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let sourceTweetID: String
 
@@ -24,5 +28,8 @@ open class DeleteUsersRetweetsRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
         self.sourceTweetID = sourceTweetID
+    }
+    deinit {
+        // de-init logic here
     }
 }

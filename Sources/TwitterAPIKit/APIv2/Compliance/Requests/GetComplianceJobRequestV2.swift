@@ -1,8 +1,12 @@
+// GetComplianceJobRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
 open class GetComplianceJobRequestV2: TwitterAPIRequest {
-
     public let id: Int
 
     public var method: HTTPMethod {
@@ -21,5 +25,8 @@ open class GetComplianceJobRequestV2: TwitterAPIRequest {
         id: Int
     ) {
         self.id = id
+    }
+    deinit {
+        // de-init logic here
     }
 }

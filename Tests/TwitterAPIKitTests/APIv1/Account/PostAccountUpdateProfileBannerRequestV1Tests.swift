@@ -1,14 +1,13 @@
+// PostAccountUpdateProfileBannerRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
+    public func test() throws {
         let banner = Data([0, 1, 2])
         let req = PostAccountUpdateProfileBannerRequestV1(
             banner: banner,
@@ -44,7 +43,7 @@ class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let banner = Data([0, 1])
         let req = PostAccountUpdateProfileBannerRequestV1(
             banner: banner
@@ -61,8 +60,12 @@ class PostAccountUpdateProfileBannerRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "banner": "AAE="
+                "banner": "AAE=",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,14 +1,13 @@
+// GetListsMembersShowRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetListsMembersShowRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetListsMembersShowRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetListsMembersShowRequestV1(
             list: .listID("lid"),
             user: .userID("uid"),
@@ -31,7 +30,7 @@ class GetListsMembersShowRequestV1Tests: XCTestCase {
         )
     }
 
-    func testScreenName() throws {
+    public func testScreenName() throws {
         let req = GetListsMembersShowRequestV1(
             list: .listID("lid"),
             user: .screenName("s")
@@ -46,7 +45,7 @@ class GetListsMembersShowRequestV1Tests: XCTestCase {
         )
     }
 
-    func testSlugUserID() throws {
+    public func testSlugUserID() throws {
         let req = GetListsMembersShowRequestV1(
             list: .slug(slug: "s", owner: .userID("ouid")),
             user: .userID("uid")
@@ -62,7 +61,7 @@ class GetListsMembersShowRequestV1Tests: XCTestCase {
         )
     }
 
-    func testSlugScreenName() throws {
+    public func testSlugScreenName() throws {
         let req = GetListsMembersShowRequestV1(
             list: .slug(slug: "s", owner: .screenName("os")),
             user: .userID("uid")
@@ -76,5 +75,9 @@ class GetListsMembersShowRequestV1Tests: XCTestCase {
                 "user_id": "uid",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

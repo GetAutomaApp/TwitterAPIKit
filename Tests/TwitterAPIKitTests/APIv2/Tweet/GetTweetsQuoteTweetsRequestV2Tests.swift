@@ -1,14 +1,13 @@
+// GetTweetsQuoteTweetsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsQuoteTweetsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetTweetsQuoteTweetsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsQuoteTweetsRequestV2(
             id: "_i_",
             expansions: [.attachmentsMediaKeys],
@@ -40,7 +39,7 @@ class GetTweetsQuoteTweetsRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetTweetsQuoteTweetsRequestV2(
             id: "i"
         )
@@ -50,5 +49,9 @@ class GetTweetsQuoteTweetsRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

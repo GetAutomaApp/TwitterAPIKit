@@ -1,14 +1,13 @@
+// PostOAuth2InvalidateTokenRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostOAuth2InvalidateTokenRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostOAuth2InvalidateTokenRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostOAuth2InvalidateTokenRequestV1(
             accessToken: "_a_"
         )
@@ -20,8 +19,12 @@ class PostOAuth2InvalidateTokenRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "access_token": "_a_"
+                "access_token": "_a_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

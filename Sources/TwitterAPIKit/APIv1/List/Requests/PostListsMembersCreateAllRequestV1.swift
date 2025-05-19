@@ -1,8 +1,14 @@
+// PostListsMembersCreateAllRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-members-create_all
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/post-lists-members-create_all
 open class PostListsMembersCreateAllRequestV1: TwitterAPIRequest {
-
     public let list: TwitterListIdentifierV1
     public let users: TwitterUsersIdentifierV1
 
@@ -15,10 +21,10 @@ open class PostListsMembersCreateAllRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        list.bind(param: &p)
-        users.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        list.bind(param: &params)
+        users.bind(param: &params)
+        return params
     }
 
     public init(
@@ -27,5 +33,9 @@ open class PostListsMembersCreateAllRequestV1: TwitterAPIRequest {
     ) {
         self.list = list
         self.users = users
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

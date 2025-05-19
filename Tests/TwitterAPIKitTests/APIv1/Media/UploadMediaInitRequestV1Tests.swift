@@ -1,15 +1,13 @@
+// UploadMediaInitRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class UploadMediaInitRequestV1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class UploadMediaInitRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = UploadMediaInitRequestV1(
             totalBytes: 10,
             mediaType: "image/jpg",
@@ -29,6 +27,11 @@ class UploadMediaInitRequestV1Tests: XCTestCase {
                 "media_type": "image/jpg",
                 "media_category": "c",
                 "additional_owners": "1,2",
-            ])
+            ]
+        )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

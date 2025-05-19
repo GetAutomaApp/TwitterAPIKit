@@ -1,19 +1,23 @@
+// GetGeoSearchRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/places-near-location/api-reference/get-geo-search
 open class GetGeoSearchRequestV1: TwitterAPIRequest {
-
     public enum Location {
         case coordinate(TwitterCoordinateV1)
         case query(String)
         case ip(String)
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             switch self {
-            case .coordinate(let twitterCoordinate):
+            case let .coordinate(twitterCoordinate):
                 twitterCoordinate.bind(param: &param)
-            case .query(let string):
+            case let .query(string):
                 param["query"] = string
-            case .ip(let string):
+            case let .ip(string):
                 param["ip"] = string
             }
         }
@@ -32,11 +36,11 @@ open class GetGeoSearchRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        location.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        granularity?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        location.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        granularity?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -48,5 +52,7 @@ open class GetGeoSearchRequestV1: TwitterAPIRequest {
         self.maxResults = maxResults
         self.granularity = granularity
     }
-
+    deinit {
+        // de-init logic here
+    }
 }

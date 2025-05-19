@@ -1,8 +1,14 @@
+// PostAccountUpdateProfileBannerRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile_banner
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/post-account-update_profile_banner
 open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
-
     public let banner: Data
     public let width: Int?
     public let height: Int?
@@ -18,13 +24,13 @@ open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["banner"] = banner.base64EncodedString()
-        width.map { p["width"] = $0 }
-        height.map { p["height"] = $0 }
-        offsetTop.map { p["offset_top"] = $0 }
-        offsetLeft.map { p["offset_left"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["banner"] = banner.base64EncodedString()
+        width.map { params["width"] = $0 }
+        height.map { params["height"] = $0 }
+        offsetTop.map { params["offset_top"] = $0 }
+        offsetLeft.map { params["offset_left"] = $0 }
+        return params
     }
 
     public init(
@@ -41,4 +47,7 @@ open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
         self.offsetLeft = offsetLeft
     }
 
+    deinit {
+        // De-init Logic Here
+    }
 }

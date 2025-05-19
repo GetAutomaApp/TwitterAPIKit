@@ -1,7 +1,11 @@
+// OAuth10aAPI.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class OAuth10aAPI: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
     public func postOAuthRequestTokenData(
         _ request: PostOAuthRequestTokenRequestV1
@@ -63,5 +67,9 @@ open class OAuth10aAPI: TwitterAPIBase {
         _ request: PostOAuthInvalidateTokenRequestV1
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

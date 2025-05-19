@@ -1,8 +1,14 @@
+// GetAccountSettingsRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-account-settings
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/get-account-settings
 open class GetAccountSettingsRequestV1: TwitterAPIRequest {
-
     public var method: HTTPMethod {
         return .get
     }
@@ -15,6 +21,9 @@ open class GetAccountSettingsRequestV1: TwitterAPIRequest {
         return [:]
     }
 
-    public init() {
+    public init() {}
+
+    deinit {
+        // De-init Logic Here
     }
 }

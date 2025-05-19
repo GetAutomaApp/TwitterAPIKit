@@ -1,15 +1,13 @@
+// GetTweetsCountsAllRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsCountsAllRequestV2Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetTweetsCountsAllRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsCountsAllRequestV2(
             query: "a",
             endTime: Date(timeIntervalSince1970: 10),
@@ -33,6 +31,11 @@ class GetTweetsCountsAllRequestV2Tests: XCTestCase {
                 "since_id": "s",
                 "start_time": "1970-01-01T00:00:05Z",
                 "until_id": "u",
-            ])
+            ]
+        )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

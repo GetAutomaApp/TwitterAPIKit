@@ -1,3 +1,8 @@
+// UserAPIv2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class UserAPIv2: TwitterAPIBase {
@@ -34,5 +39,9 @@ open class UserAPIv2: TwitterAPIBase {
         _ request: GetUsersMeRequestV2
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

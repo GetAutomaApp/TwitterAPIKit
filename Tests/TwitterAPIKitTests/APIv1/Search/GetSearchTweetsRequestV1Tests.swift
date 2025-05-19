@@ -1,16 +1,13 @@
+// GetSearchTweetsRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetSearchTweetsRequestV1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
-
+internal class GetSearchTweetsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetSearchTweetsRequestV1(
             q: "あああ",
             lang: "lang",
@@ -40,10 +37,11 @@ class GetSearchTweetsRequestV1Tests: XCTestCase {
                 "count": 20,
                 "max_id": "100",
                 "locale": "locale",
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetSearchTweetsRequestV1(
             q: "_q_"
         )
@@ -51,8 +49,12 @@ class GetSearchTweetsRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "q": "_q_"
+                "q": "_q_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

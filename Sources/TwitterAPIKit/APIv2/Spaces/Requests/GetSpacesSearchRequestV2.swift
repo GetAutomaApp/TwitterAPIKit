@@ -1,13 +1,17 @@
+// GetSpacesSearchRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
 open class GetSpacesSearchRequestV2: TwitterAPIRequest {
-
     public enum State: String {
         case all
         case live
         case scheduled
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             param["state"] = rawValue
         }
     }
@@ -28,14 +32,14 @@ open class GetSpacesSearchRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["query"] = query
-        expansions?.bind(param: &p)
-        spaceFields?.bind(param: &p)
-        state?.bind(param: &p)
-        topicFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        params["query"] = query
+        expansions?.bind(param: &params)
+        spaceFields?.bind(param: &params)
+        state?.bind(param: &params)
+        topicFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -52,5 +56,8 @@ open class GetSpacesSearchRequestV2: TwitterAPIRequest {
         self.state = state
         self.topicFields = topicFields
         self.userFields = userFields
+    }
+    deinit {
+        // de-init logic here
     }
 }

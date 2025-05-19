@@ -1,8 +1,14 @@
+// GetTweetsSearchStreamRulesRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream
+/// /api-reference/get-tweets-search-stream-rules
 open class GetTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
-
     public let ids: [String]?
 
     public var method: HTTPMethod {
@@ -14,14 +20,17 @@ open class GetTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        ids.map { p["ids"] = $0.joined(separator: ",") }
-        return p
+        var params = [String: Any]()
+        ids.map { params["ids"] = $0.joined(separator: ",") }
+        return params
     }
 
     public init(
         ids: [String]? = .none
     ) {
         self.ids = ids
+    }
+    deinit {
+        // de-init logic here
     }
 }

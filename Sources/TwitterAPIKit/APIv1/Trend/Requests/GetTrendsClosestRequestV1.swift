@@ -1,8 +1,14 @@
+// GetTrendsClosestRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/trends/locations-with-trending-topics/api-reference/get-trends-closest
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/trends/trends-for-location/
+/// api-reference/get-trends-closest
 open class GetTrendsClosestRequestV1: TwitterAPIRequest {
-
     public let location: TwitterCoordinateV1
 
     public var method: HTTPMethod {
@@ -14,14 +20,17 @@ open class GetTrendsClosestRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        location.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        location.bind(param: &params)
+        return params
     }
 
     public init(
         location: TwitterCoordinateV1
     ) {
         self.location = location
+    }
+    deinit {
+        // de-init logic here
     }
 }

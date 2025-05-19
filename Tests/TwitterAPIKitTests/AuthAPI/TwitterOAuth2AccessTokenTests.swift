@@ -1,10 +1,14 @@
+// TwitterOAuth2AccessTokenTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import XCTest
 
 @testable import TwitterAPIKit
 
-class TwitterOAuth2AccessTokenTests: XCTestCase {
-
-    func test() throws {
+internal class TwitterOAuth2AccessTokenTests: XCTestCase {
+    public func test() throws {
         try XCTContext.runActivity(named: "without refresh_token") { _ in
 
             let data = Data(
@@ -15,11 +19,15 @@ class TwitterOAuth2AccessTokenTests: XCTestCase {
                 "expires_in" : 7200,
                 "access_token" : "<token>"
                 }
-                """#.utf8)
-            let token = try TwitterOAuth2AccessToken(jsonData: data)!
+                """#.utf8
+            )
+            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
+                XCTFail("Failed to create test token")
+                return
+            }
             XCTAssertEqual(token.scope, ["tweet.write", "tweet.read"])
             XCTAssertEqual(token.tokenType, "bearer")
-            XCTAssertEqual(token.expiresIn, 7200)
+            XCTAssertEqual(token.expiresIn, 7_200)
             XCTAssertEqual(token.accessToken, "<token>")
             XCTAssertNil(token.refreshToken)
         }
@@ -35,28 +43,43 @@ class TwitterOAuth2AccessTokenTests: XCTestCase {
                 "access_token" : "<token>",
                 "refresh_token" : "<refresh token>"
                 }
-                """#.utf8)
-            let token = try TwitterOAuth2AccessToken(jsonData: data)!
+                """#.utf8
+            )
+            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
+                XCTFail("Failed to create test token")
+                return
+            }
             XCTAssertEqual(token.scope, ["tweet.write", "tweet.read", "offline.access"])
             XCTAssertEqual(token.tokenType, "bearer")
-            XCTAssertEqual(token.expiresIn, 7200)
+            XCTAssertEqual(token.expiresIn, 7_200)
             XCTAssertEqual(token.accessToken, "<token>")
             XCTAssertEqual(token.refreshToken, "<refresh token>")
         }
     }
 
-    func testError() throws {
-
+    public func testError() throws {
         try XCTContext.runActivity(named: "Not json") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("aa".utf8))) { error in
-                XCTAssertTrue((error as! TwitterAPIKitError).isResponseSerializeFailed)
+                guard error is TwitterAPIKitError else {
+                    XCTFail("Expected TwitterAPIKitError")
+                    return
+                }
+                XCTAssertTrue(error.isResponseSerializeFailed)
             }
         }
 
         try XCTContext.runActivity(named: "valid json but invalid object") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("{}".utf8))) { error in
-                XCTAssertTrue((error as! TwitterAPIKitError).isResponseSerializeFailed)
+                guard error is TwitterAPIKitError else {
+                    XCTFail("Expected TwitterAPIKitError")
+                    return
+                }
+                XCTAssertTrue(error.isResponseSerializeFailed)
             }
         }
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

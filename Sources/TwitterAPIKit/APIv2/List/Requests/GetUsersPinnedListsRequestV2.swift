@@ -1,8 +1,12 @@
+// GetUsersPinnedListsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
 open class GetUsersPinnedListsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let expansions: Set<TwitterListExpansionsV2>?
     public let listFields: Set<TwitterListFieldsV2>?
@@ -17,11 +21,11 @@ open class GetUsersPinnedListsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        expansions?.bind(param: &p)
-        listFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        expansions?.bind(param: &params)
+        listFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -34,5 +38,8 @@ open class GetUsersPinnedListsRequestV2: TwitterAPIRequest {
         self.expansions = expansions
         self.listFields = listFields
         self.userFields = userFields
+    }
+    deinit {
+        // de-init logic here
     }
 }

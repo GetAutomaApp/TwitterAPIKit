@@ -1,14 +1,13 @@
+// PostOAuth2AccessTokenRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostOAuth2AccessTokenRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostOAuth2AccessTokenRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostOAuth2AccessTokenRequestV2(
             code: "_c_",
             grantType: "_g_",
@@ -33,7 +32,7 @@ class PostOAuth2AccessTokenRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostOAuth2AccessTokenRequestV2(
             code: "_c_",
             redirectURI: "_r_",
@@ -49,5 +48,9 @@ class PostOAuth2AccessTokenRequestV2Tests: XCTestCase {
                 "code_verifier": "_cv_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

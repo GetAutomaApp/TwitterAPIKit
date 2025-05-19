@@ -1,14 +1,13 @@
+// GetHelpLanguagesRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetHelpLanguagesRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetHelpLanguagesRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetHelpLanguagesRequestV1()
 
         XCTAssertEqual(req.method, .get)
@@ -19,5 +18,9 @@ class GetHelpLanguagesRequestV1Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

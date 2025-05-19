@@ -1,16 +1,13 @@
+// TwitterRateLimitTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class TwitterRateLimitTests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
-
+internal class TwitterRateLimitTests: XCTestCase {
+    public func test() throws {
         XCTContext.runActivity(named: "from int") { _ in
             let header = [
                 "x-rate-limit-limit": 15,
@@ -18,7 +15,9 @@ class TwitterRateLimitTests: XCTestCase {
                 "x-rate-limit-reset": 1_644_417_523,
             ]
 
-            let rateLimit = TwitterRateLimit(header: header)!
+            guard let rateLimit = TwitterRateLimit(header: header) else {
+                XCTFail("Failed to decode rateLimit Response")
+            }
 
             XCTAssertEqual(rateLimit.limit, 15)
             XCTAssertEqual(rateLimit.remaining, 13)
@@ -33,16 +32,17 @@ class TwitterRateLimitTests: XCTestCase {
                 "x-rate-limit-reset": "1644417524",
             ]
 
-            let rateLimit = TwitterRateLimit(header: header)!
+            guard let rateLimit = TwitterRateLimit(header: header) else {
+                XCTFail("Failed to decode rateLimit Response")
+            }
 
             XCTAssertEqual(rateLimit.limit, 15)
             XCTAssertEqual(rateLimit.remaining, 3)
             XCTAssertEqual(rateLimit.reset, 1_644_417_524)
         }
-
     }
 
-    func testNil() throws {
+    public func testNil() throws {
         XCTContext.runActivity(named: "limit") { _ in
             let header = [
                 "x-rate-limit-remaining": "3",
@@ -68,7 +68,9 @@ class TwitterRateLimitTests: XCTestCase {
 
             XCTAssertNil(TwitterRateLimit(header: header))
         }
-
     }
 
+    deinit {
+        // De-init Logic Here
+    }
 }

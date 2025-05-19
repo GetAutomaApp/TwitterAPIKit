@@ -1,15 +1,13 @@
+// UploadMediaFinalizeRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class UploadMediaFinalizeRequestV1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class UploadMediaFinalizeRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = UploadMediaFinalizeRequestV1(mediaID: "m")
 
         XCTAssertEqual(req.method, .post)
@@ -21,7 +19,11 @@ class UploadMediaFinalizeRequestV1Tests: XCTestCase {
             [
                 "command": "FINALIZE",
                 "media_id": "m",
-            ])
+            ]
+        )
     }
 
+    deinit {
+        // De-init Logic Here
+    }
 }

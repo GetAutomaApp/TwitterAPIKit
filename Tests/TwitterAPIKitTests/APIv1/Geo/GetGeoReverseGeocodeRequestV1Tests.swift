@@ -1,14 +1,13 @@
+// GetGeoReverseGeocodeRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func testAccuracy() throws {
+internal class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
+    public func testAccuracy() throws {
         XCTContext.runActivity(named: "ft") { _ in
             let req = GetGeoReverseGeocodeRequestV1(
                 location: .init(lat: 1, long: 2.5),
@@ -54,7 +53,7 @@ class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
         }
     }
 
-    func testGranularity() throws {
+    public func testGranularity() throws {
         XCTContext.runActivity(named: "neighborhood") { _ in
             let req = GetGeoReverseGeocodeRequestV1(
                 location: .init(lat: 1, long: 2.5),
@@ -133,7 +132,7 @@ class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
         }
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetGeoReverseGeocodeRequestV1(
             location: .init(lat: -10, long: 100)
         )
@@ -145,5 +144,9 @@ class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
                 "long": 100,
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

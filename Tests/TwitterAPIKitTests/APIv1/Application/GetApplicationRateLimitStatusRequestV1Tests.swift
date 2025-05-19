@@ -1,14 +1,13 @@
+// GetApplicationRateLimitStatusRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetApplicationRateLimitStatusRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetApplicationRateLimitStatusRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetApplicationRateLimitStatusRequestV1(
             resources: ["a", "b"]
         )
@@ -20,17 +19,21 @@ class GetApplicationRateLimitStatusRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "resources": "a,b"
+                "resources": "a,b",
             ]
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetApplicationRateLimitStatusRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

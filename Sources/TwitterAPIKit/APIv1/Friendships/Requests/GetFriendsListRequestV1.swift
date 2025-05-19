@@ -1,8 +1,14 @@
+// GetFriendsListRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friends-list
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/get-friends-list
 open class GetFriendsListRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -18,13 +24,13 @@ open class GetFriendsListRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        skipStatus.map { p["skip_status"] = $0 }
-        includeUserEntities.map { p["include_user_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        skipStatus.map { params["skip_status"] = $0 }
+        includeUserEntities.map { params["include_user_entities"] = $0 }
+        return params
     }
 
     public init(
@@ -39,5 +45,9 @@ open class GetFriendsListRequestV1: TwitterAPIRequest {
         self.cursor = cursor
         self.skipStatus = skipStatus
         self.includeUserEntities = includeUserEntities
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,8 +1,12 @@
+// GetUsersRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
 open class GetUsersRequestV2: TwitterAPIRequest {
-
     public let ids: [String]
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let tweetFields: Set<TwitterTweetFieldsV2>?
@@ -17,12 +21,12 @@ open class GetUsersRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["ids"] = ids.joined(separator: ",")
-        expansions?.bind(param: &p)
-        tweetFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        params["ids"] = ids.joined(separator: ",")
+        expansions?.bind(param: &params)
+        tweetFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -35,5 +39,8 @@ open class GetUsersRequestV2: TwitterAPIRequest {
         self.expansions = expansions
         self.tweetFields = tweetFields
         self.userFields = userFields
+    }
+    deinit {
+        // de-init logic here
     }
 }

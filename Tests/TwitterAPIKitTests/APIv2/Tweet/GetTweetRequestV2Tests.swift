@@ -1,16 +1,13 @@
+// GetTweetRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetTweetRequestV2Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
-
+internal class GetTweetRequestV2Tests: XCTestCase {
+    public func test() throws {
         XCTContext.runActivity(named: "with only required parameters") { _ in
 
             let tweet = GetTweetRequestV2(id: "123")
@@ -41,8 +38,12 @@ class GetTweetRequestV2Tests: XCTestCase {
                     "poll.fields": "id",
                     "tweet.fields": "id,text",
                     "user.fields": "entities",
-                ])
+                ]
+            )
         }
     }
 
+    deinit {
+        // De-init Logic Here
+    }
 }

@@ -1,14 +1,13 @@
+// GetTweetsSampleStreamRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetTweetsSampleStreamRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetTweetsSampleStreamRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetTweetsSampleStreamRequestV2(
             backfillMinutes: 2,
             expansions: [.entitiesMentionsUsername],
@@ -37,12 +36,16 @@ class GetTweetsSampleStreamRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetTweetsSampleStreamRequestV2()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

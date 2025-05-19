@@ -1,14 +1,13 @@
+// PostListsSubscribersDestroyRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostListsSubscribersDestroyRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostListsSubscribersDestroyRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostListsSubscribersDestroyRequestV1(
             list: .listID("lid")
         )
@@ -20,12 +19,12 @@ class PostListsSubscribersDestroyRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "list_id": "lid"
+                "list_id": "lid",
             ]
         )
     }
 
-    func testScreenName() throws {
+    public func testScreenName() throws {
         let req = PostListsSubscribersDestroyRequestV1(
             list: .slug(slug: "sl", owner: .screenName("name"))
         )
@@ -37,5 +36,9 @@ class PostListsSubscribersDestroyRequestV1Tests: XCTestCase {
                 "owner_screen_name": "name",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

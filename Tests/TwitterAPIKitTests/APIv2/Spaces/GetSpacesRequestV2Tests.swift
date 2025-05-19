@@ -1,14 +1,13 @@
+// GetSpacesRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetSpacesRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetSpacesRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetSpacesRequestV2(
             ids: ["a", "b"],
             expansions: [.speakerIDs],
@@ -33,7 +32,7 @@ class GetSpacesRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetSpacesRequestV2(
             ids: ["a", "b", "あ"]
         )
@@ -41,8 +40,12 @@ class GetSpacesRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "ids": "a,b,あ"
+                "ids": "a,b,あ",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

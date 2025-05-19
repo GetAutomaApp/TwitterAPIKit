@@ -1,15 +1,13 @@
+// PostMediaSubtitlesCreateRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostMediaSubtitlesCreateRequestV1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostMediaSubtitlesCreateRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostMediaSubtitlesCreateRequestV1(
             mediaID: "mediaID",
             mediaCategory: "c",
@@ -18,7 +16,7 @@ class PostMediaSubtitlesCreateRequestV1Tests: XCTestCase {
                     mediaID: "subtitleMediaID",
                     languageCode: "l",
                     displayName: "d"
-                )
+                ),
             ]
         )
 
@@ -37,9 +35,14 @@ class PostMediaSubtitlesCreateRequestV1Tests: XCTestCase {
                             "media_id": "subtitleMediaID",
                             "language_code": "l",
                             "display_name": "d",
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
-            ])
+            ]
+        )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

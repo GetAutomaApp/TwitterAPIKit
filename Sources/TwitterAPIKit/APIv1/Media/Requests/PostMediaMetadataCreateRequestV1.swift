@@ -1,8 +1,12 @@
+// PostMediaMetadataCreateRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-metadata-create
 open class PostMediaMetadataCreateRequestV1: TwitterAPIRequest {
-
     public let mediaID: String
     public let altText: String
 
@@ -23,12 +27,12 @@ open class PostMediaMetadataCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        p["media_id"] = mediaID
-        p["alt_text"] = ["text": altText]
+        params["media_id"] = mediaID
+        params["alt_text"] = ["text": altText]
 
-        return p
+        return params
     }
 
     public init(
@@ -37,5 +41,9 @@ open class PostMediaMetadataCreateRequestV1: TwitterAPIRequest {
     ) {
         self.mediaID = mediaID
         self.altText = altText
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,14 +1,13 @@
+// PostOAuthRequestTokenRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostOAuthRequestTokenRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostOAuthRequestTokenRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostOAuthRequestTokenRequestV1(
             oauthCallback: "_o_",
             xAuthAccessType: "_x_"
@@ -27,7 +26,7 @@ class PostOAuthRequestTokenRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostOAuthRequestTokenRequestV1(
             oauthCallback: "_o_"
         )
@@ -35,8 +34,12 @@ class PostOAuthRequestTokenRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "oauth_callback": "_o_"
+                "oauth_callback": "_o_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

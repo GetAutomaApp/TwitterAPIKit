@@ -1,8 +1,14 @@
+// PostCollectionsEntriesMoveRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/post-collections-entries-move
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
+/// curate-a-collection/api-reference/post-collections-entries-move
 open class PostCollectionsEntriesMoveRequestV1: TwitterAPIRequest {
-
     public let id: String
     public let tweetID: String
     public let above: Bool?
@@ -17,12 +23,12 @@ open class PostCollectionsEntriesMoveRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        p["tweet_id"] = tweetID
-        above.map { p["above"] = $0 }
-        p["relative_to"] = relativeTo
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        params["tweet_id"] = tweetID
+        above.map { params["above"] = $0 }
+        params["relative_to"] = relativeTo
+        return params
     }
 
     public init(
@@ -35,5 +41,8 @@ open class PostCollectionsEntriesMoveRequestV1: TwitterAPIRequest {
         self.tweetID = tweetID
         self.above = above
         self.relativeTo = relativeTo
+    }
+    deinit {
+        // de-init logic here
     }
 }

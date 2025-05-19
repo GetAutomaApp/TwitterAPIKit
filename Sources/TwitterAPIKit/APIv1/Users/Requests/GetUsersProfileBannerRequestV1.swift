@@ -1,8 +1,14 @@
+// GetUsersProfileBannerRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-users-profile_banner
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// manage-account-settings/api-reference/get-users-profile_banner
 open class GetUsersProfileBannerRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
 
     public var method: HTTPMethod {
@@ -14,14 +20,18 @@ open class GetUsersProfileBannerRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        return params
     }
 
     public init(
         user: TwitterUserIdentifierV1
     ) {
         self.user = user
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,14 +1,13 @@
+// GetStatusesLookupRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetStatusesLookupRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetStatusesLookupRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetStatusesLookupRequestV1(
             ids: ["a", "b"],
             map: true,
@@ -35,7 +34,7 @@ class GetStatusesLookupRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetStatusesLookupRequestV1(
             ids: ["a"]
         )
@@ -43,8 +42,12 @@ class GetStatusesLookupRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "id": "a"
+                "id": "a",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

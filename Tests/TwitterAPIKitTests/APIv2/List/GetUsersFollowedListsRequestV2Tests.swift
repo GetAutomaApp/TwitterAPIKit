@@ -1,14 +1,13 @@
+// GetUsersFollowedListsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersFollowedListsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersFollowedListsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersFollowedListsRequestV2(
             id: "_id_",
             expansions: [.ownerID],
@@ -30,14 +29,19 @@ class GetUsersFollowedListsRequestV2Tests: XCTestCase {
                 "max_results": 10,
                 "pagination_token": "t",
                 "user.fields": "entities",
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersFollowedListsRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

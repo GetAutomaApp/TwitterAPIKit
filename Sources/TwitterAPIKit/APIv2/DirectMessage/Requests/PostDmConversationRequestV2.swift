@@ -1,9 +1,13 @@
+// PostDmConversationRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// Creates a new DM Conversation.
 /// Required OAuth 2.0 scopes: dm.write, tweet.read, users.read
 open class PostDmConversationRequestV2: TwitterAPIRequest {
-
     /// The conversation type that is being created.
     public enum ConversationType: String {
         case group = "Group"
@@ -31,16 +35,16 @@ open class PostDmConversationRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["conversation_type"] = conversationType.rawValue
-        p["participant_ids"] = participantIDs
+        var params = [String: Any]()
+        params["conversation_type"] = conversationType.rawValue
+        params["participant_ids"] = participantIDs
         var message = [String: Any]()
         text.map { message["text"] = $0 }
-        if let attachments = attachments {
+        if let attachments {
             message["attachments"] = attachments.map { ["media_id": $0] }
         }
-        p["message"] = message
-        return p
+        params["message"] = message
+        return params
     }
 
     public init(
@@ -53,5 +57,9 @@ open class PostDmConversationRequestV2: TwitterAPIRequest {
         self.participantIDs = participantIDs
         self.attachments = attachments
         self.text = text
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

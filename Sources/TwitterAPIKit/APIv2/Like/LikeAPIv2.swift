@@ -1,7 +1,11 @@
+// LikeAPIv2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class LikeAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     public func getLikingUsers(
         _ request: GetTweetsLikingUsersRequestV2
@@ -28,5 +32,9 @@ open class LikeAPIv2: TwitterAPIBase {
         _ request: DeleteUsersLikesRequestV2
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

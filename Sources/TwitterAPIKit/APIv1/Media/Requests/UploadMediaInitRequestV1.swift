@@ -1,8 +1,12 @@
+// UploadMediaInitRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-init
 open class UploadMediaInitRequestV1: TwitterAPIRequest {
-
     public let command: String = "INIT"
     public let totalBytes: Int
     public let mediaType: String
@@ -22,13 +26,13 @@ open class UploadMediaInitRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["command"] = command
-        p["total_bytes"] = totalBytes
-        p["media_type"] = mediaType
-        mediaCategory.map { p["media_category"] = $0 }
-        additionalOwners.map { p["additional_owners"] = $0.joined(separator: ",") }
-        return p
+        var params = [String: Any]()
+        params["command"] = command
+        params["total_bytes"] = totalBytes
+        params["media_type"] = mediaType
+        mediaCategory.map { params["media_category"] = $0 }
+        additionalOwners.map { params["additional_owners"] = $0.joined(separator: ",") }
+        return params
     }
 
     public init(
@@ -41,5 +45,9 @@ open class UploadMediaInitRequestV1: TwitterAPIRequest {
         self.mediaType = mediaType
         self.mediaCategory = mediaCategory
         self.additionalOwners = additionalOwners
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

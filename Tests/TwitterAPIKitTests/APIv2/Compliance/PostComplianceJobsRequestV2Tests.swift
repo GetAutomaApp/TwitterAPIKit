@@ -1,14 +1,13 @@
+// PostComplianceJobsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostComplianceJobsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostComplianceJobsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PostComplianceJobsRequestV2(
             type: .tweets,
             name: "n",
@@ -25,10 +24,11 @@ class PostComplianceJobsRequestV2Tests: XCTestCase {
                 "type": "tweets",
                 "name": "n",
                 "resumable": true,
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostComplianceJobsRequestV2(
             type: .users
         )
@@ -36,7 +36,12 @@ class PostComplianceJobsRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "type": "users"
-            ])
+                "type": "users",
+            ]
+        )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

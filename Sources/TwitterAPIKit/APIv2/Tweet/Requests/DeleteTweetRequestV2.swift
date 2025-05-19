@@ -1,8 +1,12 @@
+// DeleteTweetRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/delete-tweets-id
 open class DeleteTweetRequestV2: TwitterAPIRequest {
-
     public let id: String
 
     public var method: HTTPMethod {
@@ -21,5 +25,8 @@ open class DeleteTweetRequestV2: TwitterAPIRequest {
         id: String
     ) {
         self.id = id
+    }
+    deinit {
+        // de-init logic here
     }
 }

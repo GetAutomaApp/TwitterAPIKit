@@ -1,14 +1,13 @@
+// GetUsersListMembershipsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersListMembershipsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersListMembershipsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersListMembershipsRequestV2(
             id: "_id_",
             expansions: [.ownerID],
@@ -30,14 +29,19 @@ class GetUsersListMembershipsRequestV2Tests: XCTestCase {
                 "max_results": 10,
                 "pagination_token": "t",
                 "user.fields": "protected",
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersListMembershipsRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

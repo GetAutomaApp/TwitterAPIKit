@@ -1,14 +1,13 @@
+// GetFollowersIDsRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetFollowersIDsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetFollowersIDsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetFollowersIDsRequestV1(
             user: .userID("uid"),
             count: 10,
@@ -31,7 +30,7 @@ class GetFollowersIDsRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetFollowersIDsRequestV1(
             user: .screenName("s")
         )
@@ -39,8 +38,12 @@ class GetFollowersIDsRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

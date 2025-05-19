@@ -1,14 +1,13 @@
+// GetGeoPlaceIDRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetGeoPlaceIDRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetGeoPlaceIDRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetGeoPlaceIDRequestV1(
             placeID: "_p_"
         )
@@ -21,5 +20,9 @@ class GetGeoPlaceIDRequestV1Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,14 +1,13 @@
+// GetUsersMutingRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersMutingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersMutingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersMutingRequestV2(
             id: "_id_",
             expansions: [.pinnedTweetID],
@@ -30,14 +29,19 @@ class GetUsersMutingRequestV2Tests: XCTestCase {
                 "pagination_token": "t",
                 "tweet.fields": "conversation_id,id,in_reply_to_user_id",
                 "user.fields": "created_at,username,verified",
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersMutingRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

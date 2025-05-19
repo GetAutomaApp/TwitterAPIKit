@@ -1,14 +1,13 @@
+// GetUsersFollowingRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersFollowingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersFollowingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersFollowingRequestV2(
             id: "_id_",
             expansions: [.pinnedTweetID],
@@ -30,14 +29,19 @@ class GetUsersFollowingRequestV2Tests: XCTestCase {
                 "pagination_token": "t",
                 "tweet.fields": "text",
                 "user.fields": "name",
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersFollowingRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

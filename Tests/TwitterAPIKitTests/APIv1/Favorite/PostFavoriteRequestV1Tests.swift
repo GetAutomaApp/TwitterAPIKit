@@ -1,14 +1,13 @@
+// PostFavoriteRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostFavoriteRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostFavoriteRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostFavoriteRequestV1(
             id: "_i_",
             includeEntities: true
@@ -27,7 +26,7 @@ class PostFavoriteRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostFavoriteRequestV1(
             id: "_i_"
         )
@@ -35,8 +34,12 @@ class PostFavoriteRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "id": "_i_"
+                "id": "_i_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

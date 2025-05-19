@@ -1,7 +1,11 @@
+// SpacesAPIv2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 open class SpacesAPIv2: TwitterAPIBase {
-
     /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
     public func getSpace(
         _ request: GetSpaceRequestV2
@@ -42,5 +46,9 @@ open class SpacesAPIv2: TwitterAPIBase {
         _ request: GetSpacesSearchRequestV2
     ) -> TwitterAPISessionJSONTask {
         return session.send(request)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,8 +1,12 @@
+// GetUsersListMembershipsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 open class GetUsersListMembershipsRequestV2: TwitterAPIRequest {
-
     /// User ID
     public let id: String
     public let expansions: Set<TwitterListExpansionsV2>?
@@ -20,13 +24,13 @@ open class GetUsersListMembershipsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        expansions?.bind(param: &p)
-        listFields?.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        paginationToken.map { p["pagination_token"] = $0 }
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        expansions?.bind(param: &params)
+        listFields?.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        paginationToken.map { params["pagination_token"] = $0 }
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -43,5 +47,8 @@ open class GetUsersListMembershipsRequestV2: TwitterAPIRequest {
         self.maxResults = maxResults
         self.paginationToken = paginationToken
         self.userFields = userFields
+    }
+    deinit {
+        // de-init logic here
     }
 }

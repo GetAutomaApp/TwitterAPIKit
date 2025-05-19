@@ -1,9 +1,15 @@
+// GetUsersSearchRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-search
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/get-users-search
 open class GetUsersSearchRequestV1: TwitterAPIRequest {
-
-    public let q: String
+    public let query: String
     public let page: Int?
     public let count: Int?
     public let includeEntities: Bool?
@@ -17,23 +23,27 @@ open class GetUsersSearchRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["q"] = q
-        page.map { p["page"] = $0 }
-        count.map { p["count"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["q"] = query
+        page.map { params["page"] = $0 }
+        count.map { params["count"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        return params
     }
 
     public init(
-        q: String,
+        query: String,
         page: Int? = .none,
         count: Int? = .none,
         includeEntities: Bool? = .none
     ) {
-        self.q = q
+        self.query = query
         self.page = page
         self.count = count
         self.includeEntities = includeEntities
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

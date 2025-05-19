@@ -1,14 +1,13 @@
+// GetUsersBlockingRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersBlockingRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersBlockingRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersBlockingRequestV2(
             id: "_id_",
             expansions: [.pinnedTweetID],
@@ -30,14 +29,19 @@ class GetUsersBlockingRequestV2Tests: XCTestCase {
                 "pagination_token": "token",
                 "tweet.fields": "context_annotations,entities,geo",
                 "user.fields": "profile_image_url,protected,public_metrics",
-            ])
+            ]
+        )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersBlockingRequestV2(
             id: "_id_"
         )
 
         AssertEqualAnyDict(req.parameters, [:])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

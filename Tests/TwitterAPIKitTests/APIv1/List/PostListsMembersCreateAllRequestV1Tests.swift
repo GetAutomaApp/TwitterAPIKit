@@ -1,14 +1,13 @@
+// PostListsMembersCreateAllRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostListsMembersCreateAllRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostListsMembersCreateAllRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostListsMembersCreateAllRequestV1(
             list: .listID("lid"),
             users: .userIDs(["uid1", "uid2"])
@@ -25,5 +24,9 @@ class PostListsMembersCreateAllRequestV1Tests: XCTestCase {
                 "user_id": "uid1,uid2",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

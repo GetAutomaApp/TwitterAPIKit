@@ -1,14 +1,13 @@
+// PostOAuthInvalidateTokenRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostOAuthInvalidateTokenRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostOAuthInvalidateTokenRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostOAuthInvalidateTokenRequestV1()
 
         XCTAssertEqual(req.method, .post)
@@ -19,5 +18,9 @@ class PostOAuthInvalidateTokenRequestV1Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

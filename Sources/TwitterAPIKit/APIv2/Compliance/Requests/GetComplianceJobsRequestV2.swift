@@ -1,14 +1,18 @@
+// GetComplianceJobsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
 open class GetComplianceJobsRequestV2: TwitterAPIRequest {
-
     public enum Status: String {
         case created
         case inProgress = "in_progress"
         case failed
         case complete
-        func bind(param: inout [String: Any]) {
+        public func bind(param: inout [String: Any]) {
             param["status"] = rawValue
         }
     }
@@ -25,10 +29,10 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        type.bind(param: &p)
-        status?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        type.bind(param: &params)
+        status?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -37,5 +41,8 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
     ) {
         self.type = type
         self.status = status
+    }
+    deinit {
+        // de-init logic here
     }
 }

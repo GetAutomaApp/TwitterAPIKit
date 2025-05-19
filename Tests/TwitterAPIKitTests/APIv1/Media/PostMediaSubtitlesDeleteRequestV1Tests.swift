@@ -1,15 +1,13 @@
+// PostMediaSubtitlesDeleteRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostMediaSubtitlesDeleteRequestV1(
             mediaID: "m",
             mediaCategory: "c",
@@ -28,9 +26,13 @@ class PostMediaSubtitlesDeleteRequestV1Tests: XCTestCase {
                     "subtitles": [
                         ["language_code": "l1"],
                         ["language_code": "l2"],
-                    ]
+                    ],
                 ],
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

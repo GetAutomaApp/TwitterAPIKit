@@ -1,8 +1,12 @@
+// GetTweetsSampleStreamRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
 open class GetTweetsSampleStreamRequestV2: TwitterAPIRequest {
-
     public let backfillMinutes: Int?
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?
@@ -20,15 +24,15 @@ open class GetTweetsSampleStreamRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        backfillMinutes.map { p["backfill_minutes"] = $0 }
-        expansions?.bind(param: &p)
-        mediaFields?.bind(param: &p)
-        placeFields?.bind(param: &p)
-        pollFields?.bind(param: &p)
-        tweetFields?.bind(param: &p)
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        backfillMinutes.map { params["backfill_minutes"] = $0 }
+        expansions?.bind(param: &params)
+        mediaFields?.bind(param: &params)
+        placeFields?.bind(param: &params)
+        pollFields?.bind(param: &params)
+        tweetFields?.bind(param: &params)
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -47,5 +51,8 @@ open class GetTweetsSampleStreamRequestV2: TwitterAPIRequest {
         self.pollFields = pollFields
         self.tweetFields = tweetFields
         self.userFields = userFields
+    }
+    deinit {
+        // de-init logic here
     }
 }

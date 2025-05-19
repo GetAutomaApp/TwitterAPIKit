@@ -1,14 +1,13 @@
+// PostListsMembersCreateRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostListsMembersCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostListsMembersCreateRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostListsMembersCreateRequestV1(
             list: .listID("lid"),
             user: .userID("uid")
@@ -27,7 +26,7 @@ class PostListsMembersCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    func testScreenName() throws {
+    public func testScreenName() throws {
         let req = PostListsMembersCreateRequestV1(
             list: .slug(slug: "sl", owner: .screenName("osname")),
             user: .screenName("sname")
@@ -41,5 +40,9 @@ class PostListsMembersCreateRequestV1Tests: XCTestCase {
                 "screen_name": "sname",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

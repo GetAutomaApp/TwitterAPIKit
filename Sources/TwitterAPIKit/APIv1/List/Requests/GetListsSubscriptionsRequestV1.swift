@@ -1,11 +1,17 @@
+// GetListsSubscriptionsRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-subscriptions
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/get-lists-subscriptions
 open class GetListsSubscriptionsRequestV1: TwitterAPIRequest {
-
-    let user: TwitterUserIdentifierV1
-    let count: Int?
-    let cursor: String?
+    internal let user: TwitterUserIdentifierV1
+    internal let count: Int?
+    internal let cursor: String?
 
     public var method: HTTPMethod {
         return .get
@@ -16,11 +22,11 @@ open class GetListsSubscriptionsRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        count.map { p["count"] = $0 }
-        cursor.map { p["cursor"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        return params
     }
 
     public init(
@@ -31,5 +37,9 @@ open class GetListsSubscriptionsRequestV1: TwitterAPIRequest {
         self.user = user
         self.count = count
         self.cursor = cursor
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

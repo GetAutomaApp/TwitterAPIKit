@@ -1,14 +1,13 @@
+// GetUsersByRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetUsersByRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetUsersByRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetUsersByRequestV2(
             usernames: ["a", "b"],
             expansions: [.pinnedTweetID],
@@ -31,7 +30,7 @@ class GetUsersByRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetUsersByRequestV2(
             usernames: ["a", "b"]
         )
@@ -39,8 +38,12 @@ class GetUsersByRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "usernames": "a,b"
+                "usernames": "a,b",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

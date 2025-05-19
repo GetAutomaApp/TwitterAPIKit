@@ -1,8 +1,12 @@
+// GetGeoReverseGeocodeRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/places-near-location/api-reference/get-geo-reverse_geocode
 open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
-
     public let location: TwitterCoordinateV1
     public let accuracy: TwitterAccuracyV1?
     public let maxResults: Int?
@@ -17,12 +21,12 @@ open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        location.bind(param: &p)
-        accuracy?.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        granularity?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        location.bind(param: &params)
+        accuracy?.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        granularity?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -35,5 +39,8 @@ open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
         self.accuracy = accuracy
         self.maxResults = maxResults
         self.granularity = granularity
+    }
+    deinit {
+        // de-init logic here
     }
 }

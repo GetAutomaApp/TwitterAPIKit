@@ -1,18 +1,15 @@
+// TwitterAuthenticationMethodTests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-final class TwitterAuthenticationMethodTests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
+internal final class TwitterAuthenticationMethodTests: XCTestCase {
     // MARK: - OAuth10a
 
-    func testOAuth10aInit() throws {
-
+    public func testOAuth10aInit() throws {
         let oauth10 = TwitterAuthenticationMethod.OAuth10a(
             consumerKey: "ck",
             consumerSecret: "cs",
@@ -24,13 +21,11 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
         XCTAssertEqual(oauth10.consumerSecret, "cs")
         XCTAssertEqual(oauth10.oauthToken, "t")
         XCTAssertEqual(oauth10.oauthTokenSecret, "ts")
-
     }
 
     // MARK: - OAuth20
 
-    func testOAuth20Init() throws {
-
+    public func testOAuth20Init() throws {
         do {
             let createdAt = Date(timeIntervalSince1970: 2)
 
@@ -64,8 +59,11 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
                                 "expires_in" : 7200,
                                 "access_token" : "<token>"
                             }
-                """.utf8)
-            let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON)!
+                """.utf8
+            )
+            guard let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON) else {
+                XCTFail("Failed to decode token Response")
+            }
             let oauth20 = TwitterAuthenticationMethod.OAuth20(
                 clientID: "_client_id_",
                 token: token,
@@ -75,14 +73,14 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
             XCTAssertEqual(oauth20.clientID, "_client_id_")
             XCTAssertEqual(oauth20.scope, ["tweet.write", "tweet.read", "offline.access"])
             XCTAssertEqual(oauth20.tokenType, "bearer")
-            XCTAssertEqual(oauth20.expiresIn, 7200)
+            XCTAssertEqual(oauth20.expiresIn, 7_200)
             XCTAssertEqual(oauth20.accessToken, "<token>")
             XCTAssertEqual(oauth20.refreshToken, "<refresh token>")
             XCTAssertEqual(oauth20.createdAt, createdAt)
         }
     }
 
-    func testOAuth20Refresh() throws {
+    public func testOAuth20Refresh() throws {
         let createdAt = Date(timeIntervalSince1970: 2)
 
         var oauth20 = TwitterAuthenticationMethod.OAuth20(
@@ -108,21 +106,24 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
                             "expires_in" : 7200,
                             "access_token" : "<token>"
                         }
-            """.utf8)
-        let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON)!
+            """.utf8
+        )
+        guard let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON) else {
+            XCTFail("Failed to decode token Response")
+        }
 
         oauth20.refresh(token: token, refreshedAt: refreshedAt)
 
         XCTAssertEqual(oauth20.clientID, "client_id")
         XCTAssertEqual(oauth20.scope, ["tweet.write", "tweet.read", "offline.access"])
         XCTAssertEqual(oauth20.tokenType, "bearer")
-        XCTAssertEqual(oauth20.expiresIn, 7200)
+        XCTAssertEqual(oauth20.expiresIn, 7_200)
         XCTAssertEqual(oauth20.accessToken, "<token>")
         XCTAssertEqual(oauth20.refreshToken, "<refresh token>")
         XCTAssertEqual(oauth20.createdAt, refreshedAt)
     }
 
-    func testOAuth20Expired() throws {
+    public func testOAuth20Expired() throws {
         let createdAt = Date(timeIntervalSince1970: 0)
         let oauth20 = TwitterAuthenticationMethod.OAuth20(
             clientID: "",
@@ -138,7 +139,7 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
         XCTAssertTrue(oauth20.expired)
     }
 
-    func testOAuth20NotExpired() throws {
+    public func testOAuth20NotExpired() throws {
         let createdAt = Date()
         let oauth20 = TwitterAuthenticationMethod.OAuth20(
             clientID: "",
@@ -152,5 +153,9 @@ final class TwitterAuthenticationMethodTests: XCTestCase {
 
         XCTAssertEqual(oauth20.expiresAt, createdAt.addingTimeInterval(10))
         XCTAssertFalse(oauth20.expired)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

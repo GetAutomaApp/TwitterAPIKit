@@ -1,14 +1,13 @@
+// GetDmConversationsIdDmEventsRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetDmConversationsIdDmEventsRequestV2Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetDmConversationsIdDmEventsRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = GetDmConversationsIdDmEventsRequestV2(
             id: "_i_",
             maxResults: 11,
@@ -40,7 +39,7 @@ class GetDmConversationsIdDmEventsRequestV2Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetDmConversationsIdDmEventsRequestV2(
             id: "i"
         )
@@ -49,5 +48,9 @@ class GetDmConversationsIdDmEventsRequestV2Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

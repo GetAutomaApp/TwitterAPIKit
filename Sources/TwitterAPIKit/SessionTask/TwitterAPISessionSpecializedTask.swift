@@ -1,6 +1,11 @@
+// TwitterAPISessionSpecializedTask.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
+public protocol TwitterAPISessionSpecializedTaskProtocol: TwitterAPISessionDataTask {
     associatedtype Success
     @discardableResult
     func responseObject(
@@ -9,14 +14,15 @@ protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
     ) -> TwitterAPISessionSpecializedTask<Success>
 }
 
-public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTask_ {
-
+public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTaskProtocol {
     public var taskIdentifier: Int {
         return innerTask.taskIdentifier
     }
+
     public var currentRequest: URLRequest? {
         return innerTask.currentRequest
     }
+
     public var originalRequest: URLRequest? {
         return innerTask.originalRequest
     }
@@ -32,7 +38,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
         task: TwitterAPISessionDataTask,
         transform: @escaping (Data) throws -> Success
     ) {
-        self.innerTask = task
+        innerTask = task
         self.transform = transform
     }
 
@@ -71,19 +77,22 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     }
 }
 
-extension Array where Element: TwitterAPISessionSpecializedTask_ {
-
+public extension Array where Element: TwitterAPISessionSpecializedTaskProtocol {
+    /// Specializes the task to return an array of responses.
+    /// - Parameters:
+    ///   - queue: The queue to run the response on.
+    ///   - block: The block to call with the responses.
     func responseObject(
-        queue: DispatchQueue = .main, _ block: @escaping ([TwitterAPIResponse<Element.Success>]) -> Void
+        queue: DispatchQueue = .main,
+        _ block: @escaping ([TwitterAPIResponse<Element.Success>]) -> Void
     ) {
-
         let group = DispatchGroup()
 
         var responses = [TwitterAPIResponse<Element.Success>]()
         let innerQueue = DispatchQueue(label: "TwitterAPISessionSpecializedTask.array")
         innerQueue.suspend()
 
-        self.forEach { task in
+        for task in self {
             group.enter()
             innerQueue.async {
                 task.responseObject(queue: innerQueue) {

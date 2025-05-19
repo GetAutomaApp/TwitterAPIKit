@@ -1,20 +1,21 @@
+// PutTweetsHiddenRequestV2Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PutTweetsHiddenRequestV2Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
-
+internal class PutTweetsHiddenRequestV2Tests: XCTestCase {
+    public func test() throws {
         let req = PutTweetsHiddenRequestV2(id: "12", hidden: true)
         XCTAssertEqual(req.method, .put)
         XCTAssertEqual(req.path, "/2/tweets/12/hidden")
         XCTAssertEqual(req.bodyContentType, .json)
         AssertEqualAnyDict(req.parameters, ["hidden": true])
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,8 +1,12 @@
+// PostUsersRetweetsRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
 open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let tweetID: String
 
@@ -19,9 +23,9 @@ open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["tweet_id"] = tweetID
-        return p
+        var params = [String: Any]()
+        params["tweet_id"] = tweetID
+        return params
     }
 
     public init(
@@ -30,5 +34,8 @@ open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
         self.tweetID = tweetID
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,14 +1,13 @@
+// PostFriendshipsDestroyRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostFriendshipsDestroyRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostFriendshipsDestroyRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostFriendshipsDestroyRequestV1(
             user: .userID("uid")
         )
@@ -20,12 +19,12 @@ class PostFriendshipsDestroyRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "user_id": "uid"
+                "user_id": "uid",
             ]
         )
     }
 
-    func testScreenName() throws {
+    public func testScreenName() throws {
         let req = PostFriendshipsDestroyRequestV1(
             user: .screenName("s")
         )
@@ -33,8 +32,12 @@ class PostFriendshipsDestroyRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "s"
+                "screen_name": "s",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

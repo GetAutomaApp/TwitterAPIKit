@@ -1,14 +1,13 @@
+// GetAccountSettingsRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetAccountSettingsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetAccountSettingsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetAccountSettingsRequestV1()
 
         XCTAssertEqual(req.method, .get)
@@ -19,5 +18,9 @@ class GetAccountSettingsRequestV1Tests: XCTestCase {
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

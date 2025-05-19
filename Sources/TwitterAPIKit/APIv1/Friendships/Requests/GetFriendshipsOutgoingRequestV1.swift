@@ -1,8 +1,14 @@
+// GetFriendshipsOutgoingRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-outgoing
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/get-friendships-outgoing
 open class GetFriendshipsOutgoingRequestV1: TwitterAPIRequest {
-
     public let cursor: String?
     public let stringifyIDs: Bool?
 
@@ -15,10 +21,10 @@ open class GetFriendshipsOutgoingRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        cursor.map { p["cursor"] = $0 }
-        stringifyIDs.map { p["stringify_ids"] = $0 }
-        return p
+        var params = [String: Any]()
+        cursor.map { params["cursor"] = $0 }
+        stringifyIDs.map { params["stringify_ids"] = $0 }
+        return params
     }
 
     public init(
@@ -27,5 +33,8 @@ open class GetFriendshipsOutgoingRequestV1: TwitterAPIRequest {
     ) {
         self.cursor = cursor
         self.stringifyIDs = stringifyIDs
+    }
+    deinit {
+        // de-init logic here
     }
 }

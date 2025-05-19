@@ -1,15 +1,13 @@
+// PostDirectMessagesMarkReadRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostDirectMessagesMarkReadRequestV1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostDirectMessagesMarkReadRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostDirectMessagesMarkReadRequestV1(lastReadEventID: "ev_id", recipientID: "r_id")
 
         XCTAssertEqual(req.method, .post)
@@ -20,6 +18,11 @@ class PostDirectMessagesMarkReadRequestV1Tests: XCTestCase {
             [
                 "last_read_event_id": "ev_id",
                 "recipient_id": "r_id",
-            ])
+            ]
+        )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

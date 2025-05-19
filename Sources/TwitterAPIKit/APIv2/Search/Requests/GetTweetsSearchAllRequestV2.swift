@@ -1,9 +1,13 @@
+// GetTweetsSearchAllRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// This endpoint is only available to those users who have been approved for Academic Research access.
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
 open class GetTweetsSearchAllRequestV2: TwitterAPIRequest {
-
     public let query: String
     public let endTime: Date?
     public let expansions: Set<TwitterTweetExpansionsV2>?
@@ -28,22 +32,22 @@ open class GetTweetsSearchAllRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["query"] = query
-        endTime?.bind(param: &p, for: "end_time")
-        expansions?.bind(param: &p)
-        maxResults.map { p["max_results"] = $0 }
-        mediaFields?.bind(param: &p)
-        nextToken.map { p["next_token"] = $0 }
-        placeFields?.bind(param: &p)
-        pollFields?.bind(param: &p)
-        sinceID.map { p["since_id"] = $0 }
-        sortOrder?.bind(param: &p)
-        startTime?.bind(param: &p, for: "start_time")
-        tweetFields?.bind(param: &p)
-        untilID.map { p["until_id"] = $0 }
-        userFields?.bind(param: &p)
-        return p
+        var params = [String: Any]()
+        params["query"] = query
+        endTime?.bind(param: &params, for: "end_time")
+        expansions?.bind(param: &params)
+        maxResults.map { params["max_results"] = $0 }
+        mediaFields?.bind(param: &params)
+        nextToken.map { params["next_token"] = $0 }
+        placeFields?.bind(param: &params)
+        pollFields?.bind(param: &params)
+        sinceID.map { params["since_id"] = $0 }
+        sortOrder?.bind(param: &params)
+        startTime?.bind(param: &params, for: "start_time")
+        tweetFields?.bind(param: &params)
+        untilID.map { params["until_id"] = $0 }
+        userFields?.bind(param: &params)
+        return params
     }
 
     public init(
@@ -76,5 +80,9 @@ open class GetTweetsSearchAllRequestV2: TwitterAPIRequest {
         self.tweetFields = tweetFields
         self.untilID = untilID
         self.userFields = userFields
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

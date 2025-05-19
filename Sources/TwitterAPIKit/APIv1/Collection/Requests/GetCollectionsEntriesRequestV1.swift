@@ -1,8 +1,14 @@
+// GetCollectionsEntriesRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/get-collections-entries
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
+/// curate-a-collection/api-reference/get-collections-entries
 open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
-
     public let id: String
     public let count: Int?
     public let maxPosition: String?
@@ -17,12 +23,12 @@ open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        count.map { p["count"] = $0 }
-        maxPosition.map { p["max_position"] = $0 }
-        minPosition.map { p["min_position"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        count.map { params["count"] = $0 }
+        maxPosition.map { params["max_position"] = $0 }
+        minPosition.map { params["min_position"] = $0 }
+        return params
     }
 
     public init(
@@ -35,5 +41,8 @@ open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
         self.count = count
         self.maxPosition = maxPosition
         self.minPosition = minPosition
+    }
+    deinit {
+        // de-init logic here
     }
 }

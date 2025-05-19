@@ -1,8 +1,14 @@
+// PostDirectMessagesMarkReadRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/typing-indicator-and-read-receipts/api-reference/new-read-receipt
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/
+/// typing-indicator-and-read-receipts/api-reference/new-read-receipt
 open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
-
     /// Message ID
     public let lastReadEventID: String
 
@@ -18,12 +24,12 @@ open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
+        var params = [String: Any]()
 
-        p["last_read_event_id"] = lastReadEventID
-        p["recipient_id"] = recipientID
+        params["last_read_event_id"] = lastReadEventID
+        params["recipient_id"] = recipientID
 
-        return p
+        return params
     }
 
     public init(
@@ -32,5 +38,8 @@ open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
     ) {
         self.lastReadEventID = lastReadEventID
         self.recipientID = recipientID
+    }
+    deinit {
+        // de-init logic here
     }
 }

@@ -1,14 +1,13 @@
+// PostCollectionsCreateRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class PostCollectionsCreateRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class PostCollectionsCreateRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = PostCollectionsCreateRequestV1(
             name: "_n_",
             url: "_u_",
@@ -31,7 +30,7 @@ class PostCollectionsCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = PostCollectionsCreateRequestV1(
             name: "n"
         )
@@ -39,8 +38,12 @@ class PostCollectionsCreateRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "name": "n"
+                "name": "n",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

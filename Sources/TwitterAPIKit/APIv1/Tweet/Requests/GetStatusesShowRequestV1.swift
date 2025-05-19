@@ -1,8 +1,12 @@
+// GetStatusesShowRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-show-id
 open class GetStatusesShowRequestV1: TwitterAPIRequest {
-
     public let id: String
     public let trimUser: Bool?
     public let includeCardUri: Bool?
@@ -19,14 +23,14 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = id
-        trimUser.map { p["trim_user"] = $0 }
-        includeCardUri.map { p["include_card_uri"] = $0 }
-        includeEntities.map { p["include_entities"] = $0 }
-        includeMyRetweet.map { p["include_my_retweet"] = $0 }
-        includeExtAltText.map { p["include_ext_alt_text"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["id"] = id
+        trimUser.map { params["trim_user"] = $0 }
+        includeCardUri.map { params["include_card_uri"] = $0 }
+        includeEntities.map { params["include_entities"] = $0 }
+        includeMyRetweet.map { params["include_my_retweet"] = $0 }
+        includeExtAltText.map { params["include_ext_alt_text"] = $0 }
+        return params
     }
 
     public init(
@@ -44,5 +48,7 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
         self.includeMyRetweet = includeMyRetweet
         self.includeExtAltText = includeExtAltText
     }
-
+    deinit {
+        // de-init logic here
+    }
 }

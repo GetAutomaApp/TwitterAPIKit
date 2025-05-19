@@ -1,8 +1,12 @@
+// UploadMediaFinalizeRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-finalize
 open class UploadMediaFinalizeRequestV1: TwitterAPIRequest {
-
     public let command: String = "FINALIZE"
     public let mediaID: String
 
@@ -27,5 +31,9 @@ open class UploadMediaFinalizeRequestV1: TwitterAPIRequest {
 
     public init(mediaID: String) {
         self.mediaID = mediaID
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

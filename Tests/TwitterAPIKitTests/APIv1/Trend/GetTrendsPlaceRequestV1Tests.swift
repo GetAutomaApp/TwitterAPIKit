@@ -1,14 +1,13 @@
+// GetTrendsPlaceRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetTrendsPlaceRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetTrendsPlaceRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetTrendsPlaceRequestV1(
             woeid: "_w_",
             exclude: true
@@ -27,7 +26,7 @@ class GetTrendsPlaceRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetTrendsPlaceRequestV1(
             woeid: "_w_"
         )
@@ -35,8 +34,12 @@ class GetTrendsPlaceRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "woeid": "_w_"
+                "woeid": "_w_",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

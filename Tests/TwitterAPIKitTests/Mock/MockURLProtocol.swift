@@ -1,44 +1,55 @@
+// MockURLProtocol.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-class MockURLProtocol: URLProtocol {
+internal class MockURLProtocol: URLProtocol {
+    public static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
+    public static var requestAssert: ((URLRequest) throws -> Void)?
 
-    static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
-    static var requestAssert: ((URLRequest) throws -> Void)?
-
-    override class func canInit(with request: URLRequest) -> Bool {
+    override public class func canInit(with _: URLRequest) -> Bool {
         return true
     }
 
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+    override public class func canonicalRequest(for request: URLRequest) -> URLRequest {
         return request
     }
 
-    static func cleanup() {
-        MockURLProtocol.requestHandler = nil
-        MockURLProtocol.requestAssert = nil
+    public static func cleanup() {
+        requestHandler = nil
+        requestAssert = nil
     }
 
-    override func startLoading() {
+    override public func startLoading() {
+        guard let url = request.url else {
+            client?.urlProtocol(self, didFailWithError: URLError(.badURL))
+            return
+        }
 
-        let handler: ((URLRequest) throws -> (HTTPURLResponse, Data?))
-        if let h = MockURLProtocol.requestHandler {
-            handler = h
-        } else {
-            handler = { request in
-                return (
-                    HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "2.0", headerFields: nil)!, Data()
-                )
+        let handler: (URLRequest) throws -> (HTTPURLResponse, Data?) = Self.requestHandler ?? { request in
+            guard let requestURL = request.url else {
+                throw URLError(.badURL)
             }
+            return (
+                HTTPURLResponse(
+                    url: requestURL,
+                    statusCode: 200,
+                    httpVersion: "2.0",
+                    headerFields: nil
+                ) ?? HTTPURLResponse(),
+                Data()
+            )
         }
 
         do {
-
-            try MockURLProtocol.requestAssert?(request)
+            try Self.requestAssert?(request)
 
             let (response, data): (URLResponse, Data?) = try handler(request)
             client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
 
-            if let data = data {
+            if let data {
                 client?.urlProtocol(self, didLoad: data)
             }
 
@@ -48,7 +59,9 @@ class MockURLProtocol: URLProtocol {
         }
     }
 
-    override func stopLoading() {
+    override public func stopLoading() {}
 
+    deinit {
+        // De-init Logic Here
     }
 }

@@ -1,14 +1,13 @@
+// GetListsSubscriptionsRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetListsSubscriptionsRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetListsSubscriptionsRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetListsSubscriptionsRequestV1(
             user: .userID("uid"),
             count: 19,
@@ -29,7 +28,7 @@ class GetListsSubscriptionsRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetListsSubscriptionsRequestV1(
             user: .screenName("sn")
         )
@@ -37,8 +36,12 @@ class GetListsSubscriptionsRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(
             req.parameters,
             [
-                "screen_name": "sn"
+                "screen_name": "sn",
             ]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

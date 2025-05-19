@@ -1,8 +1,12 @@
+// PostOAuthAccessTokenRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/access_token
 open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
-
     public let oauthToken: String
     public let oauthVerifier: String
 
@@ -15,10 +19,10 @@ open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["oauth_token"] = oauthToken
-        p["oauth_verifier"] = oauthVerifier
-        return p
+        var params = [String: Any]()
+        params["oauth_token"] = oauthToken
+        params["oauth_verifier"] = oauthVerifier
+        return params
     }
 
     public init(
@@ -27,5 +31,9 @@ open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
     ) {
         self.oauthToken = oauthToken
         self.oauthVerifier = oauthVerifier
+    }
+
+    deinit {
+        // De-init logic here
     }
 }

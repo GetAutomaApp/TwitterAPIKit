@@ -1,8 +1,14 @@
+// PostListsCreateRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-create
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// create-manage-lists/api-reference/post-lists-create
 open class PostListsCreateRequestV1: TwitterAPIRequest {
-
     public let name: String
     public let mode: TwitterListModeV1?
     public let description: String?
@@ -16,11 +22,11 @@ open class PostListsCreateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["name"] = name
-        mode?.bind(param: &p)
-        description.map { p["description"] = $0 }
-        return p
+        var params = [String: Any]()
+        params["name"] = name
+        mode?.bind(param: &params)
+        description.map { params["description"] = $0 }
+        return params
     }
 
     public init(
@@ -31,5 +37,9 @@ open class PostListsCreateRequestV1: TwitterAPIRequest {
         self.name = name
         self.mode = mode
         self.description = description
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

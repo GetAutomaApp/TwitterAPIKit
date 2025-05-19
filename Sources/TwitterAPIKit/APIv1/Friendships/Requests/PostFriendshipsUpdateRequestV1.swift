@@ -1,8 +1,14 @@
+// PostFriendshipsUpdateRequestV1.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/post-friendships-update
+/// For more details, see:
+/// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
+/// follow-search-get-users/api-reference/post-friendships-update
 open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
-
     public let user: TwitterUserIdentifierV1
     public let device: Bool?
     public let retweets: Bool?
@@ -16,11 +22,11 @@ open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        user.bind(param: &p)
-        device.map { p["device"] = $0 }
-        retweets.map { p["retweets"] = $0 }
-        return p
+        var params = [String: Any]()
+        user.bind(param: &params)
+        device.map { params["device"] = $0 }
+        retweets.map { params["retweets"] = $0 }
+        return params
     }
 
     public init(
@@ -31,5 +37,8 @@ open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
         self.user = user
         self.device = device
         self.retweets = retweets
+    }
+    deinit {
+        // de-init logic here
     }
 }

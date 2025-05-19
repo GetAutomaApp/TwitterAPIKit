@@ -1,8 +1,12 @@
+// PostUsersFollowingRequestV2.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
 open class PostUsersFollowingRequestV2: TwitterAPIRequest {
-
     public let id: String
     public let targetUserID: String
 
@@ -19,9 +23,9 @@ open class PostUsersFollowingRequestV2: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["target_user_id"] = targetUserID
-        return p
+        var params = [String: Any]()
+        params["target_user_id"] = targetUserID
+        return params
     }
 
     public init(
@@ -30,5 +34,8 @@ open class PostUsersFollowingRequestV2: TwitterAPIRequest {
     ) {
         self.id = id
         self.targetUserID = targetUserID
+    }
+    deinit {
+        // de-init logic here
     }
 }

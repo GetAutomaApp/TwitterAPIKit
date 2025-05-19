@@ -1,14 +1,13 @@
+// GetFriendshipsOutgoingRequestV1Tests.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+
 import TwitterAPIKit
 import XCTest
 
-class GetFriendshipsOutgoingRequestV1Tests: XCTestCase {
-    override func setUpWithError() throws {
-    }
-
-    override func tearDownWithError() throws {
-    }
-
-    func test() throws {
+internal class GetFriendshipsOutgoingRequestV1Tests: XCTestCase {
+    public func test() throws {
         let req = GetFriendshipsOutgoingRequestV1(
             cursor: "_c_",
             stringifyIDs: true
@@ -27,12 +26,16 @@ class GetFriendshipsOutgoingRequestV1Tests: XCTestCase {
         )
     }
 
-    func testDefaultArg() throws {
+    public func testDefaultArg() throws {
         let req = GetFriendshipsOutgoingRequestV1()
 
         AssertEqualAnyDict(
             req.parameters,
             [:]
         )
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
