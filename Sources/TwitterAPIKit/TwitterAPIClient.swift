@@ -187,6 +187,10 @@ open class TwitterAPIBase {
     public init(session: TwitterAPISession) {
         self.session = session
     }
+
+    deinit {
+        // De-init Logic Here
+    }
 }
 
 /// Extension providing notification names and user info keys for OAuth 2.0 token refresh events.

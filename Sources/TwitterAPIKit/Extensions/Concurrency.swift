@@ -5,6 +5,11 @@
 
 import Foundation
 
+/// A protocol that represents a concurrency.
+public protocol Concurrency {
+    // No Logic Here
+}
+
 #if compiler(>=5.5.2) && canImport(_Concurrency)
 
     // I'm not that familiar with Swift Concurrency, so please report any problems.
@@ -19,9 +24,9 @@ import Foundation
             get async {
                 await withTaskCancellationHandler(
                     operation: {
-                        await withCheckedContinuation { c in
+                        await withCheckedContinuation { continuation in
                             responseData { response in
-                                c.resume(returning: response)
+                                continuation.resume(returning: response)
                             }
                         }
                     },
@@ -43,9 +48,9 @@ import Foundation
             get async {
                 await withTaskCancellationHandler(
                     operation: {
-                        await withCheckedContinuation { c in
+                        await withCheckedContinuation { continuation in
                             responseObject { response in
-                                c.resume(returning: response)
+                                continuation.resume(returning: response)
                             }
                         }
                     },
@@ -67,9 +72,9 @@ import Foundation
         ) async -> TwitterAPIResponse<T> {
             return await withTaskCancellationHandler(
                 operation: {
-                    await withCheckedContinuation { c in
+                    await withCheckedContinuation { continuation in
                         responseDecodable(type: type) { response in
-                            c.resume(returning: response)
+                            continuation.resume(returning: response)
                         }
                     }
                 },
@@ -90,9 +95,9 @@ import Foundation
             get async {
                 await withTaskCancellationHandler(
                     operation: {
-                        await withCheckedContinuation { c in
+                        await withCheckedContinuation { continuation in
                             responseObject { response in
-                                c.resume(returning: response)
+                                continuation.resume(returning: response)
                             }
                         }
                     }, onCancel: {
@@ -137,9 +142,9 @@ import Foundation
             type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType,
             forceRefresh: Bool = false
         ) async throws -> RefreshOAuth20TokenResultValue {
-            return try await withCheckedThrowingContinuation { c in
+            return try await withCheckedThrowingContinuation { continuation in
                 refreshOAuth20Token(type: type, forceRefresh: forceRefresh) { result in
-                    c.resume(with: result)
+                    continuation.resume(with: result)
                 }
             }
         }

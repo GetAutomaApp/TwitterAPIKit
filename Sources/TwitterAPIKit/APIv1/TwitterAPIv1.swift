@@ -3,10 +3,15 @@
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
 
+/// A protocol that represents a Twitter API.
+public protocol TwitterAPI {
+    // No Logic Here
+}
+
 /// Main class for accessing Twitter API v1.1 endpoints.
 /// This class provides access to all Twitter API v1.1 functionality through specialized API clients.
 /// Each property represents a group of related API endpoints.
-open class TwitterAPIv1 {
+open class TwitterAPIv1: TwitterAPI {
     /// API client for managing Twitter account settings and profile information.
     public let account: AccountAPIv1
     
@@ -78,5 +83,9 @@ open class TwitterAPIv1 {
         trend = .init(session: session)
         tweet = .init(session: session)
         user = .init(session: session)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

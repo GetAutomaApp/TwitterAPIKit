@@ -5,6 +5,11 @@
 
 import Foundation
 
+/// A protocol that represents a HMAC.
+public protocol HMAC {
+    // No Logic Here
+}
+
 #if canImport(CommonCrypto)
     import CommonCrypto
 
@@ -23,7 +28,8 @@ import Foundation
                     CCHmac(
                         CCHmacAlgorithm(kCCHmacAlgSHA1),
                         body.baseAddress,
-                        key.count, bytes.baseAddress,
+                        key.count,
+                        bytes.baseAddress,
                         count,
                         result
                     )
@@ -34,6 +40,11 @@ import Foundation
         }
     }
 
+    /// Creates an HMAC-SHA1 signature for the given message using the provided key
+    /// - Parameters:
+    ///   - key: The key to use for signing
+    ///   - message: The message to sign
+    /// - Returns: The HMAC-SHA1 signature as Data
     public func createHMACSHA1(key: Data, message: Data) -> Data {
         return message.hmac(key: key)
     }
@@ -41,6 +52,11 @@ import Foundation
 #elseif canImport(Crypto) // for Linux
     import Crypto
 
+    /// Creates an HMAC-SHA1 signature for the given message using the provided key
+    /// - Parameters:
+    ///   - key: The key to use for signing
+    ///   - message: The message to sign
+    /// - Returns: The HMAC-SHA1 signature as Data
     public func createHMACSHA1(key: Data, message: Data) -> Data {
         return Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
     }

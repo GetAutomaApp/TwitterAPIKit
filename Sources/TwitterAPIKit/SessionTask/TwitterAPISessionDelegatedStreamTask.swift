@@ -5,7 +5,7 @@
 
 import Foundation
 
-private let chunkSeparator = "\r\n".data(using: .utf8)!
+private let chunkSeparator = Data("\r\n".utf8)
 public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, TwitterAPISessionDelegatedTask {
     public var taskIdentifier: Int { return task.taskIdentifier }
     public var currentRequest: URLRequest? { return task.currentRequest }
@@ -100,5 +100,9 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
                 block(response)
             }
         }
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }

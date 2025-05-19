@@ -3,9 +3,9 @@
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
 
+// swiftlint:disable type_name
 import Foundation
 
-// swiftlint:disable:next type_name
 /// Returns DM Events for a DM Conversation
 /// Required OAuth 2.0 scopes: dm.read, tweet.read, users.read
 open class GetDmConversationsWithParticipantIdDmEventsRequestV2: TwitterAPIRequest {
@@ -75,3 +75,4 @@ open class GetDmConversationsWithParticipantIdDmEventsRequestV2: TwitterAPIReque
         // De-init Logic Here
     }
 }
+// swiftlint:enable type_name

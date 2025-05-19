@@ -7,25 +7,21 @@ import Foundation
 
 /// Represents errors that can occur while using the Twitter API Kit.
 public enum TwitterAPIKitError: Error {
-    case requestFailed(reason: RequestFailureReason)
-    
     /// Represents specific reasons why a request might fail.
     public enum RequestFailureReason {
-        /// Indicates that the provided URL was invalid.
-        case invalidURL(url: String)
-        
+        /// Indicates that a string could not be encoded to data.
+        case cannotEncodeStringToData(string: String)
+
         /// Indicates that a parameter was invalid with details about why.
         case invalidParameter(parameter: [String: Any], cause: String)
         
-        /// Indicates that a string could not be encoded to data.
-        case cannotEncodeStringToData(string: String)
-        
+        /// Indicates that the provided URL was invalid.
+        case invalidURL(url: String)
+                
         /// Indicates that JSON serialization failed for an object.
         case jsonSerializationFailed(obj: Any)
     }
 
-    case responseFailed(reason: ResponseFailureReason)
-    
     /// Represents specific reasons why a response might fail.
     public enum ResponseFailureReason {
         /// Indicates that the response was invalid.
@@ -35,30 +31,18 @@ public enum TwitterAPIKitError: Error {
         case unacceptableStatusCode(statusCode: Int, error: TwitterAPIErrorResponse, rateLimit: TwitterRateLimit?)
     }
 
-    case responseSerializeFailed(reason: ResponseSerializationFailureReason)
-    
     /// Represents specific reasons why response serialization might fail.
     public enum ResponseSerializationFailureReason {
-        /// Indicates that JSON serialization failed.
-        case jsonSerializationFailed(error: Error)
-        
-        /// Indicates that JSON decoding failed.
-        case jsonDecodeFailed(error: Error)
-        
         /// Indicates that data could not be converted to the expected type.
         case cannotConvert(data: Data, toTypeName: String)
+
+        /// Indicates that JSON decoding failed.
+        case jsonDecodeFailed(error: Error)
+
+        /// Indicates that JSON serialization failed.
+        case jsonSerializationFailed(error: Error)
     }
 
-    case uploadMediaFailed(reason: UploadMediaFailureReason)
-    
-    /// Represents specific reasons why media upload might fail.
-    public enum UploadMediaFailureReason {
-        /// Indicates that media processing failed.
-        case processingFailed(error: UploadMediaError)
-    }
-
-    case refreshOAuth20TokenFailed(reason: RefreshOAuth20TokenFailureReason)
-    
     /// Represents specific reasons why OAuth 2.0 token refresh might fail.
     public enum RefreshOAuth20TokenFailureReason {
         /// Indicates that the authentication method was invalid.
@@ -68,7 +52,18 @@ public enum TwitterAPIKitError: Error {
         case refreshTokenIsMissing
     }
 
+    /// Represents specific reasons why media upload might fail.
+    public enum UploadMediaFailureReason {
+        /// Indicates that media processing failed.
+        case processingFailed(error: UploadMediaError)
+    }
+
+    case refreshOAuth20TokenFailed(reason: RefreshOAuth20TokenFailureReason)
+    case requestFailed(reason: RequestFailureReason)
+    case responseFailed(reason: ResponseFailureReason)
+    case responseSerializeFailed(reason: ResponseSerializationFailureReason)
     case unkonwn(error: Error)
+    case uploadMediaFailed(reason: UploadMediaFailureReason)
 
     /// Initializes a TwitterAPIKitError from a generic Error.
     /// - Parameter error: The error to convert to TwitterAPIKitError.
@@ -308,6 +303,7 @@ public extension TwitterAPIKitError.UploadMediaFailureReason {
 }
 
 public extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
+    /// A localized description of the refresh OAuth 2.0 token failure reason.
     var localizedDescription: String {
         switch self {
         case let .invalidAuthenticationMethod(method):
@@ -320,6 +316,7 @@ public extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
         }
     }
 
+    /// The underlying error if one exists.
     var underlyingError: Error? {
         switch self {
         case .invalidAuthenticationMethod, .refreshTokenIsMissing:

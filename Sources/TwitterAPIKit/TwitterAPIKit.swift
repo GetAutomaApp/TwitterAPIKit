@@ -9,6 +9,14 @@ import Foundation
     @_exported import FoundationNetworking
 #endif
 
+/// A protocol that represents a Twitter API kit.
+public protocol TwitterAPIKit {
+    /// The base URL for Twitter web services.
+    /// Default: "https://twitter.com"
+    var twitterURL: URL { get }
+    
+}
+
 /// Specifies the type of Twitter API base URL to use.
 public enum TwitterBaseURLType {
     /// The main Twitter API endpoint (api.twitter.com).
@@ -23,7 +31,7 @@ public enum TwitterBaseURLType {
 
 /// Configuration for Twitter API endpoints.
 /// This struct defines the base URLs used for different Twitter API services.
-public struct TwitterAPIEnvironment {
+public struct TwitterAPIEnvironment: TwitterAPIKit {
     /// The base URL for Twitter web services.
     /// Default: "https://twitter.com"
     public let twitterURL: URL

@@ -42,8 +42,7 @@ open class TweetAPIv1: TwitterAPIBase {
         return session.send(request)
     }
 
-    /// For more details, see:
-    /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
-    /// post-and-engage/api-reference/get-statuses-oembed
-    // TODO↑
+    deinit {
+        // De-init Logic Here
+    }
 }

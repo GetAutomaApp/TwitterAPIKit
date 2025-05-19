@@ -5,7 +5,7 @@
 
 import Foundation
 
-public protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
+public protocol TwitterAPISessionSpecializedTaskProtocol: TwitterAPISessionDataTask {
     associatedtype Success
     @discardableResult
     func responseObject(
@@ -14,7 +14,7 @@ public protocol TwitterAPISessionSpecializedTask_: TwitterAPISessionDataTask {
     ) -> TwitterAPISessionSpecializedTask<Success>
 }
 
-public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTask_ {
+public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTaskProtocol {
     public var taskIdentifier: Int {
         return innerTask.taskIdentifier
     }
@@ -77,9 +77,14 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     }
 }
 
-public extension Array where Element: TwitterAPISessionSpecializedTask_ {
+public extension Array where Element: TwitterAPISessionSpecializedTaskProtocol {
+    /// Specializes the task to return an array of responses.
+    /// - Parameters:
+    ///   - queue: The queue to run the response on.
+    ///   - block: The block to call with the responses.
     func responseObject(
-        queue: DispatchQueue = .main, _ block: @escaping ([TwitterAPIResponse<Element.Success>]) -> Void
+        queue: DispatchQueue = .main,
+        _ block: @escaping ([TwitterAPIResponse<Element.Success>]) -> Void
     ) {
         let group = DispatchGroup()
 

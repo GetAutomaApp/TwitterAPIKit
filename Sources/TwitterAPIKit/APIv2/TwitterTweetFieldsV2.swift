@@ -355,6 +355,7 @@ public extension Set where Element == TwitterMediaFieldsV2 {
 
 /// list.fields
 public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+    // swiftlint:disable sorted_enum_cases
     case createdAt
     case description
     case followerCount
@@ -389,6 +390,7 @@ public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
         .ownerID,
         .private,
     ]
+    // swiftlint:enable sorted_enum_cases
 }
 
 /// Extension to bind list fields to request parameters

@@ -43,12 +43,11 @@ public enum BodyContentType: String {
 
 /// Represents a part of a multipart form data request.
 public enum MultipartFormDataPart {
-    /// A simple key-value pair where the value is stringified using String(describing:).
-    case value(name: String, value: Any)
-    
     /// A file upload part containing binary data and metadata.
     case data(name: String, value: Data, filename: String, mimeType: String)
 
+    /// A simple key-value pair where the value is stringified using String(describing:).
+    case value(name: String, value: Any)
     /// The name of the form part.
     public var name: String {
         switch self {
@@ -150,6 +149,10 @@ public extension TwitterAPIRequest {
 }
 
 extension TwitterAPIRequest {
+    /// Builds a URL request for the given environment.
+    /// - Parameters:
+    ///   - environment: The environment to build the request for.
+    /// - Returns: A URL request.
     public func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
         guard
             var urlComponent = URLComponents(
@@ -166,7 +169,10 @@ extension TwitterAPIRequest {
                     .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
         }
 
-        var request = URLRequest(url: urlComponent.url!)
+        guard let url = urlComponent.url else {
+            throw TwitterAPIKitError.requestFailed(reason: .invalidURL(url: ""))
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
 
         if !bodyParameters.isEmpty {
@@ -223,10 +229,12 @@ extension TwitterAPIRequest {
         return request
     }
 
+    /// Returns the URL for the request.
     public func requestURL(for environment: TwitterAPIEnvironment) -> URL {
         return environment.baseURL(for: baseURLType).appendingPathComponent(path)
     }
 
+    /// Returns the parameters for OAuth.
     public var parameterForOAuth: [String: Any] {
         switch bodyContentType {
         case .wwwFormUrlEncoded:

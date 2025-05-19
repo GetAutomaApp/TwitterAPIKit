@@ -21,7 +21,10 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
                 }
                 """#.utf8
             )
-            let token = try TwitterOAuth2AccessToken(jsonData: data)!
+            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
+                XCTFail("Failed to create test token")
+                return
+            }
             XCTAssertEqual(token.scope, ["tweet.write", "tweet.read"])
             XCTAssertEqual(token.tokenType, "bearer")
             XCTAssertEqual(token.expiresIn, 7_200)

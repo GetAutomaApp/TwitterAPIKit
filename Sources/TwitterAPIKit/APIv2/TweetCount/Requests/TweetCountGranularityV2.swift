@@ -6,9 +6,9 @@
 import Foundation
 
 public enum TweetCountGranularityV2: String {
-    case minute
-    case hour
     case day
+    case hour
+    case minute
 
     public func bind(param: inout [String: Any]) {
         param["granularity"] = rawValue

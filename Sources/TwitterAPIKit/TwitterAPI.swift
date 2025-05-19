@@ -6,8 +6,13 @@
 // swift-format-ignore-file
 import Foundation
 
+/// A protocol that represents a Twitter API.
+public protocol TwitterAPI {
+    // No Logic Here
+}
+
 /// Extension providing OAuth authentication methods for the Twitter API.
-public extension TwitterAuthAPI {
+public extension TwitterAuthAPI: TwitterAPI {
     // MARK: - OAuth10aAPI
 
     /// Requests an OAuth request token from Twitter.
@@ -136,7 +141,7 @@ public extension TwitterAuthAPI {
 }
 
 /// Extension providing Twitter API v1 endpoints.
-public extension TwitterAPIv1 {
+public extension TwitterAPIv1: TwitterAPI {
     // MARK: - AccountAPIv1
 
     /// Retrieves the current account settings.
@@ -932,7 +937,7 @@ public extension TwitterAPIv1 {
     }
 }
 
-public extension TwitterAPIv2 {
+public extension TwitterAPIv2: TwitterAPI {
     // MARK: - BlockAndMuteAPIv2
 
     /// Retrieves users blocked by the authenticated user.

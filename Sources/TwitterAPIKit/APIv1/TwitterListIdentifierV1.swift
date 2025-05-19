@@ -20,6 +20,9 @@ public enum TwitterListIdentifierV1 {
 }
 
 extension TwitterListIdentifierV1 {
+    /// Binds the list identifier to the request parameters.
+    /// - Parameters:
+    ///   - param: The parameters dictionary to bind to.
     public func bind(param: inout [String: Any]) {
         switch self {
         case let .listID(string):

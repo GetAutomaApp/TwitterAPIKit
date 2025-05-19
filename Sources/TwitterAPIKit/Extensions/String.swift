@@ -6,9 +6,10 @@
 import Foundation
 
 extension String {
+    /// Returns a URL-safe encoded version of the string
     public var urlEncodedString: String {
         let allowedCharacterSet = NSMutableCharacterSet.alphanumeric()
         allowedCharacterSet.addCharacters(in: "-._~")
-        return addingPercentEncoding(withAllowedCharacters: allowedCharacterSet as CharacterSet)!
+        return addingPercentEncoding(withAllowedCharacters: allowedCharacterSet as CharacterSet) ?? ""
     }
 }

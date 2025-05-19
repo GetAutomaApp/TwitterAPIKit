@@ -5,16 +5,23 @@
 
 import Foundation
 
+/// A protocol that defines the properties and methods for a session task.
 public protocol TwitterAPISessionTask {
+    /// The unique identifier for the task.
     var taskIdentifier: Int { get }
+    /// The current request being processed.
     var currentRequest: URLRequest? { get }
+    /// The original request that was used to create the task.
     var originalRequest: URLRequest? { get }
+    /// The HTTP response received from the server.
     var httpResponse: HTTPURLResponse? { get }
-
+    /// Cancels the task.
     func cancel()
 }
 
+/// A default implementation of the TwitterAPISessionTask protocol.
 extension URLSessionTask: TwitterAPISessionTask {
+    /// The HTTP response received from the server.
     public var httpResponse: HTTPURLResponse? {
         return response as? HTTPURLResponse
     }

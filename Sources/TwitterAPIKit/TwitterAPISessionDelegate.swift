@@ -5,9 +5,17 @@
 
 import Foundation
 
+/// Protocol for delegated tasks that can receive data in chunks and handle completion
 public protocol TwitterAPISessionDelegatedTask {
+    /// The unique identifier for this task
     var taskIdentifier: Int { get }
+    
+    /// Appends a chunk of data received from the network
+    /// - Parameter chunk: The data chunk to append
     func append(chunk: Data)
+    
+    /// Called when the task completes, with an optional error
+    /// - Parameter error: The error that occurred, if any
     func complete(error: Error?)
 }
 
@@ -39,6 +47,10 @@ public class TwitterAPISessionDelegate: NSObject, URLSessionDataDelegate {
         guard let task = tasks[task.taskIdentifier] else { return }
 
         task.complete(error: error)
+    }
+
+    deinit {
+        // De-init Logic Here
     }
 }
 

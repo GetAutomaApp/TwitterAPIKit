@@ -22,6 +22,7 @@ internal class UploadMediaUtilTests: XCTestCase {
         MockURLProtocol.cleanup()
     }
 
+    // swiftlint:disable:next function_body_length
     public func testWithProcessing() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
@@ -424,6 +425,7 @@ internal class UploadMediaUtilTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testWithProcessingError() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]

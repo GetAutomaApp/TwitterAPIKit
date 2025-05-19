@@ -6,6 +6,8 @@
 import Foundation
 
 extension Dictionary {
+    /// Converts the dictionary into a URL-encoded query string
+    /// Format: key1=value1&key2=value2
     public var urlEncodedQueryString: String {
         var parts = [String]()
 

@@ -22,11 +22,11 @@ open class GetRetweetersRequestV1: TwitterAPIRequest {
     }
 
     open var parameters: [String: Any] {
-        var p = [String: Any]()
-        p["id"] = tweetID
-        cursor.map { p["cursor"] = $0 }
-        stringifyIDs.map { p["stringify_ids"] = $0 }
-        return p
+        var parameters = [String: Any]()
+        parameters["id"] = tweetID
+        cursor.map { parameters["cursor"] = $0 }
+        stringifyIDs.map { parameters["stringify_ids"] = $0 }
+        return parameters
     }
 
     public init(

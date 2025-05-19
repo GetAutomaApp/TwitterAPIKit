@@ -6,16 +6,20 @@
 import Foundation
 
 /// Represents different methods of authentication available for Twitter API requests.
-public enum TwitterAuthenticationMethod {
+public enum TwitterAuthenticationMethod {    
+    // swiftlint:disable sorted_enum_cases
     /// No authentication method specified.
     case basic(apiKey: String, apiSecretKey: String)
-    
+
     /// Bearer token authentication for OAuth2 app-only access.
     case bearer(String)
-    
-    /// No authentication required.
-    case none
 
+    // swiftlint:disable discouraged_none_name 
+    /// No authentication required.
+    case `none`
+    // swiftlint:enable discouraged_none_name
+    
+    /// Authentication using OAuth 1.0a protocol (legacy).
     @available(*, deprecated, renamed: "oauth10a")
     case oauth(
         consumerKey: String,
@@ -32,6 +36,7 @@ public enum TwitterAuthenticationMethod {
 
     /// Used to execute the OAuth 2.0 Authorization Code Flow with PKCE authentication flow.
     case requestOAuth20WithPKCE(OAuth20WithPKCEClientType)
+    // swiftlint:enable sorted_enum_cases
 }
 
 /// Extension containing OAuth-related types and functionality.
