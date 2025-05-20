@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func getCollectionEntries(
         _ request: GetCollectionsEntriesRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func getCollections(
         _ request: GetCollectionsListRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func getCollection(
         _ request: GetCollectionsShowRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func postCreateCollection(
         _ request: PostCollectionsCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -48,7 +51,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func postDestroyCollection(
         _ request: PostCollectionsDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -57,7 +60,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func postCollectionAddEntry(
         _ request: PostCollectionsEntriesAddRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -66,7 +69,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func postCollectionCurate(
         _ request: PostCollectionsEntriesCurateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -75,7 +78,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func postCollectionMoveEntry(
         _ request: PostCollectionsEntriesMoveRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -84,7 +87,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func postCollectionRemoveEntry(
         _ request: PostCollectionsEntriesRemoveRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -93,7 +96,7 @@ open class CollectionAPIv1: TwitterAPIBase {
     public func postCollectionUpdate(
         _ request: PostCollectionsUpdateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

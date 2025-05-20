@@ -2,16 +2,19 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
 private let chunkSeparator = Data("\r\n".utf8)
 public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, TwitterAPISessionDelegatedTask {
-    public var taskIdentifier: Int { return task.taskIdentifier }
-    public var currentRequest: URLRequest? { return task.currentRequest }
-    public var originalRequest: URLRequest? { return task.originalRequest }
+    public var taskIdentifier: Int { task.taskIdentifier }
+    public var currentRequest: URLRequest? { task.currentRequest }
+    public var originalRequest: URLRequest? { task.originalRequest }
     public var httpResponse: HTTPURLResponse? {
-        return task.httpResponse
+        task.httpResponse
     }
 
     private let task: TwitterAPISessionTask

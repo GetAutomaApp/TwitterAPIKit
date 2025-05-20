@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -33,12 +36,12 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         public var parameter: [String: Any] {
             switch self {
             case let .media(mediaID):
-                return [
+                [
                     "type": "media",
                     "media": ["id": mediaID],
                 ]
             case let .location(.coordinate(coordinate)):
-                return [
+                [
                     "type": "location",
                     "location": [
                         "type": "shared_coordinate",
@@ -51,7 +54,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
                     ],
                 ]
             case let .location(.place(placeID)):
-                return [
+                [
                     "type": "location",
                     "location": [
                         "type": "shared_place",
@@ -82,7 +85,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         }
 
         public var parameter: [String: String] {
-            return [
+            [
                 "label": label,
                 "description": description,
                 "metadata": metadata,
@@ -98,15 +101,15 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
     public let quickReplyOptions: [QuickReplyOption]?
 
     public var method: HTTPMethod {
-        return .post
+        .post
     }
 
     public var path: String {
-        return "/1.1/direct_messages/events/new.json"
+        "/1.1/direct_messages/events/new.json"
     }
 
     public var bodyContentType: BodyContentType {
-        return .json
+        .json
     }
 
     open var parameters: [String: Any] {
@@ -146,6 +149,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         self.attachment = attachment
         self.quickReplyOptions = quickReplyOptions
     }
+
     deinit {
         // de-init logic here
     }

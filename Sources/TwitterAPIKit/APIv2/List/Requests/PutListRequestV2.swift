@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -13,15 +16,15 @@ open class PutListRequestV2: TwitterAPIRequest {
     public let `private`: Bool?
 
     public var method: HTTPMethod {
-        return .put
+        .put
     }
 
     public var path: String {
-        return "/2/lists/\(id)"
+        "/2/lists/\(id)"
     }
 
     public var bodyContentType: BodyContentType {
-        return .json
+        .json
     }
 
     open var parameters: [String: Any] {
@@ -43,6 +46,7 @@ open class PutListRequestV2: TwitterAPIRequest {
         self.name = name
         self.private = `private`
     }
+
     deinit {
         // de-init logic here
     }

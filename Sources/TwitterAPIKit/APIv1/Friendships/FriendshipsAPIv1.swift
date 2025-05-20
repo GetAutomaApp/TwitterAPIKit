@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFollowerIDs(
         _ request: GetFollowersIDsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFollowers(
         _ request: GetFollowersListRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFriendIDs(
         _ request: GetFriendsIDsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFriends(
         _ request: GetFriendsListRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -48,7 +51,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFriendshipsIncoming(
         _ request: GetFriendshipsIncomingRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -57,7 +60,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFriendshipsLookup(
         _ request: GetFriendshipsLookupRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -66,7 +69,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFriendshipsNoRetweetsIDs(
         _ request: GetFriendshipsNoRetweetsIDsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -75,7 +78,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFriendshipsOutgoing(
         _ request: GetFriendshipsOutgoingRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -84,7 +87,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func getFriendships(
         _ request: GetFriendshipsShowRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -93,7 +96,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func postFollowUser(
         _ request: PostFriendshipsCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -102,7 +105,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func postUnfollowUser(
         _ request: PostFriendshipsDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -111,7 +114,7 @@ open class FriendshipsAPIv1: TwitterAPIBase {
     public func postFriendshipsUpdate(
         _ request: PostFriendshipsUpdateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

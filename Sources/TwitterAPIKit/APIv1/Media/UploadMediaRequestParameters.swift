@@ -1,7 +1,10 @@
-// UploadMediaEntity.swift
+// UploadMediaRequestParameters.swift
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -9,19 +12,19 @@ import Foundation
 public struct UploadMediaRequestParameters {
     /// The raw media data to upload.
     public let media: Data
-    
+
     /// The MIME type of the media (e.g., "image/jpeg", "video/mp4").
     public let mediaType: String
-    
+
     /// The filename to use for the uploaded media.
     public let filename: String
-    
+
     /// The category of media being uploaded (e.g., "tweet_image", "tweet_video").
     public let mediaCategory: String?
-    
+
     /// Additional Twitter user IDs that should have permission to use this media.
     public let additionalOwners: [String]?
-    
+
     /// The size of each chunk when uploading large media files, in bytes.
     public let uploadChunkSize: Int?
 
@@ -118,7 +121,7 @@ public extension TwitterAPIClient {
 
     struct UploadMediaStatusResponse: Decodable {
         public var state: UploadMediaProcessingInfo.State {
-            return processingInfo.enumState
+            processingInfo.enumState
         }
 
         public let mediaID: String

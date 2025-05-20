@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -16,9 +19,9 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
         public var keyValue: [String: String] {
             switch self {
             case let .add(tweetID):
-                return ["op": "add", "tweet_id": tweetID]
+                ["op": "add", "tweet_id": tweetID]
             case let .remove(tweetID):
-                return ["op": "remove", "tweet_id": tweetID]
+                ["op": "remove", "tweet_id": tweetID]
             }
         }
     }
@@ -27,15 +30,15 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
     public let changes: [Operation]
 
     public var method: HTTPMethod {
-        return .post
+        .post
     }
 
     public var path: String {
-        return "/1.1/collections/entries/curate.json"
+        "/1.1/collections/entries/curate.json"
     }
 
     public var bodyContentType: BodyContentType {
-        return .json
+        .json
     }
 
     open var parameters: [String: Any] {
@@ -52,6 +55,7 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
         self.id = id
         self.changes = changes
     }
+
     deinit {
         // de-init logic here
     }

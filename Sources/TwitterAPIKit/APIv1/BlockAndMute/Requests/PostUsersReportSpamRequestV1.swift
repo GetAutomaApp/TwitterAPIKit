@@ -6,11 +6,11 @@ open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
     public let performBlock: Bool?
 
     public var method: HTTPMethod {
-        return .post
+        .post
     }
 
     public var path: String {
-        return "/1.1/users/report_spam.json"
+        "/1.1/users/report_spam.json"
     }
 
     open var parameters: [String: Any] {
@@ -27,6 +27,7 @@ open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
         self.user = user
         self.performBlock = performBlock
     }
+
     deinit {
         // de-init logic here
     }

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class AccountAPIv1: TwitterAPIBase {
     public func getAccountSetting(
         _ request: GetAccountSettingsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class AccountAPIv1: TwitterAPIBase {
     public func getAccountVerify(
         _ request: GetAccountVerifyCredentialsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class AccountAPIv1: TwitterAPIBase {
     public func postRemoveProfileBanner(
         _ request: PostAccountRemoveProfileBannerRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class AccountAPIv1: TwitterAPIBase {
     public func postAccountSettings(
         _ request: PostAccountSettingsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -48,7 +51,7 @@ open class AccountAPIv1: TwitterAPIBase {
     public func postAccountProfile(
         _ request: PostAccountUpdateProfileRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -57,7 +60,7 @@ open class AccountAPIv1: TwitterAPIBase {
     public func postProfileBanner(
         _ request: PostAccountUpdateProfileBannerRequestV1
     ) -> TwitterAPISessionDataTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -66,7 +69,7 @@ open class AccountAPIv1: TwitterAPIBase {
     public func postProfileImage(
         _ request: PostAccountUpdateProfileImageRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

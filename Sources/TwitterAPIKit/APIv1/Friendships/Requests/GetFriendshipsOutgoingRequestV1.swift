@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -13,11 +16,11 @@ open class GetFriendshipsOutgoingRequestV1: TwitterAPIRequest {
     public let stringifyIDs: Bool?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/1.1/friendships/outgoing"
+        "/1.1/friendships/outgoing"
     }
 
     open var parameters: [String: Any] {
@@ -34,6 +37,7 @@ open class GetFriendshipsOutgoingRequestV1: TwitterAPIRequest {
         self.cursor = cursor
         self.stringifyIDs = stringifyIDs
     }
+
     deinit {
         // de-init logic here
     }

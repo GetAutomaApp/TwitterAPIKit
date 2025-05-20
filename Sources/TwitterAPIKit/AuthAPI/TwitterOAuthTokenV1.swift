@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -10,10 +13,10 @@ import Foundation
 public struct TwitterOAuthTokenV1 {
     /// The OAuth token string used for authentication.
     public let oauthToken: String
-    
+
     /// The OAuth token secret used for signing requests.
     public let oauthTokenSecret: String
-    
+
     /// Indicates whether the OAuth callback was confirmed by Twitter.
     /// This is typically true for OAuth 1.0a requests with a callback URL.
     public let oauthCallbackConfirmed: Bool?

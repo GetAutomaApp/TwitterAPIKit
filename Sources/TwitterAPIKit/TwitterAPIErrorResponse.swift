@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -10,10 +13,10 @@ import Foundation
 public enum TwitterAPIErrorResponse: Equatable {
     /// An error response from the Twitter API v1.1.
     case apiVersion1(TwitterAPIErrorResponseV1)
-    
+
     /// An error response from the Twitter API v2.
     case apiVersion2(TwitterAPIErrorResponseV2)
-    
+
     /// An unknown error response containing raw data.
     case unknown(Data)
 
@@ -44,11 +47,11 @@ public extension TwitterAPIErrorResponse {
     var message: String {
         switch self {
         case let .apiVersion1(version1Response):
-            return version1Response.message
+            version1Response.message
         case let .apiVersion2(version2Response):
-            return version2Response.detail
+            version2Response.detail
         case let .unknown(data):
-            return String(data: data, encoding: .utf8) ?? "Unknown"
+            String(data: data, encoding: .utf8) ?? "Unknown"
         }
     }
 
@@ -63,7 +66,7 @@ public extension TwitterAPIErrorResponse {
 
     /// Indicates whether this is a v1 error response.
     var isVersion1: Bool {
-        return version1 != nil
+        version1 != nil
     }
 
     /// The v1 error response if this is a v1 error, nil otherwise.
@@ -76,7 +79,7 @@ public extension TwitterAPIErrorResponse {
 
     /// Indicates whether this is a v2 error response.
     var isVersion2: Bool {
-        return version2 != nil
+        version2 != nil
     }
 
     /// The v2 error response if this is a v2 error, nil otherwise.
@@ -89,7 +92,7 @@ public extension TwitterAPIErrorResponse {
 
     /// Indicates whether this is an unknown error response.
     var isUnknown: Bool {
-        return unknownData != nil
+        unknownData != nil
     }
 
     /// The raw data if this is an unknown error, nil otherwise.
@@ -106,10 +109,10 @@ public extension TwitterAPIErrorResponse {
 public struct TwitterAPIErrorResponseV1 {
     /// The first error message in the response.
     public let message: String
-    
+
     /// The first error code in the response.
     public let code: Int
-    
+
     /// All errors included in the response.
     public let errors: [Self]
 
@@ -150,7 +153,7 @@ public struct TwitterAPIErrorResponseV1 {
     /// - Parameter code: The error code to check for.
     /// - Returns: true if the error code is present in this response or any nested errors.
     public func contains(code: Int) -> Bool {
-        return code == self.code || errors.contains { $0.code == code }
+        code == self.code || errors.contains { $0.code == code }
     }
 }
 
@@ -164,7 +167,7 @@ public struct TwitterAPIErrorResponseV2 {
     public struct Error: Equatable {
         /// The error message.
         public let message: String
-        
+
         /// Additional parameters associated with the error.
         public let parameters: [String: [String]]
 
@@ -187,13 +190,13 @@ public struct TwitterAPIErrorResponseV2 {
 
     /// The title of the error.
     public let title: String
-    
+
     /// A detailed description of the error.
     public let detail: String
-    
+
     /// The type of error.
     public let type: String
-    
+
     /// Specific errors included in the response.
     public let errors: [Error]
 

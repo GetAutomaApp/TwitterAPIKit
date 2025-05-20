@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func getListTweets(
         _ request: GetListsTweetsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func getList(
         _ request: GetListRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func getLists(
         _ request: GetUsersOwnedListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func followList(
         _ request: PostUsersFollowedListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -48,7 +51,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func unfollowList(
         _ request: DeleteUsersFollowedListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -57,7 +60,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func listFollowers(
         _ request: GetListsFollowersRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -66,7 +69,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func followedLists(
         _ request: GetUsersFollowedListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -75,7 +78,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func addListMember(
         _ request: PostListsMembersRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -84,7 +87,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func removeListMember(
         _ request: DeleteListsMembersRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -93,7 +96,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func getListMemberships(
         _ request: GetUsersListMembershipsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -102,7 +105,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func getListMembers(
         _ request: GetListsMembersRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -111,7 +114,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func createList(
         _ request: PostListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -120,7 +123,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func updateList(
         _ request: PutListRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -129,7 +132,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func deleteList(
         _ request: DeleteListRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -138,7 +141,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func pinnedList(
         _ request: GetUsersPinnedListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -147,7 +150,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func pinList(
         _ request: PostUsersPinnedListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -156,7 +159,7 @@ open class ListAPIv2: TwitterAPIBase {
     public func unpinList(
         _ request: DeleteUsersPinnedListsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

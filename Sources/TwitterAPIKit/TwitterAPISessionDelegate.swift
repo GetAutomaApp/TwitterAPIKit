@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -9,11 +12,11 @@ import Foundation
 public protocol TwitterAPISessionDelegatedTask {
     /// The unique identifier for this task
     var taskIdentifier: Int { get }
-    
+
     /// Appends a chunk of data received from the network
     /// - Parameter chunk: The data chunk to append
     func append(chunk: Data)
-    
+
     /// Called when the task completes, with an optional error
     /// - Parameter error: The error that occurred, if any
     func complete(error: Error?)

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func getBlockIDs(
         _ request: GetBlocksIDsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func getBlockUsers(
         _ request: GetBlocksListRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func getMuteIDs(
         _ request: GetMutesUsersIDsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func getMuteUsers(
         _ request: GetMutesUsersListRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -48,7 +51,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func postBlockUser(
         _ request: PostBlocksCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -57,7 +60,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func postUnblockUser(
         _ request: PostBlocksDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -66,7 +69,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func postMuteUser(
         _ request: PostMutesUsersCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -75,7 +78,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func postUnmuteUser(
         _ request: PostMutesUsersDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -84,7 +87,7 @@ open class BlockAndMuteAPIv1: TwitterAPIBase {
     public func postReportSpam(
         _ request: PostUsersReportSpamRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

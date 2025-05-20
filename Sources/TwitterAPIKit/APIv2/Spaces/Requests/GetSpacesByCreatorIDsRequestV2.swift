@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -14,11 +17,11 @@ open class GetSpacesByCreatorIDsRequestV2: TwitterAPIRequest {
     public let userFields: Set<TwitterUserFieldsV2>?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/2/spaces/by/creator_ids"
+        "/2/spaces/by/creator_ids"
     }
 
     open var parameters: [String: Any] {
@@ -44,6 +47,7 @@ open class GetSpacesByCreatorIDsRequestV2: TwitterAPIRequest {
         self.topicFields = topicFields
         self.userFields = userFields
     }
+
     deinit {
         // de-init logic here
     }

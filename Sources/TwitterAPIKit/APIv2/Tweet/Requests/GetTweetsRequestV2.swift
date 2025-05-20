@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -16,11 +19,11 @@ open class GetTweetsRequestV2: TwitterAPIRequest {
     public let userFields: Set<TwitterUserFieldsV2>?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/2/tweets"
+        "/2/tweets"
     }
 
     open var parameters: [String: Any] {
@@ -50,7 +53,7 @@ open class GetTweetsRequestV2: TwitterAPIRequest {
         self.placeFields = placeFields
         self.pollFields = pollFields
         self.tweetFields = tweetFields
-        self.userFields = userFields 
+        self.userFields = userFields
     }
 
     deinit {

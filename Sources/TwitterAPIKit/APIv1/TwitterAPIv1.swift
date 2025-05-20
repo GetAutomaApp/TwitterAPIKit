@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 /// A protocol that represents a Twitter API.
 public protocol TwitterAPI {
@@ -14,52 +17,52 @@ public protocol TwitterAPI {
 open class TwitterAPIv1: TwitterAPI {
     /// API client for managing Twitter account settings and profile information.
     public let account: AccountAPIv1
-    
+
     /// API client for accessing application-level information and rate limits.
     public let application: ApplicationAPIv1
-    
+
     /// API client for managing blocked and muted users.
     public let blockAndMute: BlockAndMuteAPIv1
-    
+
     /// API client for managing Twitter collections (curated groups of tweets).
     public let collection: CollectionAPIv1
-    
+
     /// API client for sending and receiving direct messages.
     public let directMessage: DirectMessageAPIv1
-    
+
     /// API client for managing tweet favorites (likes).
     public let favorite: FavoriteAPIv1
-    
+
     /// API client for managing user relationships (following/followers).
     public let friendships: FriendshipsAPIv1
-    
+
     /// API client for accessing Twitter's geo-location features.
     public let geo: GeoAPIv1
-    
+
     /// API client for accessing Twitter platform information and supported features.
     public let help: HelpAPIv1
-    
+
     /// API client for managing Twitter lists.
     public let list: ListAPIv1
-    
+
     /// API client for uploading and managing media attachments.
     public let media: MediaAPIv1
-    
+
     /// API client for managing retweets.
     public let retweet: RetweetAPIv1
-    
+
     /// API client for searching tweets and managing saved searches.
     public let search: SearchAPIv1
-    
+
     /// API client for accessing user timelines.
     public let timeline: TimelineAPIv1
-    
+
     /// API client for accessing trending topics.
     public let trend: TrendAPIv1
-    
+
     /// API client for creating, deleting, and retrieving tweets.
     public let tweet: TweetAPIv1
-    
+
     /// API client for managing and retrieving user information.
     public let user: UserAPIv1
 

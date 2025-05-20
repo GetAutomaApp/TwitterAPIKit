@@ -2,16 +2,19 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import XCTest
 
 @testable import TwitterAPIKit
 
 private class GetTwitterReqeust: TwitterAPIRequest {
-    var method: HTTPMethod { return .get }
-    var path: String { return "/get.json" }
+    var method: HTTPMethod { .get }
+    var path: String { "/get.json" }
     var parameters: [String: Any] {
-        return ["hoge": "😀"] // = %F0%9F%98%80
+        ["hoge": "😀"] // = %F0%9F%98%80
     }
 
     deinit {
@@ -20,10 +23,10 @@ private class GetTwitterReqeust: TwitterAPIRequest {
 }
 
 private class PostTwitterReqeust: TwitterAPIRequest {
-    var method: HTTPMethod { return .post }
-    var path: String { return "/post.json" }
+    var method: HTTPMethod { .post }
+    var path: String { "/post.json" }
     var parameters: [String: Any] {
-        return ["hoge": "😀"] // = %F0%9F%98%80
+        ["hoge": "😀"] // = %F0%9F%98%80
     }
 
     deinit {
@@ -32,10 +35,10 @@ private class PostTwitterReqeust: TwitterAPIRequest {
 }
 
 private class EmptyRequest: TwitterAPIRequest {
-    var method: HTTPMethod { return .get }
-    var path: String { return "/empty.json" }
+    var method: HTTPMethod { .get }
+    var path: String { "/empty.json" }
     var parameters: [String: Any] {
-        return [:]
+        [:]
     }
 
     deinit {
@@ -47,7 +50,8 @@ internal class TwitterAPISessionTests: XCTestCase {
     private let environment: TwitterAPIEnvironment = {
         guard let twitterURL = URL(string: "https://twitter.example.com"),
               let apiURL = URL(string: "https://api.example.com"),
-              let uploadURL = URL(string: "https://upload.xample.com") else {
+              let uploadURL = URL(string: "https://upload.xample.com")
+        else {
             fatalError("Invalid test URLs")
         }
         return TwitterAPIEnvironment(
@@ -91,12 +95,12 @@ internal class TwitterAPISessionTests: XCTestCase {
             XCTAssertEqual(request.httpMethod, "POST")
             XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/post.json")
             XCTAssertNil(request.httpBody)
-            
+
             guard let bodyStream = request.httpBodyStream else {
                 XCTFail("HTTP body stream is nil")
                 return
             }
-            
+
             do {
                 let data = try Data(reading: bodyStream)
                 guard let body = String(data: data, encoding: .utf8) else {
@@ -144,7 +148,7 @@ internal class TwitterAPISessionTests: XCTestCase {
             guard let url = request.url else {
                 throw URLError(.badURL)
             }
-            
+
             let data = Data("aaaa\r\nbbbb\r\n".utf8)
             guard let response = HTTPURLResponse(
                 url: url,

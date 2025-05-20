@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -9,27 +12,27 @@ import Foundation
 public struct TwitterAPIResponse<Success> {
     /// The original URL request that was sent to the Twitter API.
     public let request: URLRequest?
-    
+
     /// The HTTP response received from the Twitter API.
     public let response: HTTPURLResponse?
 
     /// The raw data received in the response.
     public let data: Data?
-    
+
     /// The result of the API call, containing either the successful response or an error.
     public let result: Result<Success, TwitterAPIKitError>
-    
+
     /// Rate limit information returned by the Twitter API.
     public let rateLimit: TwitterRateLimit?
 
     /// The successful response value if the request succeeded, nil otherwise.
-    public var success: Success? { return result.success }
-    
+    public var success: Success? { result.success }
+
     /// The error that occurred during the request, if any.
-    public var error: TwitterAPIKitError? { return result.error }
-    
+    public var error: TwitterAPIKitError? { result.error }
+
     /// A boolean indicating whether the request resulted in an error.
-    public var isError: Bool { return error != nil }
+    public var isError: Bool { error != nil }
 
     /// Creates a new TwitterAPIResponse instance.
     /// - Parameters:
@@ -58,7 +61,7 @@ public extension TwitterAPIResponse {
     /// - Parameter transform: A closure that takes the current success value and returns a new value.
     /// - Returns: A new TwitterAPIResponse with the transformed success type.
     func map<NewSuccess>(_ transform: (Success) -> NewSuccess) -> TwitterAPIResponse<NewSuccess> {
-        return .init(
+        .init(
             request: request,
             response: response,
             data: data,
@@ -73,7 +76,7 @@ public extension TwitterAPIResponse {
     func flatMap<NewSuccess>(_ transform: (Success) -> Result<NewSuccess, TwitterAPIKitError>)
         -> TwitterAPIResponse<NewSuccess>
     {
-        return .init(
+        .init(
             request: request,
             response: response,
             data: data,
@@ -105,7 +108,7 @@ public extension TwitterAPIResponse {
     /// - Parameter tranform: A closure that takes the current error and returns a new error.
     /// - Returns: A new TwitterAPIResponse with the transformed error.
     func mapError(_ tranform: (TwitterAPIKitError) -> TwitterAPIKitError) -> TwitterAPIResponse {
-        return .init(
+        .init(
             request: request,
             response: response,
             data: data,
@@ -133,9 +136,9 @@ public extension TwitterAPIResponse {
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []),
                    let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
                 {
-                    return String(data: jsonData, encoding: .utf8) ?? ""
+                    String(data: jsonData, encoding: .utf8) ?? ""
                 } else {
-                    return String(data: data, encoding: .utf8) ?? "Invalid data"
+                    String(data: data, encoding: .utf8) ?? "Invalid data"
                 }
             } ?? "No data"
 
@@ -180,7 +183,7 @@ public extension TwitterAPIResponse {
 
 private extension String {
     var unescapeSlash: String {
-        return replacingOccurrences(of: #"\/"#, with: #"/"#)
+        replacingOccurrences(of: #"\/"#, with: #"/"#)
     }
 
     var unescapingUnicodeCharacters: String {

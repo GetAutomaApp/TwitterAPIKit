@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -29,13 +32,13 @@ import Foundation
 public struct TwitterOAuth2AccessToken {
     /// The scopes granted to this access token, as an array of permission strings.
     public let scope: [String]
-    
+
     /// The type of token, typically "bearer".
     public let tokenType: String
-    
+
     /// The number of seconds until the token expires.
     public let expiresIn: Int
-    
+
     /// The access token string used for API authentication.
     public let accessToken: String
 

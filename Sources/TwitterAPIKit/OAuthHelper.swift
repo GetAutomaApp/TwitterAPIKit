@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -32,7 +35,7 @@ public func authorizationHeader(
     oauthTimestamp: String? = .none,
     oauthNonce: String? = .none
 ) -> String {
-// swiftlint:enable function_parameter_count
+    // swiftlint:enable function_parameter_count
     var authorizationParameters = [String: Any]()
     authorizationParameters["oauth_version"] = oauthVersion
     authorizationParameters["oauth_signature_method"] = oauthSignatureMethod
@@ -82,7 +85,7 @@ private func oauthSignature(
     oauthTokenSecret: String?
 ) -> String {
     let tokenSecret = oauthTokenSecret?.urlEncodedString ?? ""
-        let encodedConsumerSecret = consumerSecret.urlEncodedString
+    let encodedConsumerSecret = consumerSecret.urlEncodedString
     let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
     let parameterComponents = parameters.urlEncodedQueryString.components(separatedBy: "&").sorted()
     let parameterString = parameterComponents.joined(separator: "&")

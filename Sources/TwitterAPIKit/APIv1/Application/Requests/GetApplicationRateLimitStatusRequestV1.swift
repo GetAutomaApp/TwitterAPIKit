@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,11 +15,11 @@ open class GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
     public let resources: [String]?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/1.1/application/rate_limit_status.json"
+        "/1.1/application/rate_limit_status.json"
     }
 
     open var parameters: [String: Any] {
@@ -30,6 +33,7 @@ open class GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
     ) {
         self.resources = resources
     }
+
     deinit {
         // de-init logic here
     }

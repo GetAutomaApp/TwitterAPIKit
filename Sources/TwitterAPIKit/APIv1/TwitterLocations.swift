@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -32,7 +35,7 @@ public struct TwitterCoordinateV1: TwitterLocations {
 
 /// Represents accuracy levels for geographical locations
 public enum TwitterAccuracyV1: TwitterLocations {
-// swiftlint:disable identifier_name
+    // swiftlint:disable identifier_name
     /// Accuracy in feet
     case ft(Int)
     /// Accuracy in meters
@@ -48,6 +51,7 @@ public enum TwitterAccuracyV1: TwitterLocations {
         }
     }
 }
+
 // swiftlint:enable identifier_name
 
 /// Represents the granularity level for geographical locations

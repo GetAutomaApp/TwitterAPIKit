@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -20,9 +23,9 @@ public enum HTTPMethod: String {
     public var prefersQueryParameters: Bool {
         switch self {
         case .get, .delete:
-            return true
+            true
         default:
-            return false
+            false
         }
     }
 }
@@ -31,12 +34,12 @@ public enum HTTPMethod: String {
 public enum BodyContentType: String {
     /// JSON content type with UTF-8 encoding.
     case json = "application/json; charset=UTF-8"
-    
+
     /// Multipart form data content type, used for file uploads.
     /// Use MultipartFormDataPart as a parameter.
     /// Example: UploadMediaAppendRequestV1.swift
     case multipartFormData = "multipart/form-data"
-    
+
     /// URL-encoded form data content type.
     case wwwFormUrlEncoded = "application/x-www-form-urlencoded"
 }
@@ -52,9 +55,9 @@ public enum MultipartFormDataPart {
     public var name: String {
         switch self {
         case let .value(name, _):
-            return name
+            name
         case let .data(name, _, _, _):
-            return name
+            name
         }
     }
 }
@@ -63,8 +66,8 @@ extension MultipartFormDataPart: Equatable {
     public static func == (lhs: MultipartFormDataPart, rhs: MultipartFormDataPart) -> Bool {
         switch (lhs, rhs) {
         case let (.value(name: leftName, value: leftValue), .value(name: rightName, value: rightValue)):
-            return leftName == rightName 
-                && type(of: leftValue) == type(of: rightValue) 
+            leftName == rightName
+                && type(of: leftValue) == type(of: rightValue)
                 && String(describing: leftValue) == String(describing: rightValue)
         case let (
             .data(
@@ -80,12 +83,12 @@ extension MultipartFormDataPart: Equatable {
                 mimeType: rightMimeType
             )
         ):
-            return leftName == rightName
+            leftName == rightName
                 && leftValue == rightValue
                 && leftFilename == rightFilename
                 && leftMimeType == rightMimeType
         default:
-            return false
+            false
         }
     }
 }
@@ -94,22 +97,22 @@ extension MultipartFormDataPart: Equatable {
 public protocol TwitterAPIRequest {
     /// The HTTP method to be used for the request.
     var method: HTTPMethod { get }
-    
+
     /// The base URL type for the request (api, upload, etc.).
     var baseURLType: TwitterBaseURLType { get }
-    
+
     /// The path component of the request URL.
     var path: String { get }
-    
+
     /// The complete set of parameters for the request.
     var parameters: [String: Any] { get }
-    
+
     /// Parameters to be included in the URL query string.
     var queryParameters: [String: Any] { get }
-    
+
     /// Parameters to be included in the request body.
     var bodyParameters: [String: Any] { get }
-    
+
     /// The content type of the request body.
     var bodyContentType: BodyContentType { get }
 }
@@ -118,17 +121,17 @@ public protocol TwitterAPIRequest {
 public extension TwitterAPIRequest {
     /// Default base URL type is .api.
     var baseURLType: TwitterBaseURLType {
-        return .api
+        .api
     }
 
     /// Default body content type is .wwwFormUrlEncoded.
     var bodyContentType: BodyContentType {
-        return .wwwFormUrlEncoded
+        .wwwFormUrlEncoded
     }
 
     /// Default parameters is an empty dictionary.
     var parameters: [String: Any] {
-        return [:]
+        [:]
     }
 
     /// Query parameters are derived from parameters if the method prefers query parameters.
@@ -148,12 +151,12 @@ public extension TwitterAPIRequest {
     }
 }
 
-extension TwitterAPIRequest {
+public extension TwitterAPIRequest {
     /// Builds a URL request for the given environment.
     /// - Parameters:
     ///   - environment: The environment to build the request for.
     /// - Returns: A URL request.
-    public func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
+    func buildRequest(environment: TwitterAPIEnvironment) throws -> URLRequest {
         guard
             var urlComponent = URLComponents(
                 url: requestURL(for: environment),
@@ -230,18 +233,18 @@ extension TwitterAPIRequest {
     }
 
     /// Returns the URL for the request.
-    public func requestURL(for environment: TwitterAPIEnvironment) -> URL {
-        return environment.baseURL(for: baseURLType).appendingPathComponent(path)
+    func requestURL(for environment: TwitterAPIEnvironment) -> URL {
+        environment.baseURL(for: baseURLType).appendingPathComponent(path)
     }
 
     /// Returns the parameters for OAuth.
-    public var parameterForOAuth: [String: Any] {
+    var parameterForOAuth: [String: Any] {
         switch bodyContentType {
         case .wwwFormUrlEncoded:
-            return parameters
+            parameters
         case .json, .multipartFormData:
             // parameter is empty
-            return [:]
+            [:]
         }
     }
 
@@ -290,9 +293,9 @@ extension TwitterAPIRequest {
 private extension TwitterAPIEnvironment {
     func baseURL(for type: TwitterBaseURLType) -> URL {
         switch type {
-        case .twitter: return twitterURL
-        case .api: return apiURL
-        case .upload: return uploadURL
+        case .twitter: twitterURL
+        case .api: apiURL
+        case .upload: uploadURL
         }
     }
 }

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import XCTest
 
@@ -15,11 +18,12 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
     public func testProps() throws {
         guard let currentURL = URL(string: "http://example.com/current"),
               let originalURL = URL(string: "http://example.com/original"),
-              let responseURL = URL(string: "https://example.com") else {
+              let responseURL = URL(string: "https://example.com")
+        else {
             XCTFail("Failed to create test URLs")
             return
         }
-        
+
         let cReq = URLRequest(url: currentURL)
         let oReq = URLRequest(url: originalURL)
         guard let resp = HTTPURLResponse(
@@ -31,7 +35,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
             XCTFail("Failed to create test response")
             return
         }
-        
+
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
             currentRequest: cReq,
@@ -49,15 +53,16 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
     public func test() throws {
         guard let responseURL = URL(string: "https://example.com"),
               let response = HTTPURLResponse(
-                url: responseURL,
-                statusCode: 200,
-                httpVersion: "1.1",
-                headerFields: [
-                    "x-rate-limit-limit": "15",
-                    "x-rate-limit-remaining": "1",
-                    "x-rate-limit-reset": "1647099944",
-                ]
-              ) else {
+                  url: responseURL,
+                  statusCode: 200,
+                  httpVersion: "1.1",
+                  headerFields: [
+                      "x-rate-limit-limit": "15",
+                      "x-rate-limit-remaining": "1",
+                      "x-rate-limit-reset": "1647099944",
+                  ]
+              )
+        else {
             XCTFail("Failed to create test response")
             return
         }
@@ -89,7 +94,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
                     XCTFail("Rate limit should not be nil")
                     return
                 }
-                
+
                 XCTAssertEqual(rateLimit.limit, 15)
                 XCTAssertEqual(rateLimit.remaining, 1)
                 XCTAssertEqual(rateLimit.reset, 1_647_099_944)
@@ -122,15 +127,16 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
     public func testInvalidStatusCode() throws {
         guard let responseURL = URL(string: "https://example.com"),
               let response = HTTPURLResponse(
-                url: responseURL,
-                statusCode: 400,
-                httpVersion: "1.1",
-                headerFields: [
-                    "x-rate-limit-limit": "15",
-                    "x-rate-limit-remaining": "1",
-                    "x-rate-limit-reset": "1647099944",
-                ]
-              ) else {
+                  url: responseURL,
+                  statusCode: 400,
+                  httpVersion: "1.1",
+                  headerFields: [
+                      "x-rate-limit-limit": "15",
+                      "x-rate-limit-remaining": "1",
+                      "x-rate-limit-reset": "1647099944",
+                  ]
+              )
+        else {
             XCTFail("Failed to create test response")
             return
         }
@@ -148,9 +154,9 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
             task.append(
                 chunk: Data(
                     "{\"detail\":\"Authenticating with OAuth 1.0a User Context is forbidden for this endpoint.  " +
-                    "Supported authentication types are [OAuth 2.0 Application-Only].\",\"title\":\"Unsupported " +
-                    "Authentication\",\"status\":403,\"type\":\"https://api.twitter.com/2/problems/unsupported-" +
-                    "authentication\"}"
+                        "Supported authentication types are [OAuth 2.0 Application-Only].\",\"title\":\"Unsupported " +
+                        "Authentication\",\"status\":403,\"type\":\"https://api.twitter.com/2/problems/unsupported-" +
+                        "authentication\"}"
                         .utf8
                 )
             )
@@ -169,7 +175,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
                     XCTFail("Rate limit should not be nil")
                     return
                 }
-                
+
                 XCTAssertEqual(rateLimit.limit, 15)
                 XCTAssertEqual(rateLimit.remaining, 1)
                 XCTAssertEqual(rateLimit.reset, 1_647_099_944)

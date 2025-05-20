@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class MediaAPIv1: TwitterAPIBase {
     public func getUploadMediaStatus(
         _ request: GetUploadMediaStatusRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class MediaAPIv1: TwitterAPIBase {
     public func uploadMediaInit(
         _ request: UploadMediaInitRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class MediaAPIv1: TwitterAPIBase {
     public func uploadMediaAppend(
         _ request: UploadMediaAppendRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// Utility method for split uploading of large files.
@@ -38,7 +41,7 @@ open class MediaAPIv1: TwitterAPIBase {
         _ request: UploadMediaAppendRequestV1,
         maxBytes: Int = 5_242_880 /* 5MB */
     ) -> [TwitterAPISessionSpecializedTask<String /* mediaID */>] {
-        return request.segments(maxBytes: maxBytes)
+        request.segments(maxBytes: maxBytes)
             .map { req in
                 uploadMediaAppend(req).specialized { _ in
                     req.mediaID
@@ -52,7 +55,7 @@ open class MediaAPIv1: TwitterAPIBase {
     public func uploadMediaFinalize(
         _ request: UploadMediaFinalizeRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// Upload media utility method.
@@ -131,7 +134,7 @@ open class MediaAPIv1: TwitterAPIBase {
                         }
                     }
             }
-            }
+        }
     }
 
     public func waitMediaProcessing(
@@ -200,7 +203,7 @@ open class MediaAPIv1: TwitterAPIBase {
     public func createMediaMetadata(
         _ request: PostMediaMetadataCreateRequestV1
     ) -> TwitterAPISessionDataTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -210,7 +213,7 @@ open class MediaAPIv1: TwitterAPIBase {
     public func createSubtitle(
         _ request: PostMediaSubtitlesCreateRequestV1
     ) -> TwitterAPISessionDataTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -220,7 +223,7 @@ open class MediaAPIv1: TwitterAPIBase {
     public func deleteSubtitle(
         _ request: PostMediaSubtitlesDeleteRequestV1
     ) -> TwitterAPISessionDataTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,15 +15,15 @@ open class DeleteUsersLikesRequestV2: TwitterAPIRequest {
     public let tweetID: String
 
     public var method: HTTPMethod {
-        return .delete
+        .delete
     }
 
     public var path: String {
-        return "/2/users/\(id)/likes/\(tweetID)"
+        "/2/users/\(id)/likes/\(tweetID)"
     }
 
     open var parameters: [String: Any] {
-        return [:]
+        [:]
     }
 
     public init(
@@ -30,6 +33,7 @@ open class DeleteUsersLikesRequestV2: TwitterAPIRequest {
         self.id = id
         self.tweetID = tweetID
     }
+
     deinit {
         // de-init logic here
     }

@@ -2,12 +2,14 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import TwitterAPIKit
 import XCTest
 
 internal class UploadMediaUtilTests: XCTestCase {
-    
     // Helper function to safely serialize JSON
     private func serializeJSON(_ object: [String: Any]) throws -> Data {
         do {
@@ -17,7 +19,7 @@ internal class UploadMediaUtilTests: XCTestCase {
             throw error
         }
     }
-    
+
     override public func tearDownWithError() throws {
         MockURLProtocol.cleanup()
     }
@@ -38,7 +40,7 @@ internal class UploadMediaUtilTests: XCTestCase {
             guard let self else {
                 throw URLError(.unknown)
             }
-            
+
             defer {
                 requestCount += 1
             }
@@ -58,7 +60,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("Request body string is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "expires_after_secs": 1_000,
                 ])
@@ -84,7 +86,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("Request body string is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "size": 10,
                     "expires_after_secs": 200,
@@ -102,7 +104,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("URL or query is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "processing_info": [
                         "state": "in_progress",
@@ -119,7 +121,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("URL or query is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "video": [
                         "video_type": "video/mp4",
@@ -246,7 +248,7 @@ internal class UploadMediaUtilTests: XCTestCase {
             guard let self else {
                 throw URLError(.unknown)
             }
-            
+
             defer {
                 requestCount += 1
             }
@@ -267,7 +269,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("Request body string is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "expires_after_secs": 1_000,
                 ])
@@ -341,7 +343,7 @@ internal class UploadMediaUtilTests: XCTestCase {
             guard let self else {
                 throw URLError(.unknown)
             }
-            
+
             defer {
                 requestCount += 1
             }
@@ -361,7 +363,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("Request body string is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "expires_after_secs": 1_000,
                 ])
@@ -441,7 +443,7 @@ internal class UploadMediaUtilTests: XCTestCase {
             guard let self else {
                 throw URLError(.unknown)
             }
-            
+
             defer {
                 requestCount += 1
             }
@@ -461,7 +463,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("Request body string is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "expires_after_secs": 1_000,
                 ])
@@ -487,7 +489,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("Request body string is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "size": 10,
                     "expires_after_secs": 200,
@@ -505,7 +507,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("URL or query is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "processing_info": [
                         "state": "in_progress",
@@ -522,7 +524,7 @@ internal class UploadMediaUtilTests: XCTestCase {
                     XCTFail("URL or query is nil")
                 }
 
-                data = try self.serializeJSON([
+                data = try serializeJSON([
                     "media_id_string": "123",
                     "processing_info": [
                         "state": "failed",

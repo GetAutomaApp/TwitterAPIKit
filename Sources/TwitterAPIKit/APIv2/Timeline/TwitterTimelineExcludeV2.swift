@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -14,16 +17,16 @@ public enum TwitterTimelineExcludeV2: String, TwitterAPIv2RequestParameter {
 
     /// The string value of the exclude type.
     public var stringValue: String {
-        return rawValue
+        rawValue
     }
 }
 
 /// Extension to bind the exclude types to the request parameters.
-extension Set where Element == TwitterTimelineExcludeV2 {
+public extension Set<TwitterTimelineExcludeV2> {
     /// Binds the exclude types to the request parameters.
     /// - Parameters:
     ///   - param: The parameters dictionary to bind to.
-    public func bind(param: inout [String: Any]) {
+    func bind(param: inout [String: Any]) {
         param["exclude"] = commaSeparatedString
     }
 }

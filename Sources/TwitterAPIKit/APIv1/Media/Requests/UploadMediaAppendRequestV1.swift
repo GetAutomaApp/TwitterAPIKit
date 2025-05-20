@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -19,23 +22,23 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
     public let segmentIndex: Int
 
     public var method: HTTPMethod {
-        return .post
+        .post
     }
 
     public var baseURLType: TwitterBaseURLType {
-        return .upload
+        .upload
     }
 
     public var path: String {
-        return "/1.1/media/upload.json"
+        "/1.1/media/upload.json"
     }
 
     public var bodyContentType: BodyContentType {
-        return .multipartFormData
+        .multipartFormData
     }
 
     open var parameters: [String: Any] {
-        return [
+        [
             "command": command,
             "media_id": mediaID,
             "media": media,

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 /// A collection wrapper that generates combinations of a base collection.
 public struct CombinationsSequence<Base: Collection> {
@@ -42,7 +45,7 @@ public struct CombinationsSequence<Base: Collection> {
         let baseCount = base.count
         self.baseCount = baseCount
         let upperBound = baseCount + 1
-        self.combinationRange =
+        combinationRange =
             range.lowerBound < upperBound
                 ? range.clamped(to: 0 ..< upperBound)
                 : nil
@@ -58,10 +61,10 @@ public struct CombinationsSequence<Base: Collection> {
 
         internal func binomial(total: Int, size: Int) -> Int {
             switch size {
-            case total, 0: return 1
-            case total...: return 0
-            case (total / 2 + 1)...: return binomial(total: total, size: total - size)
-            default: return total * binomial(total: total - 1, size: size - 1) / size
+            case total, 0: 1
+            case total...: 0
+            case (total / 2 + 1)...: binomial(total: total, size: total - size)
+            default: total * binomial(total: total - 1, size: size - 1) / size
             }
         }
 
@@ -87,7 +90,7 @@ extension CombinationsSequence: Sequence {
 
         /// Whether or not iteration is finished (`kRange` is empty)
         @inlinable internal var isFinished: Bool {
-            return kRange.isEmpty
+            kRange.isEmpty
         }
 
         @usableFromInline internal var indexes: [Base.Index]
@@ -245,10 +248,10 @@ public extension Collection {
     ///   is the number of elements in the base collection, since
     ///   `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    public func combinations<R: RangeExpression>(
+    func combinations<R: RangeExpression>(
         ofCount range: R
     ) -> CombinationsSequence<Self> where R.Bound == Int {
-        return CombinationsSequence(self, kRange: range)
+        CombinationsSequence(self, kRange: range)
     }
 
     /// Returns a collection of combinations of this collection's elements, with
@@ -260,7 +263,7 @@ public extension Collection {
     ///   is the number of elements in the base collection, since
     ///   `CombinationsSequence` accesses the `count` of the base collection.
     @inlinable
-    public func combinations(ofCount size: Int) -> CombinationsSequence<Self> {
+    func combinations(ofCount size: Int) -> CombinationsSequence<Self> {
         precondition(size >= 0, "Can't have combinations with a negative number of elements.")
         return CombinationsSequence(self, size: size)
     }

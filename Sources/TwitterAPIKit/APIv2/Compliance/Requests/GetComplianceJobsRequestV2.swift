@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -21,11 +24,11 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
     public let status: Status?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/2/compliance/jobs"
+        "/2/compliance/jobs"
     }
 
     open var parameters: [String: Any] {
@@ -42,6 +45,7 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
         self.type = type
         self.status = status
     }
+
     deinit {
         // de-init logic here
     }

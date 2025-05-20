@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -13,11 +16,11 @@ open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
     public let clientID: String?
 
     public var method: HTTPMethod {
-        return .post
+        .post
     }
 
     public var path: String {
-        return "/2/oauth2/token"
+        "/2/oauth2/token"
     }
 
     public var parameters: [String: Any] {

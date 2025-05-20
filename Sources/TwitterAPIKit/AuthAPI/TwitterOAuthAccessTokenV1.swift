@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -9,7 +12,7 @@ import Foundation
 public struct TwitterOAuthAccessTokenV1 {
     /// The OAuth token string used for authentication.
     public let oauthToken: String
-    
+
     /// The OAuth token secret used for signing requests.
     public let oauthTokenSecret: String
 
@@ -18,7 +21,7 @@ public struct TwitterOAuthAccessTokenV1 {
 
     /// The unique identifier of the authenticated user.
     public let userID: String?
-    
+
     /// The screen name (username) of the authenticated user.
     public let screenName: String?
 
