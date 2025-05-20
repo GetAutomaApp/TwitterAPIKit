@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -13,11 +16,11 @@ open class GetBlocksIDsRequestV1: TwitterAPIRequest {
     public let cursor: String?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/1.1/blocks/ids.json"
+        "/1.1/blocks/ids.json"
     }
 
     open var parameters: [String: Any] {
@@ -34,6 +37,7 @@ open class GetBlocksIDsRequestV1: TwitterAPIRequest {
         self.stringifyIDs = stringifyIDs
         self.cursor = cursor
     }
+
     deinit {
         // de-init logic here
     }

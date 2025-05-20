@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -70,7 +73,7 @@ public protocol Concurrency {
             type: T.Type,
             decoder _: JSONDecoder = TwitterAPIClient.defaultJSONDecoder
         ) async -> TwitterAPIResponse<T> {
-            return await withTaskCancellationHandler(
+            await withTaskCancellationHandler(
                 operation: {
                     await withCheckedContinuation { continuation in
                         responseDecodable(type: type) { response in
@@ -115,7 +118,7 @@ public protocol Concurrency {
         /// - Parameter queue: The dispatch queue on which to receive responses. Defaults to the main queue.
         /// - Returns: An AsyncStream that yields TwitterAPIResponse<Data> values.
         func streamResponse(queue: DispatchQueue = .main) -> AsyncStream<TwitterAPIResponse<Data>> {
-            return AsyncStream { continuation in
+            AsyncStream { continuation in
                 streamResponse(queue: queue) { response in
                     continuation.yield(response)
                     if response.isError {
@@ -142,7 +145,7 @@ public protocol Concurrency {
             type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType,
             forceRefresh: Bool = false
         ) async throws -> RefreshOAuth20TokenResultValue {
-            return try await withCheckedThrowingContinuation { continuation in
+            try await withCheckedThrowingContinuation { continuation in
                 refreshOAuth20Token(type: type, forceRefresh: forceRefresh) { result in
                     continuation.resume(with: result)
                 }

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import XCTest
 
@@ -224,9 +227,10 @@ internal class TwitterAPIRequestTests: XCTestCase {
             let boundary = contentType.replacingOccurrences(
                 of: "multipart/form-data; boundary=", with: ""
             )
-            
+
             guard let httpBody = req.httpBody,
-                  let body = String(data: httpBody, encoding: .utf8) else {
+                  let body = String(data: httpBody, encoding: .utf8)
+            else {
                 XCTFail("Failed to get HTTP body or decode as UTF-8")
                 return
             }
@@ -304,12 +308,12 @@ internal class TwitterAPIRequestTests: XCTestCase {
         try XCTContext.runActivity(named: "Invalid value") { _ in
             // Create invalid UTF-16 string bytes
             let invalidBytes: [UInt8] = [0xD8, 0x00]
-            
+
             guard let invalidString = String(bytes: invalidBytes, encoding: .utf16BigEndian) else {
                 XCTFail("Failed to create test string")
                 return
             }
-            
+
             XCTAssertThrowsError(
                 try MockTwitterAPIRequest(
                     method: .post,

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -13,7 +16,7 @@ import Foundation
 public struct TwitterRateLimit {
     /// The maximum number of requests allowed in the current time window.
     public let limit: Int
-    
+
     /// The number of requests remaining in the current time window.
     public let remaining: Int
 
@@ -44,7 +47,7 @@ public extension TwitterRateLimit {
     /// The date when the current rate limit window resets.
     /// This is a convenience property that converts the reset timestamp to a Date object.
     var resetDate: Date {
-        return Date(timeIntervalSince1970: reset)
+        Date(timeIntervalSince1970: reset)
     }
 }
 

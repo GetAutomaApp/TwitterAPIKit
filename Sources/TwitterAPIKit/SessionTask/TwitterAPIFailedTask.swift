@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -39,7 +42,7 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
     public func responseData(
         _ block: @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self {
-        return responseData(queue: .main, block)
+        responseData(queue: .main, block)
     }
 
     @discardableResult
@@ -65,7 +68,7 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
     public func responseObject(
         _ block: @escaping (TwitterAPIResponse<Any>) -> Void
     ) -> Self {
-        return responseObject(queue: .main, block)
+        responseObject(queue: .main, block)
     }
 
     @discardableResult
@@ -95,7 +98,7 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
         decoder: JSONDecoder,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> Self where T: Decodable {
-        return responseDecodable(
+        responseDecodable(
             type: type,
             decoder: decoder,
             queue: .main,
@@ -109,7 +112,7 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
         queue: DispatchQueue,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> Self where T: Decodable {
-        return responseDecodable(
+        responseDecodable(
             type: type,
             decoder: TwitterAPIClient.defaultJSONDecoder,
             queue: queue,
@@ -122,7 +125,7 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
         type: T.Type,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> Self where T: Decodable {
-        return responseDecodable(
+        responseDecodable(
             type: type,
             decoder: TwitterAPIClient.defaultJSONDecoder,
             queue: .main,
@@ -152,7 +155,7 @@ public struct TwitterAPIFailedTask: TwitterAPISessionJSONTask, TwitterAPISession
     public func streamResponse(
         _ block: @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self {
-        return streamResponse(queue: .main, block)
+        streamResponse(queue: .main, block)
     }
 
     public func cancel() {}

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -14,17 +17,16 @@ public protocol TwitterAPIKit {
     /// The base URL for Twitter web services.
     /// Default: "https://twitter.com"
     var twitterURL: URL { get }
-    
 }
 
 /// Specifies the type of Twitter API base URL to use.
 public enum TwitterBaseURLType {
     /// The main Twitter API endpoint (api.twitter.com).
     case api
-    
+
     /// The Twitter web endpoint (twitter.com).
     case twitter
-    
+
     /// The Twitter media upload endpoint (upload.twitter.com).
     case upload
 }
@@ -35,11 +37,11 @@ public struct TwitterAPIEnvironment: TwitterAPIKit {
     /// The base URL for Twitter web services.
     /// Default: "https://twitter.com"
     public let twitterURL: URL
-    
+
     /// The base URL for Twitter API services.
     /// Default: "https://api.twitter.com"
     public let apiURL: URL
-    
+
     /// The base URL for Twitter media upload services.
     /// Default: "https://upload.twitter.com"
     public let uploadURL: URL

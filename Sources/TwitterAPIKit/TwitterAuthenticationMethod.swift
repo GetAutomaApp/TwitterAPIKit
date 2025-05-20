@@ -2,11 +2,14 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
 /// Represents different methods of authentication available for Twitter API requests.
-public enum TwitterAuthenticationMethod {    
+public enum TwitterAuthenticationMethod {
     // swiftlint:disable sorted_enum_cases
     /// No authentication method specified.
     case basic(apiKey: String, apiSecretKey: String)
@@ -14,11 +17,11 @@ public enum TwitterAuthenticationMethod {
     /// Bearer token authentication for OAuth2 app-only access.
     case bearer(String)
 
-    // swiftlint:disable discouraged_none_name 
+    // swiftlint:disable discouraged_none_name
     /// No authentication required.
-    case `none`
+    case none
     // swiftlint:enable discouraged_none_name
-    
+
     /// Authentication using OAuth 1.0a protocol (legacy).
     @available(*, deprecated, renamed: "oauth10a")
     case oauth(
@@ -45,13 +48,13 @@ public extension TwitterAuthenticationMethod {
     struct OAuth10a: Codable {
         /// The consumer key (API key) provided by Twitter.
         public var consumerKey: String
-        
+
         /// The consumer secret (API secret key) provided by Twitter.
         public var consumerSecret: String
-        
+
         /// The OAuth token obtained after user authorization.
         public var oauthToken: String?
-        
+
         /// The OAuth token secret obtained after user authorization.
         public var oauthTokenSecret: String?
 
@@ -78,22 +81,22 @@ public extension TwitterAuthenticationMethod {
     struct OAuth20: Codable {
         /// The client ID provided by Twitter.
         public var clientID: String
-        
+
         /// The creation timestamp of the token.
         public var createdAt: Date
-        
+
         /// The time in seconds until the token expires.
         public var expiresIn: Int
-        
+
         /// The OAuth 2.0 access token.
         public var accessToken: String
-        
+
         /// The refresh token for obtaining new access tokens (only for Public Client).
         public var refreshToken: String?
-        
+
         /// The authorized scopes for this token.
         public var scope: [String]
-        
+
         /// The type of token (usually "bearer").
         public var tokenType: String
 
@@ -101,12 +104,12 @@ public extension TwitterAuthenticationMethod {
         /// Since the server response does not include the creation time of the token, it contains a margin of error of
         /// a few seconds.
         public var expiresAt: Date {
-            return createdAt.addingTimeInterval(TimeInterval(expiresIn))
+            createdAt.addingTimeInterval(TimeInterval(expiresIn))
         }
 
         /// Indicates whether the token has expired.
         public var expired: Bool {
-            return expiresAt <= Date()
+            expiresAt <= Date()
         }
 
         /// Initializes a new OAuth20 authentication structure.

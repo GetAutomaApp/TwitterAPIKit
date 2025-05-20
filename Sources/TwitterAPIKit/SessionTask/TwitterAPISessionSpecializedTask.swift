@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -16,19 +19,19 @@ public protocol TwitterAPISessionSpecializedTaskProtocol: TwitterAPISessionDataT
 
 public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTaskProtocol {
     public var taskIdentifier: Int {
-        return innerTask.taskIdentifier
+        innerTask.taskIdentifier
     }
 
     public var currentRequest: URLRequest? {
-        return innerTask.currentRequest
+        innerTask.currentRequest
     }
 
     public var originalRequest: URLRequest? {
-        return innerTask.originalRequest
+        innerTask.originalRequest
     }
 
     public var httpResponse: HTTPURLResponse? {
-        return innerTask.httpResponse
+        innerTask.httpResponse
     }
 
     private let innerTask: TwitterAPISessionDataTask
@@ -69,7 +72,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     ) -> TwitterAPISessionSpecializedTask<
         Success
     > {
-        return responseData(queue: .main, block)
+        responseData(queue: .main, block)
     }
 
     public func cancel() {

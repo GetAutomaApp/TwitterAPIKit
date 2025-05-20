@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -11,19 +14,19 @@ internal protocol TwitterAPISessionDelegatedJSONTaskDelegate: AnyObject {
 
 public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, TwitterAPISessionDelegatedTask {
     public var taskIdentifier: Int {
-        return task.taskIdentifier
+        task.taskIdentifier
     }
 
     public var currentRequest: URLRequest? {
-        return task.currentRequest
+        task.currentRequest
     }
 
     public var originalRequest: URLRequest? {
-        return task.originalRequest
+        task.originalRequest
     }
 
     public var httpResponse: HTTPURLResponse? {
-        return task.httpResponse
+        task.httpResponse
     }
 
     internal weak var delegate: TwitterAPISessionDelegatedJSONTaskDelegate?
@@ -136,19 +139,19 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
     }
 
     public func responseData(queue: DispatchQueue, _ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
-        return registerResponseBlock(queue: queue, flatMap: { .success($0) }, response: block)
+        registerResponseBlock(queue: queue, flatMap: { .success($0) }, response: block)
     }
 
     @discardableResult
     public func responseData(_ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
-        return responseData(queue: .main, block)
+        responseData(queue: .main, block)
     }
 
     public func responseObject(
         queue: DispatchQueue,
         _ block: @escaping (TwitterAPIResponse<Any>) -> Void
     ) -> Self {
-        return registerResponseBlock(
+        registerResponseBlock(
             queue: queue,
             flatMap: { $0.serialize() },
             response: block
@@ -156,7 +159,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
     }
 
     public func responseObject(_ block: @escaping (TwitterAPIResponse<Any>) -> Void) -> Self {
-        return responseObject(queue: .main, block)
+        responseObject(queue: .main, block)
     }
 
     public func responseDecodable<T>(
@@ -165,7 +168,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         queue: DispatchQueue,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> Self where T: Decodable {
-        return registerResponseBlock(
+        registerResponseBlock(
             queue: queue,
             flatMap: { $0.decode(type, decoder: decoder) },
             response: block
@@ -177,7 +180,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         decoder: JSONDecoder,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> Self where T: Decodable {
-        return responseDecodable(
+        responseDecodable(
             type: type,
             decoder: decoder,
             queue: .main,
@@ -190,7 +193,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         queue: DispatchQueue,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> Self where T: Decodable {
-        return responseDecodable(
+        responseDecodable(
             type: type,
             decoder: TwitterAPIClient.defaultJSONDecoder,
             queue: queue,
@@ -202,7 +205,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         type: T.Type,
         _ block: @escaping (TwitterAPIResponse<T>) -> Void
     ) -> Self where T: Decodable {
-        return responseDecodable(
+        responseDecodable(
             type: type,
             decoder: TwitterAPIClient.defaultJSONDecoder,
             queue: .main,

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -13,46 +16,46 @@ import Foundation
 open class TwitterAPIv2 {
     /// Client for managing block and mute relationships between users.
     public let blockAndMute: BlockAndMuteAPIv2
-    
+
     /// Client for managing tweet bookmarks.
     public let bookmarks: BookmarksAPIv2
-    
+
     /// Client for accessing Twitter's compliance and data management endpoints.
     public let compliance: ComplianceAPIv2
-    
+
     /// Client for managing follow relationships between users.
     public let friendships: FriendshipsAPIv2
-    
+
     /// Client for managing tweet likes (favorites).
     public let like: LikeAPIv2
-    
+
     /// Client for managing Twitter lists.
     public let list: ListAPIv2
-    
+
     /// Client for managing retweets.
     public let retweet: RetweetAPIv2
-    
+
     /// Client for searching tweets.
     public let search: SearchAPIv2
-    
+
     /// Client for managing Twitter Spaces.
     public let spaces: SpacesAPIv2
-    
+
     /// Client for accessing Twitter's streaming endpoints.
     public let stream: StreamAPIv2
-    
+
     /// Client for accessing user timelines.
     public let timeline: TimelineAPIv2
-    
+
     /// Client for managing tweets.
     public let tweet: TweetAPIv2
-    
+
     /// Client for retrieving tweet counts and metrics.
     public let tweetCount: TweetCountAPIv2
-    
+
     /// Client for managing user profiles and information.
     public let user: UserAPIv2
-    
+
     /// Client for managing direct messages.
     public let dm: DirectMessageAPIv2
 
@@ -87,9 +90,9 @@ public protocol TwitterAPIv2RequestParameter {
     var stringValue: String { get }
 }
 
-extension Collection where Element: TwitterAPIv2RequestParameter {
+public extension Collection where Element: TwitterAPIv2RequestParameter {
     /// Joins multiple parameter values into a comma-separated string.
-    public var commaSeparatedString: String {
-        return map(\.stringValue).sorted().joined(separator: ",")
+    var commaSeparatedString: String {
+        map(\.stringValue).sorted().joined(separator: ",")
     }
 }

@@ -2,16 +2,19 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
-extension Data {
+public extension Data {
     /// Splits the data into chunks using the specified separator
     /// - Parameters:
     ///   - separator: The data to use as a separator
     ///   - omittingEmptySubsequences: Whether to omit empty subsequences
     /// - Returns: An array of data chunks
-    public func split(separator: Data, omittingEmptySubsequences: Bool = true) -> [Data] {
+    func split(separator: Data, omittingEmptySubsequences: Bool = true) -> [Data] {
         var current = startIndex
         var chunks = [Data]()
 
@@ -32,7 +35,7 @@ extension Data {
 
     /// Attempts to serialize the data as JSON
     /// - Returns: A Result containing either the serialized JSON object or an error
-    public func serialize() -> Result<Any, TwitterAPIKitError> {
+    func serialize() -> Result<Any, TwitterAPIKitError> {
         do {
             let jsonObj = try JSONSerialization.jsonObject(with: self, options: [])
             return .success(jsonObj)
@@ -50,7 +53,7 @@ extension Data {
     ///   - type: The type to decode into
     ///   - decoder: The JSON decoder to use
     /// - Returns: A Result containing either the decoded object or an error
-    public func decode<T: Decodable>(
+    func decode<T: Decodable>(
         _ type: T.Type,
         decoder: JSONDecoder
     ) -> Result<T, TwitterAPIKitError> {

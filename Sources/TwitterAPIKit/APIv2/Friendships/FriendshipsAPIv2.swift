@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class FriendshipsAPIv2: TwitterAPIBase {
     public func getFollowing(
         _ request: GetUsersFollowingRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class FriendshipsAPIv2: TwitterAPIBase {
     public func getFollowers(
         _ request: GetUsersFollowersRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class FriendshipsAPIv2: TwitterAPIBase {
     public func follow(
         _ request: PostUsersFollowingRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class FriendshipsAPIv2: TwitterAPIBase {
     public func unfollow(
         _ request: DeleteUsersFollowingRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

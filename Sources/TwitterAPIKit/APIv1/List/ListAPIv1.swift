@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getLists(
         _ request: GetListsListRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListMembers(
         _ request: GetListsMembersRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListMember(
         _ request: GetListsMembersShowRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListMemberships(
         _ request: GetListsMembershipsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -48,7 +51,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListOwnerships(
         _ request: GetListsOwnershipsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -57,7 +60,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getList(
         _ request: GetListsShowRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -66,7 +69,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListStatuses(
         _ request: GetListsStatusesRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -75,7 +78,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListSubscribers(
         _ request: GetListsSubscribersRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -84,7 +87,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListSubscriber(
         _ request: GetListsSubscribersShowRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -93,7 +96,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func getListSubscriptions(
         _ request: GetListsSubscriptionsRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -102,7 +105,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postCreateList(
         _ request: PostListsCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -111,7 +114,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postDestroyList(
         _ request: PostListsDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -120,7 +123,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postAddListMember(
         _ request: PostListsMembersCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -129,7 +132,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postAddListMembers(
         _ request: PostListsMembersCreateAllRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -138,7 +141,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postRemoveListMember(
         _ request: PostListsMembersDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -147,7 +150,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postRemoveListMembers(
         _ request: PostListsMembersDestroyAllRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -156,7 +159,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postSubscribeList(
         _ request: PostListsSubscribersCreateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -165,7 +168,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postUnsubscribeList(
         _ request: PostListsSubscribersDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -174,7 +177,7 @@ open class ListAPIv1: TwitterAPIBase {
     public func postUpdateList(
         _ request: PostListsUpdateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

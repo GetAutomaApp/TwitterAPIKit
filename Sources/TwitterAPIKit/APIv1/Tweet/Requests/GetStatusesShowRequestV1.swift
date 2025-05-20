@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -15,11 +18,11 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
     public let includeExtAltText: Bool?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/1.1/statuses/show.json"
+        "/1.1/statuses/show.json"
     }
 
     open var parameters: [String: Any] {
@@ -48,6 +51,7 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
         self.includeMyRetweet = includeMyRetweet
         self.includeExtAltText = includeExtAltText
     }
+
     deinit {
         // de-init logic here
     }

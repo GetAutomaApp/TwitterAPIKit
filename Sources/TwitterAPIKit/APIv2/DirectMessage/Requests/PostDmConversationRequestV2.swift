@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -23,15 +26,15 @@ open class PostDmConversationRequestV2: TwitterAPIRequest {
     public let text: String?
 
     public var method: HTTPMethod {
-        return .post
+        .post
     }
 
     public var path: String {
-        return "/2/dm_conversations"
+        "/2/dm_conversations"
     }
 
     public var bodyContentType: BodyContentType {
-        return .json
+        .json
     }
 
     open var parameters: [String: Any] {

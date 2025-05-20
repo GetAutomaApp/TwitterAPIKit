@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class ComplianceAPIv2: TwitterAPIBase {
     public func getComplianceJob(
         _ request: GetComplianceJobRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class ComplianceAPIv2: TwitterAPIBase {
     public func getComplianceJobj(
         _ request: GetComplianceJobsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class ComplianceAPIv2: TwitterAPIBase {
     public func createComplianceJob(
         _ request: PostComplianceJobsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

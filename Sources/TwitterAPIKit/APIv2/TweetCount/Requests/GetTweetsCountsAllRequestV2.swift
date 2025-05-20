@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -16,11 +19,11 @@ open class GetTweetsCountsAllRequestV2: TwitterAPIRequest {
     public let untilID: String?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/2/tweets/counts/all"
+        "/2/tweets/counts/all"
     }
 
     open var parameters: [String: Any] {
@@ -52,6 +55,7 @@ open class GetTweetsCountsAllRequestV2: TwitterAPIRequest {
         self.startTime = startTime
         self.untilID = untilID
     }
+
     deinit {
         // de-init logic here
     }

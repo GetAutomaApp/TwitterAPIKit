@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import TwitterAPIKit
 import XCTest
@@ -34,7 +37,7 @@ internal class TwitterAPIClientTests: XCTestCase {
             guard let url = request.url else {
                 throw URLError(.badURL)
             }
-            
+
             let data = Data(
                 #"""
                 {
@@ -46,7 +49,7 @@ internal class TwitterAPIClientTests: XCTestCase {
                 }
                 """#.utf8
             )
-            
+
             guard let response = HTTPURLResponse(
                 url: url,
                 statusCode: 200,
@@ -55,7 +58,7 @@ internal class TwitterAPIClientTests: XCTestCase {
             ) else {
                 throw URLError(.badServerResponse)
             }
-            
+
             return (response, data)
         }
 
@@ -104,7 +107,7 @@ internal class TwitterAPIClientTests: XCTestCase {
             guard let url = request.url else {
                 throw URLError(.badURL)
             }
-            
+
             let data = Data(
                 #"""
                 {
@@ -116,7 +119,7 @@ internal class TwitterAPIClientTests: XCTestCase {
                 }
                 """#.utf8
             )
-            
+
             guard let response = HTTPURLResponse(
                 url: url,
                 statusCode: 200,
@@ -125,7 +128,7 @@ internal class TwitterAPIClientTests: XCTestCase {
             ) else {
                 throw URLError(.badServerResponse)
             }
-            
+
             return (response, data)
         }
 
@@ -243,7 +246,7 @@ internal class TwitterAPIClientTests: XCTestCase {
                 guard let url = request.url else {
                     throw URLError(.badURL)
                 }
-                
+
                 let data = Data(
                     #"""
                     {
@@ -255,7 +258,7 @@ internal class TwitterAPIClientTests: XCTestCase {
                     }
                     """#.utf8
                 )
-                
+
                 guard let response = HTTPURLResponse(
                     url: url,
                     statusCode: 200,
@@ -264,7 +267,7 @@ internal class TwitterAPIClientTests: XCTestCase {
                 ) else {
                     throw URLError(.badServerResponse)
                 }
-                
+
                 return (response, data)
             }
 

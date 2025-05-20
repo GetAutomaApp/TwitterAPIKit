@@ -1,7 +1,10 @@
-// TwitterAPIv2Fields.swift
+// TwitterTweetFieldsV2.swift
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -34,47 +37,47 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     public var stringValue: String {
         switch self {
         case .attachments:
-            return "attachments"
+            "attachments"
         case .authorID:
-            return "author_id"
+            "author_id"
         case .contextAnnotations:
-            return "context_annotations"
+            "context_annotations"
         case .conversationID:
-            return "conversation_id"
+            "conversation_id"
         case .createdAt:
-            return "created_at"
+            "created_at"
         case .entities:
-            return "entities"
+            "entities"
         case .geo:
-            return "geo"
+            "geo"
         case .id:
-            return "id"
+            "id"
         case .inReplyToUserID:
-            return "in_reply_to_user_id"
+            "in_reply_to_user_id"
         case .lang:
-            return "lang"
+            "lang"
         case .nonPublicMetrics:
-            return "non_public_metrics"
+            "non_public_metrics"
         case .organicMetrics:
-            return "organic_metrics"
+            "organic_metrics"
         case let .other(other):
-            return other
+            other
         case .possiblySensitive:
-            return "possibly_sensitive"
+            "possibly_sensitive"
         case .promotedMetrics:
-            return "promoted_metrics"
+            "promoted_metrics"
         case .publicMetrics:
-            return "public_metrics"
+            "public_metrics"
         case .referencedTweets:
-            return "referenced_tweets"
+            "referenced_tweets"
         case .replySettings:
-            return "reply_settings"
+            "reply_settings"
         case .source:
-            return "source"
+            "source"
         case .text:
-            return "text"
+            "text"
         case .withheld:
-            return "withheld"
+            "withheld"
         }
     }
 
@@ -103,7 +106,7 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind tweet fields to request parameters
-public extension Set where Element == TwitterTweetFieldsV2 {
+public extension Set<TwitterTweetFieldsV2> {
     /// Binds the tweet fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -132,35 +135,35 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     public var stringValue: String {
         switch self {
         case .createdAt:
-            return "created_at"
+            "created_at"
         case .description:
-            return "description"
+            "description"
         case .entities:
-            return "entities"
+            "entities"
         case .id:
-            return "id"
+            "id"
         case .location:
-            return "location"
+            "location"
         case .name:
-            return "name"
+            "name"
         case let .other(other):
-            return other
+            other
         case .pinnedTweetID:
-            return "pinned_tweet_id"
+            "pinned_tweet_id"
         case .profileImageUrl:
-            return "profile_image_url"
+            "profile_image_url"
         case .protected:
-            return "protected"
+            "protected"
         case .publicMetrics:
-            return "public_metrics"
+            "public_metrics"
         case .url:
-            return "url"
+            "url"
         case .username:
-            return "username"
+            "username"
         case .verified:
-            return "verified"
+            "verified"
         case .withheld:
-            return "withheld"
+            "withheld"
         }
     }
 
@@ -183,7 +186,7 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind user fields to request parameters
-public extension Set where Element == TwitterUserFieldsV2 {
+public extension Set<TwitterUserFieldsV2> {
     /// Binds the user fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -206,23 +209,23 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     public var stringValue: String {
         switch self {
         case .containedWithin:
-            return "contained_within"
+            "contained_within"
         case .country:
-            return "country"
+            "country"
         case .countryCode:
-            return "country_code"
+            "country_code"
         case .fullName:
-            return "full_name"
+            "full_name"
         case .geo:
-            return "geo"
+            "geo"
         case .id:
-            return "id"
+            "id"
         case .name:
-            return "name"
+            "name"
         case let .other(other):
-            return other
+            other
         case .placeType:
-            return "place_type"
+            "place_type"
         }
     }
 
@@ -239,7 +242,7 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind place fields to request parameters
-public extension Set where Element == TwitterPlaceFieldsV2 {
+public extension Set<TwitterPlaceFieldsV2> {
     /// Binds the place fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -259,17 +262,17 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
     public var stringValue: String {
         switch self {
         case .durationMinutes:
-            return "duration_minutes"
+            "duration_minutes"
         case .endDatetime:
-            return "end_datetime"
+            "end_datetime"
         case .id:
-            return "id"
+            "id"
         case .options:
-            return "options"
+            "options"
         case let .other(other):
-            return other
+            other
         case .votingStatus:
-            return "voting_status"
+            "voting_status"
         }
     }
 
@@ -283,7 +286,7 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind poll fields to request parameters
-public extension Set where Element == TwitterPollFieldsV2 {
+public extension Set<TwitterPollFieldsV2> {
     /// Binds the poll fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -310,20 +313,20 @@ public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .altText: return "alt_text"
-        case .durationMs: return "duration_ms"
-        case .height: return "height"
-        case .mediaKey: return "media_key"
-        case .nonPublicMetrics: return "non_public_metrics"
-        case .organicMetrics: return "organic_metrics"
-        case let .other(string): return string
-        case .previewImageUrl: return "preview_image_url"
-        case .promotedMetrics: return "promoted_metrics"
-        case .publicMetrics: return "public_metrics"
-        case .type: return "type"
-        case .url: return "url"
-        case .variants: return "variants"
-        case .width: return "width"
+        case .altText: "alt_text"
+        case .durationMs: "duration_ms"
+        case .height: "height"
+        case .mediaKey: "media_key"
+        case .nonPublicMetrics: "non_public_metrics"
+        case .organicMetrics: "organic_metrics"
+        case let .other(string): string
+        case .previewImageUrl: "preview_image_url"
+        case .promotedMetrics: "promoted_metrics"
+        case .publicMetrics: "public_metrics"
+        case .type: "type"
+        case .url: "url"
+        case .variants: "variants"
+        case .width: "width"
         }
     }
 
@@ -345,7 +348,7 @@ public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind media fields to request parameters
-public extension Set where Element == TwitterMediaFieldsV2 {
+public extension Set<TwitterMediaFieldsV2> {
     /// Binds the media fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -368,15 +371,15 @@ public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .createdAt: return "created_at"
-        case .description: return "description"
-        case .followerCount: return "follower_count"
-        case .id: return "id"
-        case .memberCount: return "member_count"
-        case .name: return "name"
-        case let .other(string): return string
-        case .ownerID: return "owner_id"
-        case .private: return "private"
+        case .createdAt: "created_at"
+        case .description: "description"
+        case .followerCount: "follower_count"
+        case .id: "id"
+        case .memberCount: "member_count"
+        case .name: "name"
+        case let .other(string): string
+        case .ownerID: "owner_id"
+        case .private: "private"
         }
     }
 
@@ -394,7 +397,7 @@ public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind list fields to request parameters
-public extension Set where Element == TwitterListFieldsV2 {
+public extension Set<TwitterListFieldsV2> {
     /// Binds the list fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -425,24 +428,24 @@ public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .createdAt: return "created_at"
-        case .creatorID: return "creator_id"
-        case .endedAt: return "ended_at"
-        case .hostIDs: return "host_ids"
-        case .id: return "id"
-        case .invitedUserIDs: return "invited_user_ids"
-        case .isTicketed: return "is_ticketed"
-        case .lang: return "lang"
-        case let .other(string): return string
-        case .participantCount: return "participant_count"
-        case .scheduledStart: return "scheduled_start"
-        case .speakerIDs: return "speaker_ids"
-        case .startedAt: return "started_at"
-        case .state: return "state"
-        case .subscriberCount: return "subscriber_count"
-        case .title: return "title"
-        case .topicIDs: return "topic_ids"
-        case .updatedAt: return "updated_at"
+        case .createdAt: "created_at"
+        case .creatorID: "creator_id"
+        case .endedAt: "ended_at"
+        case .hostIDs: "host_ids"
+        case .id: "id"
+        case .invitedUserIDs: "invited_user_ids"
+        case .isTicketed: "is_ticketed"
+        case .lang: "lang"
+        case let .other(string): string
+        case .participantCount: "participant_count"
+        case .scheduledStart: "scheduled_start"
+        case .speakerIDs: "speaker_ids"
+        case .startedAt: "started_at"
+        case .state: "state"
+        case .subscriberCount: "subscriber_count"
+        case .title: "title"
+        case .topicIDs: "topic_ids"
+        case .updatedAt: "updated_at"
         }
     }
 
@@ -468,7 +471,7 @@ public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind space fields to request parameters
-public extension Set where Element == TwitterSpaceFieldsV2 {
+public extension Set<TwitterSpaceFieldsV2> {
     /// Binds the space fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -485,10 +488,10 @@ public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .description: return "description"
-        case .id: return "id"
-        case .name: return "name"
-        case let .other(string): return string
+        case .description: "description"
+        case .id: "id"
+        case .name: "name"
+        case let .other(string): string
         }
     }
 
@@ -500,7 +503,7 @@ public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind topic fields to request parameters
-public extension Set where Element == TwitterTopicFieldsV2 {
+public extension Set<TwitterTopicFieldsV2> {
     /// Binds the topic fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -524,16 +527,16 @@ public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .attachments: return "attachments"
-        case .createdAt: return "created_at"
-        case .dmConversationID: return "dm_conversation_id"
-        case .eventType: return "event_type"
-        case .id: return "id"
-        case let .other(string): return string
-        case .participantIDs: return "participant_ids"
-        case .referencedTweets: return "referenced_tweets"
-        case .senderID: return "sender_id"
-        case .text: return "text"
+        case .attachments: "attachments"
+        case .createdAt: "created_at"
+        case .dmConversationID: "dm_conversation_id"
+        case .eventType: "event_type"
+        case .id: "id"
+        case let .other(string): string
+        case .participantIDs: "participant_ids"
+        case .referencedTweets: "referenced_tweets"
+        case .senderID: "sender_id"
+        case .text: "text"
         }
     }
 
@@ -551,7 +554,7 @@ public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
 }
 
 /// Extension to bind DM event fields to request parameters
-public extension Set where Element == TwitterDmEventFieldsV2 {
+public extension Set<TwitterDmEventFieldsV2> {
     /// Binds the DM event fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {
@@ -567,8 +570,8 @@ public enum TwitterDmConversationFieldsV2: TwitterAPIv2RequestParameter, Hashabl
 
     public var stringValue: String {
         switch self {
-        case .id: return "id"
-        case let .other(string): return string
+        case .id: "id"
+        case let .other(string): string
         }
     }
 
@@ -578,7 +581,7 @@ public enum TwitterDmConversationFieldsV2: TwitterAPIv2RequestParameter, Hashabl
 }
 
 /// Extension to bind DM conversation fields to request parameters
-public extension Set where Element == TwitterDmConversationFieldsV2 {
+public extension Set<TwitterDmConversationFieldsV2> {
     /// Binds the DM conversation fields to the request parameters
     /// - Parameter param: The parameters dictionary to bind to
     func bind(param: inout [String: Any]) {

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -11,7 +14,7 @@ public enum TwitterListIdentifierV1 {
     /// Identifies a list by its unique numeric ID.
     /// - Parameter listID: The unique identifier of the list.
     case listID(String)
-    
+
     /// Identifies a list by its slug (URL-friendly name) and owner.
     /// - Parameters:
     ///   - slug: The URL-friendly name of the list.
@@ -19,11 +22,11 @@ public enum TwitterListIdentifierV1 {
     case slug(slug: String, owner: TwitterUserIdentifierV1)
 }
 
-extension TwitterListIdentifierV1 {
+public extension TwitterListIdentifierV1 {
     /// Binds the list identifier to the request parameters.
     /// - Parameters:
     ///   - param: The parameters dictionary to bind to.
-    public func bind(param: inout [String: Any]) {
+    func bind(param: inout [String: Any]) {
         switch self {
         case let .listID(string):
             param["list_id"] = string

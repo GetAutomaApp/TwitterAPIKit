@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -46,7 +49,7 @@ public protocol HMAC {
     ///   - message: The message to sign
     /// - Returns: The HMAC-SHA1 signature as Data
     public func createHMACSHA1(key: Data, message: Data) -> Data {
-        return message.hmac(key: key)
+        message.hmac(key: key)
     }
 
 #elseif canImport(Crypto) // for Linux
@@ -58,7 +61,7 @@ public protocol HMAC {
     ///   - message: The message to sign
     /// - Returns: The HMAC-SHA1 signature as Data
     public func createHMACSHA1(key: Data, message: Data) -> Data {
-        return Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
+        Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
     }
 #else
     #error("Crypto is not available in this environment.")

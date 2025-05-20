@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     public func postDirectMessage(
         _ request: PostDirectMessageRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     public func deleteDirectMessage(
         _ request: DeleteDirectMessageRequestV1
     ) -> TwitterAPISessionDataTask { // 204 - No Content
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     public func getDirectMessage(
         _ request: GetDirectMessageRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     public func getDirectMessageList(
         _ request: GetDirectMessageListRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -48,7 +51,7 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     public func postDirectMessageMarkRead(
         _ request: PostDirectMessagesMarkReadRequestV1
     ) -> TwitterAPISessionDataTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -57,7 +60,7 @@ open class DirectMessageAPIv1: TwitterAPIBase {
     public func postDirectMessageTypingIndicator(
         _ request: PostDirectMessagesIndicateTypingRequestV1
     ) -> TwitterAPISessionDataTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

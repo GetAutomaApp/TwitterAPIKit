@@ -1,7 +1,10 @@
-// ExpansionsV2.swift
+// TwitterDmEventExpansionsV2.swift
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -10,9 +13,9 @@ import Foundation
 public protocol TwitterExpansionsParameterV2: TwitterAPIv2RequestParameter {}
 
 /// Binds the expansions to the request parameters.
-extension Set where Element: TwitterExpansionsParameterV2 {
+public extension Set where Element: TwitterExpansionsParameterV2 {
     /// Binds the expansions to the request parameters.
-    public func bind(param: inout [String: Any]) {
+    func bind(param: inout [String: Any]) {
         param["expansions"] = commaSeparatedString
     }
 }
@@ -30,15 +33,15 @@ public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .attachmentsMediaKeys: return "attachments.media_keys"
-        case .attachmentsPollIDs: return "attachments.poll_ids"
-        case .authorID: return "author_id"
-        case .entitiesMentionsUsername: return "entities.mentions.username"
-        case .geoPlaceID: return "geo.place_id"
-        case .inReplyToUserID: return "in_reply_to_user_id"
-        case let .other(string): return string
-        case .referencedTweetsID: return "referenced_tweets.id"
-        case .referencedTweetsIDAuthorID: return "referenced_tweets.id.author_id"
+        case .attachmentsMediaKeys: "attachments.media_keys"
+        case .attachmentsPollIDs: "attachments.poll_ids"
+        case .authorID: "author_id"
+        case .entitiesMentionsUsername: "entities.mentions.username"
+        case .geoPlaceID: "geo.place_id"
+        case .inReplyToUserID: "in_reply_to_user_id"
+        case let .other(string): string
+        case .referencedTweetsID: "referenced_tweets.id"
+        case .referencedTweetsIDAuthorID: "referenced_tweets.id.author_id"
         }
     }
 
@@ -60,8 +63,8 @@ public enum TwitterUserExpansionsV2: TwitterExpansionsParameterV2, Hashable {
 
     public var stringValue: String {
         switch self {
-        case let .other(string): return string
-        case .pinnedTweetID: return "pinned_tweet_id"
+        case let .other(string): string
+        case .pinnedTweetID: "pinned_tweet_id"
         }
     }
 
@@ -76,8 +79,8 @@ public enum TwitterListExpansionsV2: TwitterExpansionsParameterV2, Hashable {
 
     public var stringValue: String {
         switch self {
-        case let .other(string): return string
-        case .ownerID: return "owner_id"
+        case let .other(string): string
+        case .ownerID: "owner_id"
         }
     }
 
@@ -96,12 +99,12 @@ public enum TwitterSpaceExpansionsV2: TwitterExpansionsParameterV2, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .creatorID: return "creator_id"
-        case .hostIDs: return "host_ids"
-        case .invitedUserIDs: return "invited_user_ids"
-        case let .other(string): return string
-        case .speakerIDs: return "speaker_ids"
-        case .topicIDs: return "topic_ids"
+        case .creatorID: "creator_id"
+        case .hostIDs: "host_ids"
+        case .invitedUserIDs: "invited_user_ids"
+        case let .other(string): string
+        case .speakerIDs: "speaker_ids"
+        case .topicIDs: "topic_ids"
         }
     }
 
@@ -125,11 +128,11 @@ public enum TwitterDmEventExpansionsV2: TwitterExpansionsParameterV2, Hashable {
 
     public var stringValue: String {
         switch self {
-        case .attachmentsMediaKeys: return "attachments.media_keys"
-        case let .other(string): return string
-        case .participantIDs: return "participant_ids"
-        case .referencedTweetsID: return "referenced_tweets.id"
-        case .senderID: return "sender_id"
+        case .attachmentsMediaKeys: "attachments.media_keys"
+        case let .other(string): string
+        case .participantIDs: "participant_ids"
+        case .referencedTweetsID: "referenced_tweets.id"
+        case .senderID: "sender_id"
         }
     }
 

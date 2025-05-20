@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -13,13 +16,13 @@ public enum TwitterDirectMessageEventTypeV2: String {
 }
 
 extension TwitterDirectMessageEventTypeV2: TwitterAPIv2RequestParameter {
-    public var stringValue: String { return rawValue }
+    public var stringValue: String { rawValue }
 }
 
 /// Binds the event_types to the request parameters.
-extension Set where Element == TwitterDirectMessageEventTypeV2 {
+public extension Set<TwitterDirectMessageEventTypeV2> {
     /// Binds the event_types to the request parameters.
-    public func bind(param: inout [String: Any]) {
+    func bind(param: inout [String: Any]) {
         param["event_types"] = commaSeparatedString
     }
 }

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -14,11 +17,11 @@ open class GetMutesUsersListRequestV1: TwitterAPIRequest {
     public let skipStatus: Bool?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/1.1/mutes/users/list.json"
+        "/1.1/mutes/users/list.json"
     }
 
     open var parameters: [String: Any] {
@@ -38,6 +41,7 @@ open class GetMutesUsersListRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
         self.skipStatus = skipStatus
     }
+
     deinit {
         // de-init logic here
     }

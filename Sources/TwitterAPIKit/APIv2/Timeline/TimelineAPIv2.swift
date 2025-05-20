@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class TimelineAPIv2: TwitterAPIBase {
     public func getUserTweets(
         _ request: GetUsersTweetsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class TimelineAPIv2: TwitterAPIBase {
     public func getUserMensions(
         _ request: GetUsersMentionsRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// a.k.a Home Timeline
@@ -31,7 +34,7 @@ open class TimelineAPIv2: TwitterAPIBase {
     public func getUserReverseChronological(
         _ request: GetUsersTimelinesReverseChronologicalRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

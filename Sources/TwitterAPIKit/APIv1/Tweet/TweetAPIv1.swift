@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class TweetAPIv1: TwitterAPIBase {
     public func postUpdateStatus(
         _ request: PostStatusesUpdateRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class TweetAPIv1: TwitterAPIBase {
     public func postDestroyStatus(
         _ request: PostStatusesDestroyRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class TweetAPIv1: TwitterAPIBase {
     public func getShowStatus(
         _ request: GetStatusesShowRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class TweetAPIv1: TwitterAPIBase {
     public func getLookupStatuses(
         _ request: GetStatusesLookupRequestV1
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     deinit {

@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -46,19 +49,19 @@ open class TwitterAPIClient {
 
     /// Client for handling Twitter authentication flows (OAuth 1.0a and OAuth 2.0).
     public let auth: TwitterAuthAPI
-    
+
     /// Client for accessing Twitter API v1.1 endpoints.
     public let v1: TwitterAPIv1
-    
+
     /// Client for accessing Twitter API v2 endpoints.
     public let v2: TwitterAPIv2
 
     /// The session used for making API requests.
     public let session: TwitterAPISession
-    
+
     /// The current authentication method being used.
     public var apiAuth: TwitterAuthenticationMethod {
-        return session.auth
+        session.auth
     }
 
     /// Client used for refreshing OAuth 2.0 tokens.
@@ -120,7 +123,7 @@ open class TwitterAPIClient {
 public extension TwitterAPIClient {
     /// Type alias for the result of a token refresh operation.
     typealias RefreshOAuth20TokenResultValue = (token: TwitterAuthenticationMethod.OAuth20, refreshed: Bool)
-    
+
     /// Refreshes the OAuth 2.0 access token if necessary.
     /// - Parameters:
     ///   - type: The type of OAuth 2.0 client to use for token refresh.
@@ -161,7 +164,7 @@ public extension TwitterAPIClient {
             case let .success(refreshedToken):
                 var token = token
                 token.refresh(token: refreshedToken)
-                self.session.refreshOAuth20Token(token)
+                session.refreshOAuth20Token(token)
                 block(.success((token: token, refreshed: true)))
                 NotificationCenter.default.post(
                     name: TwitterAPIClient.didRefreshOAuth20Token,
@@ -181,7 +184,7 @@ public extension TwitterAPIClient {
 open class TwitterAPIBase {
     /// The session used for making API requests.
     public let session: TwitterAPISession
-    
+
     /// Creates a new TwitterAPIBase instance.
     /// - Parameter session: The session to use for making API requests.
     public init(session: TwitterAPISession) {
@@ -198,7 +201,7 @@ public extension TwitterAPIClient {
     /// Notification posted when an OAuth 2.0 token is refreshed.
     static let didRefreshOAuth20Token = Notification
         .Name(rawValue: "TwitterAPIKit.TwitterAPIClient.Notification.didRefreshOAuth20Token")
-    
+
     /// User info key for accessing the refreshed token in the notification.
     static let tokenUserInfoKey = "TwitterAPIKit.TwitterAPIClient.UserInfoKey.tokenUser"
 }

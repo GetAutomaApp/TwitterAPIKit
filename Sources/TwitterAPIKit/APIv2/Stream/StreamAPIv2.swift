@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -12,7 +15,7 @@ open class StreamAPIv2: TwitterAPIBase {
     public func sampleStream(
         _ request: GetTweetsSampleStreamRequestV2
     ) -> TwitterAPISessionStreamTask {
-        return session.send(streamRequest: request)
+        session.send(streamRequest: request)
     }
 
     /// For more details, see:
@@ -21,7 +24,7 @@ open class StreamAPIv2: TwitterAPIBase {
     public func getSearchStreamRules(
         _ request: GetTweetsSearchStreamRulesRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -30,7 +33,7 @@ open class StreamAPIv2: TwitterAPIBase {
     public func postSearchStreamRules(
         _ request: PostTweetsSearchStreamRulesRequestV2
     ) -> TwitterAPISessionJSONTask {
-        return session.send(request)
+        session.send(request)
     }
 
     /// For more details, see:
@@ -39,7 +42,7 @@ open class StreamAPIv2: TwitterAPIBase {
     public func searchStream(
         _ request: GetTweetsSearchStreamRequestV2
     ) -> TwitterAPISessionStreamTask {
-        return session.send(streamRequest: request)
+        session.send(streamRequest: request)
     }
 
     deinit {

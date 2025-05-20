@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 // swiftlint:disable type_name
 import Foundation
@@ -29,11 +32,11 @@ open class GetDmConversationsWithParticipantIdDmEventsRequestV2: TwitterAPIReque
     public let tweetFields: Set<TwitterTweetFieldsV2>?
 
     public var method: HTTPMethod {
-        return .get
+        .get
     }
 
     public var path: String {
-        return "/2/dm_conversations/with/\(participantID)/dm_events"
+        "/2/dm_conversations/with/\(participantID)/dm_events"
     }
 
     open var parameters: [String: Any] {
@@ -75,4 +78,5 @@ open class GetDmConversationsWithParticipantIdDmEventsRequestV2: TwitterAPIReque
         // De-init Logic Here
     }
 }
+
 // swiftlint:enable type_name

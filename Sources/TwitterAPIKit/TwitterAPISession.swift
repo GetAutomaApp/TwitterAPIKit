@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -11,13 +14,13 @@ open class TwitterAPISession {
     /// The current authentication method being used for API requests.
     /// This property can be read publicly but only modified internally.
     public private(set) var auth: TwitterAuthenticationMethod
-    
+
     /// The URLSession instance used for making network requests.
     public let session: URLSession
-    
+
     /// The Twitter API environment configuration (e.g., API endpoints, version).
     public let environment: TwitterAPIEnvironment
-    
+
     internal let sessionDelegate = TwitterAPISessionDelegate()
 
     /// Creates a new TwitterAPISession instance.

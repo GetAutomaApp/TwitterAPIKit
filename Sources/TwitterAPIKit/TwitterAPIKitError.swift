@@ -2,6 +2,9 @@
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
 
 import Foundation
 
@@ -14,10 +17,10 @@ public enum TwitterAPIKitError: Error {
 
         /// Indicates that a parameter was invalid with details about why.
         case invalidParameter(parameter: [String: Any], cause: String)
-        
+
         /// Indicates that the provided URL was invalid.
         case invalidURL(url: String)
-                
+
         /// Indicates that JSON serialization failed for an object.
         case jsonSerializationFailed(obj: Any)
     }
@@ -26,7 +29,7 @@ public enum TwitterAPIKitError: Error {
     public enum ResponseFailureReason {
         /// Indicates that the response was invalid.
         case invalidResponse(error: Error?)
-        
+
         /// Indicates that the response status code was unacceptable.
         case unacceptableStatusCode(statusCode: Int, error: TwitterAPIErrorResponse, rateLimit: TwitterRateLimit?)
     }
@@ -47,7 +50,7 @@ public enum TwitterAPIKitError: Error {
     public enum RefreshOAuth20TokenFailureReason {
         /// Indicates that the authentication method was invalid.
         case invalidAuthenticationMethod(TwitterAuthenticationMethod)
-        
+
         /// Indicates that the refresh token is missing.
         case refreshTokenIsMissing
     }
@@ -117,17 +120,17 @@ public extension TwitterAPIKitError {
     var underlyingError: Error? {
         switch self {
         case let .requestFailed(reason):
-            return reason.underlyingError
+            reason.underlyingError
         case let .responseFailed(reason):
-            return reason.underlyingError
+            reason.underlyingError
         case let .responseSerializeFailed(reason):
-            return reason.underlyingError
+            reason.underlyingError
         case let .uploadMediaFailed(reason):
-            return reason.underlyingError
+            reason.underlyingError
         case let .refreshOAuth20TokenFailed(reason):
-            return reason.underlyingError
+            reason.underlyingError
         case let .unkonwn(error):
-            return error
+            error
         }
     }
 
@@ -145,10 +148,10 @@ public extension TwitterAPIKitError {
     struct UploadMediaError: Decodable, Error {
         /// The error code returned by the Twitter API.
         public let code: Int
-        
+
         /// The name of the error.
         public let name: String
-        
+
         /// A detailed message describing the error.
         public let message: String
 
@@ -169,17 +172,17 @@ extension TwitterAPIKitError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case let .requestFailed(reason):
-            return reason.localizedDescription
+            reason.localizedDescription
         case let .responseFailed(reason):
-            return reason.localizedDescription
+            reason.localizedDescription
         case let .responseSerializeFailed(reason):
-            return reason.localizedDescription
+            reason.localizedDescription
         case let .uploadMediaFailed(reason):
-            return reason.localizedDescription
+            reason.localizedDescription
         case let .refreshOAuth20TokenFailed(reason):
-            return reason.localizedDescription
+            reason.localizedDescription
         case let .unkonwn(error):
-            return error.localizedDescription
+            error.localizedDescription
         }
     }
 }
@@ -187,7 +190,7 @@ extension TwitterAPIKitError: LocalizedError {
 extension TwitterAPIKitError.UploadMediaError: LocalizedError {
     /// A localized description of the error.
     public var errorDescription: String? {
-        return "\(name)[code:\(code)]: \(message)"
+        "\(name)[code:\(code)]: \(message)"
     }
 }
 
@@ -196,13 +199,13 @@ public extension TwitterAPIKitError.RequestFailureReason {
     var localizedDescription: String {
         switch self {
         case let .invalidURL(url):
-            return "URL is not valid: \(url)"
+            "URL is not valid: \(url)"
         case let .invalidParameter(parameter, cause):
-            return "Parameter is not valid: \(parameter), cause: \(cause)"
+            "Parameter is not valid: \(parameter), cause: \(cause)"
         case let .cannotEncodeStringToData(string):
-            return "Could not encode \"\(string)\""
+            "Could not encode \"\(string)\""
         case let .jsonSerializationFailed(obj):
-            return "JSON could not be serialized. May be invalid object \(String(describing: obj))"
+            "JSON could not be serialized. May be invalid object \(String(describing: obj))"
         }
     }
 
@@ -213,7 +216,7 @@ public extension TwitterAPIKitError.RequestFailureReason {
              .invalidParameter,
              .cannotEncodeStringToData,
              .jsonSerializationFailed:
-            return nil
+            nil
         }
     }
 }
@@ -236,9 +239,9 @@ public extension TwitterAPIKitError.ResponseFailureReason {
     var underlyingError: Error? {
         switch self {
         case let .invalidResponse(error: error):
-            return error
+            error
         case .unacceptableStatusCode:
-            return nil
+            nil
         }
     }
 
@@ -264,11 +267,11 @@ public extension TwitterAPIKitError.ResponseSerializationFailureReason {
     var localizedDescription: String {
         switch self {
         case let .jsonSerializationFailed(error):
-            return "Response could not be serialized because of error:\n\(error.localizedDescription)"
+            "Response could not be serialized because of error:\n\(error.localizedDescription)"
         case let .jsonDecodeFailed(error):
-            return "Response could not be decoded because of error:\n\(error.localizedDescription)"
+            "Response could not be decoded because of error:\n\(error.localizedDescription)"
         case .cannotConvert(data: _, let toTypeName):
-            return "Response could not convert to \"\(toTypeName)\""
+            "Response could not convert to \"\(toTypeName)\""
         }
     }
 
@@ -277,9 +280,9 @@ public extension TwitterAPIKitError.ResponseSerializationFailureReason {
         switch self {
         case let .jsonSerializationFailed(error: error),
              let .jsonDecodeFailed(error: error):
-            return error
+            error
         case .cannotConvert:
-            return nil
+            nil
         }
     }
 }
@@ -289,7 +292,7 @@ public extension TwitterAPIKitError.UploadMediaFailureReason {
     var localizedDescription: String {
         switch self {
         case let .processingFailed(error):
-            return error.message
+            error.message
         }
     }
 
@@ -297,7 +300,7 @@ public extension TwitterAPIKitError.UploadMediaFailureReason {
     var underlyingError: Error? {
         switch self {
         case let .processingFailed(error: error):
-            return error
+            error
         }
     }
 }
@@ -307,12 +310,12 @@ public extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
     var localizedDescription: String {
         switch self {
         case let .invalidAuthenticationMethod(method):
-            return """
-                Token refresh is possible only when TwitterAuthenticationMethod is .oauth20. \
-                You are currently \(method).
-                """
+            """
+            Token refresh is possible only when TwitterAuthenticationMethod is .oauth20. \
+            You are currently \(method).
+            """
         case .refreshTokenIsMissing:
-            return "Refresh token is missing."
+            "Refresh token is missing."
         }
     }
 
@@ -320,7 +323,7 @@ public extension TwitterAPIKitError.RefreshOAuth20TokenFailureReason {
     var underlyingError: Error? {
         switch self {
         case .invalidAuthenticationMethod, .refreshTokenIsMissing:
-            return nil
+            nil
         }
     }
 }
