@@ -6,11 +6,6 @@
 // This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
 // This Package is distributable through a modified version of the MIT License.
 
-/// A protocol that represents a Twitter API.
-public protocol TwitterAPI {
-    // No Logic Here
-}
-
 /// Main class for accessing Twitter API v1.1 endpoints.
 /// This class provides access to all Twitter API v1.1 functionality through specialized API clients.
 /// Each property represents a group of related API endpoints.
