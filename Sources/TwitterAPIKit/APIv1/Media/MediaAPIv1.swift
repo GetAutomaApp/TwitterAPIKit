@@ -73,10 +73,12 @@ open class MediaAPIv1: TwitterAPIBase {
                 mediaCategory: parameters.mediaCategory,
                 additionalOwners: parameters.additionalOwners
             )
-        ).responseDecodable(
+        )
+        .responseDecodable(
             type: TwitterAPIClient.UploadMediaInitResponse.self,
             queue: .processQueue
-        ) { [weak self] response in
+        )
+        { [weak self] response in
 
             guard let self else { return }
 

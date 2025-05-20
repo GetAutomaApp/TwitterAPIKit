@@ -25,7 +25,7 @@ open class TwitterAPIClient {
 
         // for v2
         let dateFormatterV2 = DateFormatter()
-        dateFormatterV2.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatterV2.locale = Locale(identifier: "en_hUS_POSIX")
         dateFormatterV2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
         decoder.dateDecodingStrategy = .custom { decoder -> Date in

@@ -15,20 +15,20 @@ public protocol TwitterAPI {
 }
 
 /// Extension providing OAuth authentication methods for the Twitter API.
-public extension TwitterAuthAPI: TwitterAPI {
+extension TwitterAuthAPI: TwitterAPI {
     // MARK: - OAuth10aAPI
 
     /// Requests an OAuth request token from Twitter.
     /// - Parameter request: The request parameters for obtaining a request token.
     /// - Returns: A data task that will return the raw response data.
-    func postOAuthRequestTokenData(_ request: PostOAuthRequestTokenRequestV1) -> TwitterAPISessionDataTask {
+    public func postOAuthRequestTokenData(_ request: PostOAuthRequestTokenRequestV1) -> TwitterAPISessionDataTask {
         oauth10a.postOAuthRequestTokenData(request)
     }
 
     /// Requests an OAuth request token from Twitter and parses the response.
     /// - Parameter request: The request parameters for obtaining a request token.
     /// - Returns: A specialized task that will return a parsed OAuth token.
-    func postOAuthRequestToken(_ request: PostOAuthRequestTokenRequestV1)
+    public func postOAuthRequestToken(_ request: PostOAuthRequestTokenRequestV1)
         -> TwitterAPISessionSpecializedTask<TwitterOAuthTokenV1>
     {
         oauth10a.postOAuthRequestToken(request)
@@ -37,28 +37,28 @@ public extension TwitterAuthAPI: TwitterAPI {
     /// Creates a URL for authorizing the application with OAuth.
     /// - Parameter request: The request parameters for creating the authorization URL.
     /// - Returns: The authorization URL if it can be created, nil otherwise.
-    func makeOAuthAuthorizeURL(_ request: GetOAuthAuthorizeRequestV1) -> URL? {
+    public func makeOAuthAuthorizeURL(_ request: GetOAuthAuthorizeRequestV1) -> URL? {
         oauth10a.makeOAuthAuthorizeURL(request)
     }
 
     /// Creates a URL for authenticating with OAuth.
     /// - Parameter request: The request parameters for creating the authentication URL.
     /// - Returns: The authentication URL if it can be created, nil otherwise.
-    func makeOAuthAuthenticateURL(_ request: GetOAuthAuthenticateRequestV1) -> URL? {
+    public func makeOAuthAuthenticateURL(_ request: GetOAuthAuthenticateRequestV1) -> URL? {
         oauth10a.makeOAuthAuthenticateURL(request)
     }
 
     /// Requests an OAuth access token from Twitter.
     /// - Parameter request: The request parameters for obtaining an access token.
     /// - Returns: A data task that will return the raw response data.
-    func postOAuthAccessTokenData(_ request: PostOAuthAccessTokenRequestV1) -> TwitterAPISessionDataTask {
+    public func postOAuthAccessTokenData(_ request: PostOAuthAccessTokenRequestV1) -> TwitterAPISessionDataTask {
         oauth10a.postOAuthAccessTokenData(request)
     }
 
     /// Requests an OAuth access token from Twitter and parses the response.
     /// - Parameter request: The request parameters for obtaining an access token.
     /// - Returns: A specialized task that will return a parsed OAuth access token.
-    func postOAuthAccessToken(_ request: PostOAuthAccessTokenRequestV1)
+    public func postOAuthAccessToken(_ request: PostOAuthAccessTokenRequestV1)
         -> TwitterAPISessionSpecializedTask<TwitterOAuthAccessTokenV1>
     {
         oauth10a.postOAuthAccessToken(request)
@@ -67,7 +67,7 @@ public extension TwitterAuthAPI: TwitterAPI {
     /// Invalidates the current OAuth access token.
     /// - Parameter request: The request parameters for invalidating the token.
     /// - Returns: A JSON task that will return the response.
-    func postInvalidateAccessToken(_ request: PostOAuthInvalidateTokenRequestV1) -> TwitterAPISessionJSONTask {
+    public func postInvalidateAccessToken(_ request: PostOAuthInvalidateTokenRequestV1) -> TwitterAPISessionJSONTask {
         oauth10a.postInvalidateAccessToken(request)
     }
 
@@ -76,14 +76,14 @@ public extension TwitterAuthAPI: TwitterAPI {
     /// Requests an OAuth 2.0 bearer token from Twitter.
     /// - Parameter request: The request parameters for obtaining a bearer token.
     /// - Returns: A data task that will return the raw response data.
-    func postOAuth2BearerTokenData(_ request: PostOAuth2TokenRequestV1) -> TwitterAPISessionDataTask {
+    public func postOAuth2BearerTokenData(_ request: PostOAuth2TokenRequestV1) -> TwitterAPISessionDataTask {
         oauth20.postOAuth2BearerTokenData(request)
     }
 
     /// Requests an OAuth 2.0 bearer token from Twitter and parses the response.
     /// - Parameter request: The request parameters for obtaining a bearer token.
     /// - Returns: A specialized task that will return a parsed OAuth 2.0 bearer token.
-    func postOAuth2BearerToken(_ request: PostOAuth2TokenRequestV1)
+    public func postOAuth2BearerToken(_ request: PostOAuth2TokenRequestV1)
         -> TwitterAPISessionSpecializedTask<TwitterOAuth2BearerToken>
     {
         oauth20.postOAuth2BearerToken(request)
@@ -92,28 +92,30 @@ public extension TwitterAuthAPI: TwitterAPI {
     /// Invalidates the current OAuth 2.0 bearer token.
     /// - Parameter request: The request parameters for invalidating the token.
     /// - Returns: A JSON task that will return the response.
-    func postInvalidateOAuth2BearerToken(_ request: PostOAuth2InvalidateTokenRequestV1) -> TwitterAPISessionJSONTask {
+    public func postInvalidateOAuth2BearerToken(
+        _ request: PostOAuth2InvalidateTokenRequestV1
+    ) -> TwitterAPISessionJSONTask {
         oauth20.postInvalidateOAuth2BearerToken(request)
     }
 
     /// Creates a URL for OAuth 2.0 authorization.
     /// - Parameter request: The request parameters for creating the authorization URL.
     /// - Returns: The authorization URL if it can be created, nil otherwise.
-    func makeOAuth2AuthorizeURL(_ request: GetOAuth2AuthorizeRequestV1) -> URL? {
+    public func makeOAuth2AuthorizeURL(_ request: GetOAuth2AuthorizeRequestV1) -> URL? {
         oauth20.makeOAuth2AuthorizeURL(request)
     }
 
     /// Requests an OAuth 2.0 access token from Twitter.
     /// - Parameter request: The request parameters for obtaining an access token.
     /// - Returns: A data task that will return the raw response data.
-    func postOAuth2AccessTokenData(_ request: PostOAuth2AccessTokenRequestV2) -> TwitterAPISessionDataTask {
+    public func postOAuth2AccessTokenData(_ request: PostOAuth2AccessTokenRequestV2) -> TwitterAPISessionDataTask {
         oauth20.postOAuth2AccessTokenData(request)
     }
 
     /// Requests an OAuth 2.0 access token from Twitter and parses the response.
     /// - Parameter request: The request parameters for obtaining an access token.
     /// - Returns: A specialized task that will return a parsed OAuth 2.0 access token.
-    func postOAuth2AccessToken(_ request: PostOAuth2AccessTokenRequestV2)
+    public func postOAuth2AccessToken(_ request: PostOAuth2AccessTokenRequestV2)
         -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken>
     {
         oauth20.postOAuth2AccessToken(request)
@@ -122,14 +124,14 @@ public extension TwitterAuthAPI: TwitterAPI {
     /// Requests a refresh of the OAuth 2.0 access token.
     /// - Parameter request: The request parameters for refreshing the token.
     /// - Returns: A data task that will return the raw response data.
-    func postOAuth2RefreshTokenData(_ request: PostOAuth2RefreshTokenRequestV2) -> TwitterAPISessionDataTask {
+    public func postOAuth2RefreshTokenData(_ request: PostOAuth2RefreshTokenRequestV2) -> TwitterAPISessionDataTask {
         oauth20.postOAuth2RefreshTokenData(request)
     }
 
     /// Requests a refresh of the OAuth 2.0 access token and parses the response.
     /// - Parameter request: The request parameters for refreshing the token.
     /// - Returns: A specialized task that will return a parsed OAuth 2.0 access token.
-    func postOAuth2RefreshToken(_ request: PostOAuth2RefreshTokenRequestV2)
+    public func postOAuth2RefreshToken(_ request: PostOAuth2RefreshTokenRequestV2)
         -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken>
     {
         oauth20.postOAuth2RefreshToken(request)
@@ -138,13 +140,13 @@ public extension TwitterAuthAPI: TwitterAPI {
     /// Revokes an OAuth 2.0 token.
     /// - Parameter request: The request parameters for revoking the token.
     /// - Returns: A data task that will return the response.
-    func postOAuth2RevokeToken(_ request: PostOAuth2RevokeTokenRequestV2) -> TwitterAPISessionDataTask {
+    public func postOAuth2RevokeToken(_ request: PostOAuth2RevokeTokenRequestV2) -> TwitterAPISessionDataTask {
         oauth20.postOAuth2RevokeToken(request)
     }
 }
 
 /// Extension providing Twitter API v1 endpoints.
-public extension TwitterAPIv1: TwitterAPI {
+public extension TwitterAPIv1 {
     // MARK: - AccountAPIv1
 
     /// Retrieves the current account settings.
@@ -164,7 +166,9 @@ public extension TwitterAPIv1: TwitterAPI {
     /// Removes the profile banner for the authenticated user.
     /// - Parameter request: The request parameters for removing the profile banner.
     /// - Returns: A JSON task that will return the response.
-    func postRemoveProfileBanner(_ request: PostAccountRemoveProfileBannerRequestV1) -> TwitterAPISessionJSONTask {
+    func postRemoveProfileBanner(
+        _ request: PostAccountRemoveProfileBannerRequestV1
+    ) -> TwitterAPISessionJSONTask {
         account.postRemoveProfileBanner(request)
     }
 
@@ -331,7 +335,9 @@ public extension TwitterAPIv1: TwitterAPI {
     /// Removes a tweet from a collection.
     /// - Parameter request: The request parameters for removing the tweet.
     /// - Returns: A JSON task that will return the response.
-    func postCollectionRemoveEntry(_ request: PostCollectionsEntriesRemoveRequestV1) -> TwitterAPISessionJSONTask {
+    func postCollectionRemoveEntry(
+        _ request: PostCollectionsEntriesRemoveRequestV1
+    ) -> TwitterAPISessionJSONTask {
         collection.postCollectionRemoveEntry(request)
     }
 
@@ -458,7 +464,9 @@ public extension TwitterAPIv1: TwitterAPI {
     /// Retrieves IDs of users whose retweets are disabled.
     /// - Parameter request: The request parameters for retrieving no-retweet IDs.
     /// - Returns: A JSON task that will return the list of user IDs.
-    func getFriendshipsNoRetweetsIDs(_ request: GetFriendshipsNoRetweetsIDsRequestV1) -> TwitterAPISessionJSONTask {
+    func getFriendshipsNoRetweetsIDs(
+        _ request: GetFriendshipsNoRetweetsIDsRequestV1
+    ) -> TwitterAPISessionJSONTask {
         friendships.getFriendshipsNoRetweetsIDs(request)
     }
 
@@ -940,48 +948,48 @@ public extension TwitterAPIv1: TwitterAPI {
     }
 }
 
-public extension TwitterAPIv2: TwitterAPI {
+extension TwitterAPIv2: TwitterAPI {
     // MARK: - BlockAndMuteAPIv2
 
     /// Retrieves users blocked by the authenticated user.
     /// - Parameter request: The request parameters for retrieving blocked users.
     /// - Returns: A JSON task that will return the list of blocked users.
-    func getBlockUsers(_ request: GetUsersBlockingRequestV2) -> TwitterAPISessionJSONTask {
+    public func getBlockUsers(_ request: GetUsersBlockingRequestV2) -> TwitterAPISessionJSONTask {
         blockAndMute.getBlockUsers(request)
     }
 
     /// Blocks a user.
     /// - Parameter request: The request parameters containing the user to block.
     /// - Returns: A JSON task that will return the response.
-    func blockUser(_ request: PostUsersBlockingRequestV2) -> TwitterAPISessionJSONTask {
+    public func blockUser(_ request: PostUsersBlockingRequestV2) -> TwitterAPISessionJSONTask {
         blockAndMute.blockUser(request)
     }
 
     /// Unblocks a user.
     /// - Parameter request: The request parameters containing the user to unblock.
     /// - Returns: A JSON task that will return the response.
-    func unblockUser(_ request: DeleteUsersBlockingRequestV2) -> TwitterAPISessionJSONTask {
+    public func unblockUser(_ request: DeleteUsersBlockingRequestV2) -> TwitterAPISessionJSONTask {
         blockAndMute.unblockUser(request)
     }
 
     /// Retrieves users muted by the authenticated user.
     /// - Parameter request: The request parameters for retrieving muted users.
     /// - Returns: A JSON task that will return the list of muted users.
-    func getMuteUsers(_ request: GetUsersMutingRequestV2) -> TwitterAPISessionJSONTask {
+    public func getMuteUsers(_ request: GetUsersMutingRequestV2) -> TwitterAPISessionJSONTask {
         blockAndMute.getMuteUsers(request)
     }
 
     /// Mutes a user.
     /// - Parameter request: The request parameters containing the user to mute.
     /// - Returns: A JSON task that will return the response.
-    func muteUser(_ request: PostUsersMutingRequestV2) -> TwitterAPISessionJSONTask {
+    public func muteUser(_ request: PostUsersMutingRequestV2) -> TwitterAPISessionJSONTask {
         blockAndMute.muteUser(request)
     }
 
     /// Unmutes a user.
     /// - Parameter request: The request parameters containing the user to unmute.
     /// - Returns: A JSON task that will return the response.
-    func unmuteUser(_ request: DeleteUsersMutingRequestV2) -> TwitterAPISessionJSONTask {
+    public func unmuteUser(_ request: DeleteUsersMutingRequestV2) -> TwitterAPISessionJSONTask {
         blockAndMute.unmuteUser(request)
     }
 
@@ -990,21 +998,21 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves the authenticated user's bookmarked tweets.
     /// - Parameter request: The request parameters for retrieving bookmarks.
     /// - Returns: A JSON task that will return the bookmarked tweets.
-    func getBookmarks(_ request: GetUsersBookmarksRequestV2) -> TwitterAPISessionJSONTask {
+    public func getBookmarks(_ request: GetUsersBookmarksRequestV2) -> TwitterAPISessionJSONTask {
         bookmarks.getBookmarks(request)
     }
 
     /// Bookmarks a tweet.
     /// - Parameter request: The request parameters containing the tweet to bookmark.
     /// - Returns: A JSON task that will return the response.
-    func createBookmark(_ request: PostUsersBookmarksRequestV2) -> TwitterAPISessionJSONTask {
+    public func createBookmark(_ request: PostUsersBookmarksRequestV2) -> TwitterAPISessionJSONTask {
         bookmarks.createBookmark(request)
     }
 
     /// Removes a tweet from bookmarks.
     /// - Parameter request: The request parameters containing the tweet to remove.
     /// - Returns: A JSON task that will return the response.
-    func deleteBookmark(_ request: DeleteUsersBookmarksRequestV2) -> TwitterAPISessionJSONTask {
+    public func deleteBookmark(_ request: DeleteUsersBookmarksRequestV2) -> TwitterAPISessionJSONTask {
         bookmarks.deleteBookmark(request)
     }
 
@@ -1013,21 +1021,21 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves information about a specific compliance job.
     /// - Parameter request: The request parameters containing the job ID.
     /// - Returns: A JSON task that will return the job information.
-    func getComplianceJob(_ request: GetComplianceJobRequestV2) -> TwitterAPISessionJSONTask {
+    public func getComplianceJob(_ request: GetComplianceJobRequestV2) -> TwitterAPISessionJSONTask {
         compliance.getComplianceJob(request)
     }
 
     /// Retrieves a list of compliance jobs.
     /// - Parameter request: The request parameters for retrieving compliance jobs.
     /// - Returns: A JSON task that will return the list of jobs.
-    func getComplianceJobj(_ request: GetComplianceJobsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getComplianceJobj(_ request: GetComplianceJobsRequestV2) -> TwitterAPISessionJSONTask {
         compliance.getComplianceJobj(request)
     }
 
     /// Creates a new compliance job.
     /// - Parameter request: The request parameters for creating the job.
     /// - Returns: A JSON task that will return the created job.
-    func createComplianceJob(_ request: PostComplianceJobsRequestV2) -> TwitterAPISessionJSONTask {
+    public func createComplianceJob(_ request: PostComplianceJobsRequestV2) -> TwitterAPISessionJSONTask {
         compliance.createComplianceJob(request)
     }
 
@@ -1036,28 +1044,28 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves users that a specified user is following.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the list of followed users.
-    func getFollowing(_ request: GetUsersFollowingRequestV2) -> TwitterAPISessionJSONTask {
+    public func getFollowing(_ request: GetUsersFollowingRequestV2) -> TwitterAPISessionJSONTask {
         friendships.getFollowing(request)
     }
 
     /// Retrieves followers of a specified user.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the list of followers.
-    func getFollowers(_ request: GetUsersFollowersRequestV2) -> TwitterAPISessionJSONTask {
+    public func getFollowers(_ request: GetUsersFollowersRequestV2) -> TwitterAPISessionJSONTask {
         friendships.getFollowers(request)
     }
 
     /// Follows a user.
     /// - Parameter request: The request parameters containing the user to follow.
     /// - Returns: A JSON task that will return the response.
-    func follow(_ request: PostUsersFollowingRequestV2) -> TwitterAPISessionJSONTask {
+    public func follow(_ request: PostUsersFollowingRequestV2) -> TwitterAPISessionJSONTask {
         friendships.follow(request)
     }
 
     /// Unfollows a user.
     /// - Parameter request: The request parameters containing the user to unfollow.
     /// - Returns: A JSON task that will return the response.
-    func unfollow(_ request: DeleteUsersFollowingRequestV2) -> TwitterAPISessionJSONTask {
+    public func unfollow(_ request: DeleteUsersFollowingRequestV2) -> TwitterAPISessionJSONTask {
         friendships.unfollow(request)
     }
 
@@ -1066,28 +1074,28 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves users who have liked a tweet.
     /// - Parameter request: The request parameters containing the tweet ID.
     /// - Returns: A JSON task that will return the list of users.
-    func getLikingUsers(_ request: GetTweetsLikingUsersRequestV2) -> TwitterAPISessionJSONTask {
+    public func getLikingUsers(_ request: GetTweetsLikingUsersRequestV2) -> TwitterAPISessionJSONTask {
         like.getLikingUsers(request)
     }
 
     /// Retrieves tweets liked by a user.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the list of liked tweets.
-    func getLikedTweets(_ request: GetUsersLikedTweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getLikedTweets(_ request: GetUsersLikedTweetsRequestV2) -> TwitterAPISessionJSONTask {
         like.getLikedTweets(request)
     }
 
     /// Likes a tweet.
     /// - Parameter request: The request parameters containing the tweet to like.
     /// - Returns: A JSON task that will return the response.
-    func postLike(_ request: PostUsersLikesRequestV2) -> TwitterAPISessionJSONTask {
+    public func postLike(_ request: PostUsersLikesRequestV2) -> TwitterAPISessionJSONTask {
         like.postLike(request)
     }
 
     /// Unlikes a tweet.
     /// - Parameter request: The request parameters containing the tweet to unlike.
     /// - Returns: A JSON task that will return the response.
-    func deleteLike(_ request: DeleteUsersLikesRequestV2) -> TwitterAPISessionJSONTask {
+    public func deleteLike(_ request: DeleteUsersLikesRequestV2) -> TwitterAPISessionJSONTask {
         like.deleteLike(request)
     }
 
@@ -1096,119 +1104,119 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves tweets from a list.
     /// - Parameter request: The request parameters containing the list ID.
     /// - Returns: A JSON task that will return the list tweets.
-    func getListTweets(_ request: GetListsTweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getListTweets(_ request: GetListsTweetsRequestV2) -> TwitterAPISessionJSONTask {
         list.getListTweets(request)
     }
 
     /// Retrieves information about a specific list.
     /// - Parameter request: The request parameters containing the list ID.
     /// - Returns: A JSON task that will return the list information.
-    func getList(_ request: GetListRequestV2) -> TwitterAPISessionJSONTask {
+    public func getList(_ request: GetListRequestV2) -> TwitterAPISessionJSONTask {
         list.getList(request)
     }
 
     /// Retrieves lists owned by a user.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the owned lists.
-    func getLists(_ request: GetUsersOwnedListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getLists(_ request: GetUsersOwnedListsRequestV2) -> TwitterAPISessionJSONTask {
         list.getLists(request)
     }
 
     /// Follows a list.
     /// - Parameter request: The request parameters containing the list to follow.
     /// - Returns: A JSON task that will return the response.
-    func followList(_ request: PostUsersFollowedListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func followList(_ request: PostUsersFollowedListsRequestV2) -> TwitterAPISessionJSONTask {
         list.followList(request)
     }
 
     /// Unfollows a list.
     /// - Parameter request: The request parameters containing the list to unfollow.
     /// - Returns: A JSON task that will return the response.
-    func unfollowList(_ request: DeleteUsersFollowedListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func unfollowList(_ request: DeleteUsersFollowedListsRequestV2) -> TwitterAPISessionJSONTask {
         list.unfollowList(request)
     }
 
     /// Retrieves followers of a list.
     /// - Parameter request: The request parameters containing the list ID.
     /// - Returns: A JSON task that will return the list followers.
-    func listFollowers(_ request: GetListsFollowersRequestV2) -> TwitterAPISessionJSONTask {
+    public func listFollowers(_ request: GetListsFollowersRequestV2) -> TwitterAPISessionJSONTask {
         list.listFollowers(request)
     }
 
     /// Retrieves lists followed by a user.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the followed lists.
-    func followedLists(_ request: GetUsersFollowedListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func followedLists(_ request: GetUsersFollowedListsRequestV2) -> TwitterAPISessionJSONTask {
         list.followedLists(request)
     }
 
     /// Adds a member to a list.
     /// - Parameter request: The request parameters containing the user and list.
     /// - Returns: A JSON task that will return the response.
-    func addListMember(_ request: PostListsMembersRequestV2) -> TwitterAPISessionJSONTask {
+    public func addListMember(_ request: PostListsMembersRequestV2) -> TwitterAPISessionJSONTask {
         list.addListMember(request)
     }
 
     /// Removes a member from a list.
     /// - Parameter request: The request parameters containing the user and list.
     /// - Returns: A JSON task that will return the response.
-    func removeListMember(_ request: DeleteListsMembersRequestV2) -> TwitterAPISessionJSONTask {
+    public func removeListMember(_ request: DeleteListsMembersRequestV2) -> TwitterAPISessionJSONTask {
         list.removeListMember(request)
     }
 
     /// Retrieves lists that a user is a member of.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the list memberships.
-    func getListMemberships(_ request: GetUsersListMembershipsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getListMemberships(_ request: GetUsersListMembershipsRequestV2) -> TwitterAPISessionJSONTask {
         list.getListMemberships(request)
     }
 
     /// Retrieves members of a list.
     /// - Parameter request: The request parameters containing the list ID.
     /// - Returns: A JSON task that will return the list members.
-    func getListMembers(_ request: GetListsMembersRequestV2) -> TwitterAPISessionJSONTask {
+    public func getListMembers(_ request: GetListsMembersRequestV2) -> TwitterAPISessionJSONTask {
         list.getListMembers(request)
     }
 
     /// Creates a new list.
     /// - Parameter request: The request parameters for creating the list.
     /// - Returns: A JSON task that will return the created list.
-    func createList(_ request: PostListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func createList(_ request: PostListsRequestV2) -> TwitterAPISessionJSONTask {
         list.createList(request)
     }
 
     /// Updates a list's metadata.
     /// - Parameter request: The request parameters containing the updated information.
     /// - Returns: A JSON task that will return the updated list.
-    func updateList(_ request: PutListRequestV2) -> TwitterAPISessionJSONTask {
+    public func updateList(_ request: PutListRequestV2) -> TwitterAPISessionJSONTask {
         list.updateList(request)
     }
 
     /// Deletes a list.
     /// - Parameter request: The request parameters containing the list to delete.
     /// - Returns: A JSON task that will return the response.
-    func deleteList(_ request: DeleteListRequestV2) -> TwitterAPISessionJSONTask {
+    public func deleteList(_ request: DeleteListRequestV2) -> TwitterAPISessionJSONTask {
         list.deleteList(request)
     }
 
     /// Retrieves a user's pinned lists.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the pinned lists.
-    func pinnedList(_ request: GetUsersPinnedListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func pinnedList(_ request: GetUsersPinnedListsRequestV2) -> TwitterAPISessionJSONTask {
         list.pinnedList(request)
     }
 
     /// Pins a list to the user's profile.
     /// - Parameter request: The request parameters containing the list to pin.
     /// - Returns: A JSON task that will return the response.
-    func pinList(_ request: PostUsersPinnedListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func pinList(_ request: PostUsersPinnedListsRequestV2) -> TwitterAPISessionJSONTask {
         list.pinList(request)
     }
 
     /// Unpins a list from the user's profile.
     /// - Parameter request: The request parameters containing the list to unpin.
     /// - Returns: A JSON task that will return the response.
-    func unpinList(_ request: DeleteUsersPinnedListsRequestV2) -> TwitterAPISessionJSONTask {
+    public func unpinList(_ request: DeleteUsersPinnedListsRequestV2) -> TwitterAPISessionJSONTask {
         list.unpinList(request)
     }
 
@@ -1217,21 +1225,21 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves users who have retweeted a tweet.
     /// - Parameter request: The request parameters containing the tweet ID.
     /// - Returns: A JSON task that will return the list of users.
-    func getRetweetedBy(_ request: GetTweetsRetweetedByRequestV2) -> TwitterAPISessionJSONTask {
+    public func getRetweetedBy(_ request: GetTweetsRetweetedByRequestV2) -> TwitterAPISessionJSONTask {
         retweet.getRetweetedBy(request)
     }
 
     /// Creates a retweet of a tweet.
     /// - Parameter request: The request parameters containing the tweet to retweet.
     /// - Returns: A JSON task that will return the response.
-    func postRetweet(_ request: PostUsersRetweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func postRetweet(_ request: PostUsersRetweetsRequestV2) -> TwitterAPISessionJSONTask {
         retweet.postRetweet(request)
     }
 
     /// Removes a retweet of a tweet.
     /// - Parameter request: The request parameters containing the retweet to remove.
     /// - Returns: A JSON task that will return the response.
-    func deleteRetweet(_ request: DeleteUsersRetweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func deleteRetweet(_ request: DeleteUsersRetweetsRequestV2) -> TwitterAPISessionJSONTask {
         retweet.deleteRetweet(request)
     }
 
@@ -1240,14 +1248,14 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Searches for recent tweets matching a query.
     /// - Parameter request: The request parameters containing the search query.
     /// - Returns: A JSON task that will return the matching tweets.
-    func searchTweetsRecent(_ request: GetTweetsSearchRecentRequestV2) -> TwitterAPISessionJSONTask {
+    public func searchTweetsRecent(_ request: GetTweetsSearchRecentRequestV2) -> TwitterAPISessionJSONTask {
         search.searchTweetsRecent(request)
     }
 
     /// Searches for all tweets matching a query.
     /// - Parameter request: The request parameters containing the search query.
     /// - Returns: A JSON task that will return the matching tweets.
-    func searchTweetsAll(_ request: GetTweetsSearchAllRequestV2) -> TwitterAPISessionJSONTask {
+    public func searchTweetsAll(_ request: GetTweetsSearchAllRequestV2) -> TwitterAPISessionJSONTask {
         search.searchTweetsAll(request)
     }
 
@@ -1256,42 +1264,42 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves information about a specific space.
     /// - Parameter request: The request parameters containing the space ID.
     /// - Returns: A JSON task that will return the space information.
-    func getSpace(_ request: GetSpaceRequestV2) -> TwitterAPISessionJSONTask {
+    public func getSpace(_ request: GetSpaceRequestV2) -> TwitterAPISessionJSONTask {
         spaces.getSpace(request)
     }
 
     /// Retrieves information about multiple spaces.
     /// - Parameter request: The request parameters containing the space IDs.
     /// - Returns: A JSON task that will return the spaces information.
-    func getSpaces(_ request: GetSpacesRequestV2) -> TwitterAPISessionJSONTask {
+    public func getSpaces(_ request: GetSpacesRequestV2) -> TwitterAPISessionJSONTask {
         spaces.getSpaces(request)
     }
 
     /// Retrieves spaces created by specified users.
     /// - Parameter request: The request parameters containing the creator IDs.
     /// - Returns: A JSON task that will return the spaces information.
-    func getSpacesByCreators(_ request: GetSpacesByCreatorIDsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getSpacesByCreators(_ request: GetSpacesByCreatorIDsRequestV2) -> TwitterAPISessionJSONTask {
         spaces.getSpacesByCreators(request)
     }
 
     /// Retrieves users who have purchased tickets to a space.
     /// - Parameter request: The request parameters containing the space ID.
     /// - Returns: A JSON task that will return the list of buyers.
-    func getSpacesBuyers(_ request: GetSpacesBuyersRequestV2) -> TwitterAPISessionJSONTask {
+    public func getSpacesBuyers(_ request: GetSpacesBuyersRequestV2) -> TwitterAPISessionJSONTask {
         spaces.getSpacesBuyers(request)
     }
 
     /// Retrieves tweets shared in a space.
     /// - Parameter request: The request parameters containing the space ID.
     /// - Returns: A JSON task that will return the tweets.
-    func getSPacesTweets(_ request: GetSpacesTweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getSPacesTweets(_ request: GetSpacesTweetsRequestV2) -> TwitterAPISessionJSONTask {
         spaces.getSPacesTweets(request)
     }
 
     /// Searches for spaces matching a query.
     /// - Parameter request: The request parameters containing the search query.
     /// - Returns: A JSON task that will return the matching spaces.
-    func searchSpaces(_ request: GetSpacesSearchRequestV2) -> TwitterAPISessionJSONTask {
+    public func searchSpaces(_ request: GetSpacesSearchRequestV2) -> TwitterAPISessionJSONTask {
         spaces.searchSpaces(request)
     }
 
@@ -1300,28 +1308,28 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Connects to the sample stream of tweets.
     /// - Parameter request: The request parameters for the sample stream.
     /// - Returns: A stream task that will provide tweets in real-time.
-    func sampleStream(_ request: GetTweetsSampleStreamRequestV2) -> TwitterAPISessionStreamTask {
+    public func sampleStream(_ request: GetTweetsSampleStreamRequestV2) -> TwitterAPISessionStreamTask {
         stream.sampleStream(request)
     }
 
     /// Retrieves rules for filtered stream.
     /// - Parameter request: The request parameters for retrieving stream rules.
     /// - Returns: A JSON task that will return the stream rules.
-    func getSearchStreamRules(_ request: GetTweetsSearchStreamRulesRequestV2) -> TwitterAPISessionJSONTask {
+    public func getSearchStreamRules(_ request: GetTweetsSearchStreamRulesRequestV2) -> TwitterAPISessionJSONTask {
         stream.getSearchStreamRules(request)
     }
 
     /// Updates rules for filtered stream.
     /// - Parameter request: The request parameters containing the rule updates.
     /// - Returns: A JSON task that will return the updated rules.
-    func postSearchStreamRules(_ request: PostTweetsSearchStreamRulesRequestV2) -> TwitterAPISessionJSONTask {
+    public func postSearchStreamRules(_ request: PostTweetsSearchStreamRulesRequestV2) -> TwitterAPISessionJSONTask {
         stream.postSearchStreamRules(request)
     }
 
     /// Connects to the filtered stream of tweets.
     /// - Parameter request: The request parameters for the filtered stream.
     /// - Returns: A stream task that will provide filtered tweets in real-time.
-    func searchStream(_ request: GetTweetsSearchStreamRequestV2) -> TwitterAPISessionStreamTask {
+    public func searchStream(_ request: GetTweetsSearchStreamRequestV2) -> TwitterAPISessionStreamTask {
         stream.searchStream(request)
     }
 
@@ -1330,21 +1338,21 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves tweets posted by a user.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the user's tweets.
-    func getUserTweets(_ request: GetUsersTweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getUserTweets(_ request: GetUsersTweetsRequestV2) -> TwitterAPISessionJSONTask {
         timeline.getUserTweets(request)
     }
 
     /// Retrieves tweets mentioning a user.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the mentions.
-    func getUserMensions(_ request: GetUsersMentionsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getUserMensions(_ request: GetUsersMentionsRequestV2) -> TwitterAPISessionJSONTask {
         timeline.getUserMensions(request)
     }
 
     /// Retrieves a user's reverse chronological timeline.
     /// - Parameter request: The request parameters containing the user identifier.
     /// - Returns: A JSON task that will return the timeline tweets.
-    func getUserReverseChronological(_ request: GetUsersTimelinesReverseChronologicalRequestV2)
+    public func getUserReverseChronological(_ request: GetUsersTimelinesReverseChronologicalRequestV2)
         -> TwitterAPISessionJSONTask
     {
         timeline.getUserReverseChronological(request)
@@ -1355,42 +1363,42 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves multiple tweets by their IDs.
     /// - Parameter request: The request parameters containing the tweet IDs.
     /// - Returns: A JSON task that will return the tweets.
-    func getTweets(_ request: GetTweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getTweets(_ request: GetTweetsRequestV2) -> TwitterAPISessionJSONTask {
         tweet.getTweets(request)
     }
 
     /// Retrieves a single tweet.
     /// - Parameter request: The request parameters containing the tweet ID.
     /// - Returns: A JSON task that will return the tweet.
-    func getTweet(_ request: GetTweetRequestV2) -> TwitterAPISessionJSONTask {
+    public func getTweet(_ request: GetTweetRequestV2) -> TwitterAPISessionJSONTask {
         tweet.getTweet(request)
     }
 
     /// Retrieves tweets quoting a tweet.
     /// - Parameter request: The request parameters containing the tweet ID.
     /// - Returns: A JSON task that will return the quote tweets.
-    func getQuoteTweets(_ request: GetTweetsQuoteTweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getQuoteTweets(_ request: GetTweetsQuoteTweetsRequestV2) -> TwitterAPISessionJSONTask {
         tweet.getQuoteTweets(request)
     }
 
     /// Deletes a tweet.
     /// - Parameter request: The request parameters containing the tweet to delete.
     /// - Returns: A JSON task that will return the response.
-    func deleteTweet(_ request: DeleteTweetRequestV2) -> TwitterAPISessionJSONTask {
+    public func deleteTweet(_ request: DeleteTweetRequestV2) -> TwitterAPISessionJSONTask {
         tweet.deleteTweet(request)
     }
 
     /// Posts a new tweet.
     /// - Parameter request: The request parameters containing the tweet content.
     /// - Returns: A JSON task that will return the posted tweet.
-    func postTweet(_ request: PostTweetsRequestV2) -> TwitterAPISessionJSONTask {
+    public func postTweet(_ request: PostTweetsRequestV2) -> TwitterAPISessionJSONTask {
         tweet.postTweet(request)
     }
 
     /// Hides a reply to a tweet.
     /// - Parameter request: The request parameters containing the reply to hide.
     /// - Returns: A JSON task that will return the response.
-    func hideReply(_ request: PutTweetsHiddenRequestV2) -> TwitterAPISessionJSONTask {
+    public func hideReply(_ request: PutTweetsHiddenRequestV2) -> TwitterAPISessionJSONTask {
         tweet.hideReply(request)
     }
 
@@ -1399,14 +1407,14 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves count of recent tweets matching a query.
     /// - Parameter request: The request parameters containing the search query.
     /// - Returns: A JSON task that will return the tweet count.
-    func getTweetCountRecent(_ request: GetTweetsCountsRecentRequestV2) -> TwitterAPISessionJSONTask {
+    public func getTweetCountRecent(_ request: GetTweetsCountsRecentRequestV2) -> TwitterAPISessionJSONTask {
         tweetCount.getTweetCountRecent(request)
     }
 
     /// Retrieves count of all tweets matching a query.
     /// - Parameter request: The request parameters containing the search query.
     /// - Returns: A JSON task that will return the tweet count.
-    func getTweetCountAll(_ request: GetTweetsCountsAllRequestV2) -> TwitterAPISessionJSONTask {
+    public func getTweetCountAll(_ request: GetTweetsCountsAllRequestV2) -> TwitterAPISessionJSONTask {
         tweetCount.getTweetCountAll(request)
     }
 
@@ -1415,35 +1423,35 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves information about a specific user.
     /// - Parameter request: The request parameters containing the user ID.
     /// - Returns: A JSON task that will return the user information.
-    func getUser(_ request: GetUserRequestV2) -> TwitterAPISessionJSONTask {
+    public func getUser(_ request: GetUserRequestV2) -> TwitterAPISessionJSONTask {
         user.getUser(request)
     }
 
     /// Retrieves information about multiple users.
     /// - Parameter request: The request parameters containing the user IDs.
     /// - Returns: A JSON task that will return the users information.
-    func getUsers(_ request: GetUsersRequestV2) -> TwitterAPISessionJSONTask {
+    public func getUsers(_ request: GetUsersRequestV2) -> TwitterAPISessionJSONTask {
         user.getUsers(request)
     }
 
     /// Retrieves a user by their username.
     /// - Parameter request: The request parameters containing the username.
     /// - Returns: A JSON task that will return the user information.
-    func getUserByUsername(_ request: GetUsersByUsernameRequestV2) -> TwitterAPISessionJSONTask {
+    public func getUserByUsername(_ request: GetUsersByUsernameRequestV2) -> TwitterAPISessionJSONTask {
         user.getUserByUsername(request)
     }
 
     /// Retrieves multiple users by their usernames.
     /// - Parameter request: The request parameters containing the usernames.
     /// - Returns: A JSON task that will return the users information.
-    func getUsersByUsernames(_ request: GetUsersByRequestV2) -> TwitterAPISessionJSONTask {
+    public func getUsersByUsernames(_ request: GetUsersByRequestV2) -> TwitterAPISessionJSONTask {
         user.getUsersByUsernames(request)
     }
 
     /// Retrieves information about the authenticated user.
     /// - Parameter request: The request parameters for retrieving user information.
     /// - Returns: A JSON task that will return the user information.
-    func getMe(_ request: GetUsersMeRequestV2) -> TwitterAPISessionJSONTask {
+    public func getMe(_ request: GetUsersMeRequestV2) -> TwitterAPISessionJSONTask {
         user.getMe(request)
     }
 
@@ -1452,14 +1460,14 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves direct message events.
     /// - Parameter request: The request parameters for retrieving DM events.
     /// - Returns: A JSON task that will return the DM events.
-    func getDmEvents(_ request: GetDmEventsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getDmEvents(_ request: GetDmEventsRequestV2) -> TwitterAPISessionJSONTask {
         dm.getDmEvents(request)
     }
 
     /// Retrieves direct message events with a specific participant.
     /// - Parameter request: The request parameters containing the participant ID.
     /// - Returns: A JSON task that will return the DM events.
-    func getDmEventsWithParticipantId(_ request: GetDmConversationsWithParticipantIdDmEventsRequestV2)
+    public func getDmEventsWithParticipantId(_ request: GetDmConversationsWithParticipantIdDmEventsRequestV2)
         -> TwitterAPISessionJSONTask
     {
         dm.getDmEventsWithParticipantId(request)
@@ -1468,28 +1476,32 @@ public extension TwitterAPIv2: TwitterAPI {
     /// Retrieves direct message events from a specific conversation.
     /// - Parameter request: The request parameters containing the conversation ID.
     /// - Returns: A JSON task that will return the DM events.
-    func getDmEventsByConversationsId(_ request: GetDmConversationsIdDmEventsRequestV2) -> TwitterAPISessionJSONTask {
+    public func getDmEventsByConversationsId(
+        _ request: GetDmConversationsIdDmEventsRequestV2
+    ) -> TwitterAPISessionJSONTask {
         dm.getDmEventsByConversationsId(request)
     }
 
     /// Posts a new direct message conversation.
     /// - Parameter request: The request parameters for creating a new conversation.
     /// - Returns: A JSON task that will return the created conversation.
-    func postDmConversationById(_ request: PostDmConversationByIdRequestV2) -> TwitterAPISessionJSONTask {
+    public func postDmConversationById(_ request: PostDmConversationByIdRequestV2) -> TwitterAPISessionJSONTask {
         dm.postDmConversationById(request)
     }
 
     /// Posts a new direct message conversation with a specific user.
     /// - Parameter request: The request parameters containing the user and message.
     /// - Returns: A JSON task that will return the created conversation.
-    func postDmConversationWithUser(_ request: PostDmConversationWithUserRequestV2) -> TwitterAPISessionJSONTask {
+    public func postDmConversationWithUser(
+        _ request: PostDmConversationWithUserRequestV2
+    ) -> TwitterAPISessionJSONTask {
         dm.postDmConversationWithUser(request)
     }
 
     /// Posts a new direct message conversation with multiple participants.
     /// - Parameter request: The request parameters containing the participants and message.
     /// - Returns: A JSON task that will return the created conversation.
-    func postDmConversation(_ request: PostDmConversationRequestV2) -> TwitterAPISessionJSONTask {
+    public func postDmConversation(_ request: PostDmConversationRequestV2) -> TwitterAPISessionJSONTask {
         dm.postDmConversation(request)
     }
 }

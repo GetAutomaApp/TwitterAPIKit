@@ -48,7 +48,7 @@ public protocol HMAC {
     ///   - key: The key to use for signing
     ///   - message: The message to sign
     /// - Returns: The HMAC-SHA1 signature as Data
-    public func createHMACSHA1(key: Data, message: Data) -> Data {
+    func createHMACSHA1(key: Data, message: Data) -> Data {
         message.hmac(key: key)
     }
 
@@ -60,7 +60,7 @@ public protocol HMAC {
     ///   - key: The key to use for signing
     ///   - message: The message to sign
     /// - Returns: The HMAC-SHA1 signature as Data
-    public func createHMACSHA1(key: Data, message: Data) -> Data {
+    func createHMACSHA1(key: Data, message: Data) -> Data {
         Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
     }
 #else
