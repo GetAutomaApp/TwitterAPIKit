@@ -1,4 +1,0 @@
-
-> twitterapikit@1.0.0 lint
-> swiftlint --config=.swiftlint.yml .
-
