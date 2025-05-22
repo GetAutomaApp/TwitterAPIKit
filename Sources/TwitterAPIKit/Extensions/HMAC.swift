@@ -8,11 +8,6 @@
 
 import Foundation
 
-/// A protocol that represents a HMAC.
-public protocol HMAC {
-    // No Logic Here
-}
-
 #if canImport(CommonCrypto)
     import CommonCrypto
 
@@ -34,7 +29,7 @@ public protocol HMAC {
                         key.count,
                         bytes.baseAddress,
                         count,
-                        result
+                        result,
                     )
                 }
 
