@@ -13,7 +13,7 @@ jobs:
 
       - uses: swift-actions/setup-swift@v2
         with:
-           swift-version: "5.0"
+           swift-version: 5
 
       - name: Run Unit Tests
         uses: GetAutomaApp/opensource-actions/swifttesting@main
