@@ -31,17 +31,16 @@ internal class TwitterAPIRequestTests: XCTestCase {
     private var env: TwitterAPIEnvironment
 
     override public init() {
-        let apiUrl = URL(string: "https://api.example.com")
-        let uploadUrl = URL(string: "https://upload.example.com")
-
-        guard let apiUrl, let uploadUrl else {
-            XCTFail("apiUrl / uploadUrl isn't valid")
+        guard let apiUrl = URL(string: "https://api.example.com"),
+              let uploadUrl = URL(string: "https://upload.example.com") else {
+            fatalError("Invalid URL strings")
         }
 
         env = .init(
             apiURL: apiUrl,
             uploadURL: uploadUrl
         )
+        super.init()
     }
 
     public func testRequestURL() throws {

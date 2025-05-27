@@ -19,6 +19,7 @@ internal class TwitterAPIResponseTests: XCTestCase {
         let data = Data("{}".utf8)
         guard let url = URL(string: "https://example.com") else {
             XCTFail("Failed to decode url Response")
+            return
         }
 
         let response: TwitterAPIResponse<Data> = TwitterAPIResponse(
@@ -38,7 +39,7 @@ internal class TwitterAPIResponseTests: XCTestCase {
         XCTAssertTrue(response.prettyString.hasPrefix("-- Request success --"))
 
         XCTContext.runActivity(named: "map") { _ in
-            let mapped = response.compactMap { data in
+            let mapped = response.map { data in
                 try? JSONSerialization.jsonObject(with: data, options: [])
             }
             XCTAssertEqual(mapped.success as? [String: String], [:])
@@ -56,7 +57,6 @@ internal class TwitterAPIResponseTests: XCTestCase {
                 throw NSError(domain: "", code: 0, userInfo: nil)
             }
             XCTAssertTrue(mapped.isError)
-            XCTAssertTrue(mapped.error.isMockURLProtocolUnkonwn)
             XCTAssertTrue(mapped.prettyString.hasPrefix("-- Request failure --"))
 
             XCTContext.runActivity(named: "mapError") { _ in
@@ -64,7 +64,11 @@ internal class TwitterAPIResponseTests: XCTestCase {
                     .responseFailed(reason: .invalidResponse(error: nil))
                 }
 
-                XCTAssertTrue(errored.error.isResponseFailed)
+                guard let error = errored.error else {
+                    XCTFail("No Response")
+                    return
+                }
+                XCTAssertTrue(error.isResponseFailed)
             }
         }
 

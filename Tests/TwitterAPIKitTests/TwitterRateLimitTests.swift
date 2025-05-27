@@ -20,6 +20,7 @@ internal class TwitterRateLimitTests: XCTestCase {
 
             guard let rateLimit = TwitterRateLimit(header: header) else {
                 XCTFail("Failed to decode rateLimit Response")
+                return
             }
 
             XCTAssertEqual(rateLimit.limit, 15)
@@ -37,6 +38,7 @@ internal class TwitterRateLimitTests: XCTestCase {
 
             guard let rateLimit = TwitterRateLimit(header: header) else {
                 XCTFail("Failed to decode rateLimit Response")
+                return
             }
 
             XCTAssertEqual(rateLimit.limit, 15)

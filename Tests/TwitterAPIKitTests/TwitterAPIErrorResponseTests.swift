@@ -134,11 +134,11 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
             let data = try JSONSerialization.data(withJSONObject: obj, options: [])
             let error = TwitterAPIErrorResponse(data: data)
 
-            XCTAssertTrue(error.isV1)
-            XCTAssertNotNil(error.v1)
+            XCTAssertTrue(error.isVersion1)
+            XCTAssertNotNil(error.version1)
 
-            XCTAssertFalse(error.isV2)
-            XCTAssertNil(error.v2)
+            XCTAssertFalse(error.isVersion2)
+            XCTAssertNil(error.version2)
 
             XCTAssertFalse(error.isUnknown)
             XCTAssertNil(error.unknownData)
@@ -160,11 +160,11 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
             let data = try JSONSerialization.data(withJSONObject: obj, options: [])
             let error = TwitterAPIErrorResponse(data: data)
 
-            XCTAssertFalse(error.isV1)
-            XCTAssertNil(error.v1)
+            XCTAssertFalse(error.isVersion1)
+            XCTAssertNil(error.version1)
 
-            XCTAssertTrue(error.isV2)
-            XCTAssertNotNil(error.v2)
+            XCTAssertTrue(error.isVersion2)
+            XCTAssertNotNil(error.version2)
 
             XCTAssertFalse(error.isUnknown)
             XCTAssertNil(error.unknownData)
@@ -184,7 +184,7 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
             }
 
             XCTContext.runActivity(named: "invalid") { _ in
-                let data = Data("{}")
+                let data = Data("{}".utf8)
                 let error = TwitterAPIErrorResponse(data: data)
                 XCTAssertEqual(error, .unknown(data))
                 XCTAssertTrue(error.isUnknown)

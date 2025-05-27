@@ -84,22 +84,22 @@ import XCTest
 
             do {
                 let error = await response.error
-                XCTAssertTrue(error ? error.isCancelled : false)
+                XCTAssertTrue(error != nil ? error.isCancelled : false)
             }
 
             do {
                 let error = await responseObj.error
-                XCTAssertTrue(error ? error.isCancelled : false)
+                XCTAssertTrue(error != nil ? error.isCancelled : false)
             }
 
             do {
                 let error = await responseDecodable.error
-                XCTAssertTrue(error ? error.isCancelled : false)
+                XCTAssertTrue(error != nil ? error.isCancelled : false)
             }
 
             do {
                 let error = await aResponse.error
-                XCTAssertTrue(error ? error.isCancelled : false)
+                XCTAssertTrue(error != nil ? error.isCancelled : false)
             }
 
             XCTAssertTrue(mockTask.cancelled)
@@ -207,13 +207,18 @@ import XCTest
             XCTAssertTrue(mockTask.cancelled)
         }
 
-        public func testStreamError() async throws {
+        public func testStreamError() {
+            guard let exampleUrl = URL(string: "https://example.com") else {
+                XCTFail("Invalid Example Url")
+                return
+            }
+
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
                 originalRequest: nil,
                 httpResponse: .init(
-                    url: URL(string: "http://example.com"),
+                    url: exampleUrl,
                     statusCode: 200,
                     httpVersion: "1.1",
                     headerFields: [:]
@@ -251,7 +256,7 @@ import XCTest
                 task.append(chunk: Data("ccc\r\n".utf8))
             }
 
-            await asyncTask.value
+            asyncTask.value
         }
 
         deinit {
