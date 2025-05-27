@@ -63,7 +63,7 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
     public func testError() throws {
         try XCTContext.runActivity(named: "Not json") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("aa".utf8))) { error in
-                guard error is TwitterAPIKitError else {
+                guard let error = error as? TwitterAPIKitError else {
                     XCTFail("Expected TwitterAPIKitError")
                     return
                 }
@@ -73,7 +73,7 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
 
         try XCTContext.runActivity(named: "valid json but invalid object") { _ in
             XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("{}".utf8))) { error in
-                guard error is TwitterAPIKitError else {
+                guard let error = error as? TwitterAPIKitError else {
                     XCTFail("Expected TwitterAPIKitError")
                     return
                 }

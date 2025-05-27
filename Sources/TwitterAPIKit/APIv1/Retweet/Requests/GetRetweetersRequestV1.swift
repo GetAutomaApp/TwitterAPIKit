@@ -12,32 +12,41 @@ import Foundation
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// post-and-engage/api-reference/get-statuses-retweeters-ids
 open class GetRetweetersRequestV1: TwitterAPIRequest {
+    // Status ID
     public let tweetID: String
+    public let count: Int?
     public let cursor: String?
     public let stringifyIDs: Bool?
 
     public var method: HTTPMethod {
-        .get
+        return .get
     }
 
     public var path: String {
-        "/1.1/statuses/retweeters/ids.json"
+
+        return "/1.1/statuses/retweeters/ids.json"
     }
 
     open var parameters: [String: Any] {
-        var parameters = [String: Any]()
-        parameters["id"] = tweetID
-        cursor.map { parameters["cursor"] = $0 }
-        stringifyIDs.map { parameters["stringify_ids"] = $0 }
-        return parameters
+
+        var params = [String: Any]()
+
+        params["id"] = tweetID
+        count.map { params["count"] = $0 }
+        cursor.map { params["cursor"] = $0 }
+        stringifyIDs.map { params["stringify_ids"] = $0 }
+
+        return params
     }
 
     public init(
         tweetID: String,
+        count: Int? = .none,
         cursor: String? = .none,
         stringifyIDs: Bool? = .none
     ) {
         self.tweetID = tweetID
+        self.count = count
         self.cursor = cursor
         self.stringifyIDs = stringifyIDs
     }

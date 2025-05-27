@@ -25,8 +25,13 @@ import XCTest
                 task.append(chunk: Data("{\"key\"".utf8))
                 task.append(chunk: Data(":\"value\"}".utf8))
 
+                guard let url = URL(string: "http://example.com") else {
+                    XCTFail("Invalid Url")
+                    return
+                }
+
                 mockTask.httpResponse = .init(
-                    url: URL(string: "http://example.com"),
+                    url: url,
                     statusCode: 200,
                     httpVersion: "1.1",
                     headerFields: [:]
@@ -84,22 +89,22 @@ import XCTest
 
             do {
                 let error = await response.error
-                XCTAssertTrue(error != nil ? error.isCancelled : false)
+                XCTAssertTrue(error?.isCancelled ?? false)
             }
 
             do {
                 let error = await responseObj.error
-                XCTAssertTrue(error != nil ? error.isCancelled : false)
+                XCTAssertTrue(error?.isCancelled ?? false)
             }
 
             do {
                 let error = await responseDecodable.error
-                XCTAssertTrue(error != nil ? error.isCancelled : false)
+                XCTAssertTrue(error?.isCancelled ?? false)
             }
 
             do {
                 let error = await aResponse.error
-                XCTAssertTrue(error != nil ? error.isCancelled : false)
+                XCTAssertTrue(error?.isCancelled ?? false)
             }
 
             XCTAssertTrue(mockTask.cancelled)
@@ -133,17 +138,27 @@ import XCTest
             XCTAssertTrue(asyncTask.isCancelled)
             XCTAssertEqual(rss.count, 4)
             for res in rss {
-                XCTAssertTrue(r.error.isCancelled)
+                guard let error = res.error else {
+                    XCTFail("No Response")
+                    return
+                }
+
+                XCTAssertTrue(error.isCancelled)
             }
         }
 
         public func testStream() async throws {
+            guard let url = URL(string: "http://example.com") else {
+                XCTFail("Invalid Url")
+                return
+            }
+
             let mockTask = MockTwitterAPISessionTask(
                 taskIdentifier: 1,
                 currentRequest: nil,
                 originalRequest: nil,
                 httpResponse: .init(
-                    url: URL(string: "http://example.com"),
+                    url: url,
                     statusCode: 200,
                     httpVersion: "1.1",
                     headerFields: [:]
@@ -207,7 +222,7 @@ import XCTest
             XCTAssertTrue(mockTask.cancelled)
         }
 
-        public func testStreamError() {
+        public func testStreamError() async {
             guard let exampleUrl = URL(string: "https://example.com") else {
                 XCTFail("Invalid Example Url")
                 return
@@ -230,7 +245,7 @@ import XCTest
                 .streamResponse(
                     queue: .main
                 )
-                .map { resp in resp.compactMap { String(data: $0, encoding: .utf8) } }
+                .map { resp in resp.map { String(data: $0, encoding: .utf8) } }
             let asyncTask = Task {
                 var count = 0
                 for await resp in stream {
@@ -256,7 +271,7 @@ import XCTest
                 task.append(chunk: Data("ccc\r\n".utf8))
             }
 
-            asyncTask.value
+            await asyncTask.value
         }
 
         deinit {

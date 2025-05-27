@@ -165,7 +165,7 @@ internal class UploadMediaUtilTests: XCTestCase {
 
     public func testInitError() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
@@ -567,7 +567,7 @@ internal class UploadMediaUtilTests: XCTestCase {
 
     public func testWithoutProcessing() throws {
         let config = URLSessionConfiguration.default
-        config.protocolinternal classes = [MockURLProtocol.self]
+        config.protocolClasses = [MockURLProtocol.self]
 
         let client = TwitterAPIClient(
             .oauth10a(.init(consumerKey: "", consumerSecret: "", oauthToken: "", oauthTokenSecret: "")),
