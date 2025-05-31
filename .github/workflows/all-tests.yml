@@ -1,0 +1,33 @@
+name: Run `TwitterAPIKit` Tests
+
+on:
+  pull_request:
+    paths:
+      - '*.swift'
+
+jobs:
+  linux-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: swift-actions/setup-swift@v2
+        with:
+           swift-version: 5
+
+      - name: Run Unit Tests
+        uses: GetAutomaApp/opensource-actions/swifttesting@main
+        with:
+          compose: "false"
+          working-directory: "."
+
+  macos-tests:
+    runs-on: [macOS, self-hosted]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Unit Tests
+        uses: GetAutomaApp/opensource-actions/swifttesting@main
+        with:
+          compose: "false"
+          working-directory: "."

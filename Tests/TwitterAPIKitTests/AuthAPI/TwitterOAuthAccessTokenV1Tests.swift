@@ -27,6 +27,7 @@ internal class TwitterOAuthAccessTokenV1Tests: XCTestCase {
 
         guard let token = TwitterOAuthAccessTokenV1(queryStringData: data) else {
             XCTFail("Failed to decode token Response")
+            return
         }
 
         XCTAssertEqual(token.oauthToken, "token")

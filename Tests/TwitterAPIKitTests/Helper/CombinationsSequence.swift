@@ -59,7 +59,7 @@ public struct CombinationsSequence<Base: Collection> {
             return 1 << total
         }
 
-        internal func binomial(total: Int, size: Int) -> Int {
+        func binomial(total: Int, size: Int) -> Int {
             switch size {
             case total, 0: 1
             case total...: 0
@@ -124,7 +124,7 @@ extension CombinationsSequence: Sequence {
         internal mutating func advance() {
             // Advances `kRange` by incrementing its `lowerBound` until the range is
             // empty, when iteration is finished.
-            internal func advanceKRange() {
+            func advanceKRange() {
                 if kRange.lowerBound < kRange.upperBound {
                     let advancedLowerBound = kRange.lowerBound + 1
                     kRange = advancedLowerBound ..< kRange.upperBound

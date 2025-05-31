@@ -12,7 +12,7 @@ import XCTest
 internal class GetSearchTweetsRequestV1Tests: XCTestCase {
     public func test() throws {
         let req = GetSearchTweetsRequestV1(
-            q: "あああ",
+            query: "あああ",
             lang: "lang",
             count: 20,
             until: "2015-07-19",
@@ -46,7 +46,7 @@ internal class GetSearchTweetsRequestV1Tests: XCTestCase {
 
     public func testDefaultArg() throws {
         let req = GetSearchTweetsRequestV1(
-            q: "_q_"
+            query: "_q_"
         )
 
         AssertEqualAnyDict(

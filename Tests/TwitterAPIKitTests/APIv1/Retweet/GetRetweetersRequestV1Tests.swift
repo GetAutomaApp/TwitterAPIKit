@@ -12,7 +12,7 @@ import XCTest
 internal class GetRetweetersRequestV1Tests: XCTestCase {
     public func test() throws {
         let req = GetRetweetersRequestV1(
-            id: "_i_",
+            tweetID: "_i_",
             count: 100,
             cursor: "_c_",
             stringifyIDs: true
@@ -35,7 +35,7 @@ internal class GetRetweetersRequestV1Tests: XCTestCase {
 
     public func testDefaultArg() throws {
         let req = GetRetweetersRequestV1(
-            id: "_i_"
+            tweetID: "_i_"
         )
 
         AssertEqualAnyDict(

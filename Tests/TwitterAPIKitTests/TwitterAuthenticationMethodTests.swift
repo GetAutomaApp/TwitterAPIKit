@@ -66,6 +66,7 @@ internal final class TwitterAuthenticationMethodTests: XCTestCase {
             )
             guard let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON) else {
                 XCTFail("Failed to decode token Response")
+                return
             }
             let oauth20 = TwitterAuthenticationMethod.OAuth20(
                 clientID: "_client_id_",
@@ -113,6 +114,7 @@ internal final class TwitterAuthenticationMethodTests: XCTestCase {
         )
         guard let token = try TwitterOAuth2AccessToken(jsonData: tokenJSON) else {
             XCTFail("Failed to decode token Response")
+            return
         }
 
         oauth20.refresh(token: token, refreshedAt: refreshedAt)
