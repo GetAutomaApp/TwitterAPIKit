@@ -6,6 +6,10 @@
 // This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
 // This Package is distributable through a modified version of the MIT License.
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 import TwitterAPIKit
 import XCTest
 
@@ -137,17 +141,17 @@ internal class UploadMediaUtilTests: XCTestCase {
 
             if let url = request.url {
                 return (
-                    HTTPURLResponse(
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(
                         url: url,
                         statusCode: 200,
                         httpVersion: "2.0",
                         headerFields: [:]
-                    ) ?? HTTPURLResponse(),
+                    )),
                     data
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (HTTPURLResponse(), data)
+                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
             }
         }
 
@@ -201,17 +205,17 @@ internal class UploadMediaUtilTests: XCTestCase {
 
             if let url = request.url {
                 return (
-                    HTTPURLResponse(
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(
                         url: url,
                         statusCode: statusCode,
                         httpVersion: "2.0",
                         headerFields: [:]
-                    ) ?? HTTPURLResponse(),
+                    )),
                     data
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (HTTPURLResponse(), data)
+                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
             }
         }
 
@@ -295,17 +299,17 @@ internal class UploadMediaUtilTests: XCTestCase {
 
             if let url = request.url {
                 return (
-                    HTTPURLResponse(
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(
                         url: url,
                         statusCode: statusCode,
                         httpVersion: "2.0",
                         headerFields: [:]
-                    ) ?? HTTPURLResponse(),
+                    )),
                     data
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (HTTPURLResponse(), data)
+                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
             }
         }
 
@@ -395,17 +399,17 @@ internal class UploadMediaUtilTests: XCTestCase {
 
             if let url = request.url {
                 return (
-                    HTTPURLResponse(
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(
                         url: url,
                         statusCode: statusCode,
                         httpVersion: "2.0",
                         headerFields: [:]
-                    ) ?? HTTPURLResponse(),
+                    )),
                     data
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (HTTPURLResponse(), data)
+                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
             }
         }
 
@@ -540,17 +544,17 @@ internal class UploadMediaUtilTests: XCTestCase {
 
             if let url = request.url {
                 return (
-                    HTTPURLResponse(
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(
                         url: url,
                         statusCode: 200,
                         httpVersion: "2.0",
                         headerFields: [:]
-                    ) ?? HTTPURLResponse(),
+                    )),
                     data
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (HTTPURLResponse(), data)
+                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
             }
         }
 
@@ -642,17 +646,17 @@ internal class UploadMediaUtilTests: XCTestCase {
 
             if let url = request.url {
                 return (
-                    HTTPURLResponse(
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(
                         url: url,
                         statusCode: 200,
                         httpVersion: "2.0",
                         headerFields: [:]
-                    ) ?? HTTPURLResponse(),
+                    )),
                     data
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (HTTPURLResponse(), data)
+                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
             }
         }
 

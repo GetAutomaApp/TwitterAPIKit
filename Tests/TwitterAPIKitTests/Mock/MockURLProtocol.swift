@@ -8,6 +8,17 @@
 
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
+internal func convertOptionalHttpUrlResponseToHttpUrlResponse(
+    _ response: HTTPURLResponse?
+) -> HTTPURLResponse {
+    // swiftlint:disable:next force_unwrapping
+    return response!
+}
+
 internal class MockURLProtocol: URLProtocol {
     public static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
     public static var requestAssert: ((URLRequest) throws -> Void)?
@@ -26,7 +37,7 @@ internal class MockURLProtocol: URLProtocol {
     }
 
     override public func startLoading() {
-        guard request.url != nil else {
+        guard let url = request.url else {
             client?.urlProtocol(self, didFailWithError: URLError(.badURL))
             return
         }
@@ -36,12 +47,12 @@ internal class MockURLProtocol: URLProtocol {
                 throw URLError(.badURL)
             }
             return (
-                HTTPURLResponse(
+                convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(
                     url: requestURL,
                     statusCode: 200,
                     httpVersion: "2.0",
                     headerFields: nil
-                ) ?? HTTPURLResponse(),
+                )),
                 Data()
             )
         }

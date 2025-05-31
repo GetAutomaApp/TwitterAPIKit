@@ -12,73 +12,63 @@ import XCTest
 
 internal class TwitterOAuth2AccessTokenTests: XCTestCase {
     public func test() throws {
-        try XCTContext.runActivity(named: "without refresh_token") { _ in
-
-            let data = Data(
-                #"""
-                {
-                "scope" : "tweet.write tweet.read",
-                "token_type" : "bearer",
-                "expires_in" : 7200,
-                "access_token" : "<token>"
-                }
-                """#.utf8
-            )
-            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
-                XCTFail("Failed to create test token")
-                return
+        let data = Data(
+            #"""
+            {
+            "scope" : "tweet.write tweet.read",
+            "token_type" : "bearer",
+            "expires_in" : 7200,
+            "access_token" : "<token>"
             }
-            XCTAssertEqual(token.scope, ["tweet.write", "tweet.read"])
-            XCTAssertEqual(token.tokenType, "bearer")
-            XCTAssertEqual(token.expiresIn, 7_200)
-            XCTAssertEqual(token.accessToken, "<token>")
-            XCTAssertNil(token.refreshToken)
+            """#.utf8
+        )
+        guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
+            XCTFail("Failed to create test token")
+            return
         }
+        XCTAssertEqual(token.scope, ["tweet.write", "tweet.read"])
+        XCTAssertEqual(token.tokenType, "bearer")
+        XCTAssertEqual(token.expiresIn, 7_200)
+        XCTAssertEqual(token.accessToken, "<token>")
+        XCTAssertNil(token.refreshToken)
 
-        try XCTContext.runActivity(named: "with refresh_token") { _ in
-
-            let data = Data(
-                #"""
-                {
-                "scope" : "tweet.write tweet.read offline.access",
-                "token_type" : "bearer",
-                "expires_in" : 7200,
-                "access_token" : "<token>",
-                "refresh_token" : "<refresh token>"
-                }
-                """#.utf8
-            )
-            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
-                XCTFail("Failed to create test token")
-                return
+        let data2 = Data(
+            #"""
+            {
+            "scope" : "tweet.write tweet.read offline.access",
+            "token_type" : "bearer",
+            "expires_in" : 7200,
+            "access_token" : "<token>",
+            "refresh_token" : "<refresh token>"
             }
-            XCTAssertEqual(token.scope, ["tweet.write", "tweet.read", "offline.access"])
-            XCTAssertEqual(token.tokenType, "bearer")
-            XCTAssertEqual(token.expiresIn, 7_200)
-            XCTAssertEqual(token.accessToken, "<token>")
-            XCTAssertEqual(token.refreshToken, "<refresh token>")
+            """#.utf8
+        )
+        guard let token2 = try TwitterOAuth2AccessToken(jsonData: data2) else {
+            XCTFail("Failed to create test token")
+            return
         }
+        XCTAssertEqual(token2.scope, ["tweet.write", "tweet.read", "offline.access"])
+        XCTAssertEqual(token2.tokenType, "bearer")
+        XCTAssertEqual(token2.expiresIn, 7_200)
+        XCTAssertEqual(token2.accessToken, "<token>")
+        XCTAssertEqual(token2.refreshToken, "<refresh token>")
     }
 
     public func testError() throws {
-        try XCTContext.runActivity(named: "Not json") { _ in
-            XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("aa".utf8))) { error in
-                guard let error = error as? TwitterAPIKitError else {
-                    XCTFail("Expected TwitterAPIKitError")
-                    return
-                }
-                XCTAssertTrue(error.isResponseSerializeFailed)
+        XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("aa".utf8))) { error in
+            guard let error = error as? TwitterAPIKitError else {
+                XCTFail("Expected TwitterAPIKitError")
+                return
             }
+            XCTAssertTrue(error.isResponseSerializeFailed)
         }
 
-        try XCTContext.runActivity(named: "valid json but invalid object") { _ in
-            XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("{}".utf8))) { error in
-                guard let error = error as? TwitterAPIKitError else {
-                    XCTFail("Expected TwitterAPIKitError")
-                    return
-                }
-                XCTAssertTrue(error.isResponseSerializeFailed)
+        XCTAssertThrowsError(try TwitterOAuth2AccessToken.fromResponse(data: Data("{}".utf8))) { error in
+            guard let error = error as? TwitterAPIKitError else {
+                XCTFail("Expected TwitterAPIKitError")
+                return
             }
+            XCTAssertTrue(error.isResponseSerializeFailed)
         }
     }
 

@@ -35,103 +35,82 @@ internal class TwitterAPIRequestTests: XCTestCase {
     )
 
     public func testRequestURL() throws {
+        let req = MockTwitterAPIRequest(parameters: ["key": "value"], baseURLType: .api)
+        XCTAssertEqual(req.requestURL(for: env).absoluteString, "https://api.example.com/mock")
 
-        XCTContext.runActivity(named: "api") { _ in
-            let req = MockTwitterAPIRequest(parameters: ["key": "value"], baseURLType: .api)
-            XCTAssertEqual(req.requestURL(for: env).absoluteString, "https://api.example.com/mock")
-        }
-
-        XCTContext.runActivity(named: "upload") { _ in
-            let req = MockTwitterAPIRequest(parameters: ["key": "value"], baseURLType: .upload)
-            XCTAssertEqual(req.requestURL(for: env).absoluteString, "https://upload.example.com/mock")
-        }
+        let req2 = MockTwitterAPIRequest(parameters: ["key": "value"], baseURLType: .upload)
+        XCTAssertEqual(req2.requestURL(for: env).absoluteString, "https://upload.example.com/mock")
     }
 
     public func testParameterForOAuth() throws {
+        let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .wwwFormUrlEncoded)
+        XCTAssertEqual(req.parameterForOAuth as? [String: String], ["key": "value"])
 
-        XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
-            let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .wwwFormUrlEncoded)
-            XCTAssertEqual(req.parameterForOAuth as? [String: String], ["key": "value"])
-        }
+        let req2 = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .json)
+        XCTAssertEqual(req2.parameterForOAuth as? [String: String], [:])
 
-        XCTContext.runActivity(named: "json") { _ in
-            let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .json)
-            XCTAssertEqual(req.parameterForOAuth as? [String: String], [:])
-        }
-
-        XCTContext.runActivity(named: "multipartFormData") { _ in
-            let req = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .multipartFormData)
-            XCTAssertEqual(req.parameterForOAuth as? [String: String], [:])
-        }
+        let req3 = MockTwitterAPIRequest(parameters: ["key": "value"], bodyContentType: .multipartFormData)
+        XCTAssertEqual(req3.parameterForOAuth as? [String: String], [:])
     }
 
     public func testParameterByMethods() throws {
-
         // 🥓 = F0 9F A5 93
 
-        try XCTContext.runActivity(named: "GET") { _ in
-            let req = MockTwitterAPIRequest(
-                method: .get,
-                parameters: ["key": "value,🥓"]
-            )
+        let req = MockTwitterAPIRequest(
+            method: .get,
+            parameters: ["key": "value,🥓"]
+        )
 
-            XCTAssertEqual(req.queryParameters as? [String: String], ["key": "value,🥓"])
-            XCTAssertEqual(req.bodyParameters as? [String: String], [:])
+        XCTAssertEqual(req.queryParameters as? [String: String], ["key": "value,🥓"])
+        XCTAssertEqual(req.bodyParameters as? [String: String], [:])
 
-            let urlReq = try req.buildRequest(environment: env)
+        let urlReq = try req.buildRequest(environment: env)
 
-            XCTAssertEqual(urlReq.httpMethod, "GET")
-            XCTAssertEqual(urlReq.url?.query, "key=value%2C%F0%9F%A5%93")
-            XCTAssertNil(urlReq.httpBody)
-        }
+        XCTAssertEqual(urlReq.httpMethod, "GET")
+        XCTAssertEqual(urlReq.url?.query, "key=value%2C%F0%9F%A5%93")
+        XCTAssertNil(urlReq.httpBody)
 
-        try XCTContext.runActivity(named: "POST") { _ in
-            let req = MockTwitterAPIRequest(
-                method: .post,
-                parameters: ["key": "value,🥓"]
-            )
+        let req2 = MockTwitterAPIRequest(
+            method: .post,
+            parameters: ["key": "value,🥓"]
+        )
 
-            XCTAssertEqual(req.queryParameters as! [String: String], [:])
-            XCTAssertEqual(req.bodyParameters as! [String: String], ["key": "value,🥓"])
+        XCTAssertEqual(req2.queryParameters as! [String: String], [:])
+        XCTAssertEqual(req2.bodyParameters as! [String: String], ["key": "value,🥓"])
 
-            let urlReq = try req.buildRequest(environment: env)
+        let urlReq2 = try req2.buildRequest(environment: env)
 
-            XCTAssertEqual(urlReq.httpMethod, "POST")
-            XCTAssertNil(urlReq.url?.query)
-            XCTAssertEqual(String(data: urlReq.httpBody!, encoding: .utf8)!, "key=value%2C%F0%9F%A5%93")
-        }
+        XCTAssertEqual(urlReq2.httpMethod, "POST")
+        XCTAssertNil(urlReq2.url?.query)
+        XCTAssertEqual(String(data: urlReq2.httpBody!, encoding: .utf8)!, "key=value%2C%F0%9F%A5%93")
 
-        try XCTContext.runActivity(named: "PUT") { _ in
-            let req = MockTwitterAPIRequest(
-                method: .put,
-                parameters: ["key": "value,🥓"]
-            )
+        let req3 = MockTwitterAPIRequest(
+            method: .put,
+            parameters: ["key": "value,🥓"]
+        )
 
-            XCTAssertEqual(req.queryParameters as! [String: String], [:])
-            XCTAssertEqual(req.bodyParameters as! [String: String], ["key": "value,🥓"])
+        XCTAssertEqual(req3.queryParameters as! [String: String], [:])
+        XCTAssertEqual(req3.bodyParameters as! [String: String], ["key": "value,🥓"])
 
-            let urlReq = try req.buildRequest(environment: env)
+        let urlReq3 = try req3.buildRequest(environment: env)
 
-            XCTAssertEqual(urlReq.httpMethod, "PUT")
-            XCTAssertNil(urlReq.url?.query)
-            XCTAssertEqual(String(data: urlReq.httpBody!, encoding: .utf8)!, "key=value%2C%F0%9F%A5%93")
-        }
+        XCTAssertEqual(urlReq3.httpMethod, "PUT")
+        XCTAssertNil(urlReq3.url?.query)
+        XCTAssertEqual(String(data: urlReq3.httpBody!, encoding: .utf8)!, "key=value%2C%F0%9F%A5%93")
 
-        try XCTContext.runActivity(named: "DELETE") { _ in
-            let req = MockTwitterAPIRequest(
-                method: .delete,
-                parameters: ["key": "value,🥓"]
-            )
+        let req4 = MockTwitterAPIRequest(
+            method: .delete,
+            parameters: ["key": "value,🥓"]
+        )
 
-            XCTAssertEqual(req.queryParameters as! [String: String], ["key": "value,🥓"])
-            XCTAssertEqual(req.bodyParameters as! [String: String], [:])
+        XCTAssertEqual(req4.queryParameters as! [String: String], ["key": "value,🥓"])
+        XCTAssertEqual(req4.bodyParameters as! [String: String], [:])
 
-            let urlReq = try req.buildRequest(environment: env)
+        let urlReq4 = try req4.buildRequest(environment: env)
 
-            XCTAssertEqual(urlReq.httpMethod, "DELETE")
-            XCTAssertEqual(urlReq.url?.query, "key=value%2C%F0%9F%A5%93")
-            XCTAssertNil(urlReq.httpBody)
-        }
+        XCTAssertEqual(urlReq4.httpMethod, "DELETE")
+        XCTAssertEqual(urlReq4.url?.query, "key=value%2C%F0%9F%A5%93")
+        XCTAssertNil(urlReq4.httpBody)
     }
 
     public func testURLQueryPercentEncode() throws {
@@ -171,112 +150,102 @@ internal class TwitterAPIRequestTests: XCTestCase {
     }
 
     public func testFormUrlEncodedBodyContentType() throws {
-        try XCTContext.runActivity(named: "wwwFormUrlEncoded") { _ in
-            let req = try MockTwitterAPIRequest(
-                method: .post,
-                parameters: ["key": "value,🥓"],
-                bodyContentType: .wwwFormUrlEncoded
-            ).buildRequest(environment: env)
+        let req = try MockTwitterAPIRequest(
+            method: .post,
+            parameters: ["key": "value,🥓"],
+            bodyContentType: .wwwFormUrlEncoded
+        ).buildRequest(environment: env)
 
-            guard let httpBody = req.httpBody,
-                  let body = String(data: httpBody, encoding: .utf8) else {
-                XCTFail("Failed to get HTTP body")
-                return
-            }
-
-            XCTAssertEqual(body, "key=value%2C%F0%9F%A5%93")
+        guard let httpBody = req.httpBody,
+              let body = String(data: httpBody, encoding: .utf8) else {
+            XCTFail("Failed to get HTTP body")
+            return
         }
+
+        XCTAssertEqual(body, "key=value%2C%F0%9F%A5%93")
     }
 
     public func testMultipartFormDataBodyContentType() throws {
-        try XCTContext.runActivity(named: "multipartFormData") { _ in
-            let req = try MockTwitterAPIRequest(
-                method: .post,
-                parameters: [
-                    "a-value": MultipartFormDataPart.value(name: "a", value: "value"),
-                    "b-data": MultipartFormDataPart.data(
-                        name: "b",
-                        value: Data("ab".utf8),
-                        filename: "test.txt",
-                        mimeType: "plain/text"
-                    ),
-                ],
-                bodyContentType: .multipartFormData
-            ).buildRequest(environment: env)
+        let req = try MockTwitterAPIRequest(
+            method: .post,
+            parameters: [
+                "a-value": MultipartFormDataPart.value(name: "a", value: "value"),
+                "b-data": MultipartFormDataPart.data(
+                    name: "b",
+                    value: Data("ab".utf8),
+                    filename: "test.txt",
+                    mimeType: "plain/text"
+                ),
+            ],
+            bodyContentType: .multipartFormData
+        ).buildRequest(environment: env)
 
-            guard let contentType = req.allHTTPHeaderFields?["Content-Type"],
-                  contentType.hasPrefix("multipart/form-data; boundary=TwitterAPIKit-"),
-                  let httpBody = req.httpBody,
-                  let body = String(data: httpBody, encoding: .utf8) else {
-                XCTFail("Failed to get content type or body")
-                return
-            }
-
-            let boundary = contentType.replacingOccurrences(
-                of: "multipart/form-data; boundary=",
-                with: ""
-            )
-
-            let expect = "--\(boundary)\r\nContent-Disposition: form-data; name=\"a\"\r\n\r\nvalue\r\n--\(boundary)\r\nContent-Disposition: form-data; name=\"b\"; filename=\"test.txt\"\r\nContent-Type: plain/text\r\n\r\nab\r\n--\(boundary)--\r\n"
-
-            XCTAssertEqual(body, expect)
+        guard let contentType = req.allHTTPHeaderFields?["Content-Type"],
+              contentType.hasPrefix("multipart/form-data; boundary=TwitterAPIKit-"),
+              let httpBody = req.httpBody,
+              let body = String(data: httpBody, encoding: .utf8) else {
+            XCTFail("Failed to get content type or body")
+            return
         }
+
+        let boundary = contentType.replacingOccurrences(
+            of: "multipart/form-data; boundary=",
+            with: ""
+        )
+
+        let expect = "--\(boundary)\r\nContent-Disposition: form-data; name=\"a\"\r\n\r\nvalue\r\n--\(boundary)\r\nContent-Disposition: form-data; name=\"b\"; filename=\"test.txt\"\r\nContent-Type: plain/text\r\n\r\nab\r\n--\(boundary)--\r\n"
+
+        XCTAssertEqual(body, expect)
     }
 
     public func testInvalidMultipartFormData() throws {
-        try XCTContext.runActivity(named: "Invalid parameter") { _ in
-            XCTAssertThrowsError(
-                try MockTwitterAPIRequest(
-                    method: .post,
-                    parameters: ["key": "value,🥓"],
-                    bodyContentType: .multipartFormData
-                ).buildRequest(environment: env)
-            ) { error in
-                XCTAssertTrue(error is TwitterAPIKitError, "Error should be TwitterAPIKitError")
-            }
+        XCTAssertThrowsError(
+            try MockTwitterAPIRequest(
+                method: .post,
+                parameters: ["key": "value,🥓"],
+                bodyContentType: .multipartFormData
+            ).buildRequest(environment: env)
+        ) { error in
+            XCTAssertTrue(error is TwitterAPIKitError, "Error should be TwitterAPIKitError")
         }
     }
 
     public func testJsonBodyContentType() throws {
-        try XCTContext.runActivity(named: "json") { _ in
-            let req = try MockTwitterAPIRequest(
-                method: .post,
-                parameters: ["key": "value,🥓"],
-                bodyContentType: .json
-            ).buildRequest(environment: env)
+        let req = try MockTwitterAPIRequest(
+            method: .post,
+            parameters: ["key": "value,🥓"],
+            bodyContentType: .json
+        ).buildRequest(environment: env)
 
-            guard let httpBody = req.httpBody else {
-                XCTFail("HTTP body should not be nil")
-                return
-            }
-
-            let body = try JSONSerialization.jsonObject(with: httpBody, options: [])
-            guard let bodyDict = body as? [String: String] else {
-                XCTFail("Body should be [String: String]")
-                return
-            }
-
-            XCTAssertEqual(bodyDict, ["key": "value,🥓"])
+        guard let httpBody = req.httpBody else {
+            XCTFail("HTTP body should not be nil")
+            return
         }
+
+        let body = try JSONSerialization.jsonObject(with: httpBody, options: [])
+        guard let bodyDict = body as? [String: String] else {
+            XCTFail("Body should be [String: String]")
+            return
+        }
+
+        XCTAssertEqual(bodyDict, ["key": "value,🥓"])
     }
 
     public func testInvalidJsonSerialization() throws {
-        try XCTContext.runActivity(named: "Invalid") { _ in
-            XCTAssertThrowsError(
-                try MockTwitterAPIRequest(
-                    method: .post,
-                    parameters: ["key": Data()],
-                    bodyContentType: .json
-                ).buildRequest(environment: env)
-            ) { error in
-                guard let apiError = error as? TwitterAPIKitError else {
-                    XCTFail("Error should be TwitterAPIKitError")
-                    return
-                }
-                guard case .jsonSerializationFailed = apiError.requestFailureReason else {
-                    XCTFail("Error should be jsonSerializationFailed")
-                    return
-                }
+        XCTAssertThrowsError(
+            try MockTwitterAPIRequest(
+                method: .post,
+                parameters: ["key": Data()],
+                bodyContentType: .json
+            ).buildRequest(environment: env)
+        ) { error in
+            guard let apiError = error as? TwitterAPIKitError else {
+                XCTFail("Error should be TwitterAPIKitError")
+                return
+            }
+            guard case .jsonSerializationFailed = apiError.requestFailureReason else {
+                XCTFail("Error should be jsonSerializationFailed")
+                return
             }
         }
     }

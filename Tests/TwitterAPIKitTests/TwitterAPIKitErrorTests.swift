@@ -11,18 +11,14 @@ import XCTest
 
 internal class TwitterAPIKitErrorTests: XCTestCase {
     public func testInit() throws {
-        XCTContext.runActivity(named: "unknown") { _ in
+        let error = TwitterAPIKitError(error: NSError(domain: "", code: 0, userInfo: nil))
+        XCTAssertTrue(error.isUnkonwn)
 
-            let error = TwitterAPIKitError(error: NSError(domain: "", code: 0, userInfo: nil))
-            XCTAssertTrue(error.isUnkonwn)
-        }
-        XCTContext.runActivity(named: "TwitterAPIKitError") { _ in
-            let error = TwitterAPIKitError(
-                error: TwitterAPIKitError.responseFailed(reason: .invalidResponse(error: nil))
-            )
-            XCTAssertFalse(error.isUnkonwn)
-            XCTAssertTrue(error.isResponseFailed)
-        }
+        let error2 = TwitterAPIKitError(
+            error: TwitterAPIKitError.responseFailed(reason: .invalidResponse(error: nil))
+        )
+        XCTAssertFalse(error2.isUnkonwn)
+        XCTAssertTrue(error2.isResponseFailed)
     }
 
     public func testRequestFailed() throws {
