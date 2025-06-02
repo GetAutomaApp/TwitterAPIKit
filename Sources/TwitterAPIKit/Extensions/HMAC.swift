@@ -5,12 +5,12 @@
 
 import Foundation
 
-internal protocol HMAC {
-    // Stub Logic for `swiftlint file_name`
-}
-
 #if canImport(CommonCrypto)
     import CommonCrypto
+
+    internal protocol HMAC {
+        // Stub Logic for `swiftlint file_name`
+    }
 
     fileprivate extension Data {
         func hmac(key: Data) -> Data {
