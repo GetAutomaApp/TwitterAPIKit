@@ -37,7 +37,7 @@ internal class MockURLProtocol: URLProtocol {
     }
 
     override public func startLoading() {
-        guard let url = request.url else {
+        guard request.url != nil else {
             client?.urlProtocol(self, didFailWithError: URLError(.badURL))
             return
         }
