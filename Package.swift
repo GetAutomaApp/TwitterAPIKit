@@ -6,14 +6,16 @@ import PackageDescription
 // If CommonCrypto is not available, swift-crypto should be used.
 
 #if canImport(CommonCrypto)
-    let dependencies: [Package.Dependency] = []
-    let tDependencies: [Target.Dependency] = []
+    public let dependencies: [Package.Dependency] = []
+    public let tDependencies: [Target.Dependency] = []
 #else // for Linux
-    let dependencies: [Package.Dependency] = [.package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")]
-    let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
+    public let dependencies: [Package.Dependency] = [
+        .package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")
+    ]
+    public let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
 #endif
 
-let package = Package(
+public let package = Package(
     name: "TwitterAPIKit",
     platforms: [
         .macOS(.v10_14),
