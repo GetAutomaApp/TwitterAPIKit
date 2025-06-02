@@ -37,14 +37,12 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
         .multipartFormData
     }
 
-    open var parameters: [String: Any] {
-        [
-            "command": command,
-            "media_id": mediaID,
-            "media": media,
-            "segment_index": segmentIndex,
-            "filename": filename,
-            "mime_type": mimeType
+    open var parameters: [String: MultipartFormDataPart] {
+        return [
+            "command": .value(name: "command", value: command),
+            "media_id": .value(name: "media_id", value: mediaID),
+            "media": .data(name: "media", value: media, filename: filename, mimeType: mimeType),
+            "segment_index": .value(name: "segment_index", value: segmentIndex),
         ]
     }
 

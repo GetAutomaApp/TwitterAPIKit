@@ -309,7 +309,16 @@ internal class UploadMediaUtilTests: XCTestCase {
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
+                return (
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(
+                        HTTPURLResponse(
+                            // swiftlint:disable:next force_cast
+                            url: URL(string: "https://example.com")!,
+                            statusCode: 200,
+                            httpVersion: "2.0",
+                            headerFields: [:]
+                        )
+                    ), data)
             }
         }
 
@@ -562,7 +571,11 @@ internal class UploadMediaUtilTests: XCTestCase {
         let data = Data([1, 2, 3])
         client.v1.media.uploadMedia(.init(media: data, mediaType: "m", filename: "f", uploadChunkSize: 2)) { response in
             XCTAssertTrue(response.isError)
-            XCTAssertTrue(response.error?.isUploadMediaFailed ?? false)
+            guard let uploadFailed = response.error?.isUploadMediaFailed else {
+                XCTFail("response.error is nil")
+                return
+            }
+            XCTAssertTrue(uploadFailed)
             exp.fulfill()
         }
 
