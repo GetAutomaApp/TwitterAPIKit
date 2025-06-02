@@ -134,6 +134,7 @@ internal class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testStream() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]

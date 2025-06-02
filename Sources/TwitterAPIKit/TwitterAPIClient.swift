@@ -134,18 +134,7 @@ public extension TwitterAPIClient {
         forceRefresh: Bool = false,
         _ block: @escaping (Result<RefreshOAuth20TokenResultValue, TwitterAPIKitError>) -> Void
     ) {
-        guard case let .oauth20(token) = apiAuth else {
-            block(.failure(.refreshOAuth20TokenFailed(reason: .invalidAuthenticationMethod(apiAuth))))
-            return
-        }
-
-        guard let refreshToken = token.refreshToken else {
-            block(.failure(.refreshOAuth20TokenFailed(reason: .refreshTokenIsMissing)))
-            return
-        }
-
-        if !forceRefresh, !token.expired {
-            block(.success((token: token, refreshed: false)))
+        guard let (refreshToken, token) = handleBlockGuards(forceRefresh: forceRefresh, block) else {
             return
         }
 
@@ -176,6 +165,29 @@ public extension TwitterAPIClient {
             }
             self.refreshOAuth20TokenClient = nil
         }
+    }
+
+    /// Handles Block Guards for `refreshOAuth20Token`
+    func handleBlockGuards(
+        forceRefresh: Bool = false,
+        _ block: @escaping (Result<RefreshOAuth20TokenResultValue, TwitterAPIKitError>) -> Void
+    ) -> (String, TwitterAuthenticationMethod.OAuth20)? {
+        guard case let .oauth20(token) = apiAuth else {
+            block(.failure(.refreshOAuth20TokenFailed(reason: .invalidAuthenticationMethod(apiAuth))))
+            return nil
+        }
+
+        guard let refreshToken = token.refreshToken else {
+            block(.failure(.refreshOAuth20TokenFailed(reason: .refreshTokenIsMissing)))
+            return nil
+        }
+
+        if !forceRefresh, !token.expired {
+            block(.success((token: token, refreshed: false)))
+            return nil
+        }
+
+        return (refreshToken, token)
     }
 }
 

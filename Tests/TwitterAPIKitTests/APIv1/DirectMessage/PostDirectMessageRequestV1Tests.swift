@@ -33,6 +33,7 @@ internal class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
+    // swiftlint:disable:next function_body_length
     public func testQuickReplyOptions() throws {
         let req = PostDirectMessageRequestV1(
             targetUserID: "target",
@@ -101,6 +102,7 @@ internal class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
+    // swiftlint:disable:next function_body_length
     public func testAttachLocation() throws {
         let req = PostDirectMessageRequestV1(
             targetUserID: "target",

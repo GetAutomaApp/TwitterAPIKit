@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func testAccuracy() throws {
         let req = GetGeoReverseGeocodeRequestV1(
             location: .init(lat: 1, long: 2.5),
@@ -52,6 +53,7 @@ internal class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
         )
     }
 
+    // swiftlint:disable:next function_body_length
     public func testGranularity() throws {
         let req = GetGeoReverseGeocodeRequestV1(
             location: .init(lat: 1, long: 2.5),

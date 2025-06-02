@@ -11,6 +11,7 @@ import XCTest
 @testable import TwitterAPIKit
 
 internal class FieldsV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func testTwitterTweetFieldsV2() throws {
         let allCases: [TwitterTweetFieldsV2] = [
             .attachments,

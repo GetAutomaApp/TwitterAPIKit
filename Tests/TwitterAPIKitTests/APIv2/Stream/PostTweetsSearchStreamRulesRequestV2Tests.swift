@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let add = PostTweetsSearchStreamRulesRequestV2(
             operation: .add([

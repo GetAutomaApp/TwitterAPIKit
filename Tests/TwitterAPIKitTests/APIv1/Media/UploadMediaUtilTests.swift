@@ -13,6 +13,7 @@ import FoundationNetworking
 import TwitterAPIKit
 import XCTest
 
+// swiftlint:disable force_unwrapping closure_body_length function_body_length type_body_length file_length
 internal class UploadMediaUtilTests: XCTestCase {
     // Helper function to safely serialize JSON
     private func serializeJSON(_ object: [String: Any]) throws -> Data {
@@ -28,7 +29,6 @@ internal class UploadMediaUtilTests: XCTestCase {
         MockURLProtocol.cleanup()
     }
 
-    // swiftlint:disable:next function_body_length
     public func testWithProcessing() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
@@ -39,7 +39,6 @@ internal class UploadMediaUtilTests: XCTestCase {
         )
 
         var requestCount = 0
-        // swiftlint:disable:next closure_body_length
         MockURLProtocol.requestHandler = { [weak self] request in
             guard let self else {
                 throw URLError(.unknown)
@@ -151,7 +150,15 @@ internal class UploadMediaUtilTests: XCTestCase {
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
+                return (
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(
+                        HTTPURLResponse(
+                            url: URL(string: "https://example.com")!,
+                            statusCode: 200,
+                            httpVersion: "2.0",
+                            headerFields: [:]
+                        )
+                    ), data)
             }
         }
 
@@ -215,7 +222,15 @@ internal class UploadMediaUtilTests: XCTestCase {
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
+                return (
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(
+                        HTTPURLResponse(
+                            url: URL(string: "https://example.com")!,
+                            statusCode: 200,
+                            httpVersion: "2.0",
+                            headerFields: [:]
+                        )
+                    ), data)
             }
         }
 
@@ -312,7 +327,6 @@ internal class UploadMediaUtilTests: XCTestCase {
                 return (
                     convertOptionalHttpUrlResponseToHttpUrlResponse(
                         HTTPURLResponse(
-                            // swiftlint:disable:next force_cast
                             url: URL(string: "https://example.com")!,
                             statusCode: 200,
                             httpVersion: "2.0",
@@ -418,7 +432,15 @@ internal class UploadMediaUtilTests: XCTestCase {
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
+                return (
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(
+                        HTTPURLResponse(
+                            url: URL(string: "https://example.com")!,
+                            statusCode: 200,
+                            httpVersion: "2.0",
+                            headerFields: [:]
+                        )
+                    ), data)
             }
         }
 
@@ -440,7 +462,6 @@ internal class UploadMediaUtilTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    // swiftlint:disable:next function_body_length
     public func testWithProcessingError() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
@@ -451,7 +472,6 @@ internal class UploadMediaUtilTests: XCTestCase {
         )
 
         var requestCount = 0
-        // swiftlint:disable:next closure_body_length
         MockURLProtocol.requestHandler = { [weak self] request in
             guard let self else {
                 throw URLError(.unknown)
@@ -563,7 +583,15 @@ internal class UploadMediaUtilTests: XCTestCase {
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
+                return (
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(
+                        HTTPURLResponse(
+                            url: URL(string: "https://example.com")!,
+                            statusCode: 200,
+                            httpVersion: "2.0",
+                            headerFields: [:]
+                        )
+                    ), data)
             }
         }
 
@@ -669,7 +697,15 @@ internal class UploadMediaUtilTests: XCTestCase {
                 )
             } else {
                 XCTFail("Request URL is nil")
-                return (convertOptionalHttpUrlResponseToHttpUrlResponse(HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: "2.0", headerFields: [:])), data)
+                return (
+                    convertOptionalHttpUrlResponseToHttpUrlResponse(
+                        HTTPURLResponse(
+                            url: URL(string: "https://example.com")!,
+                            statusCode: 200,
+                            httpVersion: "2.0",
+                            headerFields: [:]
+                        )
+                    ), data)
             }
         }
 
@@ -688,3 +724,4 @@ internal class UploadMediaUtilTests: XCTestCase {
         // De-init Logic Here
     }
 }
+// swiftlint:enable force_unwrapping closure_body_length function_body_length type_body_length file_length

@@ -11,6 +11,7 @@ import XCTest
 
 // swiftlint:disable:next type_name
 internal class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let req = GetUsersTimelinesReverseChronologicalRequestV2(
             id: "_i_",

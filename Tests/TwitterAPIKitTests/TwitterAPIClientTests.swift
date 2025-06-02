@@ -22,6 +22,7 @@ internal class TwitterAPIClientTests: XCTestCase {
         XCTAssertEqual(dateV1, dateV2)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testRefreshToken() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
@@ -92,6 +93,7 @@ internal class TwitterAPIClientTests: XCTestCase {
         }
     }
 
+    // swiftlint:disable:next function_body_length
     public func testRefreshTokenForceRefresh() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]
@@ -230,8 +232,10 @@ internal class TwitterAPIClientTests: XCTestCase {
 
     #if compiler(>=5.5.2) && canImport(_Concurrency)
 
+        // swiftlint:disable function_body_length
         @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
         public func testRefreshTokenAsync() async throws {
+        // swiftlint:enable function_body_length
             let config = URLSessionConfiguration.default
             config.protocolClasses = [MockURLProtocol.self]
 

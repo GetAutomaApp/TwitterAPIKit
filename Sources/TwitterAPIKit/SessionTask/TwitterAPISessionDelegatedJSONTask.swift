@@ -75,6 +75,7 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         taskQueue.resume()
     }
 
+    // swiftlint:disable:next function_body_length
     private func getResponse() -> TwitterAPIResponse<Data> {
         guard completed, let data else {
             fatalError("Request not completed yet.")

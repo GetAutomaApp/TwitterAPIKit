@@ -14,6 +14,7 @@ import XCTest
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     internal class ConcurrencyTests: XCTestCase {
+        // swiftlint:disable:next function_body_length
         public func test() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
@@ -66,6 +67,7 @@ import XCTest
             }
         }
 
+        // swiftlint:disable:next function_body_length
         public func testCancel() async throws {
             let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
@@ -147,6 +149,7 @@ import XCTest
             }
         }
 
+        // swiftlint:disable:next function_body_length
         public func testStream() async throws {
             guard let url = URL(string: "http://example.com") else {
                 XCTFail("Invalid Url")
@@ -222,6 +225,7 @@ import XCTest
             XCTAssertTrue(mockTask.cancelled)
         }
 
+        // swiftlint:disable:next function_body_length
         public func testStreamError() async {
             guard let exampleUrl = URL(string: "https://example.com") else {
                 XCTFail("Invalid Example Url")

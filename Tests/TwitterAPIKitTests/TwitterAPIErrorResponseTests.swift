@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class TwitterAPIErrorResponseTests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func testTwitterAPIErrorResponseV1() throws {
         let v1Response = TwitterAPIErrorResponseV1(message: "_message_", code: 100, errors: [])
         XCTAssertEqual(v1Response.message, "_message_")
@@ -32,7 +33,8 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
         ]
 
         guard let v1Response2 = TwitterAPIErrorResponseV1(obj: obj) else {
-            return XCTFail("Failed to parse response")
+            XCTFail("Failed to parse response")
+            return
         }
 
         XCTAssertEqual(v1Response2.message, "message1")
@@ -62,6 +64,7 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
         XCTAssertNil(TwitterAPIErrorResponseV1(obj: [:]))
     }
 
+    // swiftlint:disable:next function_body_length
     public func testTwitterAPIErrorResponseV2() throws {
         let v2Response = TwitterAPIErrorResponseV2(title: "t", detail: "d", type: "ty", errors: [])
         XCTAssertEqual(v2Response.title, "t")
@@ -78,7 +81,8 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
             ],
         ]
         guard let v2Response2 = TwitterAPIErrorResponseV2(obj: obj) else {
-            return XCTFail("Failed to parse response")
+            XCTFail("Failed to parse response")
+            return
         }
 
         XCTAssertEqual(v2Response2.title, "_title_")
@@ -100,6 +104,7 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
         XCTAssertNil(TwitterAPIErrorResponseV2(obj: [:]))
     }
 
+    // swiftlint:disable:next function_body_length
     public func testTwitterAPIErrorResponse() throws {
         let obj: [String: Any] = [
             "errors": [

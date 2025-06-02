@@ -27,7 +27,7 @@ internal final class TwitterAuthenticationMethodTests: XCTestCase {
     }
 
     // MARK: - OAuth20
-
+    // swiftlint:disable:next function_body_length
     public func testOAuth20Init() throws {
         do {
             let createdAt = Date(timeIntervalSince1970: 2)
@@ -84,6 +84,7 @@ internal final class TwitterAuthenticationMethodTests: XCTestCase {
         }
     }
 
+    // swiftlint:disable:next function_body_length
     public func testOAuth20Refresh() throws {
         let createdAt = Date(timeIntervalSince1970: 2)
 

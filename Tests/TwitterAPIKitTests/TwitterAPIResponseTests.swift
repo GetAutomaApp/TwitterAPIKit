@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class TwitterAPIResponseTests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let rateLimit = TwitterRateLimit(header: [
             "x-rate-limit-limit": "10",

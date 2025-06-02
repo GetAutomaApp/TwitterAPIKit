@@ -11,6 +11,7 @@ import XCTest
 @testable import TwitterAPIKit
 
 internal class TwitterOAuth2AccessTokenTests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let data = Data(
             #"""

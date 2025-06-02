@@ -151,6 +151,7 @@ public extension TwitterAPIRequest {
     }
 }
 
+// swiftlint:disable function_body_length
 public extension TwitterAPIRequest {
     /// Builds a URL request for the given environment.
     /// - Parameters:
@@ -289,6 +290,7 @@ public extension TwitterAPIRequest {
         return body
     }
 }
+// swiftlint:enable function_body_length
 
 private extension TwitterAPIEnvironment {
     func baseURL(for type: TwitterBaseURLType) -> URL {

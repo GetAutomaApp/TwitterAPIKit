@@ -10,6 +10,7 @@ import XCTest
 
 @testable import TwitterAPIKit
 
+// swiftlint:disable force_cast force_unwrapping
 internal class TwitterAPIRequestTests: XCTestCase {
 
     private struct MockTwitterAPIRequest: TwitterAPIRequest {
@@ -53,6 +54,7 @@ internal class TwitterAPIRequestTests: XCTestCase {
         XCTAssertEqual(req3.parameterForOAuth as? [String: String], [:])
     }
 
+    // swiftlint:disable:next function_body_length
     public func testParameterByMethods() throws {
         // 🥓 = F0 9F A5 93
 
@@ -165,6 +167,7 @@ internal class TwitterAPIRequestTests: XCTestCase {
         XCTAssertEqual(body, "key=value%2C%F0%9F%A5%93")
     }
 
+    // swiftlint:disable:next function_body_length
     public func testMultipartFormDataBodyContentType() throws {
         let req = try MockTwitterAPIRequest(
             method: .post,
@@ -193,7 +196,18 @@ internal class TwitterAPIRequestTests: XCTestCase {
             with: ""
         )
 
-        let expect = "--\(boundary)\r\nContent-Disposition: form-data; name=\"a\"\r\n\r\nvalue\r\n--\(boundary)\r\nContent-Disposition: form-data; name=\"b\"; filename=\"test.txt\"\r\nContent-Type: plain/text\r\n\r\nab\r\n--\(boundary)--\r\n"
+        let expect = """
+        --\(boundary)\r
+        Content-Disposition: form-data; name="a"\r
+        \r
+        value\r
+        --\(boundary)\r
+        Content-Disposition: form-data; name="b"; filename="test.txt"\r
+        Content-Type: plain/text\r
+        \r
+        ab\r
+        --\(boundary)--\r
+        """
 
         XCTAssertEqual(body, expect)
     }
@@ -249,4 +263,9 @@ internal class TwitterAPIRequestTests: XCTestCase {
             }
         }
     }
+
+    deinit {
+        // De-init logic here
+    }
 }
+// swiftlint:enable force_cast force_unwrapping

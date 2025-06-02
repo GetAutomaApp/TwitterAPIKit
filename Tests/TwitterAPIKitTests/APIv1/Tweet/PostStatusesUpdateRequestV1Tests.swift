@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class PostStatusesUpdateRequestV1Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let req = PostStatusesUpdateRequestV1(
             status: "_s_",

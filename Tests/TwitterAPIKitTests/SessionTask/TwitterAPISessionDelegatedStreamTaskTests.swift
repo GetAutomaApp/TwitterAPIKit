@@ -50,6 +50,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(task.httpResponse, resp)
     }
 
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         guard let responseURL = URL(string: "https://example.com"),
               let response = HTTPURLResponse(
@@ -124,6 +125,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(count, 4)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testInvalidStatusCode() throws {
         guard let responseURL = URL(string: "https://example.com"),
               let response = HTTPURLResponse(
@@ -209,6 +211,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(count, 1)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testNilResponse() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
@@ -255,6 +258,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(count, 1)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testError() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,

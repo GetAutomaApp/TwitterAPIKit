@@ -5,6 +5,10 @@
 
 import Foundation
 
+internal protocol HMAC {
+    // Stub Logic for `swiftlint file_name`
+}
+
 #if canImport(CommonCrypto)
     import CommonCrypto
 
@@ -40,7 +44,7 @@ import Foundation
     ///   - key: The key to use for signing
     ///   - message: The message to sign
     /// - Returns: The HMAC-SHA1 signature as Data
-    func createHMACSHA1(key: Data, message: Data) -> Data {
+    public func createHMACSHA1(key: Data, message: Data) -> Data {
         message.hmac(key: key)
     }
 
@@ -52,7 +56,7 @@ import Foundation
     ///   - key: The key to use for signing
     ///   - message: The message to sign
     /// - Returns: The HMAC-SHA1 signature as Data
-    func createHMACSHA1(key: Data, message: Data) -> Data {
+    public func createHMACSHA1(key: Data, message: Data) -> Data {
         Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
     }
 #else
