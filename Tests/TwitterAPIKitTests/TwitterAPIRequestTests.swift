@@ -168,7 +168,7 @@ internal class TwitterAPIRequestTests: XCTestCase {
     }
 
     // swiftlint:disable:next function_body_length
-    public func testMultipartFormDataBodyContentType() throws {
+    func testMultipartFormDataBodyContentType() throws {
         let req = try MockTwitterAPIRequest(
             method: .post,
             parameters: [
@@ -182,7 +182,7 @@ internal class TwitterAPIRequestTests: XCTestCase {
             ],
             bodyContentType: .multipartFormData
         ).buildRequest(environment: env)
-
+        
         guard let contentType = req.allHTTPHeaderFields?["Content-Type"],
               contentType.hasPrefix("multipart/form-data; boundary=TwitterAPIKit-"),
               let httpBody = req.httpBody,
@@ -190,27 +190,27 @@ internal class TwitterAPIRequestTests: XCTestCase {
             XCTFail("Failed to get content type or body")
             return
         }
-
+        
         let boundary = contentType.replacingOccurrences(
             of: "multipart/form-data; boundary=",
             with: ""
         )
-
-        let expect = """
-        --\(boundary)\r
-        Content-Disposition: form-data; name="a"\r
-        \r
-        value\r
-        --\(boundary)\r
-        Content-Disposition: form-data; name="b"; filename="test.txt"\r
-        Content-Type: plain/text\r
-        \r
-        ab\r
-        --\(boundary)--\r
-        """
-
+        
+        let expect = "--\(boundary)\r\n" +
+        "Content-Disposition: form-data; name=\"a\"\r\n" +
+        "\r\n" +
+        "value\r\n" +
+        "--\(boundary)\r\n" +
+        "Content-Disposition: form-data; name=\"b\"; filename=\"test.txt\"\r\n" +
+        "Content-Type: plain/text\r\n" +
+        "\r\n" +
+        "ab\r\n" +
+        "--\(boundary)--\r\n"
+        
         XCTAssertEqual(body, expect)
     }
+
+
 
     public func testInvalidMultipartFormData() throws {
         XCTAssertThrowsError(
