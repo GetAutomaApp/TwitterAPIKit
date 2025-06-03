@@ -168,7 +168,7 @@ internal class TwitterAPIRequestTests: XCTestCase {
     }
 
     // swiftlint:disable:next function_body_length
-    func testMultipartFormDataBodyContentType() throws {
+    public func testMultipartFormDataBodyContentType() throws {
         let req = try MockTwitterAPIRequest(
             method: .post,
             parameters: [
@@ -182,7 +182,7 @@ internal class TwitterAPIRequestTests: XCTestCase {
             ],
             bodyContentType: .multipartFormData
         ).buildRequest(environment: env)
-        
+
         guard let contentType = req.allHTTPHeaderFields?["Content-Type"],
               contentType.hasPrefix("multipart/form-data; boundary=TwitterAPIKit-"),
               let httpBody = req.httpBody,
@@ -190,12 +190,12 @@ internal class TwitterAPIRequestTests: XCTestCase {
             XCTFail("Failed to get content type or body")
             return
         }
-        
+
         let boundary = contentType.replacingOccurrences(
             of: "multipart/form-data; boundary=",
             with: ""
         )
-        
+
         let expect = "--\(boundary)\r\n" +
         "Content-Disposition: form-data; name=\"a\"\r\n" +
         "\r\n" +
@@ -206,10 +206,9 @@ internal class TwitterAPIRequestTests: XCTestCase {
         "\r\n" +
         "ab\r\n" +
         "--\(boundary)--\r\n"
-        
+
         XCTAssertEqual(body, expect)
     }
-
 
 
     public func testInvalidMultipartFormData() throws {
