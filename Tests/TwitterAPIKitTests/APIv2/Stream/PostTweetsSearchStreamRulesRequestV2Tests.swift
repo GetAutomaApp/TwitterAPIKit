@@ -10,52 +10,47 @@ import TwitterAPIKit
 import XCTest
 
 internal class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
-        XCTContext.runActivity(named: "add") { _ in
+        let add = PostTweetsSearchStreamRulesRequestV2(
+            operation: .add([
+                .init(value: "value", tag: "tag"),
+                .init(value: "hoge"),
+            ])
+        )
 
-            let add = PostTweetsSearchStreamRulesRequestV2(
-                operation: .add([
-                    .init(value: "value", tag: "tag"),
-                    .init(value: "hoge"),
-                ])
-            )
+        XCTAssertEqual(add.method, .post)
+        XCTAssertEqual(add.path, "/2/tweets/search/stream/rules")
+        XCTAssertEqual(add.bodyContentType, .json)
 
-            XCTAssertEqual(add.method, .post)
-            XCTAssertEqual(add.path, "/2/tweets/search/stream/rules")
-            XCTAssertEqual(add.bodyContentType, .json)
+        AssertEqualAnyDict(add.parameters, [:])
+        AssertEqualAnyDict(
+            add.bodyParameters,
+            [
+                "add": [
+                    ["value": "value", "tag": "tag"],
+                    ["value": "hoge"],
+                ],
+            ]
+        )
+        AssertEqualAnyDict(add.queryParameters, [:])
 
-            AssertEqualAnyDict(add.parameters, [:])
-            AssertEqualAnyDict(
-                add.bodyParameters,
-                [
-                    "add": [
-                        ["value": "value", "tag": "tag"],
-                        ["value": "hoge"],
-                    ],
-                ]
-            )
-            AssertEqualAnyDict(add.queryParameters, [:])
-        }
+        let delete = PostTweetsSearchStreamRulesRequestV2(operation: .delete(["1", "20"]))
 
-        XCTContext.runActivity(named: "delete") { _ in
+        XCTAssertEqual(delete.method, .post)
+        XCTAssertEqual(delete.path, "/2/tweets/search/stream/rules")
+        XCTAssertEqual(delete.bodyContentType, .json)
 
-            let delete = PostTweetsSearchStreamRulesRequestV2(operation: .delete(["1", "20"]))
-
-            XCTAssertEqual(delete.method, .post)
-            XCTAssertEqual(delete.path, "/2/tweets/search/stream/rules")
-            XCTAssertEqual(delete.bodyContentType, .json)
-
-            AssertEqualAnyDict(delete.parameters, [:])
-            AssertEqualAnyDict(
-                delete.bodyParameters,
-                [
-                    "delete": [
-                        "ids": ["1", "20"],
-                    ],
-                ]
-            )
-            AssertEqualAnyDict(delete.queryParameters, [:])
-        }
+        AssertEqualAnyDict(delete.parameters, [:])
+        AssertEqualAnyDict(
+            delete.bodyParameters,
+            [
+                "delete": [
+                    "ids": ["1", "20"],
+                ],
+            ]
+        )
+        AssertEqualAnyDict(delete.queryParameters, [:])
     }
 
     public func testDryRun() throws {

@@ -50,6 +50,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(task.httpResponse, resp)
     }
 
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         guard let responseURL = URL(string: "https://example.com"),
               let response = HTTPURLResponse(
@@ -124,6 +125,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(count, 4)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testInvalidStatusCode() throws {
         guard let responseURL = URL(string: "https://example.com"),
               let response = HTTPURLResponse(
@@ -153,11 +155,12 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         DispatchQueue.main.async {
             task.append(
                 chunk: Data(
+                    (
                     "{\"detail\":\"Authenticating with OAuth 1.0a User Context is forbidden for this endpoint.  " +
                         "Supported authentication types are [OAuth 2.0 Application-Only].\",\"title\":\"Unsupported " +
                         "Authentication\",\"status\":403,\"type\":\"https://api.twitter.com/2/problems/unsupported-" +
                         "authentication\"}"
-                        .utf8
+                    ).utf8
                 )
             )
             task.complete(error: nil)
@@ -208,6 +211,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(count, 1)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testNilResponse() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,
@@ -254,6 +258,7 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(count, 1)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testError() throws {
         let mockTask = MockTwitterAPISessionTask(
             taskIdentifier: 1,

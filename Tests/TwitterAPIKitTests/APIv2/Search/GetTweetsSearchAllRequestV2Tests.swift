@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class GetTweetsSearchAllRequestV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let req = GetTweetsSearchAllRequestV2(
             query: "_q_",

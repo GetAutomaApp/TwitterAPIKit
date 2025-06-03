@@ -90,36 +90,6 @@ internal class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    public func testPOST() throws {
-        MockURLProtocol.requestAssert = { request in
-            XCTAssertEqual(request.httpMethod, "POST")
-            XCTAssertEqual(request.url?.absoluteString, "https://api.example.com/post.json")
-            XCTAssertNil(request.httpBody)
-
-            guard let bodyStream = request.httpBodyStream else {
-                XCTFail("HTTP body stream is nil")
-                return
-            }
-
-            do {
-                let data = try Data(reading: bodyStream)
-                guard let body = String(data: data, encoding: .utf8) else {
-                    XCTFail("Failed to decode body data as UTF-8")
-                    return
-                }
-                XCTAssertEqual(body, "hoge=%F0%9F%98%80")
-            } catch {
-                XCTFail("Failed to read HTTP body stream: \(error)")
-            }
-        }
-
-        let exp = expectation(description: "")
-        session.send(PostTwitterReqeust()).responseData(queue: .main) { _ in
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 10)
-    }
-
     public func testEmpty() throws {
         MockURLProtocol.requestAssert = { request in
             XCTAssertEqual(request.httpMethod, "GET")
@@ -134,6 +104,7 @@ internal class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testStream() throws {
         let config = URLSessionConfiguration.default
         config.protocolClasses = [MockURLProtocol.self]

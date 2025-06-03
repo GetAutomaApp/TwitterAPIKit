@@ -1,5 +1,4 @@
 // swift-tools-version:5.5
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -7,14 +6,16 @@ import PackageDescription
 // If CommonCrypto is not available, swift-crypto should be used.
 
 #if canImport(CommonCrypto)
-    let dependencies: [Package.Dependency] = []
-    let tDependencies: [Target.Dependency] = []
+    internal let dependencies: [Package.Dependency] = []
+    internal let tDependencies: [Target.Dependency] = []
 #else // for Linux
-    let dependencies: [Package.Dependency] = [.package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")]
-    let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
+    internal let dependencies: [Package.Dependency] = [
+        .package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")
+    ]
+    internal let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
 #endif
 
-let package = Package(
+internal let package = Package(
     name: "TwitterAPIKit",
     platforms: [
         .macOS(.v10_14),

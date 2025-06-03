@@ -12,7 +12,7 @@ import XCTest
 internal class GetUsersSearchRequestV1Tests: XCTestCase {
     public func test() throws {
         let req = GetUsersSearchRequestV1(
-            q: "_q_",
+            query: "_q_",
             page: 11,
             count: 100,
             includeEntities: true
@@ -35,7 +35,7 @@ internal class GetUsersSearchRequestV1Tests: XCTestCase {
 
     public func testDefaultArg() throws {
         let req = GetUsersSearchRequestV1(
-            q: "qq"
+            query: "qq"
         )
 
         AssertEqualAnyDict(

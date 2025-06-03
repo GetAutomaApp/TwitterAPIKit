@@ -11,7 +11,7 @@ import Foundation
 private let oauthVersion = "1.0"
 private let oauthSignatureMethod = "HMAC-SHA1"
 
-// swiftlint:disable function_parameter_count
+// swiftlint:disable function_parameter_count function_body_length
 /// Generates an OAuth authorization header for a given HTTP method, URL, and parameters.
 /// - Parameters:
 ///   - method: The HTTP method to use.
@@ -35,22 +35,18 @@ public func authorizationHeader(
     oauthTimestamp: String? = .none,
     oauthNonce: String? = .none
 ) -> String {
-    // swiftlint:enable function_parameter_count
     var authorizationParameters = [String: Any]()
     authorizationParameters["oauth_version"] = oauthVersion
     authorizationParameters["oauth_signature_method"] = oauthSignatureMethod
     authorizationParameters["oauth_consumer_key"] = consumerKey
     authorizationParameters["oauth_timestamp"] = oauthTimestamp ?? String(Int(Date().timeIntervalSince1970))
     authorizationParameters["oauth_nonce"] = oauthNonce ?? UUID().uuidString
-
     if let oauthToken {
         authorizationParameters["oauth_token"] = oauthToken
     }
-
     for (key, value) in parameters where key.hasPrefix("oauth_") {
         authorizationParameters.updateValue(value, forKey: key)
     }
-
     let combinedParameters = authorizationParameters.merging(parameters) { $1 }
 
     authorizationParameters["oauth_signature"] = oauthSignature(
@@ -76,6 +72,7 @@ public func authorizationHeader(
 
     return "OAuth " + headerComponents.joined(separator: ", ")
 }
+// swiftlint:enable function_parameter_count function_body_length
 
 private func oauthSignature(
     for method: HTTPMethod,

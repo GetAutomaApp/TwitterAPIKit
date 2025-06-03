@@ -68,6 +68,7 @@ open class TwitterAPISession {
         }
     }
 
+    // swiftlint:disable:next function_body_length
     private func tryBuildURLRequest(_ request: TwitterAPIRequest) throws -> URLRequest {
         var urlRequest = try request.buildRequest(environment: environment)
 

@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class TwitterAPIFailedTaskTests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let task = TwitterAPIFailedTask(.responseFailed(reason: .invalidResponse(error: nil)))
 

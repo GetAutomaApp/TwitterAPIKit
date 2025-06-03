@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable function_body_length closure_body_length
 open class MediaAPIv1: TwitterAPIBase {
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
@@ -232,3 +233,4 @@ open class MediaAPIv1: TwitterAPIBase {
         // De-init Logic Here
     }
 }
+// swiftlint:enable function_body_length closure_body_length

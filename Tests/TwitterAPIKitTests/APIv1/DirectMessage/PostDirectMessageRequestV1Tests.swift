@@ -33,6 +33,7 @@ internal class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
+    // swiftlint:disable:next function_body_length
     public func testQuickReplyOptions() throws {
         let req = PostDirectMessageRequestV1(
             targetUserID: "target",
@@ -101,81 +102,78 @@ internal class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
+    // swiftlint:disable:next function_body_length
     public func testAttachLocation() throws {
-        XCTContext.runActivity(named: "coordinate") { _ in
-            let req = PostDirectMessageRequestV1(
-                targetUserID: "target",
-                message: "msg",
-                attachment: .location(.coordinate(.init(lat: 10, long: 20)))
-            )
+        let req = PostDirectMessageRequestV1(
+            targetUserID: "target",
+            message: "msg",
+            attachment: .location(.coordinate(.init(lat: 10, long: 20)))
+        )
 
-            XCTAssertEqual(req.method, .post)
-            XCTAssertEqual(req.path, "/1.1/direct_messages/events/new.json")
-            XCTAssertEqual(req.bodyContentType, .json)
-            AssertEqualAnyDict(
-                req.parameters,
-                [
-                    "event": [
-                        "type": "message_create",
-                        "message_create": [
-                            "message_data": [
-                                "text": "msg",
-                                "attachment": [
-                                    "type": "location",
-                                    "location": [
-                                        "type": "shared_coordinate",
-                                        "shared_coordinate": [
-                                            "coordinates": [
-                                                "type": "Point",
-                                                "coordinates": [10, 20],
-                                            ],
+        XCTAssertEqual(req.method, .post)
+        XCTAssertEqual(req.path, "/1.1/direct_messages/events/new.json")
+        XCTAssertEqual(req.bodyContentType, .json)
+        AssertEqualAnyDict(
+            req.parameters,
+            [
+                "event": [
+                    "type": "message_create",
+                    "message_create": [
+                        "message_data": [
+                            "text": "msg",
+                            "attachment": [
+                                "type": "location",
+                                "location": [
+                                    "type": "shared_coordinate",
+                                    "shared_coordinate": [
+                                        "coordinates": [
+                                            "type": "Point",
+                                            "coordinates": [10, 20],
                                         ],
                                     ],
                                 ],
                             ],
-                            "target": ["recipient_id": "target"],
                         ],
+                        "target": ["recipient_id": "target"],
                     ],
-                ]
-            )
-        }
+                ],
+            ]
+        )
 
-        XCTContext.runActivity(named: "place") { _ in
-            let req = PostDirectMessageRequestV1(
-                targetUserID: "target",
-                message: "msg",
-                attachment: .location(.place("place_id"))
-            )
+        let req2 = PostDirectMessageRequestV1(
+            targetUserID: "target",
+            message: "msg",
+            attachment: .location(.place("place_id"))
+        )
 
-            XCTAssertEqual(req.method, .post)
-            XCTAssertEqual(req.path, "/1.1/direct_messages/events/new.json")
-            XCTAssertEqual(req.bodyContentType, .json)
-            AssertEqualAnyDict(
-                req.parameters,
-                [
-                    "event": [
-                        "type": "message_create",
-                        "message_create": [
-                            "message_data": [
-                                "text": "msg",
-                                "attachment": [
-                                    "type": "location",
-                                    "location": [
-                                        "type": "shared_place",
-                                        "shared_place": [
-                                            "place": [
-                                                "id": "place_id",
-                                            ],
+        XCTAssertEqual(req2.method, .post)
+        XCTAssertEqual(req2.path, "/1.1/direct_messages/events/new.json")
+        XCTAssertEqual(req2.bodyContentType, .json)
+        AssertEqualAnyDict(
+            req2.parameters,
+            [
+                "event": [
+                    "type": "message_create",
+                    "message_create": [
+                        "message_data": [
+                            "text": "msg",
+                            "attachment": [
+                                "type": "location",
+                                "location": [
+                                    "type": "shared_place",
+                                    "shared_place": [
+                                        "place": [
+                                            "id": "place_id",
                                         ],
                                     ],
                                 ],
                             ],
-                            "target": ["recipient_id": "target"],
                         ],
+                        "target": ["recipient_id": "target"],
                     ],
-                ]
-            )
-        }
+                ],
+            ]
+        )
     }
 
     deinit {

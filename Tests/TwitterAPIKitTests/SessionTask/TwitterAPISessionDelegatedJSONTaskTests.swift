@@ -18,6 +18,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
     // swiftlint:disable:next force_unwrapping
     internal let testURL = URL(string: "http://example.com")!
 
+    // swiftlint:disable:next function_body_length
     public func testSuccess() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
@@ -89,6 +90,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testInvalidStatusCode() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
@@ -140,6 +142,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testCompleteWithError() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 
@@ -183,6 +186,7 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
+    // swiftlint:disable:next function_body_length
     public func testCancel() throws {
         let mockTask = MockTwitterAPISessionTask(taskIdentifier: 1)
 

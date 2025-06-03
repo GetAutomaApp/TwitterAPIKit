@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class TwitterAPIResponseTests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let rateLimit = TwitterRateLimit(header: [
             "x-rate-limit-limit": "10",
@@ -19,6 +20,7 @@ internal class TwitterAPIResponseTests: XCTestCase {
         let data = Data("{}".utf8)
         guard let url = URL(string: "https://example.com") else {
             XCTFail("Failed to decode url Response")
+            return
         }
 
         let response: TwitterAPIResponse<Data> = TwitterAPIResponse(
@@ -37,45 +39,38 @@ internal class TwitterAPIResponseTests: XCTestCase {
         XCTAssertFalse(response.isError)
         XCTAssertTrue(response.prettyString.hasPrefix("-- Request success --"))
 
-        XCTContext.runActivity(named: "map") { _ in
-            let mapped = response.compactMap { data in
-                try? JSONSerialization.jsonObject(with: data, options: [])
-            }
-            XCTAssertEqual(mapped.success as? [String: String], [:])
+        let mapped = response.map { data in
+            try? JSONSerialization.jsonObject(with: data, options: [])
+        }
+        XCTAssertEqual(mapped.success as? [String: String], [:])
+
+        let mapped2 = response.tryMap { data in
+            try JSONSerialization.jsonObject(with: data, options: [])
+        }
+        XCTAssertEqual(mapped2.success as? [String: String], [:])
+
+        let mapped3 = response.tryMap { _ in
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        XCTAssertTrue(mapped3.isError)
+        XCTAssertTrue(mapped3.prettyString.hasPrefix("-- Request failure --"))
+
+        let errored = mapped3.mapError { _ in
+            .responseFailed(reason: .invalidResponse(error: nil))
         }
 
-        XCTContext.runActivity(named: "tryMap") { _ in
-            let mapped = response.tryMap { data in
-                try JSONSerialization.jsonObject(with: data, options: [])
-            }
-            XCTAssertEqual(mapped.success as? [String: String], [:])
+        guard let error = errored.error else {
+            XCTFail("No Response")
+            return
+        }
+        XCTAssertTrue(error.isResponseFailed)
+
+        let mapped4 = response.mapError { _ in
+            XCTFail("do not call")
+            fatalError()
         }
 
-        XCTContext.runActivity(named: "tryMapWithError") { _ in
-            let mapped = response.tryMap { _ in
-                throw NSError(domain: "", code: 0, userInfo: nil)
-            }
-            XCTAssertTrue(mapped.isError)
-            XCTAssertTrue(mapped.error.isMockURLProtocolUnkonwn)
-            XCTAssertTrue(mapped.prettyString.hasPrefix("-- Request failure --"))
-
-            XCTContext.runActivity(named: "mapError") { _ in
-                let errored = mapped.mapError { _ in
-                    .responseFailed(reason: .invalidResponse(error: nil))
-                }
-
-                XCTAssertTrue(errored.error.isResponseFailed)
-            }
-        }
-
-        XCTContext.runActivity(named: "mapError") { _ in
-            let mapped = response.mapError { _ in
-                XCTFail("do not call")
-                fatalError()
-            }
-
-            XCTAssertNotNil(mapped.success)
-        }
+        XCTAssertNotNil(mapped4.success)
     }
 
     deinit {

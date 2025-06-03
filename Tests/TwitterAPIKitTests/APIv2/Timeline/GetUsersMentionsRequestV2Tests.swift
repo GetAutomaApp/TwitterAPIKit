@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class GetUsersMentionsRequestV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let req = GetUsersMentionsRequestV2(
             id: "_i_",

@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class PostTweetsRequestV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let request = PostTweetsRequestV2(
             directMessageDeepLink: "deep_link",

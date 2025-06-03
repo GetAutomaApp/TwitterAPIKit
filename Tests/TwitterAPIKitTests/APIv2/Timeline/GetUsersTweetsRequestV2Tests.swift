@@ -10,6 +10,7 @@ import TwitterAPIKit
 import XCTest
 
 internal class GetUsersTweetsRequestV2Tests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     public func test() throws {
         let req = GetUsersTweetsRequestV2(
             id: "_i_",
