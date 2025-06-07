@@ -20,7 +20,7 @@ public extension Set where Element: TwitterExpansionsParameterV2 {
     }
 }
 
-public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable {
+public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable, Sendable {
     case attachmentsMediaKeys
     case attachmentsPollIDs
     case authorID
@@ -57,7 +57,7 @@ public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable {
     ]
 }
 
-public enum TwitterUserExpansionsV2: TwitterExpansionsParameterV2, Hashable {
+public enum TwitterUserExpansionsV2: TwitterExpansionsParameterV2, Hashable, Sendable {
     case other(String)
     case pinnedTweetID
 
@@ -73,7 +73,7 @@ public enum TwitterUserExpansionsV2: TwitterExpansionsParameterV2, Hashable {
     ]
 }
 
-public enum TwitterListExpansionsV2: TwitterExpansionsParameterV2, Hashable {
+public enum TwitterListExpansionsV2: TwitterExpansionsParameterV2, Hashable, Sendable {
     case other(String)
     case ownerID
 
@@ -89,7 +89,7 @@ public enum TwitterListExpansionsV2: TwitterExpansionsParameterV2, Hashable {
     ]
 }
 
-public enum TwitterSpaceExpansionsV2: TwitterExpansionsParameterV2, Hashable {
+public enum TwitterSpaceExpansionsV2: TwitterExpansionsParameterV2, Hashable, Sendable {
     case creatorID
     case hostIDs
     case invitedUserIDs
@@ -119,7 +119,7 @@ public enum TwitterSpaceExpansionsV2: TwitterExpansionsParameterV2, Hashable {
 
 /// A comma separated list of fields to expand.
 /// expansions
-public enum TwitterDmEventExpansionsV2: TwitterExpansionsParameterV2, Hashable {
+public enum TwitterDmEventExpansionsV2: TwitterExpansionsParameterV2, Hashable, Sendable {
     case attachmentsMediaKeys
     case other(String)
     case participantIDs

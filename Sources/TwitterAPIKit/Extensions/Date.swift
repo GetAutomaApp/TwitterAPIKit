@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let formatter = ISO8601DateFormatter()
+nonisolated(unsafe) private let formatter = ISO8601DateFormatter()
 public extension Date {
     /// Converts the date to an ISO8601 formatted string
     /// - Returns: The date formatted as an ISO8601 string

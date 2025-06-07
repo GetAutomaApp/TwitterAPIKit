@@ -11,22 +11,22 @@ import Foundation
 /// Represents errors that can occur while using the Twitter API Kit.
 public enum TwitterAPIKitError: Error {
     /// Represents specific reasons why a request might fail.
-    public enum RequestFailureReason {
+    public enum RequestFailureReason : Sendable{
         /// Indicates that a string could not be encoded to data.
         case cannotEncodeStringToData(string: String)
 
         /// Indicates that a parameter was invalid with details about why.
-        case invalidParameter(parameter: [String: Any], cause: String)
+        case invalidParameter(parameter: [String: String], cause: String)
 
         /// Indicates that the provided URL was invalid.
         case invalidURL(url: String)
 
         /// Indicates that JSON serialization failed for an object.
-        case jsonSerializationFailed(obj: Any)
+        case jsonSerializationFailed(obj: String)
     }
 
     /// Represents specific reasons why a response might fail.
-    public enum ResponseFailureReason {
+    public enum ResponseFailureReason : Sendable{
         /// Indicates that the response was invalid.
         case invalidResponse(error: Error?)
 
@@ -35,7 +35,7 @@ public enum TwitterAPIKitError: Error {
     }
 
     /// Represents specific reasons why response serialization might fail.
-    public enum ResponseSerializationFailureReason {
+    public enum ResponseSerializationFailureReason : Sendable{
         /// Indicates that data could not be converted to the expected type.
         case cannotConvert(data: Data, toTypeName: String)
 
@@ -47,7 +47,7 @@ public enum TwitterAPIKitError: Error {
     }
 
     /// Represents specific reasons why OAuth 2.0 token refresh might fail.
-    public enum RefreshOAuth20TokenFailureReason {
+    public enum RefreshOAuth20TokenFailureReason : Sendable {
         /// Indicates that the authentication method was invalid.
         case invalidAuthenticationMethod(TwitterAuthenticationMethod)
 
@@ -56,7 +56,7 @@ public enum TwitterAPIKitError: Error {
     }
 
     /// Represents specific reasons why media upload might fail.
-    public enum UploadMediaFailureReason {
+    public enum UploadMediaFailureReason : Sendable{
         /// Indicates that media processing failed.
         case processingFailed(error: UploadMediaError)
     }

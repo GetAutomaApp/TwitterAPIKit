@@ -11,7 +11,7 @@ import Foundation
 // https://developer.twitter.com/en/docs/twitter-api/fields
 
 /// tweet.fields
-public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case attachments
     case authorID
     case contextAnnotations
@@ -115,7 +115,7 @@ public extension Set<TwitterTweetFieldsV2> {
 }
 
 /// user.fields
-public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case createdAt
     case description
     case entities
@@ -195,7 +195,7 @@ public extension Set<TwitterUserFieldsV2> {
 }
 
 /// place.fields
-public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case containedWithin
     case country
     case countryCode
@@ -251,7 +251,7 @@ public extension Set<TwitterPlaceFieldsV2> {
 }
 
 /// poll.fields
-public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case durationMinutes
     case endDatetime
     case id
@@ -295,7 +295,7 @@ public extension Set<TwitterPollFieldsV2> {
 }
 
 /// media.fields
-public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case altText
     case durationMs
     case height
@@ -357,7 +357,7 @@ public extension Set<TwitterMediaFieldsV2> {
 }
 
 /// list.fields
-public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterListFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     // swiftlint:disable sorted_enum_cases
     case createdAt
     case description
@@ -406,7 +406,7 @@ public extension Set<TwitterListFieldsV2> {
 }
 
 /// space.fields
-public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterSpaceFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case createdAt
     case creatorID
     case endedAt
@@ -480,7 +480,7 @@ public extension Set<TwitterSpaceFieldsV2> {
 }
 
 /// topic.fields
-public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterTopicFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case description
     case id
     case name
@@ -513,7 +513,7 @@ public extension Set<TwitterTopicFieldsV2> {
 
 /// A comma separated list of DmEvent fields to display.
 /// dm_event.fields
-public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterDmEventFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case attachments
     case createdAt
     case dmConversationID
@@ -564,7 +564,7 @@ public extension Set<TwitterDmEventFieldsV2> {
 
 /// A comma separated list of DmConversation fields to display.
 /// dm_conversation.fields
-public enum TwitterDmConversationFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterDmConversationFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case id
     case other(String)
 

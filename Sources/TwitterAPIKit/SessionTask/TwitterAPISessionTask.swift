@@ -9,7 +9,7 @@
 import Foundation
 
 /// A protocol that defines the properties and methods for a session task.
-public protocol TwitterAPISessionTask {
+public protocol TwitterAPISessionTask: Sendable {
     /// The unique identifier for the task.
     var taskIdentifier: Int { get }
     /// The current request being processed.

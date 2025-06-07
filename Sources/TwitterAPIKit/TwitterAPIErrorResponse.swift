@@ -10,7 +10,7 @@ import Foundation
 
 /// Represents error responses from the Twitter API.
 /// This enum can handle both v1 and v2 API error formats, as well as unknown error responses.
-public enum TwitterAPIErrorResponse: Equatable {
+public enum TwitterAPIErrorResponse: Equatable, Sendable {
     /// An error response from the Twitter API v1.1.
     case apiVersion1(TwitterAPIErrorResponseV1)
 

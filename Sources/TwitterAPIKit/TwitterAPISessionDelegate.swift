@@ -22,7 +22,7 @@ public protocol TwitterAPISessionDelegatedTask {
     func complete(error: Error?)
 }
 
-public class TwitterAPISessionDelegate: NSObject, URLSessionDataDelegate {
+public class TwitterAPISessionDelegate: NSObject, URLSessionDataDelegate, @unchecked Sendable {
     private var tasks = [Int /* taskIdentifier */: TwitterAPISessionDelegatedTask]()
 
     public func appendAndResume(task: URLSessionTask) -> TwitterAPISessionJSONTask {
