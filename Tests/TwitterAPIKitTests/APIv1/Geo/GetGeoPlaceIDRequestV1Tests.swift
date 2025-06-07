@@ -25,7 +25,4 @@ internal class GetGeoPlaceIDRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

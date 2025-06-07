@@ -9,7 +9,7 @@
 import Foundation
 
 /// A protocol that represents a location in the Twitter API v1
-public protocol TwitterLocations {
+public protocol TwitterLocations: Sendable {
     // No Logic Here
 }
 
@@ -55,7 +55,7 @@ public enum TwitterAccuracyV1: TwitterLocations {
 // swiftlint:enable identifier_name
 
 /// Represents the granularity level for geographical locations
-public enum TwitterGranularityV1: String {
+public enum TwitterGranularityV1: String, Sendable {
     /// Administrative level granularity
     case admin
     /// City level granularity

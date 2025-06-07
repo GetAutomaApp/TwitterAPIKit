@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class TweetCountAPIv2: TwitterAPIBase {
+public struct TweetCountAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
     public func getTweetCountRecent(
         _ request: GetTweetsCountsRecentRequestV2
@@ -24,7 +33,4 @@ open class TweetCountAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

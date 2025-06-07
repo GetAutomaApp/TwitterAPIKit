@@ -31,7 +31,4 @@ internal class TwitterOAuth2BearerTokenTests: XCTestCase {
         XCTAssertThrowsError(try TwitterOAuth2BearerToken(jsonData: data))
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -142,7 +142,4 @@ internal class GetGeoReverseGeocodeRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

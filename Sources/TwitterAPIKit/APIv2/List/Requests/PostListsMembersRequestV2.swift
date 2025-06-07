@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/post-lists-id-members
-open class PostListsMembersRequestV2: TwitterAPIRequest {
+public struct PostListsMembersRequestV2: TwitterAPIRequest {
     public let id: String
     public let userID: String
 
@@ -25,7 +25,7 @@ open class PostListsMembersRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["user_id"] = userID
         return params
@@ -39,7 +39,4 @@ open class PostListsMembersRequestV2: TwitterAPIRequest {
         self.userID = userID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

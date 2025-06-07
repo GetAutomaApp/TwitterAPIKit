@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// curate-a-collection/api-reference/get-collections-entries
-open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
+public struct GetCollectionsEntriesRequestV1: TwitterAPIRequest {
     public let id: String
     public let count: Int?
     public let maxPosition: String?
@@ -25,7 +25,7 @@ open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
         "/1.1/collections/entries.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         count.map { params["count"] = $0 }
@@ -46,7 +46,4 @@ open class GetCollectionsEntriesRequestV1: TwitterAPIRequest {
         self.minPosition = minPosition
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

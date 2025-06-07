@@ -244,7 +244,4 @@ internal class TwitterAPISessionDelegatedJSONTaskTests: XCTestCase {
         _ = TwitterAPISessionDelegatedJSONTask(task: mockTask)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class OAuth10aAPI: TwitterAPIBase {
+public struct OAuth10aAPI: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
     public func postOAuthRequestTokenData(
         _ request: PostOAuthRequestTokenRequestV1
@@ -72,7 +81,4 @@ open class OAuth10aAPI: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

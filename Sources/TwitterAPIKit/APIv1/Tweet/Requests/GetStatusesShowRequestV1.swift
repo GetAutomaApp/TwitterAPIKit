@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-show-id
-open class GetStatusesShowRequestV1: TwitterAPIRequest {
+public struct GetStatusesShowRequestV1: TwitterAPIRequest {
     public let id: String
     public let trimUser: Bool?
     public let includeCardUri: Bool?
@@ -25,7 +25,7 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
         "/1.1/statuses/show.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         trimUser.map { params["trim_user"] = $0 }
@@ -52,7 +52,4 @@ open class GetStatusesShowRequestV1: TwitterAPIRequest {
         self.includeExtAltText = includeExtAltText
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

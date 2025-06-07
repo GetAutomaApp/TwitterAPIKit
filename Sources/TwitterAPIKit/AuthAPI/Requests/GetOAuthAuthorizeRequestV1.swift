@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/authorize
-open class GetOAuthAuthorizeRequestV1: TwitterAPIRequest {
+public struct GetOAuthAuthorizeRequestV1: TwitterAPIRequest {
     public let oauthToken: String
     public let forceLogin: Bool?
     public let screenName: String?
@@ -22,7 +22,7 @@ open class GetOAuthAuthorizeRequestV1: TwitterAPIRequest {
         "/oauth/authorize"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["oauth_token"] = oauthToken
         forceLogin.map { params["force_login"] = $0 }
@@ -40,7 +40,4 @@ open class GetOAuthAuthorizeRequestV1: TwitterAPIRequest {
         self.screenName = screenName
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

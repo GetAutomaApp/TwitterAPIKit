@@ -10,7 +10,7 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/authorization-code
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
-open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
+public struct GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
     public let responseType: String
     public let clientID: String
     public let redirectURI: String
@@ -62,7 +62,4 @@ open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
         self.scopes = scopes
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

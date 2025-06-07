@@ -49,7 +49,4 @@ internal class GetSpacesTweetsRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

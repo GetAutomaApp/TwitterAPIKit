@@ -42,7 +42,4 @@ internal class DataTests: XCTestCase {
         XCTAssertTrue(error.isResponseSerializeFailed)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

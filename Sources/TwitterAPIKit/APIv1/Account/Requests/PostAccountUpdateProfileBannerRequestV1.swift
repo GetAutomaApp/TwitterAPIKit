@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/post-account-update_profile_banner
-open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
+public struct PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
     public let banner: Data
     public let width: Int?
     public let height: Int?
@@ -26,7 +26,7 @@ open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
         "/1.1/account/update_profile_banner.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["banner"] = banner.base64EncodedString()
         width.map { params["width"] = $0 }
@@ -50,7 +50,4 @@ open class PostAccountUpdateProfileBannerRequestV1: TwitterAPIRequest {
         self.offsetLeft = offsetLeft
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

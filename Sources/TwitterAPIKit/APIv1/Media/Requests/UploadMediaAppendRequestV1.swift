@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-append
-open class UploadMediaAppendRequestV1: TwitterAPIRequest {
+public struct UploadMediaAppendRequestV1: TwitterAPIRequest {
     public let command: String = "APPEND"
     public let mediaID: String
 
@@ -37,7 +37,7 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
         .multipartFormData
     }
 
-    open var parameters: [String: MultipartFormDataPart] {
+    public var parameters: [String: MultipartFormDataPart] {
         return [
             "command": .value(name: "command", value: command),
             "media_id": .value(name: "media_id", value: mediaID),
@@ -46,7 +46,7 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
         ]
     }
 
-    public required init(
+    public init(
         mediaID: String,
         filename: String,
         mimeType: String,
@@ -60,7 +60,7 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
         self.segmentIndex = segmentIndex
     }
 
-    open func segments(maxBytes: Int) -> [UploadMediaAppendRequestV1] {
+    public func segments(maxBytes: Int) -> [UploadMediaAppendRequestV1] {
         var requests = [Self]()
         let totalDataSize = media.count
         var currentSegmentIndex = 0
@@ -81,7 +81,4 @@ open class UploadMediaAppendRequestV1: TwitterAPIRequest {
         return requests
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

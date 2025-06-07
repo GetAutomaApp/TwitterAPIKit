@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/
 /// api-reference/delete-users-id-pinned-lists-list_id
-open class DeleteUsersPinnedListsRequestV2: TwitterAPIRequest {
+public struct DeleteUsersPinnedListsRequestV2: TwitterAPIRequest {
     public let id: String
     public let listID: String
 
@@ -23,7 +23,7 @@ open class DeleteUsersPinnedListsRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/pinned_lists/\(listID)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -35,7 +35,4 @@ open class DeleteUsersPinnedListsRequestV2: TwitterAPIRequest {
         self.listID = listID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

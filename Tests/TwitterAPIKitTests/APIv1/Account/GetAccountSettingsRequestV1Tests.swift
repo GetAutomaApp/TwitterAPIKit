@@ -23,7 +23,4 @@ internal class GetAccountSettingsRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

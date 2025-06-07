@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/post-lists-create
-open class PostListsCreateRequestV1: TwitterAPIRequest {
+public struct PostListsCreateRequestV1: TwitterAPIRequest {
     public let name: String
     public let mode: TwitterListModeV1?
     public let description: String?
@@ -24,7 +24,7 @@ open class PostListsCreateRequestV1: TwitterAPIRequest {
         "/1.1/lists/create.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["name"] = name
         mode?.bind(param: &params)
@@ -42,7 +42,4 @@ open class PostListsCreateRequestV1: TwitterAPIRequest {
         self.description = description
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -27,7 +27,4 @@ internal class GetCollectionsShowRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

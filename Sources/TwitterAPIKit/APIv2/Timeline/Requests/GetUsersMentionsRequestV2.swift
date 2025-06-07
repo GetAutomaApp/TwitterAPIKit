@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
-open class GetUsersMentionsRequestV2: TwitterAPIRequest {
+public struct GetUsersMentionsRequestV2: TwitterAPIRequest {
     public let id: String
     public let endTime: Date?
     public let expansions: Set<TwitterTweetExpansionsV2>?
@@ -32,7 +32,7 @@ open class GetUsersMentionsRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/mentions"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         endTime?.bind(param: &params, for: "end_time")
         expansions?.bind(param: &params)
@@ -79,7 +79,4 @@ open class GetUsersMentionsRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

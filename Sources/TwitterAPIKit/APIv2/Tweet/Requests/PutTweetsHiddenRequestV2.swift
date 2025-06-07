@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
-open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
+public struct PutTweetsHiddenRequestV2: TwitterAPIRequest {
     /// Tweet ID
     public let id: String
     public let hidden: Bool
@@ -26,7 +26,7 @@ open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["hidden"] = hidden
         return params
@@ -40,7 +40,4 @@ open class PutTweetsHiddenRequestV2: TwitterAPIRequest {
         self.hidden = hidden
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

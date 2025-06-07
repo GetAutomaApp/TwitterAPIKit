@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-statuses-unretweet-id
-open class PostUnRetweetRequestV1: TwitterAPIRequest {
+public struct PostUnRetweetRequestV1: TwitterAPIRequest {
     public let id: String
     public let trimUser: Bool?
 
@@ -21,7 +21,7 @@ open class PostUnRetweetRequestV1: TwitterAPIRequest {
         "/1.1/statuses/unretweet/\(id).json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         trimUser.map { params["trim_user"] = $0 }
         return params
@@ -35,7 +35,4 @@ open class PostUnRetweetRequestV1: TwitterAPIRequest {
         self.trimUser = trimUser
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-friendships-show
-open class GetFriendshipsShowRequestV1: TwitterAPIRequest {
+public struct GetFriendshipsShowRequestV1: TwitterAPIRequest {
     public let sourceUser: TwitterUserIdentifierV1
     public let targetUser: TwitterUserIdentifierV1
 
@@ -23,7 +23,7 @@ open class GetFriendshipsShowRequestV1: TwitterAPIRequest {
         "/1.1/friendships/show.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         sourceUser.bind(param: &params, userIDKey: "source_id", screenNameKey: "source_screen_name")
         targetUser.bind(param: &params, userIDKey: "target_id", screenNameKey: "target_screen_name")
@@ -38,7 +38,4 @@ open class GetFriendshipsShowRequestV1: TwitterAPIRequest {
         self.targetUser = targetUser
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

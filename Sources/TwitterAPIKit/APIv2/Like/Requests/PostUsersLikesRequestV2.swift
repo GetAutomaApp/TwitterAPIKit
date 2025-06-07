@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-id-likes
-open class PostUsersLikesRequestV2: TwitterAPIRequest {
+public struct PostUsersLikesRequestV2: TwitterAPIRequest {
     /// user ID
     public let id: String
     public let tweetID: String
@@ -26,7 +26,7 @@ open class PostUsersLikesRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["tweet_id"] = tweetID
         return params
@@ -40,7 +40,4 @@ open class PostUsersLikesRequestV2: TwitterAPIRequest {
         self.tweetID = tweetID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

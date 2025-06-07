@@ -23,7 +23,4 @@ internal class DeleteUsersRetweetsRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(req.parameters, [:])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

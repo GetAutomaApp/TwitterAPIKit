@@ -28,7 +28,4 @@ internal class PostUsersLikesRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

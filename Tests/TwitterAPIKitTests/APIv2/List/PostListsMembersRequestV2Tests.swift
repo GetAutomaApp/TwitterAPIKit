@@ -28,7 +28,4 @@ internal class PostListsMembersRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

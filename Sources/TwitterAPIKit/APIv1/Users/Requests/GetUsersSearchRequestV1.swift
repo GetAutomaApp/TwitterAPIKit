@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-users-search
-open class GetUsersSearchRequestV1: TwitterAPIRequest {
+public struct GetUsersSearchRequestV1: TwitterAPIRequest {
     public let query: String
     public let page: Int?
     public let count: Int?
@@ -25,7 +25,7 @@ open class GetUsersSearchRequestV1: TwitterAPIRequest {
         "/1.1/users/search.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["q"] = query
         page.map { params["page"] = $0 }
@@ -46,7 +46,4 @@ open class GetUsersSearchRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

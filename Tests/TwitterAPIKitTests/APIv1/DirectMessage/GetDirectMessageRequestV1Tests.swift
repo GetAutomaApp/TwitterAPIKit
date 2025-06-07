@@ -19,7 +19,4 @@ internal class GetDirectMessageRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(req.parameters, ["id": "dm_id"])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

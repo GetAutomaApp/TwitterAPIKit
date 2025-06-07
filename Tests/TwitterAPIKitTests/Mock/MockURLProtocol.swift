@@ -75,7 +75,4 @@ internal class MockURLProtocol: URLProtocol {
 
     override public func stopLoading() {}
 
-    deinit {
-        // De-init Logic Here
-    }
 }

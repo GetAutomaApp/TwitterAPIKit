@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/post-account-update_profile
-open class PostAccountUpdateProfileRequestV1: TwitterAPIRequest {
+public struct PostAccountUpdateProfileRequestV1: TwitterAPIRequest {
     public let url: String?
     public let name: String?
     public let location: String?
@@ -29,7 +29,7 @@ open class PostAccountUpdateProfileRequestV1: TwitterAPIRequest {
         "/1.1/account/update_profile.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         url.map { params["url"] = $0 }
         name.map { params["name"] = $0 }
@@ -59,7 +59,4 @@ open class PostAccountUpdateProfileRequestV1: TwitterAPIRequest {
         self.profileLinkColor = profileLinkColor
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

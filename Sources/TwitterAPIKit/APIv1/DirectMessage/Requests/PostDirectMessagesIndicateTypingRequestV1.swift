@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/
 /// typing-indicator-and-read-receipts/api-reference/new-typing-indicator
-open class PostDirectMessagesIndicateTypingRequestV1: TwitterAPIRequest {
+public struct PostDirectMessagesIndicateTypingRequestV1: TwitterAPIRequest {
     public let recipientID: String
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class PostDirectMessagesIndicateTypingRequestV1: TwitterAPIRequest {
         "/1.1/direct_messages/indicate_typing.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         ["recipient_id": recipientID]
     }
 
@@ -32,7 +32,4 @@ open class PostDirectMessagesIndicateTypingRequestV1: TwitterAPIRequest {
         self.recipientID = recipientID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

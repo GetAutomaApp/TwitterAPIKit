@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
-open class GetUsersFollowingRequestV2: TwitterAPIRequest {
+public struct GetUsersFollowingRequestV2: TwitterAPIRequest {
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let maxResults: Int?
@@ -25,7 +25,7 @@ open class GetUsersFollowingRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/following"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -51,7 +51,4 @@ open class GetUsersFollowingRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

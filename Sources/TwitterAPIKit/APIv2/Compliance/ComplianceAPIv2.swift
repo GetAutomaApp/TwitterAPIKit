@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class ComplianceAPIv2: TwitterAPIBase {
+public struct ComplianceAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/
     /// api-reference/get-compliance-jobs-id
@@ -36,7 +45,4 @@ open class ComplianceAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

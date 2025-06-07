@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting
-open class DeleteUsersMutingRequestV2: TwitterAPIRequest {
+public struct DeleteUsersMutingRequestV2: TwitterAPIRequest {
     public let sourceUserID: String
     public let targetUserID: String
 
@@ -21,7 +21,7 @@ open class DeleteUsersMutingRequestV2: TwitterAPIRequest {
         "/2/users/\(sourceUserID)/muting/\(targetUserID)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -33,7 +33,4 @@ open class DeleteUsersMutingRequestV2: TwitterAPIRequest {
         self.targetUserID = targetUserID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

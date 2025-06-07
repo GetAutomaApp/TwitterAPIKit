@@ -305,7 +305,4 @@ internal class TwitterAPISessionDelegatedStreamTaskTests: XCTestCase {
         XCTAssertEqual(count, 1)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -48,7 +48,4 @@ internal class GetTweetsSearchStreamRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

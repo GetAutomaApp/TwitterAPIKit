@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-friendships-no_retweets-ids
-open class GetFriendshipsNoRetweetsIDsRequestV1: TwitterAPIRequest {
+public struct GetFriendshipsNoRetweetsIDsRequestV1: TwitterAPIRequest {
     public let stringifyIDs: Bool?
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class GetFriendshipsNoRetweetsIDsRequestV1: TwitterAPIRequest {
         "/1.1/friendships/no_retweets/ids.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         stringifyIDs.map { params["stringify_ids"] = $0 }
         return params
@@ -34,7 +34,4 @@ open class GetFriendshipsNoRetweetsIDsRequestV1: TwitterAPIRequest {
         self.stringifyIDs = stringifyIDs
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

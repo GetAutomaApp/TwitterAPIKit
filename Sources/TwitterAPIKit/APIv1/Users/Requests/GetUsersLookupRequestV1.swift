@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-users-lookup
-open class GetUsersLookupRequestV1: TwitterAPIRequest {
+public struct GetUsersLookupRequestV1: TwitterAPIRequest {
     public let users: TwitterUsersIdentifierV1
     public let tweetMode: Bool?
     public let includeEntities: Bool?
@@ -24,7 +24,7 @@ open class GetUsersLookupRequestV1: TwitterAPIRequest {
         "/1.1/users/lookup.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         users.bind(param: &params)
         tweetMode.map { params["tweet_mode"] = $0 }
@@ -42,7 +42,4 @@ open class GetUsersLookupRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-init
-open class UploadMediaInitRequestV1: TwitterAPIRequest {
+public struct UploadMediaInitRequestV1: TwitterAPIRequest {
     public let command: String = "INIT"
     public let totalBytes: Int
     public let mediaType: String
@@ -28,7 +28,7 @@ open class UploadMediaInitRequestV1: TwitterAPIRequest {
         "/1.1/media/upload.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["command"] = command
         params["total_bytes"] = totalBytes
@@ -50,7 +50,4 @@ open class UploadMediaInitRequestV1: TwitterAPIRequest {
         self.additionalOwners = additionalOwners
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

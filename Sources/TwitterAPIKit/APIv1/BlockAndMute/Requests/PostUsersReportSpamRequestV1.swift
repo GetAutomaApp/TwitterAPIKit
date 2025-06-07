@@ -1,7 +1,7 @@
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// mute-block-report-users/api-reference/post-users-report_spam
-open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
+public struct PostUsersReportSpamRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let performBlock: Bool?
 
@@ -13,7 +13,7 @@ open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
         "/1.1/users/report_spam.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         performBlock.map { params["perform_block"] = $0 }
@@ -26,9 +26,5 @@ open class PostUsersReportSpamRequestV1: TwitterAPIRequest {
     ) {
         self.user = user
         self.performBlock = performBlock
-    }
-
-    deinit {
-        // de-init logic here
     }
 }

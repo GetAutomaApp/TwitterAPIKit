@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/
 /// sending-and-receiving/api-reference/delete-message-event
-open class DeleteDirectMessageRequestV1: TwitterAPIRequest {
+public struct DeleteDirectMessageRequestV1: TwitterAPIRequest {
     public let id: String
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class DeleteDirectMessageRequestV1: TwitterAPIRequest {
         "/1.1/direct_messages/events/destroy.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [
             "id": id,
         ]
@@ -32,7 +32,4 @@ open class DeleteDirectMessageRequestV1: TwitterAPIRequest {
         self.id = id
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

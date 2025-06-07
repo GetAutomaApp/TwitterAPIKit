@@ -53,7 +53,4 @@ internal class GetListsShowRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

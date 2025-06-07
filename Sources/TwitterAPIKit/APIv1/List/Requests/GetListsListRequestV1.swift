@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/get-lists-list
-open class GetListsListRequestV1: TwitterAPIRequest {
+public struct GetListsListRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let reverse: Bool?
 
@@ -23,7 +23,7 @@ open class GetListsListRequestV1: TwitterAPIRequest {
         "/1.1/lists/list.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         reverse.map { params["reverse"] = $0 }
@@ -38,7 +38,4 @@ open class GetListsListRequestV1: TwitterAPIRequest {
         self.reverse = reverse
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

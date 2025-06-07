@@ -53,7 +53,4 @@ internal class GetTweetsSearchRecentRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

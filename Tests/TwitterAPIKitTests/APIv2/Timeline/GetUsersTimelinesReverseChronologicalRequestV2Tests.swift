@@ -65,7 +65,4 @@ internal class GetUsersTimelinesReverseChronologicalRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

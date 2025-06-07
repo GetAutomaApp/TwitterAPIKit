@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-statuses-update
-open class PostStatusesUpdateRequestV1: TwitterAPIRequest {
+public struct PostStatusesUpdateRequestV1: TwitterAPIRequest {
     public let status: String
     public let inReplyToStatusID: String?
     public let autoPopulateReplyMetadata: Bool?
@@ -33,7 +33,7 @@ open class PostStatusesUpdateRequestV1: TwitterAPIRequest {
         "/1.1/statuses/update.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["status"] = status
         inReplyToStatusID.map { params["in_reply_to_status_id"] = $0 }
@@ -84,7 +84,4 @@ open class PostStatusesUpdateRequestV1: TwitterAPIRequest {
         self.cardUri = cardUri
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

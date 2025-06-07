@@ -10,7 +10,7 @@ import Foundation
 
 /// Represents different ways to identify a Twitter list in API v1.1.
 /// Lists can be identified either by their unique ID or by a combination of slug and owner.
-public enum TwitterListIdentifierV1 {
+public enum TwitterListIdentifierV1: Sendable {
     /// Identifies a list by its unique numeric ID.
     /// - Parameter listID: The unique identifier of the list.
     case listID(String)

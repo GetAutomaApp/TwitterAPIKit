@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class FavoriteAPIv1: TwitterAPIBase {
+public struct FavoriteAPIv1: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-favorites-create
     public func postFavorite(
         _ request: PostFavoriteRequestV1
@@ -30,7 +39,4 @@ open class FavoriteAPIv1: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

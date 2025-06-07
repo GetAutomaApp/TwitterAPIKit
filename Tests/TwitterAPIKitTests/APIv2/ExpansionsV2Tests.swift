@@ -117,7 +117,4 @@ internal class ExpansionsV2Tests: XCTestCase {
         XCTAssertEqual(TwitterDmEventExpansionsV2.all.count, 4)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

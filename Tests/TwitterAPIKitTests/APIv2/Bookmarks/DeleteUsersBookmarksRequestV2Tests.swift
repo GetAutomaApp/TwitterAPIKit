@@ -26,7 +26,4 @@ internal class DeleteUsersBookmarksRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

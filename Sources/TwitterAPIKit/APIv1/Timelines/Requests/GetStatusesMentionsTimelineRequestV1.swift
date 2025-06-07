@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-mentions_timeline
-open class GetStatusesMentionsTimelineRequestV1: TwitterAPIRequest {
+public struct GetStatusesMentionsTimelineRequestV1: TwitterAPIRequest {
     public let count: Int?
     public let maxID: String?
     public let sinceID: String?
@@ -24,7 +24,7 @@ open class GetStatusesMentionsTimelineRequestV1: TwitterAPIRequest {
         "/1.1/statuses/mentions_timeline.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         count.map { params["count"] = $0 }
         maxID.map { params["max_id"] = $0 }
@@ -48,7 +48,4 @@ open class GetStatusesMentionsTimelineRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/get-lists-members-show
-open class GetListsMembersShowRequestV1: TwitterAPIRequest {
+public struct GetListsMembersShowRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
     public let user: TwitterUserIdentifierV1
     public let includeEntities: Bool?
@@ -25,7 +25,7 @@ open class GetListsMembersShowRequestV1: TwitterAPIRequest {
         "/1.1/lists/members/show.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         list.bind(param: &params)
         user.bind(param: &params)
@@ -46,7 +46,4 @@ open class GetListsMembersShowRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

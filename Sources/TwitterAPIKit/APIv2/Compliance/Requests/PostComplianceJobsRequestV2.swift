@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
-open class PostComplianceJobsRequestV2: TwitterAPIRequest {
+public struct PostComplianceJobsRequestV2: TwitterAPIRequest {
     public let type: TwitterComplianceJobTypeV2
     public let name: String?
     public let resumable: Bool?
@@ -26,7 +26,7 @@ open class PostComplianceJobsRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         type.bind(param: &params)
         name.map { params["name"] = $0 }
@@ -44,7 +44,4 @@ open class PostComplianceJobsRequestV2: TwitterAPIRequest {
         self.resumable = resumable
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

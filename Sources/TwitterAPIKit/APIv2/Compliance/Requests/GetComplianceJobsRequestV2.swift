@@ -9,8 +9,8 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
-open class GetComplianceJobsRequestV2: TwitterAPIRequest {
-    public enum Status: String {
+public struct GetComplianceJobsRequestV2: TwitterAPIRequest {
+    public enum Status: String, Sendable {
         case created
         case inProgress = "in_progress"
         case failed
@@ -31,7 +31,7 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
         "/2/compliance/jobs"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         type.bind(param: &params)
         status?.bind(param: &params)
@@ -46,7 +46,4 @@ open class GetComplianceJobsRequestV2: TwitterAPIRequest {
         self.status = status
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

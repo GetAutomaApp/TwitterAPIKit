@@ -47,7 +47,4 @@ internal class PostListsUpdateRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

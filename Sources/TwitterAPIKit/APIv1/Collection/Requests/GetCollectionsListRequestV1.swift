@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/get-collections-list
-open class GetCollectionsListRequestV1: TwitterAPIRequest {
+public struct GetCollectionsListRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -23,7 +23,7 @@ open class GetCollectionsListRequestV1: TwitterAPIRequest {
         "/1.1/collections/list.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -44,7 +44,4 @@ open class GetCollectionsListRequestV1: TwitterAPIRequest {
         self.tweetID = tweetID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

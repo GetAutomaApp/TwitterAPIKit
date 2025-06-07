@@ -75,7 +75,4 @@ internal class GetGeoSearchRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

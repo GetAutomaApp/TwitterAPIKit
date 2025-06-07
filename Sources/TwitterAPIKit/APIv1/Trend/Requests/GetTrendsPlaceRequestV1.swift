@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/trends/trends-for-location/api-reference/get-trends-place
-open class GetTrendsPlaceRequestV1: TwitterAPIRequest {
+public struct GetTrendsPlaceRequestV1: TwitterAPIRequest {
     /// Where On Earth ID Global
     public let woeid: String
 
@@ -24,7 +24,7 @@ open class GetTrendsPlaceRequestV1: TwitterAPIRequest {
         "/1.1/trends/place.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["woeid"] = woeid
         exclude.map { params["exclude"] = $0 }
@@ -39,7 +39,4 @@ open class GetTrendsPlaceRequestV1: TwitterAPIRequest {
         self.exclude = exclude
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

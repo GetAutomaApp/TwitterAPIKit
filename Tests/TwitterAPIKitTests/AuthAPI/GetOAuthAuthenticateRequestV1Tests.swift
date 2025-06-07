@@ -44,7 +44,4 @@ internal class GetOAuthAuthenticateRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

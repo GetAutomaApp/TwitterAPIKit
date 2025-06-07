@@ -23,7 +23,4 @@ internal class PostAccountRemoveProfileBannerRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

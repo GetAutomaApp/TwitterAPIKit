@@ -9,15 +9,15 @@
 import Foundation
 
 public protocol TwitterAPISessionSpecializedTaskProtocol: TwitterAPISessionDataTask {
-    associatedtype Success
+    associatedtype Success: Sendable
     @discardableResult
     func responseObject(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Success>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Success>) -> Void
     ) -> TwitterAPISessionSpecializedTask<Success>
 }
 
-public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecializedTaskProtocol {
+public struct TwitterAPISessionSpecializedTask<Success: Sendable>: TwitterAPISessionSpecializedTaskProtocol {
     public var taskIdentifier: Int {
         innerTask.taskIdentifier
     }
@@ -35,11 +35,11 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     }
 
     private let innerTask: TwitterAPISessionDataTask
-    private let transform: (Data) throws -> Success
+    private let transform: @Sendable (Data) throws -> Success
 
     public init(
         task: TwitterAPISessionDataTask,
-        transform: @escaping (Data) throws -> Success
+        transform: @Sendable @escaping (Data) throws -> Success
     ) {
         innerTask = task
         self.transform = transform
@@ -48,7 +48,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     @discardableResult
     public func responseObject(
         queue: DispatchQueue = .main,
-        _ block: @escaping (TwitterAPIResponse<Success>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Success>) -> Void
     ) -> TwitterAPISessionSpecializedTask<Success> {
         innerTask.responseData(queue: queue) { response in
             let success = response.tryMap(transform)
@@ -60,7 +60,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
     @discardableResult
     public func responseData(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> TwitterAPISessionSpecializedTask<Success> {
         innerTask.responseData(queue: queue, block)
         return self
@@ -68,7 +68,7 @@ public struct TwitterAPISessionSpecializedTask<Success>: TwitterAPISessionSpecia
 
     @discardableResult
     public func responseData(
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> TwitterAPISessionSpecializedTask<
         Success
     > {
@@ -87,28 +87,21 @@ public extension Array where Element: TwitterAPISessionSpecializedTaskProtocol {
     ///   - block: The block to call with the responses.
     func responseObject(
         queue: DispatchQueue = .main,
-        _ block: @escaping ([TwitterAPIResponse<Element.Success>]) -> Void
-    ) {
-        let group = DispatchGroup()
-
-        var responses = [TwitterAPIResponse<Element.Success>]()
-        let innerQueue = DispatchQueue(label: "TwitterAPISessionSpecializedTask.array")
-        innerQueue.suspend()
-
+        _ block: @escaping @Sendable ([TwitterAPIResponse<Element.Success>]) -> Void
+    ) async {
+        var responses: [TwitterAPIResponse<Element.Success>] = []
+        
         for task in self {
-            group.enter()
-            innerQueue.async {
-                task.responseObject(queue: innerQueue) {
-                    responses.append($0)
-                    group.leave()
+            let response = await withCheckedContinuation { continuation in
+                task.responseObject(queue: .main) { response in
+                    continuation.resume(returning: response)
                 }
             }
+            responses.append(response)
         }
-
-        group.notify(queue: queue) {
+        
+        await MainActor.run {
             block(responses)
         }
-
-        innerQueue.resume()
     }
 }

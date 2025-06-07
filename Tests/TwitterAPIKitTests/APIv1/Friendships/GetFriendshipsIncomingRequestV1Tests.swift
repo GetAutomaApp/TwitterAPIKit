@@ -38,7 +38,4 @@ internal class GetFriendshipsIncomingRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

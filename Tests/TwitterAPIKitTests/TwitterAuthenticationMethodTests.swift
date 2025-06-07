@@ -161,7 +161,4 @@ internal final class TwitterAuthenticationMethodTests: XCTestCase {
         XCTAssertFalse(oauth20.expired)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

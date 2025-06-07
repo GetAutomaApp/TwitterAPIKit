@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id
-open class DeleteListRequestV2: TwitterAPIRequest {
+public struct DeleteListRequestV2: TwitterAPIRequest {
     public let id: String
 
     public var method: HTTPMethod {
@@ -20,7 +20,7 @@ open class DeleteListRequestV2: TwitterAPIRequest {
         "/2/lists/\(id)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -30,7 +30,4 @@ open class DeleteListRequestV2: TwitterAPIRequest {
         self.id = id
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

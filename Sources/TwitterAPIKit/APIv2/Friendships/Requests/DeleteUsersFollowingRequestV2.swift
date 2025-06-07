@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
-open class DeleteUsersFollowingRequestV2: TwitterAPIRequest {
+public struct DeleteUsersFollowingRequestV2: TwitterAPIRequest {
     public let sourceUserID: String
     public let targetUserID: String
 
@@ -21,7 +21,7 @@ open class DeleteUsersFollowingRequestV2: TwitterAPIRequest {
         "/2/users/\(sourceUserID)/following/\(targetUserID)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -33,7 +33,4 @@ open class DeleteUsersFollowingRequestV2: TwitterAPIRequest {
         self.targetUserID = targetUserID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

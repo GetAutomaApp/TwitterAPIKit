@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
-open class GetUsersLikedTweetsRequestV2: TwitterAPIRequest {
+public struct GetUsersLikedTweetsRequestV2: TwitterAPIRequest {
     /// User ID
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
@@ -29,7 +29,7 @@ open class GetUsersLikedTweetsRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/liked_tweets"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -64,7 +64,4 @@ open class GetUsersLikedTweetsRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

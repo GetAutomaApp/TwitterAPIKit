@@ -38,7 +38,4 @@ internal class GetTweetsCountsAllRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

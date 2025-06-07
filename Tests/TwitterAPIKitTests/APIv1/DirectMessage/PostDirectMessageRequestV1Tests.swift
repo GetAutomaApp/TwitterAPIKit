@@ -176,7 +176,4 @@ internal class PostDirectMessageRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

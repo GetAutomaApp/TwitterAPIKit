@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/post-account-remove_profile_banner
-open class PostAccountRemoveProfileBannerRequestV1: TwitterAPIRequest {
+public struct PostAccountRemoveProfileBannerRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         .post
     }
@@ -20,13 +20,10 @@ open class PostAccountRemoveProfileBannerRequestV1: TwitterAPIRequest {
         "/1.1/account/remove_profile_banner.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
     public init() {}
 
-    deinit {
-        // De-init Logic Here
-    }
 }

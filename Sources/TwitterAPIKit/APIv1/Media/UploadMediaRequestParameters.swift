@@ -54,7 +54,7 @@ public struct UploadMediaRequestParameters {
 }
 
 public extension TwitterAPIClient {
-    struct UploadMediaInitResponse: Decodable {
+    struct UploadMediaInitResponse: Decodable, Sendable {
         public let mediaID: String
         public let expiresAfterSecs: Int
 
@@ -64,11 +64,11 @@ public extension TwitterAPIClient {
         }
     }
 
-    struct UploadMediaVideo: Decodable {
+    struct UploadMediaVideo: Decodable, Sendable {
         public let videoType: String
     }
 
-    struct UploadMediaProcessingInfo: Decodable {
+    struct UploadMediaProcessingInfo: Decodable, Sendable {
         public enum State {
             case pending(checkAfterSecs: Int)
             case inProgress(checkAfterSecs: Int, progressPercent: Int)
@@ -106,7 +106,7 @@ public extension TwitterAPIClient {
         public let error: TwitterAPIKitError.UploadMediaError?
     }
 
-    struct UploadMediaFinalizeResponse: Decodable {
+    struct UploadMediaFinalizeResponse: Decodable, Sendable {
         public let mediaID: String
         public let size: Int
         public let expiresAfterSecs: Int
@@ -119,7 +119,7 @@ public extension TwitterAPIClient {
         }
     }
 
-    struct UploadMediaStatusResponse: Decodable {
+    struct UploadMediaStatusResponse: Decodable, Sendable {
         public var state: UploadMediaProcessingInfo.State {
             processingInfo.enumState
         }

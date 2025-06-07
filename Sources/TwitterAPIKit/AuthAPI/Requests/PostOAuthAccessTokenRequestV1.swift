@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/access_token
-open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
+public struct PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
     public let oauthToken: String
     public let oauthVerifier: String
 
@@ -21,7 +21,7 @@ open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
         "/oauth/access_token"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["oauth_token"] = oauthToken
         params["oauth_verifier"] = oauthVerifier
@@ -36,7 +36,4 @@ open class PostOAuthAccessTokenRequestV1: TwitterAPIRequest {
         self.oauthVerifier = oauthVerifier
     }
 
-    deinit {
-        // De-init logic here
-    }
 }

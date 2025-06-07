@@ -23,7 +23,4 @@ internal class DeleteUsersFollowingRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(req.parameters, [:])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -99,7 +99,4 @@ internal class UploadMediaAppendRequestV1Tests: XCTestCase {
         XCTAssertEqual(reqs[3].segmentIndex, 5)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

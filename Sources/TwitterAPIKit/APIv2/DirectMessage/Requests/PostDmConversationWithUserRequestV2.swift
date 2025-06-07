@@ -10,7 +10,7 @@ import Foundation
 
 /// Creates a new message for a DM Conversation with a participant user by ID
 /// Required OAuth 2.0 scopes: dm.write, tweet.read, users.read
-open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
+public struct PostDmConversationWithUserRequestV2: TwitterAPIRequest {
     /// The ID of the recipient user that will receive the DM.
     public let participantID: String
     /// Attachments to a DM Event.
@@ -30,7 +30,7 @@ open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         if let attachments {
             params["attachments"] = attachments.map { ["media_id": $0] }
@@ -49,7 +49,4 @@ open class PostDmConversationWithUserRequestV2: TwitterAPIRequest {
         self.text = text
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

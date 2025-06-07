@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/list-events
-open class GetDirectMessageListRequestV1: TwitterAPIRequest {
+public struct GetDirectMessageListRequestV1: TwitterAPIRequest {
     /// Max: 50
     public let count: Int?
     public let cursor: String?
@@ -22,7 +22,7 @@ open class GetDirectMessageListRequestV1: TwitterAPIRequest {
         "/1.1/direct_messages/events/list.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
 
         count.map { params["count"] = $0 }
@@ -36,7 +36,4 @@ open class GetDirectMessageListRequestV1: TwitterAPIRequest {
         self.cursor = cursor
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

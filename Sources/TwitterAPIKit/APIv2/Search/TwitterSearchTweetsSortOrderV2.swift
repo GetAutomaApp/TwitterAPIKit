@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum TwitterSearchTweetsSortOrderV2: String {
+public enum TwitterSearchTweetsSortOrderV2: String, Sendable {
     case recency
     case relevancy
 

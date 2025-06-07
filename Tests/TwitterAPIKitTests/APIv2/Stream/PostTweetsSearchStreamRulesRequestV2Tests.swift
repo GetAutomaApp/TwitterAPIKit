@@ -79,7 +79,4 @@ internal class PostTweetsSearchStreamRulesRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(add.queryParameters, ["dry_run": true])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

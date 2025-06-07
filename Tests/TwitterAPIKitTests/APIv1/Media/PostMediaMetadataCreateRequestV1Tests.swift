@@ -29,7 +29,4 @@ internal class PostMediaMetadataCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

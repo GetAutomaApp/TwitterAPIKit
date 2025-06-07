@@ -44,7 +44,4 @@ internal class MultipartFormDataPartTests: XCTestCase {
         XCTAssertEqual(dataA, dataA1)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

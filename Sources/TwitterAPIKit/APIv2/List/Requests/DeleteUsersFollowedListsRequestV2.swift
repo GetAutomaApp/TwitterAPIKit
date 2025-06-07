@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/
 /// api-reference/delete-users-id-followed-lists-list_id
-open class DeleteUsersFollowedListsRequestV2: TwitterAPIRequest {
+public struct DeleteUsersFollowedListsRequestV2: TwitterAPIRequest {
     public let id: String
     public let listID: String
 
@@ -23,7 +23,7 @@ open class DeleteUsersFollowedListsRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/followed_lists/\(listID)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -35,7 +35,4 @@ open class DeleteUsersFollowedListsRequestV2: TwitterAPIRequest {
         self.listID = listID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

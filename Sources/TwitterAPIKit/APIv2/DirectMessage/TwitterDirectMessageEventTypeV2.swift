@@ -9,7 +9,7 @@
 import Foundation
 
 /// The set of event_types to include in the results.
-public enum TwitterDirectMessageEventTypeV2: String {
+public enum TwitterDirectMessageEventTypeV2: String, Sendable {
     case messageCreate = "MessageCreate"
     case participantsJoin = "ParticipantsJoin"
     case participantsLeave = "ParticipantsLeave"

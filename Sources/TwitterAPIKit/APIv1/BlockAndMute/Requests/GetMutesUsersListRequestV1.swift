@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// mute-block-report-users/api-reference/get-mutes-users-list
-open class GetMutesUsersListRequestV1: TwitterAPIRequest {
+public struct GetMutesUsersListRequestV1: TwitterAPIRequest {
     public let cursor: String?
     public let includeEntities: Bool?
     public let skipStatus: Bool?
@@ -24,7 +24,7 @@ open class GetMutesUsersListRequestV1: TwitterAPIRequest {
         "/1.1/mutes/users/list.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         cursor.map { params["cursor"] = $0 }
         includeEntities.map { params["include_entities"] = $0 }
@@ -42,7 +42,4 @@ open class GetMutesUsersListRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

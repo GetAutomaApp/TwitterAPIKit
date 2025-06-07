@@ -9,9 +9,9 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/new-event
-open class PostDirectMessageRequestV1: TwitterAPIRequest {
-    public enum Attachment {
-        public enum Location {
+public struct PostDirectMessageRequestV1: TwitterAPIRequest {
+    public enum Attachment: Sendable {
+        public enum Location: Sendable {
             case coordinate(TwitterCoordinateV1)
             case place(String /* Place ID */ )
         }
@@ -69,7 +69,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         }
     }
 
-    public struct QuickReplyOption {
+    public struct QuickReplyOption: Sendable {
         public let label: String
         public let description: String
         public let metadata: String
@@ -112,7 +112,7 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var messageData: [String: Any] = [
             "text": message,
         ]
@@ -150,7 +150,4 @@ open class PostDirectMessageRequestV1: TwitterAPIRequest {
         self.quickReplyOptions = quickReplyOptions
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

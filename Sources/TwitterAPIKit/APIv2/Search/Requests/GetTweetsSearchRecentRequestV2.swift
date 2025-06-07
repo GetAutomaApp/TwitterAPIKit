@@ -9,8 +9,8 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
-open class GetTweetsSearchRecentRequestV2: TwitterAPIRequest {
-    public enum TwitterSearchTweetsSortOrderV2: String {
+public struct GetTweetsSearchRecentRequestV2: TwitterAPIRequest {
+    public enum TwitterSearchTweetsSortOrderV2: String, Sendable {
         case recency
         case relevancy
 
@@ -42,7 +42,7 @@ open class GetTweetsSearchRecentRequestV2: TwitterAPIRequest {
         "/2/tweets/search/recent"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["query"] = query
         endTime?.bind(param: &params, for: "end_time")
@@ -93,7 +93,4 @@ open class GetTweetsSearchRecentRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

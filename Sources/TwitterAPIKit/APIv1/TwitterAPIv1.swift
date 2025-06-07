@@ -9,7 +9,7 @@
 /// Main class for accessing Twitter API v1.1 endpoints.
 /// This class provides access to all Twitter API v1.1 functionality through specialized API clients.
 /// Each property represents a group of related API endpoints.
-open class TwitterAPIv1: TwitterAPI {
+public struct TwitterAPIv1: TwitterAPI, Sendable {
     /// API client for managing Twitter account settings and profile information.
     public let account: AccountAPIv1
 
@@ -83,7 +83,4 @@ open class TwitterAPIv1: TwitterAPI {
         user = .init(session: session)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

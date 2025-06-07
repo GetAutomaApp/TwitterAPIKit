@@ -171,7 +171,4 @@ internal class TwitterAPIErrorResponseTests: XCTestCase {
         XCTAssertEqual(error4.message, "{}")
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

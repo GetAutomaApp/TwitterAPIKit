@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-favorites-destroy
-open class PostUnFavoriteRequestV1: TwitterAPIRequest {
+public struct PostUnFavoriteRequestV1: TwitterAPIRequest {
     public let id: String
     public let includeEntities: Bool?
 
@@ -21,7 +21,7 @@ open class PostUnFavoriteRequestV1: TwitterAPIRequest {
         "/1.1/favorites/destroy.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         includeEntities.map { params["include_entities"] = $0 }
@@ -36,7 +36,4 @@ open class PostUnFavoriteRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/sending-and-receiving/api-reference/get-event
 
-open class GetDirectMessageRequestV1: TwitterAPIRequest {
+public struct GetDirectMessageRequestV1: TwitterAPIRequest {
     public let id: String
 
     public var method: HTTPMethod {
@@ -21,7 +21,7 @@ open class GetDirectMessageRequestV1: TwitterAPIRequest {
         "/1.1/direct_messages/events/show.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         ["id": id]
     }
 
@@ -29,7 +29,4 @@ open class GetDirectMessageRequestV1: TwitterAPIRequest {
         self.id = id
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

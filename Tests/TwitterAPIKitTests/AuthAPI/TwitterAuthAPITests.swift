@@ -69,7 +69,4 @@ internal class TwitterAuthAPITests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

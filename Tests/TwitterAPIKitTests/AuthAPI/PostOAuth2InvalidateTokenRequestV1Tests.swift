@@ -27,7 +27,4 @@ internal class PostOAuth2InvalidateTokenRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

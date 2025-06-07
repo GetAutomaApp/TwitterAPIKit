@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/get-account-settings
-open class GetAccountSettingsRequestV1: TwitterAPIRequest {
+public struct GetAccountSettingsRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         .get
     }
@@ -20,13 +20,9 @@ open class GetAccountSettingsRequestV1: TwitterAPIRequest {
         "/1.1/account/settings.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
     public init() {}
-
-    deinit {
-        // De-init Logic Here
-    }
 }

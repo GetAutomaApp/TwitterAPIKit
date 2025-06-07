@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/
 /// typing-indicator-and-read-receipts/api-reference/new-read-receipt
-open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
+public struct PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
     /// Message ID
     public let lastReadEventID: String
 
@@ -26,7 +26,7 @@ open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
         "/1.1/direct_messages/mark_read.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
 
         params["last_read_event_id"] = lastReadEventID
@@ -43,7 +43,4 @@ open class PostDirectMessagesMarkReadRequestV1: TwitterAPIRequest {
         self.recipientID = recipientID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

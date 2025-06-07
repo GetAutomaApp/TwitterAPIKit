@@ -39,7 +39,4 @@ internal class PostUnRetweetRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -19,7 +19,4 @@ internal class DeleteDirectMessageRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(req.queryParameters, ["id": "15"])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

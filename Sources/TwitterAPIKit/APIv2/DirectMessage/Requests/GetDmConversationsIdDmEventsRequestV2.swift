@@ -10,7 +10,7 @@ import Foundation
 
 /// Returns DM Events for a DM Conversation
 /// Required OAuth 2.0 scopes: dm.read, tweet.read, users.read
-open class GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
+public struct GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
     /// The DM Conversation ID.
     public let id: String
     /// The maximum number of results.
@@ -38,7 +38,7 @@ open class GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
         "/2/dm_conversations/\(id)/dm_events"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         maxResults.map { params["max_results"] = $0 }
         paginationToken.map { params["pagination_token"] = $0 }
@@ -73,7 +73,4 @@ open class GetDmConversationsIdDmEventsRequestV2: TwitterAPIRequest {
         self.tweetFields = tweetFields
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

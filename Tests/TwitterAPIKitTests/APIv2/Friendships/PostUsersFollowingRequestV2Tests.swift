@@ -23,7 +23,4 @@ internal class PostUsersFollowingRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(req.parameters, ["target_user_id": "_targetUserID_"])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

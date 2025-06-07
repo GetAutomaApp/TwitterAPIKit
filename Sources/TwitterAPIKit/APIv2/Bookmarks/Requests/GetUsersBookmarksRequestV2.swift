@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
-open class GetUsersBookmarksRequestV2: TwitterAPIRequest {
+public struct GetUsersBookmarksRequestV2: TwitterAPIRequest {
     /// User ID of an authenticated user to request bookmarked Tweets for.
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
@@ -29,7 +29,7 @@ open class GetUsersBookmarksRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/bookmarks"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -64,7 +64,4 @@ open class GetUsersBookmarksRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

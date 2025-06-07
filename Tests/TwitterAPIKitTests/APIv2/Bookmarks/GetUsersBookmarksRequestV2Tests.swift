@@ -53,7 +53,4 @@ internal class GetUsersBookmarksRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

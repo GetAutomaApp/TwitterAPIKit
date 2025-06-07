@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
-open class PostUsersFollowingRequestV2: TwitterAPIRequest {
+public struct PostUsersFollowingRequestV2: TwitterAPIRequest {
     public let id: String
     public let targetUserID: String
 
@@ -25,7 +25,7 @@ open class PostUsersFollowingRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["target_user_id"] = targetUserID
         return params
@@ -39,7 +39,4 @@ open class PostUsersFollowingRequestV2: TwitterAPIRequest {
         self.targetUserID = targetUserID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

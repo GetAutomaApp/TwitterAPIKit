@@ -47,7 +47,7 @@ public protocol Concurrency {
         /// Asynchronously retrieves the JSON response as a generic object.
         /// This property provides an async interface to the completion handler-based API.
         /// - Returns: A TwitterAPIResponse containing the parsed JSON object.
-        var responseObject: TwitterAPIResponse<Any> {
+        var responseObject: TwitterAPIResponse<Data> {
             get async {
                 await withTaskCancellationHandler(
                     operation: {
@@ -117,16 +117,13 @@ public protocol Concurrency {
         /// Creates an AsyncStream for receiving streaming responses from the API.
         /// - Parameter queue: The dispatch queue on which to receive responses. Defaults to the main queue.
         /// - Returns: An AsyncStream that yields TwitterAPIResponse<Data> values.
-        func streamResponse(queue: DispatchQueue = .main) -> AsyncStream<TwitterAPIResponse<Data>> {
+        mutating func streamResponse(queue: DispatchQueue = .main) -> AsyncStream<TwitterAPIResponse<Data>> {
             AsyncStream { continuation in
                 streamResponse(queue: queue) { response in
                     continuation.yield(response)
                     if response.isError {
                         continuation.finish()
                     }
-                }
-                continuation.onTermination = { @Sendable _ in
-                    cancel()
                 }
             }
         }
@@ -141,7 +138,7 @@ public protocol Concurrency {
         ///   - forceRefresh: Whether to force a token refresh even if the current token is still valid.
         /// - Returns: The result of the token refresh operation.
         /// - Throws: A TwitterAPIKitError if the token refresh fails.
-        func refreshOAuth20Token(
+        mutating func refreshOAuth20Token(
             type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType,
             forceRefresh: Bool = false
         ) async throws -> RefreshOAuth20TokenResultValue {

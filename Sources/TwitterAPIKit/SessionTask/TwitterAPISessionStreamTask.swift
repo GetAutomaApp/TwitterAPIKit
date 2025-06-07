@@ -10,13 +10,13 @@ import Foundation
 
 public protocol TwitterAPISessionStreamTask: TwitterAPISessionTask {
     @discardableResult
-    func streamResponse(
+    mutating func streamResponse(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self
 
     @discardableResult
-    func streamResponse(
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+    mutating func streamResponse(
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self
 }

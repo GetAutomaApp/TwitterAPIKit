@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/curate-a-collection/api-reference/get-collections-show
-open class GetCollectionsShowRequestV1: TwitterAPIRequest {
+public struct GetCollectionsShowRequestV1: TwitterAPIRequest {
     public let id: String
 
     public var method: HTTPMethod {
@@ -20,7 +20,7 @@ open class GetCollectionsShowRequestV1: TwitterAPIRequest {
         "/1.1/collections/show.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         return params
@@ -32,7 +32,4 @@ open class GetCollectionsShowRequestV1: TwitterAPIRequest {
         self.id = id
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

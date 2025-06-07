@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum TweetCountGranularityV2: String {
+public enum TweetCountGranularityV2: String, Sendable {
     case day
     case hour
     case minute

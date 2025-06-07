@@ -41,7 +41,4 @@ internal class GetDmEventsRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

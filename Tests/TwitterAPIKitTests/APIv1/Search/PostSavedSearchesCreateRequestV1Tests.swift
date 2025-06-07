@@ -27,7 +27,4 @@ internal class PostSavedSearchesCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

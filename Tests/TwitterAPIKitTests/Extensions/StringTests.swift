@@ -20,7 +20,4 @@ internal class StringTests: XCTestCase {
         XCTAssertEqual("1970-01-01T00:01:00Z".urlEncodedString, "1970-01-01T00%3A01%3A00Z")
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

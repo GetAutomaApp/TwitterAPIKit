@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/get-lists-ownerships
-open class GetListsOwnershipsRequestV1: TwitterAPIRequest {
+public struct GetListsOwnershipsRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -24,7 +24,7 @@ open class GetListsOwnershipsRequestV1: TwitterAPIRequest {
         "/1.1/lists/ownerships.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -42,7 +42,4 @@ open class GetListsOwnershipsRequestV1: TwitterAPIRequest {
         self.cursor = cursor
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

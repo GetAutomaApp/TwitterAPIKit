@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/post-users-id-pinned-lists
-open class PostUsersPinnedListsRequestV2: TwitterAPIRequest {
+public struct PostUsersPinnedListsRequestV2: TwitterAPIRequest {
     public let id: String
     public let listID: String
 
@@ -25,7 +25,7 @@ open class PostUsersPinnedListsRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["list_id"] = listID
         return params
@@ -39,7 +39,4 @@ open class PostUsersPinnedListsRequestV2: TwitterAPIRequest {
         self.listID = listID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

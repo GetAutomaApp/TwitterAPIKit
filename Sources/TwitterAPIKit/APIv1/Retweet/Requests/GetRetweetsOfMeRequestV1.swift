@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// post-and-engage/api-reference/get-statuses-retweets_of_me
-open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
+public struct GetRetweetsOfMeRequestV1: TwitterAPIRequest {
     public let count: Int?
     public let sinceID: String?
     public let maxID: String?
@@ -27,7 +27,7 @@ open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
         "/1.1/statuses/retweets_of_me.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
 
         count.map { params["count"] = $0 }
@@ -56,7 +56,4 @@ open class GetRetweetsOfMeRequestV1: TwitterAPIRequest {
         self.includeUserEntities = includeUserEntities
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

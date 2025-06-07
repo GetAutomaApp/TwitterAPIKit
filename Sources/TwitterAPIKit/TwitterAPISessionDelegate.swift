@@ -15,18 +15,18 @@ public protocol TwitterAPISessionDelegatedTask {
 
     /// Appends a chunk of data received from the network
     /// - Parameter chunk: The data chunk to append
-    func append(chunk: Data)
+    mutating func append(chunk: Data)
 
     /// Called when the task completes, with an optional error
     /// - Parameter error: The error that occurred, if any
-    func complete(error: Error?)
+    mutating func complete(error: Error?)
 }
 
 public class TwitterAPISessionDelegate: NSObject, URLSessionDataDelegate, @unchecked Sendable {
     private var tasks = [Int /* taskIdentifier */: TwitterAPISessionDelegatedTask]()
 
     public func appendAndResume(task: URLSessionTask) -> TwitterAPISessionJSONTask {
-        let twTask = TwitterAPISessionDelegatedJSONTask(task: task)
+        var twTask = TwitterAPISessionDelegatedJSONTask(task: task)
         twTask.delegate = self
         tasks[task.taskIdentifier] = twTask
 
@@ -47,14 +47,11 @@ public class TwitterAPISessionDelegate: NSObject, URLSessionDataDelegate, @unche
     }
 
     public func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let task = tasks[task.taskIdentifier] else { return }
+        guard var task = tasks[task.taskIdentifier] else { return }
 
         task.complete(error: error)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 extension TwitterAPISessionDelegate: TwitterAPISessionDelegatedJSONTaskDelegate {

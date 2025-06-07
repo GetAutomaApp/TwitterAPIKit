@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class OAuth20API: TwitterAPIBase {
+public struct OAuth20API: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     // MARK: - OAuth 2.0 Bearer Token
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/token
@@ -90,7 +99,4 @@ open class OAuth20API: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

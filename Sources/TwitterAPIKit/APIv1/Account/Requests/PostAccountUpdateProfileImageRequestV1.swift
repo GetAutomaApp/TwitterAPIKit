@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/post-account-update_profile_image
-open class PostAccountUpdateProfileImageRequestV1: TwitterAPIRequest {
+public struct PostAccountUpdateProfileImageRequestV1: TwitterAPIRequest {
     public let image: Data
     public let skipStatus: Bool?
     public let includeEntities: Bool?
@@ -24,7 +24,7 @@ open class PostAccountUpdateProfileImageRequestV1: TwitterAPIRequest {
         "/1.1/account/update_profile_image.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["image"] = image.base64EncodedString()
         skipStatus.map { params["skip_status"] = $0 }
@@ -42,7 +42,4 @@ open class PostAccountUpdateProfileImageRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

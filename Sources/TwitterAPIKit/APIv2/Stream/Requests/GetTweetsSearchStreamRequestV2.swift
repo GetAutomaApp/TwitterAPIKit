@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
-open class GetTweetsSearchStreamRequestV2: TwitterAPIRequest {
+public struct GetTweetsSearchStreamRequestV2: TwitterAPIRequest {
     public let backfillMinutes: Int?
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?
@@ -26,7 +26,7 @@ open class GetTweetsSearchStreamRequestV2: TwitterAPIRequest {
         "/2/tweets/search/stream"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         backfillMinutes.map { params["backfill_minutes"] = $0 }
         expansions?.bind(param: &params)
@@ -56,7 +56,4 @@ open class GetTweetsSearchStreamRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

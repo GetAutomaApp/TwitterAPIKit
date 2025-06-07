@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
-open class GetListsMembersRequestV2: TwitterAPIRequest {
+public struct GetListsMembersRequestV2: TwitterAPIRequest {
     /// List ID
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?
@@ -26,7 +26,7 @@ open class GetListsMembersRequestV2: TwitterAPIRequest {
         "/2/lists/\(id)/members"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -52,7 +52,4 @@ open class GetListsMembersRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

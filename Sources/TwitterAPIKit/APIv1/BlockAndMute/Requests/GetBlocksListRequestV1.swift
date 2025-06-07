@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// mute-block-report-users/api-reference/get-blocks-list
-open class GetBlocksListRequestV1: TwitterAPIRequest {
+public struct GetBlocksListRequestV1: TwitterAPIRequest {
     public let includeEntities: Bool?
     public let skipStatus: Bool?
     public let cursor: String?
@@ -24,7 +24,7 @@ open class GetBlocksListRequestV1: TwitterAPIRequest {
         "/1.1/blocks/list.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         includeEntities.map { params["include_entities"] = $0 }
         skipStatus.map { params["skip_status"] = $0 }
@@ -42,7 +42,4 @@ open class GetBlocksListRequestV1: TwitterAPIRequest {
         self.cursor = cursor
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

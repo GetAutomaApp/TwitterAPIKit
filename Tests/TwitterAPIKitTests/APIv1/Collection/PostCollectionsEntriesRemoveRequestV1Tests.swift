@@ -29,7 +29,4 @@ internal class PostCollectionsEntriesRemoveRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
-open class PostListsRequestV2: TwitterAPIRequest {
+public struct PostListsRequestV2: TwitterAPIRequest {
     public let name: String
     public let description: String?
     public let `private`: Bool?
@@ -26,7 +26,7 @@ open class PostListsRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["name"] = name
         description.map { params["description"] = $0 }
@@ -44,7 +44,4 @@ open class PostListsRequestV2: TwitterAPIRequest {
         self.private = `private`
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

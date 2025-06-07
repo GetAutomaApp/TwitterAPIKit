@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
-open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
+public struct PostUsersRetweetsRequestV2: TwitterAPIRequest {
     public let id: String
     public let tweetID: String
 
@@ -25,7 +25,7 @@ open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["tweet_id"] = tweetID
         return params
@@ -39,7 +39,4 @@ open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
         self.tweetID = tweetID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

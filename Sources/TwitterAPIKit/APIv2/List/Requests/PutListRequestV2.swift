@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
-open class PutListRequestV2: TwitterAPIRequest {
+public struct PutListRequestV2: TwitterAPIRequest {
     public let id: String
     public let description: String?
     public let name: String?
@@ -27,7 +27,7 @@ open class PutListRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         description.map { params["description"] = $0 }
         name.map { params["name"] = $0 }
@@ -47,7 +47,4 @@ open class PutListRequestV2: TwitterAPIRequest {
         self.private = `private`
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

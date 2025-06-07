@@ -12,12 +12,12 @@ public protocol TwitterAPISessionDataTask: TwitterAPISessionTask {
     @discardableResult
     func responseData(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self
 
     @discardableResult
     func responseData(
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self
 }
 
@@ -29,7 +29,7 @@ public extension TwitterAPISessionDataTask {
     ///   - transform: The transform to apply to the data.
     /// - Returns: A new specialized task.
     func specialized<NewSuccess>(
-        _ transform: @escaping (Data) throws -> NewSuccess
+        _ transform: @Sendable @escaping (Data) throws -> NewSuccess
     )
         -> TwitterAPISessionSpecializedTask<NewSuccess>
     {

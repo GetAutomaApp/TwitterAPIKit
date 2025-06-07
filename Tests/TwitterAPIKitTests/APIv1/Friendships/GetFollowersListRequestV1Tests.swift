@@ -48,7 +48,4 @@ internal class GetFollowersListRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

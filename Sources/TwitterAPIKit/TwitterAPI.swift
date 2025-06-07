@@ -15,7 +15,7 @@ public protocol TwitterAPI {
 }
 
 /// Extension providing OAuth authentication methods for the Twitter API.
-extension TwitterAuthAPI: TwitterAPI {
+nonisolated extension TwitterAuthAPI: TwitterAPI {
     // MARK: - OAuth10aAPI
 
     /// Requests an OAuth request token from Twitter.
@@ -146,7 +146,7 @@ extension TwitterAuthAPI: TwitterAPI {
 }
 
 /// Extension providing Twitter API v1 endpoints.
-public extension TwitterAPIv1 {
+extension TwitterAPIv1 {
     // MARK: - AccountAPIv1
 
     /// Retrieves the current account settings.

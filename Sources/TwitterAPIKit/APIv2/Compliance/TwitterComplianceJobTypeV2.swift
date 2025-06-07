@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum TwitterComplianceJobTypeV2: String {
+public enum TwitterComplianceJobTypeV2: String, Sendable {
     case tweets
     case users
 

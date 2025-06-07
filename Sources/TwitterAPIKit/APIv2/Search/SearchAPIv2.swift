@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class SearchAPIv2: TwitterAPIBase {
+public struct SearchAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     public func searchTweetsRecent(
         _ request: GetTweetsSearchRecentRequestV2
@@ -24,7 +33,4 @@ open class SearchAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

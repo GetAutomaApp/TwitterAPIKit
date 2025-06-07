@@ -25,7 +25,4 @@ internal class PostDirectMessagesMarkReadRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-friendships-incoming
-open class GetFriendshipsIncomingRequestV1: TwitterAPIRequest {
+public struct GetFriendshipsIncomingRequestV1: TwitterAPIRequest {
     public let cursor: String?
     public let stringifyIDs: Bool?
 
@@ -23,7 +23,7 @@ open class GetFriendshipsIncomingRequestV1: TwitterAPIRequest {
         "/1.1/friendships/incoming.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         cursor.map { params["cursor"] = $0 }
         stringifyIDs.map { params["stringify_ids"] = $0 }
@@ -38,7 +38,4 @@ open class GetFriendshipsIncomingRequestV1: TwitterAPIRequest {
         self.stringifyIDs = stringifyIDs
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

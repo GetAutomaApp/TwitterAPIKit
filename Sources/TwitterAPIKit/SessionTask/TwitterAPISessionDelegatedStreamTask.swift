@@ -9,7 +9,7 @@
 import Foundation
 
 private let chunkSeparator = Data("\r\n".utf8)
-public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, TwitterAPISessionDelegatedTask {
+public struct TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, TwitterAPISessionDelegatedTask {
     public var taskIdentifier: Int { task.taskIdentifier }
     public var currentRequest: URLRequest? { task.currentRequest }
     public var originalRequest: URLRequest? { task.originalRequest }
@@ -18,7 +18,7 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
     }
 
     private let task: TwitterAPISessionTask
-    private var dataBlocks = [(queue: DispatchQueue, block: (TwitterAPIResponse<Data>) -> Void)]()
+    private var dataBlocks = [(queue: DispatchQueue, block: @Sendable (TwitterAPIResponse<Data>) -> Void)]()
     private lazy var taskQueue = DispatchQueue(label: "TwitterAPISessionDelegatedStreamTask_\(taskIdentifier)")
 
     public init(task: TwitterAPISessionTask) {
@@ -26,17 +26,17 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
     }
 
     @discardableResult
-    public func streamResponse(
+    public mutating func streamResponse(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self {
         dataBlocks.append((queue: queue, block: block))
         return self
     }
 
     @discardableResult
-    public func streamResponse(
-        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
+    public mutating func streamResponse(
+        _ block: @Sendable @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self {
         dataBlocks.append((queue: .main, block: block))
         return self
@@ -46,10 +46,8 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
         task.cancel()
     }
 
-    public func append(chunk: Data) {
-        taskQueue.async { [weak self] in
-            guard let self else { return }
-
+    public mutating func append(chunk: Data) {
+        taskQueue.async { [self] in
             guard let httpResponse else {
                 notify(result: .failure(.responseFailed(reason: .invalidResponse(error: nil))), rateLimit: nil)
                 return
@@ -80,10 +78,9 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
         }
     }
 
-    public func complete(error: Error?) {
+    public mutating func complete(error: Error?) {
         if let error {
-            taskQueue.async { [weak self] in
-                guard let self else { return }
+            taskQueue.async { [self] in
                 notify(result: .failure(.responseFailed(reason: .invalidResponse(error: error))), rateLimit: nil)
             }
         }
@@ -105,7 +102,4 @@ public class TwitterAPISessionDelegatedStreamTask: TwitterAPISessionStreamTask, 
         }
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

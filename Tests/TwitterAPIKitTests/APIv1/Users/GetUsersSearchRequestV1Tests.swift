@@ -46,7 +46,4 @@ internal class GetUsersSearchRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

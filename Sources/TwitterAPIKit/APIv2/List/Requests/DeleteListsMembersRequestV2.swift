@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
-open class DeleteListsMembersRequestV2: TwitterAPIRequest {
+public struct DeleteListsMembersRequestV2: TwitterAPIRequest {
     public let id: String
     public let userID: String
 
@@ -21,7 +21,7 @@ open class DeleteListsMembersRequestV2: TwitterAPIRequest {
         "/2/lists/\(id)/members/\(userID)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -33,7 +33,4 @@ open class DeleteListsMembersRequestV2: TwitterAPIRequest {
         self.userID = userID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

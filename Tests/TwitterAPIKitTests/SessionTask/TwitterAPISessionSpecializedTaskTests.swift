@@ -76,7 +76,4 @@ internal class TwitterAPISessionSpecializedTaskTests: XCTestCase {
         wait(for: [exp], timeout: 100)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

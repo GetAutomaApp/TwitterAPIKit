@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
-open class PostOAuth2RevokeTokenRequestV2: TwitterAPIRequest {
+public struct PostOAuth2RevokeTokenRequestV2: TwitterAPIRequest {
     public let token: String
     /// Required for Public Client.
     public let clientID: String?
@@ -27,7 +27,7 @@ open class PostOAuth2RevokeTokenRequestV2: TwitterAPIRequest {
         "/2/oauth2/revoke"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: String]()
         params["token"] = token
         tokenTypeHint.map { params["token_type_hint"] = $0 }
@@ -46,7 +46,4 @@ open class PostOAuth2RevokeTokenRequestV2: TwitterAPIRequest {
         self.tokenTypeHint = tokenTypeHint
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

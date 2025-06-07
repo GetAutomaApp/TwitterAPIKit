@@ -35,7 +35,4 @@ internal class PostCollectionsEntriesCurateRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

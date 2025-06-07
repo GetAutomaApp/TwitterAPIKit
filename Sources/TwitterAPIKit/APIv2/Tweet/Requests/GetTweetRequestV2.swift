@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
-open class GetTweetRequestV2: TwitterAPIRequest {
+public struct GetTweetRequestV2: TwitterAPIRequest {
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?
@@ -26,7 +26,7 @@ open class GetTweetRequestV2: TwitterAPIRequest {
         "/2/tweets/\(id)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         mediaFields?.bind(param: &params)
@@ -55,7 +55,4 @@ open class GetTweetRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -11,8 +11,8 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// curate-a-collection/api-reference/post-collections-entries-curate
-open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
-    public enum Operation {
+public struct PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
+    public enum Operation: Sendable {
         case add(tweetID: String)
         case remove(tweetID: String)
 
@@ -41,7 +41,7 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         params["changes"] = changes.map(\.keyValue)
@@ -56,7 +56,4 @@ open class PostCollectionsEntriesCurateRequestV1: TwitterAPIRequest {
         self.changes = changes
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

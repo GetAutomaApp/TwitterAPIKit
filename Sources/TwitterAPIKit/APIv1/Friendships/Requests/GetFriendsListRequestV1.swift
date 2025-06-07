@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-friends-list
-open class GetFriendsListRequestV1: TwitterAPIRequest {
+public struct GetFriendsListRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -26,7 +26,7 @@ open class GetFriendsListRequestV1: TwitterAPIRequest {
         "/1.1/friends/list.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -50,7 +50,4 @@ open class GetFriendsListRequestV1: TwitterAPIRequest {
         self.includeUserEntities = includeUserEntities
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

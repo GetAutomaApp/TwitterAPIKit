@@ -12,7 +12,16 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
 /// overview
-open class TimelineAPIv1: TwitterAPIBase {
+public struct TimelineAPIv1: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
@@ -42,7 +51,4 @@ open class TimelineAPIv1: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

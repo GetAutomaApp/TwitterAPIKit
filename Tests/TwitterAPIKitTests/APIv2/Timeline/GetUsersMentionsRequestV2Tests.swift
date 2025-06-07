@@ -62,7 +62,4 @@ internal class GetUsersMentionsRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

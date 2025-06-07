@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
-open class DeleteUsersBlockingRequestV2: TwitterAPIRequest {
+public struct DeleteUsersBlockingRequestV2: TwitterAPIRequest {
     public let sourceUserID: String
     public let targetUserID: String
 
@@ -21,7 +21,7 @@ open class DeleteUsersBlockingRequestV2: TwitterAPIRequest {
         "/2/users/\(sourceUserID)/blocking/\(targetUserID)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -33,7 +33,4 @@ open class DeleteUsersBlockingRequestV2: TwitterAPIRequest {
         self.targetUserID = targetUserID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

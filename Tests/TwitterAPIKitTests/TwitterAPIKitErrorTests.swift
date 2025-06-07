@@ -77,7 +77,4 @@ internal class TwitterAPIKitErrorTests: XCTestCase {
         XCTAssertTrue(TwitterAPIKitError.unkonwn(error: NSError(domain: "", code: 0, userInfo: nil)).isUnkonwn)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

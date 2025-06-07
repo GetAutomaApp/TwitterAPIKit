@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/post-account-settings
-open class PostAccountSettingsRequestV1: TwitterAPIRequest {
+public struct PostAccountSettingsRequestV1: TwitterAPIRequest {
     /// two letter ISO 639-1
     public let lang: String?
     /// RailsTimeZone
@@ -32,7 +32,7 @@ open class PostAccountSettingsRequestV1: TwitterAPIRequest {
         "/1.1/account/settings.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         lang.map { params["lang"] = $0 }
         timeZone.map { params["time_zone"] = $0 }
@@ -57,9 +57,5 @@ open class PostAccountSettingsRequestV1: TwitterAPIRequest {
         self.endSleepTime = endSleepTime
         self.sleepTimeEnabled = sleepTimeEnabled
         self.trendLocationWoeid = trendLocationWoeid
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

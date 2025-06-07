@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload-finalize
-open class UploadMediaFinalizeRequestV1: TwitterAPIRequest {
+public struct UploadMediaFinalizeRequestV1: TwitterAPIRequest {
     public let command: String = "FINALIZE"
     public let mediaID: String
 
@@ -25,7 +25,7 @@ open class UploadMediaFinalizeRequestV1: TwitterAPIRequest {
         "/1.1/media/upload.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [
             "command": command,
             "media_id": mediaID,
@@ -36,7 +36,4 @@ open class UploadMediaFinalizeRequestV1: TwitterAPIRequest {
         self.mediaID = mediaID
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

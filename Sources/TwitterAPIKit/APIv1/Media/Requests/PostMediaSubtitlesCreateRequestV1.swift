@@ -9,8 +9,8 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-subtitles-create
-open class PostMediaSubtitlesCreateRequestV1: TwitterAPIRequest {
-    public struct Subtitle {
+public struct PostMediaSubtitlesCreateRequestV1: TwitterAPIRequest {
+    public struct Subtitle: Sendable {
         public let mediaID: String
         /// The language code should be a BCP47 code (e.g. 'en", "sp")
         public let languageCode: String
@@ -47,7 +47,7 @@ open class PostMediaSubtitlesCreateRequestV1: TwitterAPIRequest {
         "/1.1/media/subtitles/create.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["media_id"] = mediaID
         params["media_category"] = mediaCategory
@@ -73,7 +73,4 @@ open class PostMediaSubtitlesCreateRequestV1: TwitterAPIRequest {
         self.subtitles = subtitles
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

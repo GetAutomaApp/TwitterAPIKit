@@ -10,9 +10,9 @@ import Foundation
 
 /// Creates a new DM Conversation.
 /// Required OAuth 2.0 scopes: dm.write, tweet.read, users.read
-open class PostDmConversationRequestV2: TwitterAPIRequest {
+public struct PostDmConversationRequestV2: TwitterAPIRequest {
     /// The conversation type that is being created.
-    public enum ConversationType: String {
+    public enum ConversationType: String, Sendable {
         case group = "Group"
     }
 
@@ -37,7 +37,7 @@ open class PostDmConversationRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["conversation_type"] = conversationType.rawValue
         params["participant_ids"] = participantIDs
@@ -62,7 +62,4 @@ open class PostDmConversationRequestV2: TwitterAPIRequest {
         self.text = text
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

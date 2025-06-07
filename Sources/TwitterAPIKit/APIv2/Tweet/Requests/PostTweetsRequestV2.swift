@@ -9,8 +9,8 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
-open class PostTweetsRequestV2: TwitterAPIRequest {
-    public struct Geo {
+public struct PostTweetsRequestV2: TwitterAPIRequest {
+    public struct Geo: Sendable {
         public let placeID: String
 
         public init(placeID: String) {
@@ -26,7 +26,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
     }
 
-    public struct Media {
+    public struct Media: Sendable {
         public let mediaIDs: [String]
         public let taggedUserIDs: [String]?
 
@@ -48,7 +48,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
     }
 
-    public struct Poll {
+    public struct Poll: Sendable {
         public let durationMinutes: Int
         public let options: [String]
 
@@ -70,7 +70,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
     }
 
-    public struct Reply {
+    public struct Reply: Sendable {
         public let excludeReplyUserIDs: [String]?
         public let inReplyToTweetID: String
 
@@ -92,7 +92,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         }
     }
 
-    public enum ReplySettings: String {
+    public enum ReplySettings: String, Sendable {
         case mentionedUsers
         case following
         case everyone
@@ -124,7 +124,7 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         directMessageDeepLink.map { params["direct_message_deep_link"] = $0 }
         forSuperFollowersOnly.map { params["for_super_followers_only"] = $0 }
@@ -160,7 +160,4 @@ open class PostTweetsRequestV2: TwitterAPIRequest {
         self.text = text
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

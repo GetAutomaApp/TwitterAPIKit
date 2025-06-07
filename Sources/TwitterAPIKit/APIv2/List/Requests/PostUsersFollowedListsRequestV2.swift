@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/post-users-id-followed-lists
-open class PostUsersFollowedListsRequestV2: TwitterAPIRequest {
+public struct PostUsersFollowedListsRequestV2: TwitterAPIRequest {
     public let id: String
     public let listID: String
 
@@ -25,7 +25,7 @@ open class PostUsersFollowedListsRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["list_id"] = listID
         return params
@@ -39,7 +39,4 @@ open class PostUsersFollowedListsRequestV2: TwitterAPIRequest {
         self.listID = listID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

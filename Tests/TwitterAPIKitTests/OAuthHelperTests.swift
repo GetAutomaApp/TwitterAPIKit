@@ -44,7 +44,4 @@ internal class OAuthHelperTests: XCTestCase {
         XCTAssertEqual(header, expectedHeader)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

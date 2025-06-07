@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-followers-ids
-open class GetFollowersIDsRequestV1: TwitterAPIRequest {
+public struct GetFollowersIDsRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -25,7 +25,7 @@ open class GetFollowersIDsRequestV1: TwitterAPIRequest {
         "/1.1/followers/ids.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -46,7 +46,4 @@ open class GetFollowersIDsRequestV1: TwitterAPIRequest {
         self.stringifyIDs = stringifyIDs
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

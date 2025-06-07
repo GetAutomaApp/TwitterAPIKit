@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-reverse-chronological
-open class GetUsersTimelinesReverseChronologicalRequestV2: TwitterAPIRequest {
+public struct GetUsersTimelinesReverseChronologicalRequestV2: TwitterAPIRequest {
     public let id: String
     public let endTime: Date?
     public let exclude: Set<TwitterTimelineExcludeV2>?
@@ -33,7 +33,7 @@ open class GetUsersTimelinesReverseChronologicalRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/timelines/reverse_chronological"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         endTime?.bind(param: &params, for: "end_time")
         exclude?.bind(param: &params)
@@ -83,7 +83,4 @@ open class GetUsersTimelinesReverseChronologicalRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

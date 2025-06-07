@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-lookup
-open class GetStatusesLookupRequestV1: TwitterAPIRequest {
+public struct GetStatusesLookupRequestV1: TwitterAPIRequest {
     public let ids: [String]
     public let map: Bool?
     public let trimUser: Bool?
@@ -25,7 +25,7 @@ open class GetStatusesLookupRequestV1: TwitterAPIRequest {
         "/1.1/statuses/lookup.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = ids.joined(separator: ",")
         map.map { params["map"] = $0 }
@@ -52,7 +52,4 @@ open class GetStatusesLookupRequestV1: TwitterAPIRequest {
         self.includeExtAltText = includeExtAltText
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

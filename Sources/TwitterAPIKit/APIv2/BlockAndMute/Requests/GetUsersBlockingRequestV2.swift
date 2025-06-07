@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
-open class GetUsersBlockingRequestV2: TwitterAPIRequest {
+public struct GetUsersBlockingRequestV2: TwitterAPIRequest {
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let maxResults: Int?
@@ -25,7 +25,7 @@ open class GetUsersBlockingRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/blocking"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -51,7 +51,4 @@ open class GetUsersBlockingRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

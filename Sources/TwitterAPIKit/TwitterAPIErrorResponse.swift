@@ -106,7 +106,7 @@ public extension TwitterAPIErrorResponse {
 
 /// Represents an error response from the Twitter API v1.1.
 /// Format: {"errors":[{"message":"Sorry, that page does not exist","code":34}]}
-public struct TwitterAPIErrorResponseV1 {
+public struct TwitterAPIErrorResponseV1: Sendable {
     /// The first error message in the response.
     public let message: String
 
@@ -162,9 +162,9 @@ extension TwitterAPIErrorResponseV1: Equatable {}
 /// https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
 /// Represents an error response from the Twitter API v2.
 /// See: https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
-public struct TwitterAPIErrorResponseV2 {
+public struct TwitterAPIErrorResponseV2: Sendable {
     /// Represents a specific error in a v2 error response.
-    public struct Error: Equatable {
+    public struct Error: Equatable, Sendable {
         /// The error message.
         public let message: String
 

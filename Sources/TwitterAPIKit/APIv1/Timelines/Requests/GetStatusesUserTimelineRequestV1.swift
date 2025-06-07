@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline
-open class GetStatusesUserTimelineRequestV1: TwitterAPIRequest {
+public struct GetStatusesUserTimelineRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let maxID: String?
@@ -26,7 +26,7 @@ open class GetStatusesUserTimelineRequestV1: TwitterAPIRequest {
         "/1.1/statuses/user_timeline.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -56,7 +56,4 @@ open class GetStatusesUserTimelineRequestV1: TwitterAPIRequest {
         self.excludeReplies = excludeReplies
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

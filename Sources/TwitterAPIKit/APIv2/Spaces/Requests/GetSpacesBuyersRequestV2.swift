@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
-open class GetSpacesBuyersRequestV2: TwitterAPIRequest {
+public struct GetSpacesBuyersRequestV2: TwitterAPIRequest {
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?
@@ -26,7 +26,7 @@ open class GetSpacesBuyersRequestV2: TwitterAPIRequest {
         "/2/spaces/\(id)/buyers"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         mediaFields?.bind(param: &params)
@@ -55,7 +55,4 @@ open class GetSpacesBuyersRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

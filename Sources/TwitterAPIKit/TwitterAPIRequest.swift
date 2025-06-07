@@ -94,7 +94,7 @@ extension MultipartFormDataPart: Equatable {
 }
 
 /// Protocol defining the requirements for a Twitter API request.
-public protocol TwitterAPIRequest {
+public protocol TwitterAPIRequest: Sendable {
     /// The HTTP method to be used for the request.
     var method: HTTPMethod { get }
 
@@ -191,9 +191,10 @@ public extension TwitterAPIRequest {
             case .multipartFormData:
 
                 guard let parts = Array(bodyParameters.values) as? [MultipartFormDataPart] else {
+                    let stringBodyParams = bodyParameters.mapValues { "\($0)" }
                     throw TwitterAPIKitError.requestFailed(
                         reason: .invalidParameter(
-                            parameter: bodyParameters,
+                            parameter: stringBodyParams,
                             cause: """
                             Parameter must be specified in `MultipartFormDataPart` \
                             for `BodyContentType.multipartFormData`.
@@ -214,19 +215,32 @@ public extension TwitterAPIRequest {
                 )
             case .json:
 
-                let param = bodyParameters
-                guard JSONSerialization.isValidJSONObject(param) else {
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: param))
+                let stringBodyParams = String(describing: bodyParameters.mapValues { "\($0)" })
+                guard JSONSerialization.isValidJSONObject(bodyParameters) else {
+                    throw TwitterAPIKitError
+                        .requestFailed(
+                            reason:
+                                    .jsonSerializationFailed(
+                                        obj: stringBodyParams
+                                    )
+                        )
                 }
                 do {
                     request.httpBody = try JSONSerialization.data(
-                        withJSONObject: param, options: []
+                        withJSONObject: bodyParameters, options: []
                     )
                     request.setValue(bodyContentType.rawValue, forHTTPHeaderField: "Content-Type")
 
                 } catch {
                     // This path probably won't pass because it is pre-checked with `isValidJSONObject`.
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: param))
+                    let stringBodyParams = String(describing: bodyParameters.mapValues { "\($0)" })
+                    throw TwitterAPIKitError
+                        .requestFailed(
+                            reason:
+                                    .jsonSerializationFailed(
+                                        obj: stringBodyParams
+                                    )
+                        )
                 }
             }
         }

@@ -10,7 +10,7 @@ import Foundation
 
 /// A session class that handles Twitter API requests and authentication.
 /// This class manages the authentication state, network requests, and environment configuration.
-open class TwitterAPISession {
+public struct TwitterAPISession: Sendable {
     /// The current authentication method being used for API requests.
     /// This property can be read publicly but only modified internally.
     public private(set) var auth: TwitterAuthenticationMethod
@@ -36,10 +36,6 @@ open class TwitterAPISession {
         self.auth = auth
         session = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
         self.environment = environment
-    }
-
-    deinit {
-        session.invalidateAndCancel()
     }
 
     /// Sends a Twitter API request and returns a JSON task.
@@ -125,7 +121,9 @@ open class TwitterAPISession {
         return urlRequest
     }
 
-    internal func refreshOAuth20Token(_ refreshedToken: TwitterAuthenticationMethod.OAuth20) {
+    internal mutating func refreshOAuth20Token(
+        _ refreshedToken: TwitterAuthenticationMethod.OAuth20
+    ) {
         guard case .oauth20 = auth else {
             return
         }

@@ -28,7 +28,4 @@ internal class GetTrendsClosestRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

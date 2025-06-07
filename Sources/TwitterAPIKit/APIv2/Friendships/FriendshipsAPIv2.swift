@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class FriendshipsAPIv2: TwitterAPIBase {
+public struct FriendshipsAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/users/follows/
     /// api-reference/get-users-id-following
@@ -45,7 +54,4 @@ open class FriendshipsAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

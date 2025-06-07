@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/token
-open class PostOAuth2TokenRequestV1: TwitterAPIRequest {
+public struct PostOAuth2TokenRequestV1: TwitterAPIRequest {
     public let grantType: String
 
     public var method: HTTPMethod {
@@ -20,7 +20,7 @@ open class PostOAuth2TokenRequestV1: TwitterAPIRequest {
         "/oauth2/token"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["grant_type"] = grantType
         return params
@@ -32,7 +32,4 @@ open class PostOAuth2TokenRequestV1: TwitterAPIRequest {
         self.grantType = grantType
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

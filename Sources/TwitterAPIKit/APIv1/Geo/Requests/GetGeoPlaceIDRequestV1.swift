@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/place-information/api-reference/get-geo-id-place_id
-open class GetGeoPlaceIDRequestV1: TwitterAPIRequest {
+public struct GetGeoPlaceIDRequestV1: TwitterAPIRequest {
     public let placeID: String
 
     public var method: HTTPMethod {
@@ -20,7 +20,7 @@ open class GetGeoPlaceIDRequestV1: TwitterAPIRequest {
         "/1.1/geo/id/\(placeID).json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -30,7 +30,4 @@ open class GetGeoPlaceIDRequestV1: TwitterAPIRequest {
         self.placeID = placeID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

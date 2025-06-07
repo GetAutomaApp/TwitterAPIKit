@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
+public struct PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
     public let code: String
     public let grantType: String
     /// Required for Public Client.
@@ -48,7 +48,4 @@ open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
         self.codeVerifier = codeVerifier
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/get-account-verify_credentials
-open class GetAccountVerifyCredentialsRequestV1: TwitterAPIRequest {
+public struct GetAccountVerifyCredentialsRequestV1: TwitterAPIRequest {
     public let skipStatus: Bool?
     public let includeEmail: Bool?
     public let includeEntities: Bool?
@@ -24,7 +24,7 @@ open class GetAccountVerifyCredentialsRequestV1: TwitterAPIRequest {
         "/1.1/account/verify_credentials.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         skipStatus.map { params["skip_status"] = $0 }
         includeEmail.map { params["include_email"] = $0 }
@@ -40,9 +40,5 @@ open class GetAccountVerifyCredentialsRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
         self.includeEmail = includeEmail
         self.includeEntities = includeEntities
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

@@ -12,12 +12,12 @@ public protocol TwitterAPISessionJSONTask: TwitterAPISessionDataTask {
     @discardableResult
     func responseObject(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Any>) -> Void
+        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self
 
     @discardableResult
     func responseObject(
-        _ block: @escaping (TwitterAPIResponse<Any>) -> Void
+        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self
 
     @discardableResult

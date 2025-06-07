@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents a way to identify a single Twitter user in the v1.1 API.
-public enum TwitterUserIdentifierV1 {
+public enum TwitterUserIdentifierV1: Sendable {
     /// Identifies a user by their screen name (username).
     /// - Parameter String: The user's screen name without the @ symbol.
     case screenName(String)
@@ -20,7 +20,7 @@ public enum TwitterUserIdentifierV1 {
 }
 
 /// Represents a way to identify multiple Twitter users in the v1.1 API.
-public enum TwitterUsersIdentifierV1 {
+public enum TwitterUsersIdentifierV1: Sendable {
     /// Identifies multiple users by their screen names (usernames).
     /// - Parameter [String]: An array of screen names without the @ symbol.
     case screenNames([String])

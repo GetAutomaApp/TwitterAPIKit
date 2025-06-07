@@ -9,8 +9,8 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets
-open class GetSearchTweetsRequestV1: TwitterAPIRequest {
-    public enum ResultType: String {
+public struct GetSearchTweetsRequestV1: TwitterAPIRequest {
+    public enum ResultType: String, Sendable {
         case mixed
         case recent
         case popular
@@ -35,7 +35,7 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
         "/1.1/search/tweets.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["q"] = query
         lang.map { params["lang"] = $0 }
@@ -74,7 +74,4 @@ open class GetSearchTweetsRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

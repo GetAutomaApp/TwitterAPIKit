@@ -17,9 +17,6 @@ private class GetTwitterReqeust: TwitterAPIRequest {
         ["hoge": "😀"] // = %F0%9F%98%80
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 private class PostTwitterReqeust: TwitterAPIRequest {
@@ -29,9 +26,6 @@ private class PostTwitterReqeust: TwitterAPIRequest {
         ["hoge": "😀"] // = %F0%9F%98%80
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 private class EmptyRequest: TwitterAPIRequest {
@@ -41,9 +35,6 @@ private class EmptyRequest: TwitterAPIRequest {
         [:]
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 internal class TwitterAPISessionTests: XCTestCase {
@@ -304,9 +295,6 @@ internal class TwitterAPISessionTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 public extension Data {

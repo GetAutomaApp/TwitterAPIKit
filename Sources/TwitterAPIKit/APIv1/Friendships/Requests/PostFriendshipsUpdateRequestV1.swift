@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/post-friendships-update
-open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
+public struct PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let device: Bool?
     public let retweets: Bool?
@@ -24,7 +24,7 @@ open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
         "/1.1/friendships/update.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         device.map { params["device"] = $0 }
@@ -42,7 +42,4 @@ open class PostFriendshipsUpdateRequestV1: TwitterAPIRequest {
         self.retweets = retweets
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

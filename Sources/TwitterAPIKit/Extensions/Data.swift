@@ -35,9 +35,9 @@ public extension Data {
 
     /// Attempts to serialize the data as JSON
     /// - Returns: A Result containing either the serialized JSON object or an error
-    func serialize() -> Result<Any, TwitterAPIKitError> {
+    func serialize() -> Result<Data, TwitterAPIKitError> {
         do {
-            let jsonObj = try JSONSerialization.jsonObject(with: self, options: [])
+            let jsonObj = try JSONSerialization.jsonObject(with: self, options: []) as! Data
             return .success(jsonObj)
         } catch {
             return .failure(

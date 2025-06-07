@@ -288,7 +288,4 @@ internal class FieldsV2Tests: XCTestCase {
         XCTAssertEqual(TwitterDmConversationFieldsV2.all.count, 1)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

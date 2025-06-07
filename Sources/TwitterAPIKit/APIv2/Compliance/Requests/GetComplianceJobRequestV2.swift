@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
-open class GetComplianceJobRequestV2: TwitterAPIRequest {
+public struct GetComplianceJobRequestV2: TwitterAPIRequest {
     public let id: Int
 
     public var method: HTTPMethod {
@@ -20,7 +20,7 @@ open class GetComplianceJobRequestV2: TwitterAPIRequest {
         "/2/compliance/jobs/\(id)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -30,7 +30,4 @@ open class GetComplianceJobRequestV2: TwitterAPIRequest {
         self.id = id
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class RetweetAPIv2: TwitterAPIBase {
+public struct RetweetAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/
     /// api-reference/get-tweets-id-retweeted_by
@@ -36,7 +45,4 @@ open class RetweetAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

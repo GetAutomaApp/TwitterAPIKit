@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/get-lists-statuses
-open class GetListsStatusesRequestV1: TwitterAPIRequest {
+public struct GetListsStatusesRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
     public let count: Int?
     public let sinceID: String?
@@ -27,7 +27,7 @@ open class GetListsStatusesRequestV1: TwitterAPIRequest {
         "/1.1/lists/statuses.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         list.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -54,7 +54,4 @@ open class GetListsStatusesRequestV1: TwitterAPIRequest {
         self.includeRTs = includeRTs
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

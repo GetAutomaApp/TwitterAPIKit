@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// curate-a-collection/api-reference/post-collections-entries-add
-open class PostCollectionsEntriesAddRequestV1: TwitterAPIRequest {
+public struct PostCollectionsEntriesAddRequestV1: TwitterAPIRequest {
     public let id: String
     public let tweetID: String
     public let above: Bool?
@@ -25,7 +25,7 @@ open class PostCollectionsEntriesAddRequestV1: TwitterAPIRequest {
         "/1.1/collections/entries/add.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         params["tweet_id"] = tweetID
@@ -46,7 +46,4 @@ open class PostCollectionsEntriesAddRequestV1: TwitterAPIRequest {
         self.relativeTo = relativeTo
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

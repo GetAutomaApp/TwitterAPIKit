@@ -8,7 +8,7 @@
 
 /// A class that provides access to Twitter's authentication APIs.
 /// This class supports both OAuth 1.0a and OAuth 2.0 authentication methods.
-open class TwitterAuthAPI {
+public struct TwitterAuthAPI: Sendable {
     /// The OAuth 1.0a API client for legacy authentication.
     public let oauth10a: OAuth10aAPI
 
@@ -22,7 +22,4 @@ open class TwitterAuthAPI {
         oauth20 = .init(session: session)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -73,7 +73,4 @@ internal class TwitterAPIResponseTests: XCTestCase {
         XCTAssertNotNil(mapped4.success)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

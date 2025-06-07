@@ -46,7 +46,4 @@ internal class PostMediaSubtitlesCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

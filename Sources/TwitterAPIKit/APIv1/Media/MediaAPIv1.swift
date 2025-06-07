@@ -9,7 +9,16 @@
 import Foundation
 
 // swiftlint:disable function_body_length closure_body_length
-open class MediaAPIv1: TwitterAPIBase {
+public struct MediaAPIv1: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/
     /// api-reference/get-media-upload-status
@@ -66,79 +75,76 @@ open class MediaAPIv1: TwitterAPIBase {
         completionHandler: @escaping (
             TwitterAPIResponse<String>
         ) -> Void
-    ) {
-        uploadMediaInit(
-            .init(
-                totalBytes: parameters.media.count,
-                mediaType: parameters.mediaType,
-                mediaCategory: parameters.mediaCategory,
-                additionalOwners: parameters.additionalOwners
-            )
-        )
-        .responseDecodable(
-            type: TwitterAPIClient.UploadMediaInitResponse.self,
-            queue: .processQueue
-        )
-        { [weak self] response in
-
-            guard let self else { return }
-
-            let mediaID: String
-            do {
-                mediaID = try response.result.get().mediaID
-            } catch {
-                completionHandler(response.map(\.mediaID))
-                return
-            }
-
-            uploadMediaAppendSplitChunks(
-                .init(
-                    mediaID: mediaID,
-                    filename: parameters.filename,
-                    mimeType: parameters.mediaType,
-                    media: parameters.media,
-                    segmentIndex: 0
-                ), maxBytes: parameters.uploadChunkSize ?? 5_242_880
-            )
-            .responseObject(queue: .processQueue) { [weak self] responses in
-
-                guard let self else { return }
-
-                if let error = responses.first(where: \.isError) {
-                    completionHandler(error)
-                    return
-                }
-
-                uploadMediaFinalize(.init(mediaID: mediaID))
-                    .responseDecodable(
-                        type: TwitterAPIClient.UploadMediaFinalizeResponse.self,
-                        queue: .processQueue
-                    ) { [weak self] response in
-                        guard let self else { return }
-
-                        var finalizeResult: TwitterAPIClient.UploadMediaFinalizeResponse
-                        do {
-                            finalizeResult = try response.result.get()
-                        } catch {
-                            completionHandler(response.map(\.mediaID))
-                            return
-                        }
-
-                        guard let processingInfo = finalizeResult.processingInfo else {
-                            completionHandler(response.map(\.mediaID))
-                            return
-                        }
-
-                        waitMediaProcessing(
-                            mediaID: mediaID,
-                            initialWaitSec: processingInfo.checkAfterSecs ?? 0
-                        ) { response in
-                            completionHandler(response.map(\.mediaID))
-                        }
-                    }
-            }
-        }
-    }
+    ) {}
+//    ) {
+//        uploadMediaInit(
+//            .init(
+//                totalBytes: parameters.media.count,
+//                mediaType: parameters.mediaType,
+//                mediaCategory: parameters.mediaCategory,
+//                additionalOwners: parameters.additionalOwners
+//            )
+//        )
+//        .responseDecodable(
+//            type: TwitterAPIClient.UploadMediaInitResponse.self,
+//            queue: .processQueue
+//        )
+//        { [self] response in
+//
+//            let mediaID: String
+//            do {
+//                mediaID = try response.result.get().mediaID
+//            } catch {
+//                completionHandler(response.map(\.mediaID))
+//                return
+//            }
+//
+//            uploadMediaAppendSplitChunks(
+//                .init(
+//                    mediaID: mediaID,
+//                    filename: parameters.filename,
+//                    mimeType: parameters.mediaType,
+//                    media: parameters.media,
+//                    segmentIndex: 0
+//                ), maxBytes: parameters.uploadChunkSize ?? 5_242_880
+//            )
+//            .responseObject(queue: .processQueue) { [self] responses in
+//
+//                if let error = responses.first(where: \.isError) {
+//                    completionHandler(error)
+//                    return
+//                }
+//
+//                uploadMediaFinalize(.init(mediaID: mediaID))
+//                    .responseDecodable(
+//                        type: TwitterAPIClient.UploadMediaFinalizeResponse.self,
+//                        queue: .processQueue
+//                    ) { [self] response in
+//                        guard let self else { return }
+//
+//                        var finalizeResult: TwitterAPIClient.UploadMediaFinalizeResponse
+//                        do {
+//                            finalizeResult = try response.result.get()
+//                        } catch {
+//                            completionHandler(response.map(\.mediaID))
+//                            return
+//                        }
+//
+//                        guard let processingInfo = finalizeResult.processingInfo else {
+//                            completionHandler(response.map(\.mediaID))
+//                            return
+//                        }
+//
+//                        waitMediaProcessing(
+//                            mediaID: mediaID,
+//                            initialWaitSec: processingInfo.checkAfterSecs ?? 0
+//                        ) { response in
+//                            completionHandler(response.map(\.mediaID))
+//                        }
+//                    }
+//            }
+//        }
+//    }
 
     public func waitMediaProcessing(
         mediaID: String,
@@ -147,8 +153,7 @@ open class MediaAPIv1: TwitterAPIBase {
             TwitterAPIResponse<TwitterAPIClient.UploadMediaStatusResponse>
         ) -> Void
     ) {
-        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(initialWaitSec)) { [weak self] in
-            guard let self else { return }
+        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(initialWaitSec)) { [self] in
             waitMediaProcessing(mediaID: mediaID, completionHandler: completionHandler)
         }
     }
@@ -163,9 +168,7 @@ open class MediaAPIv1: TwitterAPIBase {
             .responseDecodable(
                 type: TwitterAPIClient.UploadMediaStatusResponse.self,
                 queue: .processQueue
-            ) { [weak self] response in
-                guard let self else { return }
-
+            ) { [self] response in
                 do {
                     let success = try response.result.get()
 
@@ -229,8 +232,5 @@ open class MediaAPIv1: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 // swiftlint:enable function_body_length closure_body_length

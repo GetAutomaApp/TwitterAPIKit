@@ -41,7 +41,4 @@ internal class PostListsDestroyRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

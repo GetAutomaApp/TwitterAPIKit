@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-favorites-list
-open class GetFavoritesRequestV1: TwitterAPIRequest {
+public struct GetFavoritesRequestV1: TwitterAPIRequest {
     public let target: TwitterUserIdentifierV1
     public let count: Int?
     public let sinceID: String?
@@ -24,7 +24,7 @@ open class GetFavoritesRequestV1: TwitterAPIRequest {
         "/1.1/favorites/list.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
 
         target.bind(param: &params)
@@ -50,7 +50,4 @@ open class GetFavoritesRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

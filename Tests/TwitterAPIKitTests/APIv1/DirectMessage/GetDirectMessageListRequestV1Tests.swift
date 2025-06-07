@@ -29,7 +29,4 @@ internal class GetDirectMessageListRequestV1Tests: XCTestCase {
         XCTAssertTrue(req.bodyParameters.isEmpty)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

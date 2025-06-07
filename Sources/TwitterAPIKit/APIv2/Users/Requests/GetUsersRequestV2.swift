@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
-open class GetUsersRequestV2: TwitterAPIRequest {
+public struct GetUsersRequestV2: TwitterAPIRequest {
     public let ids: [String]
     public let expansions: Set<TwitterUserExpansionsV2>?
     public let tweetFields: Set<TwitterTweetFieldsV2>?
@@ -23,7 +23,7 @@ open class GetUsersRequestV2: TwitterAPIRequest {
         "/2/users"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["ids"] = ids.joined(separator: ",")
         expansions?.bind(param: &params)
@@ -44,7 +44,4 @@ open class GetUsersRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

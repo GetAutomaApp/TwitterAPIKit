@@ -46,7 +46,4 @@ internal class GetUsersByRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

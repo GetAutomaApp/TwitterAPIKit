@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class SpacesAPIv2: TwitterAPIBase {
+public struct SpacesAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
     public func getSpace(
         _ request: GetSpaceRequestV2
@@ -51,7 +60,4 @@ open class SpacesAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

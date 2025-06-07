@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// curate-a-collection/api-reference/post-collections-update
-open class PostCollectionsUpdateRequestV1: TwitterAPIRequest {
+public struct PostCollectionsUpdateRequestV1: TwitterAPIRequest {
     public let id: String
     public let url: String?
     public let name: String?
@@ -25,7 +25,7 @@ open class PostCollectionsUpdateRequestV1: TwitterAPIRequest {
         "/1.1/collections/update.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         url.map { params["url"] = $0 }
@@ -46,7 +46,4 @@ open class PostCollectionsUpdateRequestV1: TwitterAPIRequest {
         self.description = description
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

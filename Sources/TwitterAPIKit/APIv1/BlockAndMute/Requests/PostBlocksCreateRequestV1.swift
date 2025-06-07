@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// mute-block-report-users/api-reference/post-blocks-create
-open class PostBlocksCreateRequestV1: TwitterAPIRequest {
+public struct PostBlocksCreateRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let includeEntities: Bool?
     public let skipStatus: Bool?
@@ -24,7 +24,7 @@ open class PostBlocksCreateRequestV1: TwitterAPIRequest {
         "/1.1/blocks/create.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         includeEntities.map { params["include_entities"] = $0 }
@@ -42,7 +42,4 @@ open class PostBlocksCreateRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

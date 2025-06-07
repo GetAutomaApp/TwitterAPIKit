@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets
-open class GetTweetsQuoteTweetsRequestV2: TwitterAPIRequest {
+public struct GetTweetsQuoteTweetsRequestV2: TwitterAPIRequest {
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
     public let maxResults: Int?
@@ -28,7 +28,7 @@ open class GetTweetsQuoteTweetsRequestV2: TwitterAPIRequest {
         "/2/tweets/\(id)/quote_tweets"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -63,7 +63,4 @@ open class GetTweetsQuoteTweetsRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

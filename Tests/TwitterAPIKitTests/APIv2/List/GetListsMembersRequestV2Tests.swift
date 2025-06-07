@@ -44,7 +44,4 @@ internal class GetListsMembersRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(req.parameters, [:])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

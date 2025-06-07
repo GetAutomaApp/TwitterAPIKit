@@ -44,7 +44,4 @@ internal class GetListsOwnershipsRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

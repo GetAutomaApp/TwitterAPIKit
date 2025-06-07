@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-users-show
-open class GetUsersShowRequestV1: TwitterAPIRequest {
+public struct GetUsersShowRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let includeEntities: Bool?
 
@@ -23,7 +23,7 @@ open class GetUsersShowRequestV1: TwitterAPIRequest {
         "/1.1/users/show.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         includeEntities.map { params["include_entities"] = $0 }
@@ -38,7 +38,4 @@ open class GetUsersShowRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

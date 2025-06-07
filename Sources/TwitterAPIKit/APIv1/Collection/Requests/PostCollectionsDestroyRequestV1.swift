@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// curate-a-collection/api-reference/post-collections-destroy
-open class PostCollectionsDestroyRequestV1: TwitterAPIRequest {
+public struct PostCollectionsDestroyRequestV1: TwitterAPIRequest {
     public let id: String
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class PostCollectionsDestroyRequestV1: TwitterAPIRequest {
         "/1.1/collections/destroy.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["id"] = id
         return params
@@ -34,7 +34,4 @@ open class PostCollectionsDestroyRequestV1: TwitterAPIRequest {
         self.id = id
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

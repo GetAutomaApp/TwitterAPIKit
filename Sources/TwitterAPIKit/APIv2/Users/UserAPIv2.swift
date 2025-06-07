@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class UserAPIv2: TwitterAPIBase {
+public struct UserAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
     public func getUser(
         _ request: GetUserRequestV2
@@ -44,7 +53,4 @@ open class UserAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

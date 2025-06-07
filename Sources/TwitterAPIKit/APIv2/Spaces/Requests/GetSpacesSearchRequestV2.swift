@@ -9,8 +9,8 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
-open class GetSpacesSearchRequestV2: TwitterAPIRequest {
-    public enum State: String {
+public struct GetSpacesSearchRequestV2: TwitterAPIRequest {
+    public enum State: String, Sendable {
         case all
         case live
         case scheduled
@@ -34,7 +34,7 @@ open class GetSpacesSearchRequestV2: TwitterAPIRequest {
         "/2/spaces/search"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["query"] = query
         expansions?.bind(param: &params)
@@ -61,7 +61,4 @@ open class GetSpacesSearchRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

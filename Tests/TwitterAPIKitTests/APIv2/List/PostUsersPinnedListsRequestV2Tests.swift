@@ -28,7 +28,4 @@ internal class PostUsersPinnedListsRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

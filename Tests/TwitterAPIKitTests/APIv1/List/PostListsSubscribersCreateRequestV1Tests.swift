@@ -41,7 +41,4 @@ internal class PostListsSubscribersCreateRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

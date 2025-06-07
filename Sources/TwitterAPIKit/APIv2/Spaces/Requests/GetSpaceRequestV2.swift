@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
-open class GetSpaceRequestV2: TwitterAPIRequest {
+public struct GetSpaceRequestV2: TwitterAPIRequest {
     public let id: String
     public let expansions: Set<TwitterSpaceExpansionsV2>?
     public let spaceFields: Set<TwitterSpaceFieldsV2>?
@@ -24,7 +24,7 @@ open class GetSpaceRequestV2: TwitterAPIRequest {
         "/2/spaces/\(id)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         spaceFields?.bind(param: &params)
@@ -47,7 +47,4 @@ open class GetSpaceRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

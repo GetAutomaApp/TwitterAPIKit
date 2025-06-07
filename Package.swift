@@ -18,7 +18,7 @@ import PackageDescription
 internal let package = Package(
     name: "TwitterAPIKit",
     platforms: [
-        .macOS(.v10_14),
+        .macOS(.v15),
         .iOS(.v12),
         .tvOS(.v12),
         .watchOS(.v6),

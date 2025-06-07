@@ -8,11 +8,11 @@
 
 import Foundation
 
-internal protocol TwitterAPISessionDelegatedJSONTaskDelegate: AnyObject {
+internal protocol TwitterAPISessionDelegatedJSONTaskDelegate: AnyObject, Sendable {
     func didFinishQueueInJsonTask(task: TwitterAPISessionDelegatedJSONTask)
 }
 
-public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, TwitterAPISessionDelegatedTask {
+public struct TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, TwitterAPISessionDelegatedTask {
     public var taskIdentifier: Int {
         task.taskIdentifier
     }
@@ -53,23 +53,15 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         taskQueue.suspend()
     }
 
-    deinit {
-        // EXC_BAD_INSTRUCTION will occur if the Dispatch Queue is released while suspended.
-        if !completed {
-            taskQueue.resume()
-        }
-    }
-
-    public func append(chunk: Data) {
+    public mutating func append(chunk: Data) {
         dataChunk.append(chunk)
     }
 
-    public func complete(error: Error?) {
+    public mutating func complete(error: Error?) {
         self.error = error
         completed = true
 
-        group.notify(queue: taskQueue) { [weak self] in
-            guard let self else { return }
+        group.notify(queue: taskQueue) { [self] in
             delegate?.didFinishQueueInJsonTask(task: self)
         }
         taskQueue.resume()
@@ -124,13 +116,11 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
         response block: @escaping ((TwitterAPIResponse<T>) -> Void)
     ) -> Self {
         group.enter()
-        taskQueue.async { [weak self] in
-            guard let self else { return }
+        taskQueue.async { [self] in
 
             let response = getResponse().flatMap(transform)
 
-            queue.async { [weak self] in
-                guard let self else { return }
+            queue.async { [self] in
                 block(response)
                 group.leave()
             }
@@ -150,16 +140,16 @@ public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, Twit
 
     public func responseObject(
         queue: DispatchQueue,
-        _ block: @escaping (TwitterAPIResponse<Any>) -> Void
+        _ block: @escaping (TwitterAPIResponse<Data>) -> Void
     ) -> Self {
         registerResponseBlock(
             queue: queue,
-            flatMap: { $0.serialize() },
+            flatMap: { $0.serialize() } ,
             response: block
         )
     }
 
-    public func responseObject(_ block: @escaping (TwitterAPIResponse<Any>) -> Void) -> Self {
+    public func responseObject(_ block: @escaping (TwitterAPIResponse<Data>) -> Void) -> Self {
         responseObject(queue: .main, block)
     }
 

@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/post-lists-update
-open class PostListsUpdateRequestV1: TwitterAPIRequest {
+public struct PostListsUpdateRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
     public let name: String?
     public let mode: TwitterListModeV1?
@@ -25,7 +25,7 @@ open class PostListsUpdateRequestV1: TwitterAPIRequest {
         "/1.1/lists/update.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         list.bind(param: &params)
         name.map { params["name"] = $0 }
@@ -46,7 +46,4 @@ open class PostListsUpdateRequestV1: TwitterAPIRequest {
         self.description = description
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

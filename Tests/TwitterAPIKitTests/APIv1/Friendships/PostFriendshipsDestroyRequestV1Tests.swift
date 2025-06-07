@@ -40,7 +40,4 @@ internal class PostFriendshipsDestroyRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

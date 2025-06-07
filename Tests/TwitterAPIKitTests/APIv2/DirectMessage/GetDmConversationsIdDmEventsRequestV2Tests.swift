@@ -53,7 +53,4 @@ internal class GetDmConversationsIdDmEventsRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

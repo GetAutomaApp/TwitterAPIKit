@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class StreamAPIv2: TwitterAPIBase {
+public struct StreamAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/
     /// api-reference/get-tweets-sample-stream
@@ -45,7 +54,4 @@ open class StreamAPIv2: TwitterAPIBase {
         session.send(streamRequest: request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

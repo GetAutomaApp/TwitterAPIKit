@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
-open class GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
+public struct GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
     public let query: String
     public let endTime: Date?
     public let granularity: TweetCountGranularityV2?
@@ -25,7 +25,7 @@ open class GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
         "/2/tweets/counts/recent"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["query"] = query
         endTime?.bind(param: &params, for: "end_time")
@@ -52,7 +52,4 @@ open class GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
         self.untilID = untilID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

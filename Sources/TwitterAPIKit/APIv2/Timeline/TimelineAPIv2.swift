@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class TimelineAPIv2: TwitterAPIBase {
+public struct TimelineAPIv2: Sendable {
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/
     /// api-reference/get-users-id-tweets
@@ -37,7 +46,4 @@ open class TimelineAPIv2: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/developer-utilities/
 /// rate-limit-status/api-reference/get-application-rate_limit_status
-open class GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
+public struct GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
     public let resources: [String]?
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
         "/1.1/application/rate_limit_status.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         resources.map { params["resources"] = $0.joined(separator: ",") }
         return params
@@ -34,7 +34,4 @@ open class GetApplicationRateLimitStatusRequestV1: TwitterAPIRequest {
         self.resources = resources
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

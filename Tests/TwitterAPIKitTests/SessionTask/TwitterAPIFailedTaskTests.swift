@@ -100,7 +100,4 @@ internal class TwitterAPIFailedTaskTests: XCTestCase {
         wait(for: [exp], timeout: 10)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

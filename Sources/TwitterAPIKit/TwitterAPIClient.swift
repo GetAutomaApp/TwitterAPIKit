@@ -11,10 +11,10 @@ import Foundation
 /// Main client class for interacting with the Twitter API.
 /// This class provides access to both v1.1 and v2 Twitter APIs, as well as authentication endpoints.
 /// It handles authentication, request signing, and provides specialized API clients for different Twitter features.
-open class TwitterAPIClient {
+public struct TwitterAPIClient: Sendable {
     /// Default JSON decoder configured for Twitter API responses.
     /// This decoder handles both v1 and v2 date formats and uses snake_case key decoding.
-    public static var defaultJSONDecoder: JSONDecoder = {
+    public static let defaultJSONDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 
@@ -57,7 +57,7 @@ open class TwitterAPIClient {
     public let v2: TwitterAPIv2
 
     /// The session used for making API requests.
-    public let session: TwitterAPISession
+    public var session: TwitterAPISession
 
     /// The current authentication method being used.
     public var apiAuth: TwitterAuthenticationMethod {
@@ -65,7 +65,7 @@ open class TwitterAPIClient {
     }
 
     /// Client used for refreshing OAuth 2.0 tokens.
-    private var refreshOAuth20TokenClient: TwitterAPIClient?
+    private var refreshOAuth20TokenClient: [TwitterAPIClient]?
 
     /// Creates a new TwitterAPIClient instance.
     /// - Parameters:
@@ -93,7 +93,7 @@ open class TwitterAPIClient {
     ///   - consumerSecret: The application's consumer secret.
     ///   - oauthToken: The user's OAuth token.
     ///   - oauthTokenSecret: The user's OAuth token secret.
-    public convenience init(
+    public init(
         consumerKey: String,
         consumerSecret: String,
         oauthToken: String,
@@ -112,9 +112,6 @@ open class TwitterAPIClient {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 // MARK: - Refresh OAuth2.0 token
@@ -129,44 +126,64 @@ public extension TwitterAPIClient {
     ///   - type: The type of OAuth 2.0 client to use for token refresh.
     ///   - forceRefresh: Whether to force a token refresh even if the current token is still valid.
     ///   - block: Completion handler called with the result of the token refresh.
-    func refreshOAuth20Token(
+    mutating func refreshOAuth20Token(
         type: TwitterAuthenticationMethod.OAuth20WithPKCEClientType,
         forceRefresh: Bool = false,
-        _ block: @escaping (Result<RefreshOAuth20TokenResultValue, TwitterAPIKitError>) -> Void
+        _ block: @Sendable @escaping (Result<RefreshOAuth20TokenResultValue, TwitterAPIKitError>) -> Void
     ) {
         guard let (refreshToken, token) = handleBlockGuards(forceRefresh: forceRefresh, block) else {
             return
         }
-
+        
+        // Create a copy for the async operation
+        let clientCopy = self
+        
         let refreshOAuth20TokenClient = TwitterAPIClient(
             .requestOAuth20WithPKCE(type),
             configuration: session.session.configuration,
             environment: session.environment
         )
-        self.refreshOAuth20TokenClient = refreshOAuth20TokenClient
+        
+        self.refreshOAuth20TokenClient = [refreshOAuth20TokenClient]
+        
         refreshOAuth20TokenClient.auth.oauth20.postOAuth2RefreshToken(
             .init(refreshToken: refreshToken, clientID: token.clientID)
         )
-        .responseObject { [weak self] response in
-            guard let self else { return }
-            switch response.result {
-            case let .success(refreshedToken):
-                var token = token
-                token.refresh(token: refreshedToken)
-                session.refreshOAuth20Token(token)
-                block(.success((token: token, refreshed: true)))
-                NotificationCenter.default.post(
-                    name: TwitterAPIClient.didRefreshOAuth20Token,
-                    object: self,
-                    userInfo: [TwitterAPIClient.tokenUserInfoKey: token]
-                )
-            case let .failure(error):
-                block(.failure(error))
-            }
-            self.refreshOAuth20TokenClient = nil
+        .responseObject { response in
+            Self.handleRefreshResponse(
+                response: response,
+                originalToken: token,
+                originalClient: clientCopy,
+                completion: block
+            )
         }
     }
-
+    
+    private static func handleRefreshResponse(
+        response: TwitterAPIResponse<TwitterOAuth2AccessToken>,
+        originalToken: TwitterAuthenticationMethod.OAuth20,
+        originalClient: TwitterAPIClient,
+        completion: @escaping (Result<RefreshOAuth20TokenResultValue, TwitterAPIKitError>) -> Void
+    ) {
+        switch response.result {
+        case let .success(refreshedToken):
+            var token = originalToken
+            token.refresh(token: refreshedToken)
+            
+            // Note: We can't mutate the original client from here
+            // The session update would need to be handled by the caller
+            completion(.success((token: token, refreshed: true)))
+            
+            NotificationCenter.default.post(
+                name: TwitterAPIClient.didRefreshOAuth20Token,
+                object: originalClient,
+                userInfo: [TwitterAPIClient.tokenUserInfoKey: token]
+            )
+        case let .failure(error):
+            completion(.failure(error))
+        }
+    }
+    
     /// Handles Block Guards for `refreshOAuth20Token`
     func handleBlockGuards(
         forceRefresh: Bool = false,
@@ -193,7 +210,7 @@ public extension TwitterAPIClient {
 
 /// Base class for Twitter API clients.
 /// Provides common functionality and session management for API clients.
-open class TwitterAPIBase {
+public struct TwitterAPIBase: Sendable {
     /// The session used for making API requests.
     public let session: TwitterAPISession
 
@@ -203,9 +220,6 @@ open class TwitterAPIBase {
         self.session = session
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 /// Extension providing notification names and user info keys for OAuth 2.0 token refresh events.

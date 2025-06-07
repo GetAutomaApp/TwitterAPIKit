@@ -263,8 +263,5 @@ internal class TwitterAPIRequestTests: XCTestCase {
         }
     }
 
-    deinit {
-        // De-init logic here
-    }
 }
 // swiftlint:enable force_cast force_unwrapping

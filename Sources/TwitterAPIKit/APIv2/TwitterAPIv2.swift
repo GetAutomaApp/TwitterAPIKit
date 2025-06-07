@@ -13,7 +13,7 @@ import Foundation
 /// Main class for interacting with Twitter API v2 endpoints.
 /// This class provides access to various API modules for different Twitter functionalities.
 /// Each property represents a specialized API client for specific Twitter features.
-open class TwitterAPIv2 {
+public struct TwitterAPIv2: Sendable {
     /// Client for managing block and mute relationships between users.
     public let blockAndMute: BlockAndMuteAPIv2
 
@@ -79,13 +79,10 @@ open class TwitterAPIv2 {
         dm = .init(session: session)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 /// Protocol defining parameters that can be used in Twitter API v2 requests.
-public protocol TwitterAPIv2RequestParameter {
+public protocol TwitterAPIv2RequestParameter: Sendable {
     /// The string representation of the parameter value.
     var stringValue: String { get }
 }

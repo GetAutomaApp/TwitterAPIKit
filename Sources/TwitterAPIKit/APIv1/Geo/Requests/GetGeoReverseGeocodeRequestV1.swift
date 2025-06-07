@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/places-near-location/api-reference/get-geo-reverse_geocode
-open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
+public struct GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
     public let location: TwitterCoordinateV1
     public let accuracy: TwitterAccuracyV1?
     public let maxResults: Int?
@@ -23,7 +23,7 @@ open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
         "/1.1/geo/reverse_geocode.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         location.bind(param: &params)
         accuracy?.bind(param: &params)
@@ -44,7 +44,4 @@ open class GetGeoReverseGeocodeRequestV1: TwitterAPIRequest {
         self.granularity = granularity
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

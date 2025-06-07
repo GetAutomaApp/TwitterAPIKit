@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/get-friendships-lookup
-open class GetFriendshipsLookupRequestV1: TwitterAPIRequest {
+public struct GetFriendshipsLookupRequestV1: TwitterAPIRequest {
     public let users: TwitterUsersIdentifierV1
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class GetFriendshipsLookupRequestV1: TwitterAPIRequest {
         "/1.1/friendships/lookup.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         users.bind(param: &params)
         return params
@@ -34,7 +34,4 @@ open class GetFriendshipsLookupRequestV1: TwitterAPIRequest {
         self.users = users
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

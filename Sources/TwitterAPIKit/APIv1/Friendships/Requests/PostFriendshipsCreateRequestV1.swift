@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// follow-search-get-users/api-reference/post-friendships-create
-open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
+public struct PostFriendshipsCreateRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let follow: Bool?
 
@@ -23,7 +23,7 @@ open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
         "/1.1/friendships/create.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         follow.map { params["follow"] = $0 }
@@ -38,7 +38,4 @@ open class PostFriendshipsCreateRequestV1: TwitterAPIRequest {
         self.follow = follow
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

@@ -50,7 +50,4 @@ internal class GetStatusesShowRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

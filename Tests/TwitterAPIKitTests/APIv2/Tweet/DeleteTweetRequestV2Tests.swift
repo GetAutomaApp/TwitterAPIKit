@@ -18,7 +18,4 @@ internal class DeleteTweetRequestV2Tests: XCTestCase {
         XCTAssertTrue(request.parameters.isEmpty)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

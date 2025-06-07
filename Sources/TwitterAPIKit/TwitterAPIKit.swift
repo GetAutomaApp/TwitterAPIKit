@@ -33,7 +33,7 @@ public enum TwitterBaseURLType {
 
 /// Configuration for Twitter API endpoints.
 /// This struct defines the base URLs used for different Twitter API services.
-public struct TwitterAPIEnvironment: TwitterAPIKit {
+public struct TwitterAPIEnvironment: TwitterAPIKit, Sendable {
     /// The base URL for Twitter web services.
     /// Default: "https://twitter.com"
     public let twitterURL: URL

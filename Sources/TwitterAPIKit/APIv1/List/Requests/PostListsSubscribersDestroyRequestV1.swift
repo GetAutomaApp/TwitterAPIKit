@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/post-lists-subscribers-destroy
-open class PostListsSubscribersDestroyRequestV1: TwitterAPIRequest {
+public struct PostListsSubscribersDestroyRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class PostListsSubscribersDestroyRequestV1: TwitterAPIRequest {
         "/1.1/lists/subscribers/destroy.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         list.bind(param: &params)
         return params
@@ -34,7 +34,4 @@ open class PostListsSubscribersDestroyRequestV1: TwitterAPIRequest {
         self.list = list
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

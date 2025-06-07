@@ -23,9 +23,6 @@ internal class CustomListsListRequestV1: GetListsListRequestV1 {
         super.init(user: user, reverse: reverse)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 internal class CapsuledListsListRequestV1: GetListsListRequestV1 {
@@ -33,9 +30,6 @@ internal class CapsuledListsListRequestV1: GetListsListRequestV1 {
         super.init(user: .userID("100"), reverse: true)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 internal class ListRequestV1Tests: XCTestCase {
@@ -66,7 +60,4 @@ internal class ListRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(list.parameters, ["user_id": "100", "reverse": true])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

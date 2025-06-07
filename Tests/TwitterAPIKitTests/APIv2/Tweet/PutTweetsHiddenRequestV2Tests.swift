@@ -18,7 +18,4 @@ internal class PutTweetsHiddenRequestV2Tests: XCTestCase {
         AssertEqualAnyDict(req.parameters, ["hidden": true])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

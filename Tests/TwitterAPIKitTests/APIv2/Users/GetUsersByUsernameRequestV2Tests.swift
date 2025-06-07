@@ -43,7 +43,4 @@ internal class GetUsersByUsernameRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

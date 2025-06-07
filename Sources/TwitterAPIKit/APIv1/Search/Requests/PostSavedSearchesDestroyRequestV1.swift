@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// manage-account-settings/api-reference/post-saved_searches-destroy-id
-open class PostSavedSearchesDestroyRequestV1: TwitterAPIRequest {
+public struct PostSavedSearchesDestroyRequestV1: TwitterAPIRequest {
     public let id: String
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class PostSavedSearchesDestroyRequestV1: TwitterAPIRequest {
         "/1.1/saved_searches/destroy/\(id).json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -32,7 +32,4 @@ open class PostSavedSearchesDestroyRequestV1: TwitterAPIRequest {
         self.id = id
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

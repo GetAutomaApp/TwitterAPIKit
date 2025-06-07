@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// mute-block-report-users/api-reference/post-mutes-users-create
-open class PostMutesUsersCreateRequestV1: TwitterAPIRequest {
+public struct PostMutesUsersCreateRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
 
     public var method: HTTPMethod {
@@ -22,7 +22,7 @@ open class PostMutesUsersCreateRequestV1: TwitterAPIRequest {
         "/1.1/mutes/users/create.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         return params
@@ -34,7 +34,4 @@ open class PostMutesUsersCreateRequestV1: TwitterAPIRequest {
         self.user = user
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

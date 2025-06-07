@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
-open class DeleteUsersLikesRequestV2: TwitterAPIRequest {
+public struct DeleteUsersLikesRequestV2: TwitterAPIRequest {
     /// user ID
     public let id: String
     public let tweetID: String
@@ -22,7 +22,7 @@ open class DeleteUsersLikesRequestV2: TwitterAPIRequest {
         "/2/users/\(id)/likes/\(tweetID)"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
@@ -34,7 +34,4 @@ open class DeleteUsersLikesRequestV2: TwitterAPIRequest {
         self.tweetID = tweetID
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

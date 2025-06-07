@@ -73,7 +73,4 @@ internal class TwitterOAuth2AccessTokenTests: XCTestCase {
         }
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

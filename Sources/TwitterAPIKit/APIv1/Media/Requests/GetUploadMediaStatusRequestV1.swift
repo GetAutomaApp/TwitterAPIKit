@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class GetUploadMediaStatusRequestV1: TwitterAPIRequest {
+public struct GetUploadMediaStatusRequestV1: TwitterAPIRequest {
     public let command: String = "STATUS"
     public let mediaID: String
 
@@ -24,7 +24,7 @@ open class GetUploadMediaStatusRequestV1: TwitterAPIRequest {
         "/1.1/media/upload.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [
             "command": command,
             "media_id": mediaID,
@@ -35,7 +35,4 @@ open class GetUploadMediaStatusRequestV1: TwitterAPIRequest {
         self.mediaID = mediaID
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
-open class GetSpacesByCreatorIDsRequestV2: TwitterAPIRequest {
+public struct GetSpacesByCreatorIDsRequestV2: TwitterAPIRequest {
     public let userIDs: [String]
     public let expansions: Set<TwitterSpaceExpansionsV2>?
     public let spaceFields: Set<TwitterSpaceFieldsV2>?
@@ -24,7 +24,7 @@ open class GetSpacesByCreatorIDsRequestV2: TwitterAPIRequest {
         "/2/spaces/by/creator_ids"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["user_ids"] = userIDs.joined(separator: ",")
         expansions?.bind(param: &params)
@@ -48,7 +48,4 @@ open class GetSpacesByCreatorIDsRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

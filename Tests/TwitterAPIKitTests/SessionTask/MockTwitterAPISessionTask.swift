@@ -32,9 +32,6 @@ internal class MockTwitterAPISessionTask: TwitterAPISessionTask {
         cancelled = true
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }
 
 internal class MockTwitterAPISessionDataTask: MockTwitterAPISessionTask, TwitterAPISessionDataTask {
@@ -76,7 +73,4 @@ internal class MockTwitterAPISessionDataTask: MockTwitterAPISessionTask, Twitter
         responseData(queue: .main, block)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

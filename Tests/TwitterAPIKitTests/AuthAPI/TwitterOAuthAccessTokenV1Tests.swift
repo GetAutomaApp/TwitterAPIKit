@@ -41,7 +41,4 @@ internal class TwitterOAuthAccessTokenV1Tests: XCTestCase {
         XCTAssertNil(TwitterOAuthAccessTokenV1(queryStringData: data))
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

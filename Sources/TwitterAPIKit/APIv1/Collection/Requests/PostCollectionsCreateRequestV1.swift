@@ -11,8 +11,8 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/
 /// curate-a-collection/api-reference/post-collections-create
-open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
-    public enum TimelineOrder: String {
+public struct PostCollectionsCreateRequestV1: TwitterAPIRequest {
+    public enum TimelineOrder: String, Sendable {
         case curationReverseChron = "curation_reverse_chron"
         case tweetChron = "tweet_chron"
         case tweetReverseChron = "tweet_reverse_chron"
@@ -35,7 +35,7 @@ open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
         "/1.1/collections/create.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         params["name"] = name
         url.map { params["url"] = $0 }
@@ -56,7 +56,4 @@ open class PostCollectionsCreateRequestV1: TwitterAPIRequest {
         self.timelineOrder = timelineOrder
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

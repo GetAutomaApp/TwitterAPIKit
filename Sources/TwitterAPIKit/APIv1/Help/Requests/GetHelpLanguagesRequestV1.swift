@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/developer-utilities/
 /// supported-languages/api-reference/get-help-languages
-open class GetHelpLanguagesRequestV1: TwitterAPIRequest {
+public struct GetHelpLanguagesRequestV1: TwitterAPIRequest {
     public var method: HTTPMethod {
         .get
     }
@@ -20,13 +20,10 @@ open class GetHelpLanguagesRequestV1: TwitterAPIRequest {
         "/1.1/help/languages.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
     }
 
     public init() {}
 
-    deinit {
-        // De-init Logic Here
-    }
 }

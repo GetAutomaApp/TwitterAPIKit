@@ -307,7 +307,4 @@ internal class TwitterAPIClientTests: XCTestCase {
         }
     #endif
 
-    deinit {
-        // De-init Logic Here
-    }
 }

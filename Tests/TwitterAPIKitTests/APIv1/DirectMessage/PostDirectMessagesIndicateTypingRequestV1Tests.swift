@@ -21,7 +21,4 @@ internal class PostDirectMessagesIndicateTypingRequestV1Tests: XCTestCase {
         AssertEqualAnyDict(req.parameters, ["recipient_id": "234"])
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

@@ -36,7 +36,4 @@ internal class GetApplicationRateLimitStatusRequestV1Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

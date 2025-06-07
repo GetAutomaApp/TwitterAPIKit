@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-retweets-id
-open class GetRetweetsRequestV1: TwitterAPIRequest {
+public struct GetRetweetsRequestV1: TwitterAPIRequest {
     /// Status ID
     public let id: String
     /// max: 100
@@ -24,7 +24,7 @@ open class GetRetweetsRequestV1: TwitterAPIRequest {
         "/1.1/statuses/retweets/\(id).json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         count.map { params["count"] = $0 }
         trimUser.map { params["trim_user"] = $0 }
@@ -41,7 +41,4 @@ open class GetRetweetsRequestV1: TwitterAPIRequest {
         self.trimUser = trimUser
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

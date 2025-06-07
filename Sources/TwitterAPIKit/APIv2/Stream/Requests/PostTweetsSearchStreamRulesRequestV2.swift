@@ -11,8 +11,8 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/
 /// api-reference/post-tweets-search-stream-rules#Validate
-open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
-    public struct Rule {
+public struct PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
+    public struct Rule: Sendable {
         public let value: String
         public let tag: String?
         public init(value: String, tag: String? = .none) {
@@ -21,7 +21,7 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
         }
     }
 
-    public enum Operation {
+    public enum Operation: Sendable {
         case add([Rule])
         case delete([String] /* rule IDs */ )
     }
@@ -41,13 +41,13 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
         .json
     }
 
-    open var queryParameters: [String: Any] {
+    public var queryParameters: [String: Any] {
         var params = [String: Any]()
         dryRun.map { params["dry_run"] = $0 }
         return params
     }
 
-    open var bodyParameters: [String: Any] {
+    public var bodyParameters: [String: Any] {
         var params = [String: Any]()
 
         switch operation {
@@ -73,7 +73,4 @@ open class PostTweetsSearchStreamRulesRequestV2: TwitterAPIRequest {
         self.dryRun = dryRun
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

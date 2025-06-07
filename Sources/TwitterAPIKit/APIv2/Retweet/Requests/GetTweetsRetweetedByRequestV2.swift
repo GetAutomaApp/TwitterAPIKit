@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
-open class GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
+public struct GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
     /// Tweet ID
     public let id: String
     public let expansions: Set<TwitterUserExpansionsV2>?
@@ -29,7 +29,7 @@ open class GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
         "/2/tweets/\(id)/retweeted_by"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         expansions?.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -64,7 +64,4 @@ open class GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
         self.userFields = userFields
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

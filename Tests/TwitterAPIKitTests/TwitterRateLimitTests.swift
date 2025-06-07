@@ -66,7 +66,4 @@ internal class TwitterRateLimitTests: XCTestCase {
         XCTAssertNil(TwitterRateLimit(header: header3))
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

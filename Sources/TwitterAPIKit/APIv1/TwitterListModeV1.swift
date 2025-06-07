@@ -10,7 +10,7 @@ import Foundation
 
 /// Represents the visibility mode of a Twitter list in API v1.1.
 /// Lists can be either public (visible to all users) or private (visible only to the owner).
-public enum TwitterListModeV1 {
+public enum TwitterListModeV1: Sendable {
     /// The list is private and only visible to its owner.
     case `private`
 

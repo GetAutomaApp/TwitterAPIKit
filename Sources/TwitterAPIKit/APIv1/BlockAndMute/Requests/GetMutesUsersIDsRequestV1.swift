@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// mute-block-report-users/api-reference/get-mutes-users-ids
-open class GetMutesUsersIDsRequestV1: TwitterAPIRequest {
+public struct GetMutesUsersIDsRequestV1: TwitterAPIRequest {
     public let stringifyIDs: Bool?
     public let cursor: String?
 
@@ -23,7 +23,7 @@ open class GetMutesUsersIDsRequestV1: TwitterAPIRequest {
         "/1.1/mutes/users/ids.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         stringifyIDs.map { params["stringify_ids"] = $0 }
         cursor.map { params["cursor"] = $0 }
@@ -38,7 +38,4 @@ open class GetMutesUsersIDsRequestV1: TwitterAPIRequest {
         self.cursor = cursor
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

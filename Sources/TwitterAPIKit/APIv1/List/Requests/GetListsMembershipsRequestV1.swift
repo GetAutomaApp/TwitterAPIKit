@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/get-lists-memberships
-open class GetListsMembershipsRequestV1: TwitterAPIRequest {
+public struct GetListsMembershipsRequestV1: TwitterAPIRequest {
     public let user: TwitterUserIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -25,7 +25,7 @@ open class GetListsMembershipsRequestV1: TwitterAPIRequest {
         "/1.1/lists/memberships.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         user.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -47,7 +47,4 @@ open class GetListsMembershipsRequestV1: TwitterAPIRequest {
         self.filterToOwnedLists = filterToOwnedLists
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

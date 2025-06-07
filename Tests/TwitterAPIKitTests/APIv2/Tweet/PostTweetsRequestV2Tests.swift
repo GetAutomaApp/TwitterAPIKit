@@ -47,7 +47,4 @@ internal class PostTweetsRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

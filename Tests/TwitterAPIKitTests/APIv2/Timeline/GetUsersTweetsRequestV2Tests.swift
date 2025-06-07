@@ -64,7 +64,4 @@ internal class GetUsersTweetsRequestV2Tests: XCTestCase {
         )
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

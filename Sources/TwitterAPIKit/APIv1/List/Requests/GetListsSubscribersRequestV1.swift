@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/
 /// create-manage-lists/api-reference/get-lists-subscribers
-open class GetListsSubscribersRequestV1: TwitterAPIRequest {
+public struct GetListsSubscribersRequestV1: TwitterAPIRequest {
     public let list: TwitterListIdentifierV1
     public let count: Int?
     public let cursor: String?
@@ -26,7 +26,7 @@ open class GetListsSubscribersRequestV1: TwitterAPIRequest {
         "/1.1/lists/subscribers.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         list.bind(param: &params)
         count.map { params["count"] = $0 }
@@ -50,7 +50,4 @@ open class GetListsSubscribersRequestV1: TwitterAPIRequest {
         self.skipStatus = skipStatus
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

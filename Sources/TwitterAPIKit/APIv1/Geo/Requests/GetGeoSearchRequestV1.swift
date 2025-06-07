@@ -9,8 +9,8 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/places-near-location/api-reference/get-geo-search
-open class GetGeoSearchRequestV1: TwitterAPIRequest {
-    public enum Location {
+public struct GetGeoSearchRequestV1: TwitterAPIRequest {
+    public enum Location: Sendable {
         case coordinate(TwitterCoordinateV1)
         case query(String)
         case ip(String)
@@ -38,7 +38,7 @@ open class GetGeoSearchRequestV1: TwitterAPIRequest {
         "/1.1/geo/search.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         location.bind(param: &params)
         maxResults.map { params["max_results"] = $0 }
@@ -56,7 +56,4 @@ open class GetGeoSearchRequestV1: TwitterAPIRequest {
         self.granularity = granularity
     }
 
-    deinit {
-        // de-init logic here
-    }
 }

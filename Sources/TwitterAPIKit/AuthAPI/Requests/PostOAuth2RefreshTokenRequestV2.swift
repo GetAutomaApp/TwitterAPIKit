@@ -9,7 +9,7 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
-open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
+public struct PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
     public let refreshToken: String
     public let grantType: String
     /// Required for Public Client.
@@ -43,7 +43,4 @@ open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
         self.clientID = clientID
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

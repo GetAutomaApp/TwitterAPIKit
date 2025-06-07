@@ -8,7 +8,17 @@
 
 import Foundation
 
-open class GeoAPIv1: TwitterAPIBase {
+public struct GeoAPIv1: Sendable {
+    
+    /// The session used for making API requests.
+    public let session: TwitterAPISession
+    
+    /// Creates a new TwitterAPIBase instance.
+    /// - Parameter session: The session to use for making API requests.
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+    
     /// For more details, see:
     /// https://developer.twitter.com/en/docs/twitter-api/v1/geo/
     /// places-near-location/api-reference/get-geo-reverse_geocode
@@ -36,7 +46,4 @@ open class GeoAPIv1: TwitterAPIBase {
         session.send(request)
     }
 
-    deinit {
-        // De-init Logic Here
-    }
 }

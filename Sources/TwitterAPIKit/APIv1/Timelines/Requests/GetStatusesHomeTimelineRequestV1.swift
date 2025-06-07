@@ -11,7 +11,7 @@ import Foundation
 /// For more details, see:
 /// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/
 /// api-reference/get-statuses-home_timeline
-open class GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
+public struct GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
     public let count: Int?
     public let maxID: String?
     public let sinceID: String?
@@ -27,7 +27,7 @@ open class GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
         "/1.1/statuses/home_timeline.json"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         var params = [String: Any]()
         count.map { params["count"] = $0 }
         maxID.map { params["max_id"] = $0 }
@@ -54,7 +54,4 @@ open class GetStatusesHomeTimelineRequestV1: TwitterAPIRequest {
         self.includeEntities = includeEntities
     }
 
-    deinit {
-        // de-init logic here
-    }
 }
