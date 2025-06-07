@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents different methods of authentication available for Twitter API requests.
-public enum TwitterAuthenticationMethod {
+public enum TwitterAuthenticationMethod: Sendable {
     /// No authentication method specified.
     case basic(apiKey: String, apiSecretKey: String)
 
@@ -43,7 +43,7 @@ public enum TwitterAuthenticationMethod {
 /// Extension containing OAuth-related types and functionality.
 public extension TwitterAuthenticationMethod {
     /// Represents OAuth 1.0a authentication credentials.
-    struct OAuth10a: Codable {
+    struct OAuth10a: Codable, Sendable {
         /// The consumer key (API key) provided by Twitter.
         public var consumerKey: String
 
@@ -76,7 +76,7 @@ public extension TwitterAuthenticationMethod {
     }
 
     /// Represents OAuth 2.0 authentication credentials and state.
-    struct OAuth20: Codable {
+    struct OAuth20: Codable, Sendable {
         /// The client ID provided by Twitter.
         public var clientID: String
 
@@ -169,7 +169,7 @@ public extension TwitterAuthenticationMethod {
     }
 
     /// Represents the client type for OAuth 2.0 with PKCE flow.
-    enum OAuth20WithPKCEClientType {
+    enum OAuth20WithPKCEClientType: Sendable {
         /// A confidential client with client ID and secret.
         case confidentialClient(clientID: String, clientSecret: String)
         /// A public client without a client secret.

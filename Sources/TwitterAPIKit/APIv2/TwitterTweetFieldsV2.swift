@@ -11,7 +11,7 @@ import Foundation
 // https://developer.twitter.com/en/docs/twitter-api/fields
 
 /// tweet.fields
-public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable {
+public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Hashable, Sendable {
     case attachments
     case authorID
     case contextAnnotations

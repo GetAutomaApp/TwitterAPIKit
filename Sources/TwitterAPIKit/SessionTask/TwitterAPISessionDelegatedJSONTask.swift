@@ -12,7 +12,11 @@ internal protocol TwitterAPISessionDelegatedJSONTaskDelegate: AnyObject {
     func didFinishQueueInJsonTask(task: TwitterAPISessionDelegatedJSONTask)
 }
 
-public class TwitterAPISessionDelegatedJSONTask: TwitterAPISessionJSONTask, TwitterAPISessionDelegatedTask {
+public class TwitterAPISessionDelegatedJSONTask:
+    TwitterAPISessionJSONTask,
+    TwitterAPISessionDelegatedTask,
+    @unchecked Sendable
+{
     public var taskIdentifier: Int {
         task.taskIdentifier
     }

@@ -13,7 +13,7 @@ import Foundation
 /// - [Rate Limits Overview](https://developer.twitter.com/en/docs/rate-limits)
 /// - [v1 Rate Limits](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits)
 /// - [v2 Rate Limits](https://developer.twitter.com/en/docs/twitter-api/rate-limits)
-public struct TwitterRateLimit {
+public struct TwitterRateLimit: Sendable {
     /// The maximum number of requests allowed in the current time window.
     public let limit: Int
 

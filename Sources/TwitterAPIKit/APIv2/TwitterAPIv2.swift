@@ -85,7 +85,7 @@ open class TwitterAPIv2 {
 }
 
 /// Protocol defining parameters that can be used in Twitter API v2 requests.
-public protocol TwitterAPIv2RequestParameter {
+public protocol TwitterAPIv2RequestParameter: Sendable {
     /// The string representation of the parameter value.
     var stringValue: String { get }
 }

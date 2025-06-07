@@ -20,7 +20,7 @@ public extension Set where Element: TwitterExpansionsParameterV2 {
     }
 }
 
-public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable {
+public enum TwitterTweetExpansionsV2: TwitterExpansionsParameterV2, Hashable, Sendable {
     case attachmentsMediaKeys
     case attachmentsPollIDs
     case authorID

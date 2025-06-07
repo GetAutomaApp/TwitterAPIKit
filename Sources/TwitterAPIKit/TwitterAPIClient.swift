@@ -14,7 +14,7 @@ import Foundation
 open class TwitterAPIClient {
     /// Default JSON decoder configured for Twitter API responses.
     /// This decoder handles both v1 and v2 date formats and uses snake_case key decoding.
-    public static var defaultJSONDecoder: JSONDecoder = {
+    public static let defaultJSONDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 

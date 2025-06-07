@@ -9,7 +9,7 @@
 import Foundation
 
 /// A generic response type that encapsulates the result of a Twitter API request.
-public struct TwitterAPIResponse<Success> {
+public struct TwitterAPIResponse<Success> : Sendable{
     /// The original URL request that was sent to the Twitter API.
     public let request: URLRequest?
 
