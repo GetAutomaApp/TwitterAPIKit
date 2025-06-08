@@ -70,7 +70,13 @@ open class TwitterAPISession {
 
     // swiftlint:disable:next function_body_length
     private func tryBuildURLRequest(_ request: TwitterAPIRequest) throws -> URLRequest {
+        print("🚀 Building URL Request")
+        print("📝 Method: \(request.method)")
+        print("🔗 Path: \(request.path)")
+        print("📋 Parameters: \(request.parameters)")
+        
         var urlRequest = try request.buildRequest(environment: environment)
+        print("🔗 Built URL: \(urlRequest.url?.absoluteString ?? "nil")")
 
         switch auth {
         case let .oauth(
@@ -79,6 +85,10 @@ open class TwitterAPISession {
             oauthToken: oauthToken,
             oauthTokenSecret: oauthTokenSecret
         ):
+            print("🔐 Using OAuth authentication")
+            print("🔑 Consumer Key: \(consumerKey)")
+            print("🔑 OAuth Token: \(oauthToken ?? "nil")")
+            
             let authHeader = authorizationHeader(
                 for: request.method,
                 url: request.requestURL(for: environment),
@@ -89,8 +99,13 @@ open class TwitterAPISession {
                 oauthTokenSecret: oauthTokenSecret
             )
             urlRequest.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            print("🔐 Set Authorization Header")
 
         case let .oauth10a(oauth10a):
+            print("🔐 Using OAuth 1.0a authentication")
+            print("🔑 Consumer Key: \(oauth10a.consumerKey)")
+            print("🔑 OAuth Token: \(oauth10a.oauthToken ?? "nil")")
+            
             let authHeader = authorizationHeader(
                 for: request.method,
                 url: request.requestURL(for: environment),
@@ -101,13 +116,19 @@ open class TwitterAPISession {
                 oauthTokenSecret: oauth10a.oauthTokenSecret
             )
             urlRequest.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            print("🔐 Set Authorization Header")
 
         case let .oauth20(oauth20):
+            print("🔐 Using OAuth 2.0 authentication")
+            print("🔑 Access Token: \(oauth20.accessToken)")
             urlRequest.setValue("Bearer \(oauth20.accessToken)", forHTTPHeaderField: "Authorization")
+            print("🔐 Set Bearer Token")
 
         case let .requestOAuth20WithPKCE(.confidentialClient(clientID: apiKey, clientSecret: apiSecretKey)),
              let .basic(apiKey: apiKey, apiSecretKey: apiSecretKey):
-
+            print("🔐 Using Basic authentication")
+            print("🔑 API Key: \(apiKey)")
+            
             let credential = "\(apiKey):\(apiSecretKey)"
             guard let credentialData = credential.data(using: .utf8) else {
                 throw TwitterAPIKitError.requestFailed(reason: .cannotEncodeStringToData(string: credential))
@@ -115,13 +136,24 @@ open class TwitterAPISession {
             let credentialBase64 = credentialData.base64EncodedString(options: [])
             let basicAuth = "Basic \(credentialBase64)"
             urlRequest.setValue(basicAuth, forHTTPHeaderField: "Authorization")
+            print("🔐 Set Basic Auth Header")
 
         case let .bearer(token):
+            print("🔐 Using Bearer token authentication")
+            print("🔑 Token: \(token)")
             urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            print("🔐 Set Bearer Token")
 
-        case .none, .requestOAuth20WithPKCE(.publicClient): break
+        case .none, .requestOAuth20WithPKCE(.publicClient): 
+            print("⚠️ No authentication method specified")
+            break
         }
 
+        print("📋 Final Request Headers:")
+        for (key, value) in urlRequest.allHTTPHeaderFields ?? [:] {
+            print("  \(key): \(value)")
+        }
+        
         return urlRequest
     }
 
