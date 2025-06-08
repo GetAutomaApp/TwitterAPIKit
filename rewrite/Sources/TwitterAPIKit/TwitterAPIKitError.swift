@@ -9,34 +9,72 @@
 import Foundation
 
 /// Represents errors that can occur in the Twitter API Kit.
-public enum TwitterAPIKitError: Error, Sendable {
-    /// Represents specific reasons why a request might fail.
-    public enum RequestFailureReason: Sendable {
-        /// Indicates that a string could not be encoded to data.
-        case cannotEncodeStringToData(string: String)
-        /// Indicates that the URL is invalid.
+public enum TwitterAPIKitError: Error {
+    case requestFailed(reason: RequestFailureReason)
+    case responseFailed(reason: ResponseFailureReason)
+    case apiError(TwitterAPIError)
+    
+    public enum RequestFailureReason {
         case invalidURL(url: String)
-        /// Indicates that a parameter is invalid.
+        case cannotEncodeStringToData(string: String)
         case invalidParameter(parameter: String, cause: String)
-        /// Indicates that JSON serialization failed.
         case jsonSerializationFailed(obj: String)
     }
-
-    case requestFailed(reason: RequestFailureReason)
+    
+    public enum ResponseFailureReason {
+        case invalidResponse(response: URLResponse)
+        case unacceptableStatusCode(statusCode: Int, response: HTTPURLResponse)
+        case responseSerializationFailed(reason: String)
+    }
 }
 
-extension TwitterAPIKitError.RequestFailureReason {
-    /// A localized description of the request failure reason.
-    var localizedDescription: String {
-        switch self {
-        case let .cannotEncodeStringToData(string):
-            "Could not encode string to data: \(string)"
-        case let .invalidURL(url):
-            "Invalid URL: \(url)"
-        case let .invalidParameter(parameter, cause):
-            "Invalid parameter '\(parameter)': \(cause)"
-        case let .jsonSerializationFailed(obj):
-            "JSON serialization failed for object: \(obj)"
+/// Represents errors returned by the Twitter API.
+public struct TwitterAPIError: Error, Decodable {
+    public struct ErrorDetail: Decodable {
+        public let message: String
+        public let code: Int
+    }
+
+    public enum ErrorType {
+        case rateLimit
+        case unauthorized
+        case forbidden
+        case notFound
+        case serverError
+        case unknown
+
+        init(from statusCode: Int) {
+            switch statusCode {
+            case 401:
+                self = .unauthorized
+            case 403:
+                self = .forbidden
+            case 404:
+                self = .notFound
+            case 429:
+                self = .rateLimit
+            case 500...599:
+                self = .serverError
+            default:
+                self = .unknown
+            }
         }
+    }
+    
+    public let title: String
+    public let type: String
+    public let status: Int
+    public let detail: String
+    public let errors: [ErrorDetail]?
+    
+    public var errorType: ErrorType {
+        ErrorType(from: status)
+    }
+    
+    public var localizedDescription: String {
+        if let errors = errors, !errors.isEmpty {
+            return errors.map { "Error \($0.code): \($0.message)" }.joined(separator: "\n")
+        }
+        return "\(title): \(detail)"
     }
 }

@@ -81,6 +81,11 @@ func authorizationHeader(
         "oauth_version": oauthVersion
     ]
     
+    // Add query parameters to OAuth parameters for signature - EXACTLY like Python
+    for (key, value) in parameters {
+        oauthParams[key] = String(describing: value)
+    }
+    
     // Generate signature
     let signature = generateOAuthSignature(
         method: method.rawValue,

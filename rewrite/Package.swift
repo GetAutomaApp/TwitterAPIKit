@@ -1,14 +1,12 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 5.9
 
 import PackageDescription
 
 let package = Package(
     name: "TwitterAPIKit",
     platforms: [
-        .macOS(.v15),
-        .iOS(.v12),
-        .tvOS(.v12),
-        .watchOS(.v6),
+        .macOS(.v13),
+        .iOS(.v16)
     ],
     products: [
         .library(
@@ -24,27 +22,21 @@ let package = Package(
             targets: ["GetUserTweetsExample"]
         )
     ],
-    dependencies: [
-        .package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "TwitterAPIKit",
-            dependencies: [
-                .product(name: "Crypto", package: "swift-crypto")
-            ]
-        ),
-        .executableTarget(
-            name: "RetweetExample",
-            dependencies: ["TwitterAPIKit"]
+            dependencies: []
         ),
         .executableTarget(
             name: "PostTweetExample",
-            dependencies: ["TwitterAPIKit"]
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/PostTweetExample"
         ),
         .executableTarget(
             name: "GetUserTweetsExample",
-            dependencies: ["TwitterAPIKit"]
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetUserTweetsExample"
         )
     ]
 )

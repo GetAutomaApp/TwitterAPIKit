@@ -10,23 +10,20 @@ import TwitterAPIKit
 struct RetweetExample {
     static func main() async throws {
         // Twitter API credentials (provided by user)
-        let apiKey = "KebJ7nY7FPcsiMuUkjhMXTUMf"
-        let apiSecret = "zJDH1jlx9WWMT2ekRuYaABX1Zb8JMBpKo2mdn4FaNCYAtBdnKo"
-        let accessToken = "1859607209115619328-R9oNXSPOfI3oMYw1IQOcdIFROOJMKM"
-        let accessTokenSecret = "cxI6j6nG3bNcm1qYUflMKSmSKC5nlVrgKWQJ3r7P4kL0B"
+        let apiKey = "CONSUMER_KEY"
+        let apiSecret = "CONSUMER_KEY_SECRET"
+        let accessToken = "OAUTH_TOKEN"
+        let accessTokenSecret = "OAUTH_SECRET_TOKEN"
+        let userId = "USER_ID"
+        let tweetId = "TWEET_ID"
         
         // Create the environment with your credentials
-        let simpleClient = SimpleTwitterAPISession(
+        let simpleClient = TwitterAPISession(
             consumerKey: apiKey,
             consumerSecret: apiSecret,
             oauthToken: accessToken,
             oauthTokenSecret: accessTokenSecret
         )
-
-        // The ID of the user who is retweeting (must be the authenticated user)
-        let userId = "1859607209115619328" // Replace with your user ID if different
-        // The ID of the tweet you want to retweet
-        let tweetId = "1931427021776908732" // Replace with the tweet ID you want to retweet
         
         do {
             // Create and send the retweet request
