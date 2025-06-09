@@ -1,9 +1,11 @@
-    public enum TwitterReplySettingsV2: String {
-        case mentionedUsers
-        case following
-        case everyone
+import Foundation
 
-        public func bind(param: inout [String: Any]) {
-            param["reply_settings"] = rawValue
-        }
+public enum TwitterReplySettingsV2: String, Decodable, Sendable {
+    case mentionedUsers = "mentioned_users"
+    case following
+    case everyone
+
+    public func bind(param: inout [String: Any]) {
+        param["reply_settings"] = rawValue
     }
+}

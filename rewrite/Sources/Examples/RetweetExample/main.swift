@@ -9,21 +9,16 @@ import TwitterAPIKit
 @main
 struct RetweetExample {
     static func main() async throws {
-        // Twitter API credentials (provided by user)
-        let apiKey = "CONSUMER_KEY"
-        let apiSecret = "CONSUMER_KEY_SECRET"
-        let accessToken = "OAUTH_TOKEN"
-        let accessTokenSecret = "OAUTH_SECRET_TOKEN"
-        let userId = "USER_ID"
-        let tweetId = "TWEET_ID"
-        
         // Create the environment with your credentials
         let simpleClient = TwitterAPISession(
-            consumerKey: apiKey,
-            consumerSecret: apiSecret,
-            oauthToken: accessToken,
-            oauthTokenSecret: accessTokenSecret
+            consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
+            consumerSecret: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? "",
+            oauthToken: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN"] ?? "",
+            oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
         )
+        
+        let userId = ProcessInfo.processInfo.environment["TWITTER_USER_ID"] ?? ""
+        let tweetId = ProcessInfo.processInfo.environment["TWITTER_TWEET_ID"] ?? ""
         
         do {
             // Create and send the retweet request

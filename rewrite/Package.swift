@@ -1,4 +1,5 @@
 // swift-tools-version: 6.1
+// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -6,46 +7,54 @@ let package = Package(
     name: "TwitterAPIKit",
     platforms: [
         .macOS(.v13),
-        .iOS(.v16)
+        .iOS(.v16),
+        .tvOS(.v16),
+        .watchOS(.v9),
     ],
     products: [
         .library(
             name: "TwitterAPIKit",
             targets: ["TwitterAPIKit"]
         ),
-        .executable(
-            name: "PostTweetExample",
-            targets: ["PostTweetExample"]
-        ),
-        .executable(
-            name: "GetUserTweetsExample",
-            targets: ["GetUserTweetsExample"]
-        ),
-        .executable(
-            name: "GetTweetExample",
-            targets: ["GetTweetExample"]
-        )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-crypto.git", from: "3.1.0"),
+    ],
     targets: [
         .target(
             name: "TwitterAPIKit",
-            dependencies: []
+            dependencies: [
+                .product(name: "Crypto", package: "swift-crypto"),
+            ]
+        ),
+        .testTarget(
+            name: "TwitterAPIKitTests",
+            dependencies: ["TwitterAPIKit"]
         ),
         .executableTarget(
-            name: "PostTweetExample",
+            name: "GetUserByIdExample",
             dependencies: ["TwitterAPIKit"],
-            path: "Sources/Examples/PostTweetExample"
+            path: "Sources/Examples/GetUserByIdExample"
         ),
         .executableTarget(
-            name: "GetUserTweetsExample",
+            name: "GetUsersByIdsExample",
             dependencies: ["TwitterAPIKit"],
-            path: "Sources/Examples/GetUserTweetsExample"
+            path: "Sources/Examples/GetUsersByIdsExample"
         ),
         .executableTarget(
-            name: "GetTweetExample",
+            name: "GetUserByUsernameExample",
             dependencies: ["TwitterAPIKit"],
-            path: "Sources/Examples/GetTweetExample"
-        )
+            path: "Sources/Examples/GetUserByUsernameExample"
+        ),
+        .executableTarget(
+            name: "GetUsersByUsernamesExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetUsersByUsernamesExample"
+        ),
+        .executableTarget(
+            name: "GetAuthenticatedUserExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetAuthenticatedUserExample"
+        ),
     ]
 )

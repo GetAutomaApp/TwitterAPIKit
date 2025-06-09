@@ -10,16 +10,11 @@ import TwitterAPIKit
 struct GetTweetExample {
     static func main() async throws {
         // Twitter API credentials
-        let apiKey = "CONSUMER_KEY"
-        let apiSecret = "CONSUMER_KEY_SECRET"
-        let accessToken = "OAUTH_TOKEN"
-        let accessTokenSecret = "OAUTH_SECRET_TOKEN"
-        
-        let simpleClient = TwitterAPISession(
-            consumerKey: apiKey,
-            consumerSecret: apiSecret,
-            oauthToken: accessToken,
-            oauthTokenSecret: accessTokenSecret
+        let client = TwitterAPISession(
+            consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
+            consumerSecret: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? "",
+            oauthToken: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN"] ?? "",
+            oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
         )
 
         let tweetId = "1931427021776908732"
@@ -44,7 +39,7 @@ struct GetTweetExample {
                 ]
             )
             
-            let response = try await simpleClient.send(request)
+            let response = try await client.send(request)
             
             print("Successfully retrieved tweet!")
             print("Tweet ID: \(response.data.id)")

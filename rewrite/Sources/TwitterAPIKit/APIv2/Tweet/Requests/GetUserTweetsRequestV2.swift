@@ -134,7 +134,7 @@ public struct GetUserTweetsRequestV2: TwitterAPIRequest {
     }
 }
 
-public enum TweetExclusion: String, TwitterAPIv2RequestParameter, Sendable {
+public enum TweetExclusion: String, TwitterExpansionsParameterV2, Sendable {
     case replies
     case retweets
     
