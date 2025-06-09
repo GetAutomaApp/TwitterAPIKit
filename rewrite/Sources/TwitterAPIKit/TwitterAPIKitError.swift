@@ -14,14 +14,14 @@ public enum TwitterAPIKitError: Error {
     case responseFailed(reason: ResponseFailureReason)
     case apiError(TwitterAPIError)
     
-    public enum RequestFailureReason {
+    public enum RequestFailureReason: Sendable {
         case invalidURL(url: String)
         case cannotEncodeStringToData(string: String)
         case invalidParameter(parameter: String, cause: String)
         case jsonSerializationFailed(obj: String)
     }
     
-    public enum ResponseFailureReason {
+    public enum ResponseFailureReason: Sendable {
         case invalidResponse(response: URLResponse)
         case unacceptableStatusCode(statusCode: Int, response: HTTPURLResponse)
         case responseSerializationFailed(reason: String)
@@ -30,11 +30,6 @@ public enum TwitterAPIKitError: Error {
 
 /// Represents errors returned by the Twitter API.
 public struct TwitterAPIError: Error, Decodable {
-    public struct ErrorDetail: Decodable {
-        public let message: String
-        public let code: Int
-    }
-
     public enum ErrorType {
         case rateLimit
         case unauthorized
@@ -65,16 +60,12 @@ public struct TwitterAPIError: Error, Decodable {
     public let type: String
     public let status: Int
     public let detail: String
-    public let errors: [ErrorDetail]?
     
     public var errorType: ErrorType {
         ErrorType(from: status)
     }
     
     public var localizedDescription: String {
-        if let errors = errors, !errors.isEmpty {
-            return errors.map { "Error \($0.code): \($0.message)" }.joined(separator: "\n")
-        }
-        return "\(title): \(detail)"
+        return "(\(status)) \(title): \(detail) \(errorType)"
     }
 }

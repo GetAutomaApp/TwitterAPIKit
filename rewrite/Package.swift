@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.1
 
 import PackageDescription
 
@@ -20,6 +20,10 @@ let package = Package(
         .executable(
             name: "GetUserTweetsExample",
             targets: ["GetUserTweetsExample"]
+        ),
+        .executable(
+            name: "GetTweetExample",
+            targets: ["GetTweetExample"]
         )
     ],
     dependencies: [],
@@ -37,6 +41,11 @@ let package = Package(
             name: "GetUserTweetsExample",
             dependencies: ["TwitterAPIKit"],
             path: "Sources/Examples/GetUserTweetsExample"
+        ),
+        .executableTarget(
+            name: "GetTweetExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetExample"
         )
     ]
 )

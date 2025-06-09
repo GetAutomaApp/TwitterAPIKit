@@ -4,18 +4,10 @@ import TwitterAPIKit
 @main
 struct GetUserTweetsExample {
     static func main() async throws {
-        // Your Twitter API credentials
-        // let apiKey = "CONSUMER_KEY"
-        // let apiSecret = "CONSUMER_KEY_SECRET"
-        // let accessToken = "OAUTH_TOKEN"
-        // let accessTokenSecret = "OAUTH_SECRET_TOKEN"
-        // let userId = "USER_ID"
-
-        let apiKey = "KebJ7nY7FPcsiMuUkjhMXTUMf"
-        let apiSecret = "zJDH1jlx9WWMT2ekRuYaABX1Zb8JMBpKo2mdn4FaNCYAtBdnKo"
-        let accessToken = "1859607209115619328-R9oNXSPOfI3oMYw1IQOcdIFROOJMKM"
-        let accessTokenSecret = "cxI6j6nG3bNcm1qYUflMKSmSKC5nlVrgKWQJ3r7P4kL0B"
-        let userId = "1859607209115619328"
+        let apiKey = "CONSUMER_KEY"
+        let apiSecret = "CONSUMER_KEY_SECRET"
+        let accessToken = "OAUTH_TOKEN"
+        let accessTokenSecret = "OAUTH_SECRET_TOKEN"
 
         // Create the environment with your credentials
         let simpleClient = TwitterAPISession(
