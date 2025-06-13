@@ -70,9 +70,12 @@ public struct GetUserTweetsResponseV2: Decodable, Sendable {
     }
 }
 
-// You can request more custom fields from twitter.
-// If you'd like any of these fields, please make a PR
-// https://docs.x.com/x-api/posts/user-posts-timeline-by-user-id
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request retrieves a user's recent tweets by their user ID.
+/// The response includes a paginated list of tweets with their content, metrics,
+/// and can be expanded to include additional fields like author information,
+/// referenced tweets, and more.
 public struct GetUserTweetsRequestV2: TwitterAPIRequest {
     public typealias Response = GetUserTweetsResponseV2
     

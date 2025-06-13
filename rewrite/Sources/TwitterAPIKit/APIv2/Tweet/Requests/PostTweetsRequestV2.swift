@@ -9,6 +9,11 @@ public struct PostTweetsResponseV2: Decodable, Sendable {
     public let data: Data
 }
 
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request creates a new tweet with the specified text content.
+/// The response includes the newly created tweet's ID and content.
+/// Note: This endpoint requires OAuth 1.0a User Context authentication.
 public struct PostTweetsRequestV2: TwitterAPIRequest {
     public typealias Response = PostTweetsResponseV2
 

@@ -1,6 +1,10 @@
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request retrieves a single user's profile information by their Twitter username.
+/// The response includes the user's basic profile data and can be expanded to include
+/// additional fields like pinned tweets, profile images, and more.
 public struct GetUsersByUsernameRequestV2: TwitterAPIRequest {
     public typealias Response = TwitterUserResponseV2
     

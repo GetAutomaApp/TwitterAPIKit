@@ -1,6 +1,10 @@
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request retrieves multiple users' profile information by their Twitter IDs.
+/// The response includes each user's basic profile data and can be expanded to include
+/// additional fields like pinned tweets, profile images, and more.
 public struct GetUsersRequestV2: TwitterAPIRequest {
     public typealias Response = TwitterUsersResponseV2
     

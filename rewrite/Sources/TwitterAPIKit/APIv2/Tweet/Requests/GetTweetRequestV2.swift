@@ -8,7 +8,11 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request retrieves a single tweet by its ID.
+/// The response includes the tweet's content, metrics, and can be expanded to include
+/// additional fields like author information, referenced tweets, and more.
 public struct GetTweetRequestV2: TwitterAPIRequest {
     public typealias Response = TwitterTweetResponseV2
 
