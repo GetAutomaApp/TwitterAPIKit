@@ -56,5 +56,20 @@ let package = Package(
             dependencies: ["TwitterAPIKit"],
             path: "Sources/Examples/GetAuthenticatedUserExample"
         ),
+        .executableTarget(
+            name: "RetweetExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/RetweetExample"
+        ),
+        .executableTarget(
+            name: "GetTweetsCountsAllExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetsCountsAllExample"
+        ),
+        .executableTarget(
+            name: "GetTweetsCountsRecentExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetsCountsRecentExample"
+        ),
     ]
 )

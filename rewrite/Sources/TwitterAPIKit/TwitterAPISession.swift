@@ -10,6 +10,7 @@ public final class TwitterAPISession {
     private let oauthTokenSecret: String
     private let environment: TwitterAPIEnvironment
     private let session: URLSession
+    private let authenticationType: AuthenticationTypes
 
     public init(
         consumerKey: String,
@@ -25,7 +26,27 @@ public final class TwitterAPISession {
         self.oauthTokenSecret = oauthTokenSecret
         self.environment = environment
         self.session = session
+        self.authenticationType = .oauth10a
     }
+
+    /// TODO: Implement OAuth2 authentication
+    /// This is a placeholder for OAuth2 authentication which will be implemented later.
+    /// For now, this method is commented out as a reminder of the task.
+    /*
+    public init(
+        clientId: String,
+        clientSecret: String,
+        accessToken: String,
+        refreshToken: String? = nil
+    ) {
+        // TODO: Implement OAuth2 authentication
+        // This will handle:
+        // - OAuth2 token management
+        // - Token refresh flow
+        // - Access token storage
+        // - Token expiration handling
+    }
+    */
 
     public func send<T: TwitterAPIRequest>(_ request: T, authHeaderOverride: String? = nil) async throws -> T.Response {
         var urlRequest = try request.buildRequest(environment: environment)
