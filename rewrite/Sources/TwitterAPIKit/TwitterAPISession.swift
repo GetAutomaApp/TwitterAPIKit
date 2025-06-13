@@ -40,11 +40,6 @@ public final class TwitterAPISession {
         refreshToken: String? = nil
     ) {
         // TODO: Implement OAuth2 authentication
-        // This will handle:
-        // - OAuth2 token management
-        // - Token refresh flow
-        // - Access token storage
-        // - Token expiration handling
     }
     */
 
