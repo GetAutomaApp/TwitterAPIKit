@@ -1,6 +1,12 @@
 import Foundation
 import TwitterAPIKit
 
+/// Demonstrates how to retrieve multiple users' profiles by their Twitter usernames using Twitter API v2.
+/// This example:
+/// 1. Creates a Twitter API client using environment variables for authentication
+/// 2. Makes a request to fetch multiple users' profiles using their @usernames
+/// 3. Includes expanded data like their pinned tweets
+/// 4. Prints each user's name and username
 @main
 struct GetUsersByUsernamesExample {
     static func main() async throws {

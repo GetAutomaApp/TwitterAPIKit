@@ -6,6 +6,12 @@
 import Foundation
 import TwitterAPIKit
 
+/// Demonstrates how to retrieve a specific tweet and its associated data using Twitter API v2.
+/// This example:
+/// 1. Creates a Twitter API client using environment variables for authentication
+/// 2. Makes a request to fetch a specific tweet by ID
+/// 3. Includes expanded data like author information, metrics, and referenced tweets
+/// 4. Prints the tweet's content, metrics (retweets, likes, replies, quotes), and author details
 @main
 struct GetTweetExample {
     static func main() async throws {

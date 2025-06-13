@@ -1,6 +1,12 @@
 import Foundation
 import TwitterAPIKit
 
+/// Demonstrates how to retrieve a specific user's profile by their Twitter username using Twitter API v2.
+/// This example:
+/// 1. Creates a Twitter API client using environment variables for authentication
+/// 2. Makes a request to fetch a user's profile using their @username
+/// 3. Includes expanded data like their pinned tweet
+/// 4. Prints the user's name, username, and pinned tweet (if one exists)
 @main
 struct GetUserByUsernameExample {
     static func main() async throws {

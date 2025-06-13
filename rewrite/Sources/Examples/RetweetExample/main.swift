@@ -6,6 +6,12 @@
 import Foundation
 import TwitterAPIKit
 
+/// Demonstrates how to retweet a specific tweet using Twitter API v2.
+/// This example:
+/// 1. Creates a Twitter API client using environment variables for authentication
+/// 2. Makes a request to retweet a specific tweet using user ID and tweet ID
+/// 3. Prints confirmation of the retweet action and its status
+/// 4. Includes error handling for failed retweet attempts
 @main
 struct RetweetExample {
     static func main() async throws {

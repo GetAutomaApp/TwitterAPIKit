@@ -6,6 +6,12 @@
 import Foundation
 import TwitterAPIKit
 
+/// Demonstrates how to post a new tweet using Twitter API v2.
+/// This example:
+/// 1. Creates a Twitter API client using environment variables for authentication
+/// 2. Makes a request to create a new tweet with specified text
+/// 3. Prints the newly created tweet's ID and content upon success
+/// 4. Includes error handling for failed tweet creation
 @main
 struct PostTweetExample {
     static func main() async throws {

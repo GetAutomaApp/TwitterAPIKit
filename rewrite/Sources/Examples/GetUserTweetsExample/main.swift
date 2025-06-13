@@ -1,6 +1,13 @@
 import Foundation
 import TwitterAPIKit
 
+/// Demonstrates how to retrieve a user's recent tweets using Twitter API v2.
+/// This example:
+/// 1. Creates a Twitter API client using environment variables for authentication
+/// 2. Makes a request to fetch tweets from a specific user ID
+/// 3. Handles pagination through the user's tweet history
+/// 4. Prints each tweet's ID, text, creation time, and pagination metadata
+/// 5. Includes comprehensive error handling for common API issues
 @main
 struct GetUserTweetsExample {
     static func main() async throws {
