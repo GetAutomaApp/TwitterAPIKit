@@ -136,10 +136,3 @@ public struct GetUserTweetsRequestV2: TwitterAPIRequest {
         self.parameters = params
     }
 }
-
-public enum TweetExclusion: String, TwitterExpansionsParameterV2, Sendable {
-    case replies
-    case retweets
-    
-    public var stringValue: String { rawValue }
-}

@@ -2,61 +2,37 @@
 import Foundation
 import Crypto
 
-/// A simple Twitter API session for direct key-based login (OAuth 1.0a only).
-public final class TwitterAPISession {
-    private let consumerKey: String
-    private let consumerSecret: String
-    private let oauthToken: String
-    private let oauthTokenSecret: String
-    private let environment: TwitterAPIEnvironment
-    private let session: URLSession
-    private let authenticationType: AuthenticationTypes
-
-    public init(
+public enum AuthenticationType: Codable, Sendable {
+    case oauth10a(
         consumerKey: String,
         consumerSecret: String,
         oauthToken: String,
-        oauthTokenSecret: String,
-        environment: TwitterAPIEnvironment = TwitterAPIEnvironment(),
-        session: URLSession = .shared
-    ) {
-        self.consumerKey = consumerKey
-        self.consumerSecret = consumerSecret
-        self.oauthToken = oauthToken
-        self.oauthTokenSecret = oauthTokenSecret
-        self.environment = environment
-        self.session = session
-        self.authenticationType = .oauth10a
-    }
-
-    /// TODO: Implement OAuth2 authentication
-    /// This is a placeholder for OAuth2 authentication which will be implemented later.
-    /// For now, this method is commented out as a reminder of the task.
-    /*
-    public init(
+        oauthTokenSecret: String
+    )
+    case oauth20(
         clientId: String,
         clientSecret: String,
         accessToken: String,
-        refreshToken: String? = nil
-    ) {
-        // TODO: Implement OAuth2 authentication
+        refreshToken: String?
+    )
+}
+
+public final class TwitterAPISession {
+    private let environment: TwitterAPIEnvironment
+
+    private let session: URLSession
+    private let authenticationType: AuthenticationType
+
+    public init(authenticationType: AuthenticationType, environment: TwitterAPIEnvironment = .init(), session: URLSession = .shared) {
+        self.authenticationType = authenticationType
+        self.environment = environment
+        self.session = session
     }
-    */
 
     public func send<T: TwitterAPIRequest>(_ request: T, authHeaderOverride: String? = nil) async throws -> T.Response {
         var urlRequest = try request.buildRequest(environment: environment)
 
-        let authHeader = authorizationHeader(
-            for: request.method,
-            url: request.requestURL(for: environment),
-            parameters: request.parameterForOAuth,
-            consumerKey: consumerKey,
-            consumerSecret: consumerSecret,
-            oauthToken: oauthToken,
-            oauthTokenSecret: oauthTokenSecret
-        )
-
-        urlRequest.setValue(authHeader, forHTTPHeaderField: "Authorization")
+        setAuthHeaderValue(request: &urlRequest, twitterRequest: request)
 
         if request.bodyContentType == .json {
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -82,6 +58,28 @@ public final class TwitterAPISession {
                 print("Raw response (not UTF-8): \(data)")
             }
             throw error
+        }
+    }
+
+    private func setAuthHeaderValue(request: inout URLRequest, twitterRequest: any TwitterAPIRequest) {
+        switch authenticationType {
+        case .oauth10a(let consumerKey, let consumerSecret, let oauthToken, let oauthTokenSecret):
+            let authHeader = authorizationHeader(
+                for: twitterRequest.method,
+                url: twitterRequest.requestURL(for: environment),
+                parameters: twitterRequest.parameterForOAuth,
+                consumerKey: consumerKey,
+                consumerSecret: consumerSecret,
+                oauthToken: oauthToken,
+                oauthTokenSecret: oauthTokenSecret
+            )
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            break
+        case .oauth20(_, _, let accessToken, _):
+            let authHeader = "Bearer \(accessToken)"
+            print(authHeader)
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            break
         }
     }
 }

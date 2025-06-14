@@ -1,7 +1,7 @@
 import Foundation
 import TwitterAPIKit
 
-/// Demonstrates how to retrieve tweet counts across the entire Twitter archive.
+/// Demonstrates how to retrieve tweet counts from the last 7 days.
 /// This example:
 /// 1. Creates a Twitter API client using environment variables for authentication
 /// 2. Makes a request to count tweets matching a search query
@@ -13,10 +13,12 @@ struct GetTweetsCountsAllExample {
     static func main() async throws {
         // Initialize the client with your credentials
         let client = TwitterAPISession(
-            consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
-            consumerSecret: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? "",
-            oauthToken: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN"] ?? "",
-            oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
+            authenticationType: .oauth20(
+                clientId: ProcessInfo.processInfo.environment["TWITTER_CLIENT_ID"] ?? "",
+                clientSecret: ProcessInfo.processInfo.environment["TWITTER_CLIENT_SECRET"] ?? "",
+                accessToken: ProcessInfo.processInfo.environment["TWITTER_ACCESS_TOKEN"] ?? "",
+                refreshToken: nil
+            )
         )
         
         // Create a date formatter for parsing dates
