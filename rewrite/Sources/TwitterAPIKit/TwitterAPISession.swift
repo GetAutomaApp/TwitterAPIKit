@@ -6,8 +6,8 @@ public enum AuthenticationType: Codable, Sendable {
     case oauth10a(
         consumerKey: String,
         consumerSecret: String,
-        oauthToken: String,
-        oauthTokenSecret: String
+        oauthToken: String?,
+        oauthTokenSecret: String?
     )
     case oauth20(
         clientId: String,
@@ -18,7 +18,7 @@ public enum AuthenticationType: Codable, Sendable {
 }
 
 public final class TwitterAPISession {
-    private let environment: TwitterAPIEnvironment
+    public let environment: TwitterAPIEnvironment
 
     private let session: URLSession
     private let authenticationType: AuthenticationType

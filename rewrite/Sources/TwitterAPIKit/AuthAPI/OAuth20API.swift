@@ -8,35 +8,24 @@
 
 import Foundation
 
-open class OAuth20API: TwitterAPIBase {
+public struct OAuth20API {
+    /// Twitter API Session
+    public let session: TwitterAPISession
+
     // MARK: - OAuth 2.0 Bearer Token
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/token
     public func postOAuth2BearerTokenData(
         _ request: PostOAuth2TokenRequestV1
-    ) -> TwitterAPISessionDataTask {
-        session.send(request)
+    ) async throws -> TwitterOAuth2BearerToken {
+        return try await session.send(request)
     }
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/token
     public func postOAuth2BearerToken(
         _ request: PostOAuth2TokenRequestV1
-    ) -> TwitterAPISessionSpecializedTask<TwitterOAuth2BearerToken> {
-        session.send(request)
-            .specialized { data in
-                do {
-                    guard let token = try TwitterOAuth2BearerToken(jsonData: data) else {
-                        throw TwitterAPIKitError.responseSerializeFailed(
-                            reason: .cannotConvert(data: data, toTypeName: "TwitterOAuth2BearerToken")
-                        )
-                    }
-                    return token
-                } catch {
-                    throw TwitterAPIKitError.responseSerializeFailed(
-                        reason: .jsonSerializationFailed(error: error)
-                    )
-                }
-            }
+    ) async throws -> TwitterOAuth2BearerToken {
+        return try await session.send(request)
     }
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/invalidate_bearer_token
@@ -47,8 +36,8 @@ open class OAuth20API: TwitterAPIBase {
     /// https://twittercommunity.com/t/invalidate-bearer-client-application-not-permitted/162761
     public func postInvalidateOAuth2BearerToken(
         _ request: PostOAuth2InvalidateTokenRequestV1
-    ) -> TwitterAPISessionJSONTask {
-        session.send(request)
+    ) async throws -> TwitterAPIError {
+        return try await session.send(request)
     }
 
     // MARK: - OAuth 2.0 Authorization Code Flow with PKCE
@@ -60,37 +49,31 @@ open class OAuth20API: TwitterAPIBase {
 
     public func postOAuth2AccessTokenData(
         _ request: PostOAuth2AccessTokenRequestV2
-    ) -> TwitterAPISessionDataTask {
-        session.send(request)
+    ) async throws -> TwitterOAuth2AccessToken {
+        return try await session.send(request)
     }
 
     public func postOAuth2AccessToken(
         _ request: PostOAuth2AccessTokenRequestV2
-    ) -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken> {
-        postOAuth2AccessTokenData(request)
-            .specialized { try TwitterOAuth2AccessToken.fromResponse(data: $0) }
+    ) async throws -> TwitterOAuth2AccessToken {
+        return try await session.send(request)
     }
 
     public func postOAuth2RefreshTokenData(
         _ request: PostOAuth2RefreshTokenRequestV2
-    ) -> TwitterAPISessionDataTask {
-        session.send(request)
+    ) async throws -> TwitterOAuth2AccessToken {
+        return try await session.send(request)
     }
 
     public func postOAuth2RefreshToken(
         _ request: PostOAuth2RefreshTokenRequestV2
-    ) -> TwitterAPISessionSpecializedTask<TwitterOAuth2AccessToken> {
-        postOAuth2RefreshTokenData(request)
-            .specialized { try TwitterOAuth2AccessToken.fromResponse(data: $0) }
+    ) async throws -> TwitterOAuth2AccessToken {
+        return try await session.send(request)
     }
 
     public func postOAuth2RevokeToken(
         _ request: PostOAuth2RevokeTokenRequestV2
-    ) -> TwitterAPISessionDataTask {
-        session.send(request)
-    }
-
-    deinit {
-        // De-init Logic Here
+    ) async throws -> TwitterAPIError {
+        return try await session.send(request)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 public enum TweetCountGranularityV2: String {
-    case day
+    case dae
     case hour
     case minute
 

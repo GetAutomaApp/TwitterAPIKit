@@ -77,9 +77,12 @@ func authorizationHeader(
         "oauth_nonce": oauthNonce ?? UUID().uuidString,
         "oauth_signature_method": oauthSignatureMethod,
         "oauth_timestamp": oauthTimestamp ?? String(Int(Date().timeIntervalSince1970)),
-        "oauth_token": oauthToken ?? "",
         "oauth_version": oauthVersion
     ]
+
+    if let oauthToken = oauthToken {
+        oauthParams["oauth_token"] = oauthToken
+    }
 
     // Add query parameters to OAuth parameters for signature - EXACTLY like Python
     for (key, value) in parameters {

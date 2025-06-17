@@ -10,7 +10,9 @@ import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/authorization-code
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
-open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
+public struct GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
+    public typealias Response = TwitterAPIError
+    
     public let responseType: String
     public let clientID: String
     public let redirectURI: String
@@ -32,7 +34,7 @@ open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
     }
 
     public var parameters: [String: Any] {
-        var params = [String: String]()
+        var params = [String: Any]()
 
         params["response_type"] = responseType
         params["client_id"] = clientID
@@ -42,6 +44,18 @@ open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
         params["code_challenge_method"] = codeChallengeMethod
         params["scope"] = scopes.joined(separator: " ")
         return params
+    }
+    
+    public var queryParameters: [String: Any] {
+        parameters
+    }
+    
+    public var bodyParameters: [String: Any] {
+        [:]
+    }
+    
+    public var bodyContentType: BodyContentType {
+        .wwwFormUrlEncoded
     }
 
     public init(
@@ -60,9 +74,5 @@ open class GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
         self.codeChallenge = codeChallenge
         self.codeChallengeMethod = codeChallengeMethod
         self.scopes = scopes
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

@@ -24,9 +24,9 @@ struct GetTweetsSearchAllExample {
 
         let request = GetTweetsSearchAllRequestV2(
             query: "TwitterAPIKit",
-            startTime: startTime,
             endTime: endTime,
-            maxResults: 10
+            maxResults: 10,
+            startTime: startTime
         )
 
         do {

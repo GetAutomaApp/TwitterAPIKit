@@ -9,7 +9,9 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
-open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
+public struct PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
+    public typealias Response = TwitterOAuth2AccessToken
+    
     public let refreshToken: String
     public let grantType: String
     /// Required for Public Client.
@@ -24,26 +26,32 @@ open class PostOAuth2RefreshTokenRequestV2: TwitterAPIRequest {
     }
 
     public var parameters: [String: Any] {
-        var params = [String: String]()
-
+        var params = [String: Any]()
         params["refresh_token"] = refreshToken
         params["grant_type"] = grantType
         clientID.map { params["client_id"] = $0 }
-
         return params
+    }
+    
+    public var queryParameters: [String: Any] {
+        [:]
+    }
+    
+    public var bodyParameters: [String: Any] {
+        parameters
+    }
+    
+    public var bodyContentType: BodyContentType {
+        .wwwFormUrlEncoded
     }
 
     public init(
         refreshToken: String,
         grantType: String = "refresh_token",
-        clientID: String? = .none
+        clientID: String? = nil
     ) {
         self.refreshToken = refreshToken
         self.grantType = grantType
         self.clientID = clientID
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

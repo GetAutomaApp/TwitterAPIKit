@@ -106,5 +106,10 @@ let package = Package(
             dependencies: ["TwitterAPIKit"],
             path: "Sources/Examples/PostTweetExample"
         ),
+        .executableTarget(
+            name: "OAuth10aExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/OAuth10aExample"
+        ),
     ]
 )

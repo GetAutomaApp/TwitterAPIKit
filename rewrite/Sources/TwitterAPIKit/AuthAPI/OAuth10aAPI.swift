@@ -8,27 +8,27 @@
 
 import Foundation
 
-open class OAuth10aAPI: TwitterAPIBase {
+public struct OAuth10aAPI {
+    /// Twitter API Session
+    public let session: TwitterAPISession
+
+    public init(session: TwitterAPISession) {
+        self.session = session
+    }
+
     /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
     public func postOAuthRequestTokenData(
         _ request: PostOAuthRequestTokenRequestV1
-    ) -> TwitterAPISessionDataTask {
-        session.send(request)
+    ) async throws ->  TwitterOAuthTokenV1 {
+        let response = try await session.send(request)
+        return response
     }
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
     public func postOAuthRequestToken(
         _ request: PostOAuthRequestTokenRequestV1
-    ) -> TwitterAPISessionSpecializedTask<TwitterOAuthTokenV1> {
-        session.send(request)
-            .specialized { data in
-                guard let token = TwitterOAuthTokenV1(queryStringData: data) else {
-                    throw TwitterAPIKitError.responseSerializeFailed(
-                        reason: .cannotConvert(data: data, toTypeName: "TwitterOAuthTokenV1")
-                    )
-                }
-                return token
-            }
+    ) async throws -> TwitterOAuthTokenV1 {
+        return try await session.send(request) 
     }
 
     /// Create https://developer.twitter.com/en/docs/authentication/api-reference/authorize URL.
@@ -46,33 +46,21 @@ open class OAuth10aAPI: TwitterAPIBase {
     /// https://developer.twitter.com/en/docs/authentication/api-reference/access_token
     public func postOAuthAccessTokenData(
         _ request: PostOAuthAccessTokenRequestV1
-    ) -> TwitterAPISessionDataTask {
-        session.send(request)
+    ) async throws -> TwitterOAuthAccessTokenV1 {
+        return try await session.send(request)
     }
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/access_token
     public func postOAuthAccessToken(
         _ request: PostOAuthAccessTokenRequestV1
-    ) -> TwitterAPISessionSpecializedTask<TwitterOAuthAccessTokenV1> {
-        session.send(request)
-            .specialized { data in
-                guard let token = TwitterOAuthAccessTokenV1(queryStringData: data) else {
-                    throw TwitterAPIKitError.responseSerializeFailed(
-                        reason: .cannotConvert(data: data, toTypeName: "TwitterOAuthAccessTokenV1")
-                    )
-                }
-                return token
-            }
+    ) async throws -> TwitterOAuthAccessTokenV1 {
+        return try await session.send(request)
     }
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/invalidate_access_token
     public func postInvalidateAccessToken(
         _ request: PostOAuthInvalidateTokenRequestV1
-    ) -> TwitterAPISessionJSONTask {
-        session.send(request)
-    }
-
-    deinit {
-        // De-init Logic Here
+    ) async throws -> TwitterAPIError {
+        return try await session.send(request)
     }
 }

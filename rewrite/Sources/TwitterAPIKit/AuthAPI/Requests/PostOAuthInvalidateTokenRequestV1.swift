@@ -9,7 +9,9 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/invalidate_access_token
-open class PostOAuthInvalidateTokenRequestV1: TwitterAPIRequest {
+public struct PostOAuthInvalidateTokenRequestV1: TwitterAPIRequest {
+    public typealias Response = TwitterAPIError
+    
     public var method: HTTPMethod {
         .post
     }
@@ -18,13 +20,21 @@ open class PostOAuthInvalidateTokenRequestV1: TwitterAPIRequest {
         "/1.1/oauth/invalidate_token"
     }
 
-    open var parameters: [String: Any] {
+    public var parameters: [String: Any] {
         [:]
+    }
+    
+    public var queryParameters: [String: Any] {
+        [:]
+    }
+    
+    public var bodyParameters: [String: Any] {
+        parameters
+    }
+    
+    public var bodyContentType: BodyContentType {
+        .wwwFormUrlEncoded
     }
 
     public init() {}
-
-    deinit {
-        // De-init Logic Here
-    }
 }

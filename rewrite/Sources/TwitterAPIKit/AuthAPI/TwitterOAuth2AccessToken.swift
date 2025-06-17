@@ -29,7 +29,7 @@ import Foundation
 
 /// Represents an OAuth 2.0 access token response from Twitter's API.
 /// Contains the access token and associated metadata for both confidential and public clients.
-public struct TwitterOAuth2AccessToken {
+public struct TwitterOAuth2AccessToken: Decodable {
     /// The scopes granted to this access token, as an array of permission strings.
     public let scope: [String]
 
@@ -65,26 +65,5 @@ public struct TwitterOAuth2AccessToken {
         self.expiresIn = expiresIn
         self.accessToken = accessToken
         refreshToken = obj["refresh_token"] as? String
-    }
-}
-
-public extension TwitterOAuth2AccessToken {
-    /// Creates an OAuth 2.0 access token from a Twitter API response.
-    /// - Parameter data: The raw response data from Twitter's OAuth 2.0 token endpoint.
-    /// - Throws: A `TwitterAPIKitError` if parsing fails.
-    /// - Returns: An initialized access token.
-    static func fromResponse(data: Data) throws -> Self {
-        do {
-            guard let token = try TwitterOAuth2AccessToken(jsonData: data) else {
-                throw TwitterAPIKitError.responseSerializeFailed(
-                    reason: .cannotConvert(data: data, toTypeName: "TwitterOAuth2AccessToken")
-                )
-            }
-            return token
-        } catch {
-            throw TwitterAPIKitError.responseSerializeFailed(
-                reason: .jsonSerializationFailed(error: error)
-            )
-        }
     }
 }

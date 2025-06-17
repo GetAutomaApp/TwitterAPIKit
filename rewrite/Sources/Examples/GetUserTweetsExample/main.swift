@@ -13,10 +13,12 @@ struct GetUserTweetsExample {
     static func main() async throws {
         // Create the environment with your credentials
         let simpleClient = TwitterAPISession(
-            consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
-            consumerSecret: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? "",
-            oauthToken: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN"] ?? "",
-            oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
+            authenticationType: .oauth10a(
+                consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
+                consumerSecret: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? "",
+                oauthToken: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN"] ?? "",
+                oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
+            )
         )
 
         // Create request to fetch tweets from your own account
@@ -32,13 +34,13 @@ struct GetUserTweetsExample {
             for tweet in response.data {
                 print("\nTweet ID: \(tweet.id)")
                 print("Text: \(tweet.text)")
-                print("Created at: \(tweet.created_at)")
+                print("Created at: \(tweet.createdAt)")
             }
 
             // Print pagination info
             print("\n📊 Meta Information:")
-            print("Result count: \(response.meta.result_count)")
-            if let nextToken = response.meta.next_token {
+            print("Result count: \(response.meta.resultCount)")
+            if let nextToken = response.meta.nextToken {
                 print("Next token: \(nextToken)")
             }
 
