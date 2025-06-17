@@ -111,5 +111,15 @@ let package = Package(
             dependencies: ["TwitterAPIKit"],
             path: "Sources/Examples/OAuth10aExample"
         ),
+        .executableTarget(
+            name: "OAuth20Example",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/OAuth20Example"
+        ),
+        .executableTarget(
+            name: "OAuth20RefreshExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/OAuth20RefreshExample"
+        ),
     ]
 )

@@ -29,7 +29,7 @@ import Foundation
 
 /// Represents an OAuth 2.0 access token response from Twitter's API.
 /// Contains the access token and associated metadata for both confidential and public clients.
-public struct TwitterOAuth2AccessToken: Decodable {
+public struct TwitterOAuth2AccessToken: Decodable, Sendable {
     /// The scopes granted to this access token, as an array of permission strings.
     public let scope: [String]
 

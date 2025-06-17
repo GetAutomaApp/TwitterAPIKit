@@ -12,6 +12,12 @@ public struct OAuth20API {
     /// Twitter API Session
     public let session: TwitterAPISession
 
+    public init(
+        session: TwitterAPISession
+    ) {
+        self.session = session
+    }
+
     // MARK: - OAuth 2.0 Bearer Token
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/token

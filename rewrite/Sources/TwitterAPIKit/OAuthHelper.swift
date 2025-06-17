@@ -34,19 +34,19 @@ private func generateOAuthSignature(
     // Create parameter string - EXACTLY like Python
     let paramString = sortedParams.map { key, value in
         // Use the same encoding as Python's quote function
-        let encodedKey = key.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? key
-        let encodedValue = value.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? value
+        let encodedKey = key.urlEncoded
+        let encodedValue = value.urlEncoded
         return "\(encodedKey)=\(encodedValue)"
     }.joined(separator: "&")
 
     // Create signature base string - EXACTLY like Python
-    let encodedURL = url.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? url
-    let encodedParamString = paramString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? paramString
+    let encodedURL = url.urlEncoded
+    let encodedParamString = paramString.urlEncoded
     let signatureBase = "\(method)&\(encodedURL)&\(encodedParamString)"
 
     // Create signing key - EXACTLY like Python
-    let encodedConsumerSecret = consumerSecret.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? consumerSecret
-    let encodedTokenSecret = (tokenSecret ?? "").addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? ""
+    let encodedConsumerSecret = consumerSecret.urlEncoded
+    let encodedTokenSecret = (tokenSecret ?? "").urlEncoded
     let signingKey = "\(encodedConsumerSecret)&\(encodedTokenSecret)"
 
     // Generate signature - EXACTLY like Python
@@ -104,8 +104,8 @@ func authorizationHeader(
     // Sort parameters alphabetically and create header - EXACTLY like Python
     let sortedParams = oauthParams.sorted { $0.key < $1.key }
     let headerComponents = sortedParams.map { key, value in
-        let encodedKey = key.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? key
-        let encodedValue = value.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~")) ?? value
+        let encodedKey = key.urlEncoded
+        let encodedValue = value.urlEncoded
         return "\(encodedKey)=\"\(encodedValue)\""
     }
 
