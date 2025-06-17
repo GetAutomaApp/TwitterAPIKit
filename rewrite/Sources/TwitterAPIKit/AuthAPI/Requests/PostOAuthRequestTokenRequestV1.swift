@@ -26,22 +26,11 @@ public struct PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
         "/oauth/request_token"
     }
 
-    public var parameters: [String: Any] {
-        var params = [String: Any]()
-        params["oauth_callback"] = oauthCallback
-        xAuthAccessType.map { params["x_auth_access_type"] = $0 }
-        return params
-    }
-    
-    public var parameterForOAuth: [String: String] {
+    public var parameters: [String: String] {
         var params = [String: String]()
         params["oauth_callback"] = oauthCallback
         xAuthAccessType.map { params["x_auth_access_type"] = $0 }
         return params
-    }
-    
-    public var queryParameters: [String: Any] {
-        [:]
     }
     
     public var bodyParameters: [String: Any] {
@@ -53,8 +42,8 @@ public struct PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
     }
 
     public init(
-        oauthCallback: String,
-        xAuthAccessType: String? = nil
+        oauthCallback: String = "oob",
+        xAuthAccessType: String? = "write"
     ) {
         self.oauthCallback = oauthCallback
         self.xAuthAccessType = xAuthAccessType

@@ -80,8 +80,9 @@ func authorizationHeader(
         "oauth_version": oauthVersion
     ]
 
-    if let oauthToken = oauthToken {
-        oauthParams["oauth_token"] = oauthToken
+    // Only add oauth_token if it's not empty
+    if let token = oauthToken, !token.isEmpty {
+        oauthParams["oauth_token"] = token
     }
 
     // Add query parameters to OAuth parameters for signature - EXACTLY like Python

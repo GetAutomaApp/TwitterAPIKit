@@ -1,4 +1,11 @@
 // TwitterAPISession.swift
+// Copyright (c) 2025 GetAutomaApp
+// All source code and related assets are the property of GetAutomaApp.
+// All rights reserved.
+//
+// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
+// This Package is distributable through a modified version of the MIT License.
+
 import Foundation
 import Crypto
 
@@ -47,6 +54,16 @@ public final class TwitterAPISession {
                 throw errorResponse
             }
 
+            if T.Response.self == TwitterOAuthTokenV1.self {
+                if let token = TwitterOAuthTokenV1(queryStringData: data) {
+                    return token as! T.Response
+                }
+            } else if T.Response.self == TwitterOAuthAccessTokenV1.self {
+                if let token = TwitterOAuthAccessTokenV1(queryStringData: data) {
+                    return token as! T.Response
+                }
+            }
+
             return try JSONDecoder().decode(T.Response.self, from: data)
         } catch let error as TwitterAPIError {
             throw error
@@ -64,6 +81,7 @@ public final class TwitterAPISession {
     private func setAuthHeaderValue(request: inout URLRequest, twitterRequest: any TwitterAPIRequest) {
         switch authenticationType {
         case .oauth10a(let consumerKey, let consumerSecret, let oauthToken, let oauthTokenSecret):
+            // For request token, we only need consumer credentials
             let authHeader = authorizationHeader(
                 for: twitterRequest.method,
                 url: twitterRequest.requestURL(for: environment),

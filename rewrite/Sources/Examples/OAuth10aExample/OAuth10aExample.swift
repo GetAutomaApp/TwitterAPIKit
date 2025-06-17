@@ -9,14 +9,31 @@
 import Foundation
 import TwitterAPIKit
 
+/// This example demonstrates the OAuth 1.0a authentication flow for Twitter API v1.
+/// OAuth 1.0a is used for user authentication, allowing your application to act on behalf of a Twitter user.
+///
+/// The flow consists of three main steps:
+/// 1. Get a request token - This is a temporary token used to start the OAuth process
+/// 2. Get user authorization - The user authorizes your application to access their account
+/// 3. Get an access token - Exchange the request token for a permanent access token
+///
+/// To run this example:
+/// 1. Set your Twitter API credentials as environment variables:
+///    export TWITTER_CONSUMER_KEY="your_consumer_key"
+///    export TWITTER_CONSUMER_SECRET="your_consumer_secret"
+/// 2. Run the example: swift run OAuth10aExample
+/// 3. Open the authorization URL in your browser
+/// 4. Authorize the application
+/// 5. Enter the PIN code from the callback URL
+///
+/// The example will then print your access token and secret, which you can use to make authenticated API calls.
 @main
 struct OAuth10aExample {
     static func main() async {
         do {
-            // Your Twitter API credentials
+            // Get Twitter API credentials from environment variables
             let consumerKey = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? ""
             let consumerSecret = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? ""
-            let callbackURL = "twitter-api-kit-ios-sample://" // Using the same callback scheme as the old code
             
             guard !consumerKey.isEmpty, !consumerSecret.isEmpty else {
                 print("Error: Please set TWITTER_CONSUMER_KEY and TWITTER_CONSUMER_SECRET environment variables")
@@ -27,15 +44,18 @@ struct OAuth10aExample {
             print("Using Consumer Key: \(consumerKey)")
             
             // Step 1: Get request token
+            // This is a temporary token that will be used to start the OAuth process
+            // We only need the consumer key and secret for this step
             print("\nStep 1: Getting request token...")
             let requestToken = try await getRequestToken(
                 consumerKey: consumerKey,
-                consumerSecret: consumerSecret,
-                callbackURL: callbackURL
+                consumerSecret: consumerSecret
             )
             print("Request Token: \(requestToken.oauthToken)")
             
             // Step 2: Get authorization URL
+            // This URL will be opened in the user's browser
+            // The user will authorize your application and get a PIN code
             print("\nStep 2: Getting authorization URL...")
             if let authURL = getAuthorizationURL(
                 consumerKey: consumerKey,
@@ -55,6 +75,8 @@ struct OAuth10aExample {
                 }
                 
                 // Step 3: Get access token
+                // Exchange the request token and verifier for a permanent access token
+                // This token can be used to make authenticated API calls
                 print("\nStep 3: Getting access token...")
                 let accessToken = try await getAccessToken(
                     consumerKey: consumerKey,
@@ -83,26 +105,38 @@ struct OAuth10aExample {
         }
     }
     
+    /// Gets a request token from Twitter's OAuth endpoint.
+    /// This is the first step in the OAuth 1.0a flow.
+    /// - Parameters:
+    ///   - consumerKey: Your Twitter API consumer key
+    ///   - consumerSecret: Your Twitter API consumer secret
+    /// - Returns: A request token that can be used to start the OAuth process
     private static func getRequestToken(
         consumerKey: String,
         consumerSecret: String,
-        callbackURL: String
     ) async throws -> TwitterOAuthTokenV1 {
         // For request token, we only need consumer credentials - NO OAuth tokens
         let session = TwitterAPISession(
             authenticationType: .oauth10a(
                 consumerKey: consumerKey,
                 consumerSecret: consumerSecret,
-                oauthToken: "",  // Empty string for request token
-                oauthTokenSecret: ""  // Empty string for request token secret
+                oauthToken: nil,  // No OAuth token for request token
+                oauthTokenSecret: nil  // No OAuth token secret for request token
             )
         )
         
         let oauthAPI = OAuth10aAPI(session: session)
-        let request = PostOAuthRequestTokenRequestV1(oauthCallback: callbackURL)
+        let request = PostOAuthRequestTokenRequestV1(oauthCallback: "oob", xAuthAccessType: "write")
         return try await oauthAPI.postOAuthRequestToken(request)
     }
     
+    /// Gets the authorization URL that the user needs to visit to authorize your application.
+    /// This is the second step in the OAuth 1.0a flow.
+    /// - Parameters:
+    ///   - consumerKey: Your Twitter API consumer key
+    ///   - consumerSecret: Your Twitter API consumer secret
+    ///   - requestToken: The request token obtained from getRequestToken
+    /// - Returns: The URL that the user needs to visit to authorize your application
     private static func getAuthorizationURL(
         consumerKey: String,
         consumerSecret: String,
@@ -113,8 +147,8 @@ struct OAuth10aExample {
             authenticationType: .oauth10a(
                 consumerKey: consumerKey,
                 consumerSecret: consumerSecret,
-                oauthToken: "",  // Empty string for request token
-                oauthTokenSecret: ""  // Empty string for request token secret
+                oauthToken: nil,  // No OAuth token needed
+                oauthTokenSecret: nil  // No OAuth token secret needed
             )
         )
         
@@ -123,6 +157,14 @@ struct OAuth10aExample {
         return oauthAPI.makeOAuthAuthorizeURL(request)
     }
     
+    /// Exchanges the request token and verifier for a permanent access token.
+    /// This is the final step in the OAuth 1.0a flow.
+    /// - Parameters:
+    ///   - consumerKey: Your Twitter API consumer key
+    ///   - consumerSecret: Your Twitter API consumer secret
+    ///   - requestToken: The request token obtained from getRequestToken
+    ///   - verifier: The verifier obtained from the user's authorization
+    /// - Returns: A permanent access token that can be used to make authenticated API calls
     private static func getAccessToken(
         consumerKey: String,
         consumerSecret: String,
@@ -135,7 +177,7 @@ struct OAuth10aExample {
                 consumerKey: consumerKey,
                 consumerSecret: consumerSecret,
                 oauthToken: requestToken,
-                oauthTokenSecret: ""  // Empty string for request token secret
+                oauthTokenSecret: nil  // No request token secret needed
             )
         )
         
