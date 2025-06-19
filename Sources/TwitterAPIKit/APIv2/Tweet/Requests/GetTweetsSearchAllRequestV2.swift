@@ -8,79 +8,83 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
-open class GetTweetsSearchAllRequestV2: TwitterAPIRequest {
-    public let query: String
-    public let endTime: Date?
-    public let expansions: Set<TwitterTweetExpansionsV2>?
-    public let maxResults: Int?
-    public let mediaFields: Set<TwitterMediaFieldsV2>?
-    public let nextToken: String?
-    public let placeFields: Set<TwitterPlaceFieldsV2>?
-    public let pollFields: Set<TwitterPollFieldsV2>?
-    public let sinceID: String?
-    public let sortOrder: TwitterSearchTweetsSortOrderV2?
-    public let startTime: Date?
-    public let tweetFields: Set<TwitterTweetFieldsV2>?
-    public let untilID: String?
-    public let userFields: Set<TwitterUserFieldsV2>?
-
-    public var method: HTTPMethod {
-        .get
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request searches for tweets across the entire Twitter archive.
+/// The response includes tweet objects with their content and metadata.
+/// Note: This endpoint requires Academic Research access.
+public struct GetTweetsSearchAllRequestV2: TwitterAPIRequest {
+    public typealias Response = TwitterSearchTweetsResponseV2
+    
+    public enum TwitterSearchTweetsSortOrderV2: String {
+        case recency
+        case relevancy
     }
-
-    public var path: String {
-        "/2/tweets/search/all"
-    }
-
-    open var parameters: [String: Any] {
-        var params = [String: Any]()
-        params["query"] = query
-        endTime?.bind(param: &params, for: "end_time")
-        expansions?.bind(param: &params)
-        maxResults.map { params["max_results"] = $0 }
-        mediaFields?.bind(param: &params)
-        nextToken.map { params["next_token"] = $0 }
-        placeFields?.bind(param: &params)
-        pollFields?.bind(param: &params)
-        sinceID.map { params["since_id"] = $0 }
-        sortOrder?.bind(param: &params)
-        startTime?.bind(param: &params, for: "start_time")
-        tweetFields?.bind(param: &params)
-        untilID.map { params["until_id"] = $0 }
-        userFields?.bind(param: &params)
-        return params
-    }
-
+    
+    public let method: HTTPMethod = .get
+    public let path: String = "/2/tweets/search/all"
+    public let parameters: [String: Any]
+    
     public init(
         query: String,
-        endTime: Date? = .none,
-        expansions: Set<TwitterTweetExpansionsV2>? = .none,
-        maxResults: Int? = .none,
-        mediaFields: Set<TwitterMediaFieldsV2>? = .none,
-        nextToken: String? = .none,
-        placeFields: Set<TwitterPlaceFieldsV2>? = .none,
-        pollFields: Set<TwitterPollFieldsV2>? = .none,
-        sinceID: String? = .none,
-        sortOrder: TwitterSearchTweetsSortOrderV2? = .none,
-        startTime: Date? = .none,
-        tweetFields: Set<TwitterTweetFieldsV2>? = .none,
-        untilID: String? = .none,
-        userFields: Set<TwitterUserFieldsV2>? = .none
+        endTime: Date? = nil,
+        expansions: Set<TwitterTweetExpansionsV2>? = nil,
+        maxResults: Int? = nil,
+        mediaFields: Set<TwitterMediaFieldsV2>? = nil,
+        nextToken: String? = nil,
+        placeFields: Set<TwitterPlaceFieldsV2>? = nil,
+        pollFields: Set<TwitterPollFieldsV2>? = nil,
+        sinceID: String? = nil,
+        sortOrder: TwitterSearchTweetsSortOrderV2? = nil,
+        startTime: Date? = nil,
+        tweetFields: Set<TwitterTweetFieldsV2>? = nil,
+        untilID: String? = nil,
+        userFields: Set<TwitterUserFieldsV2>? = nil
     ) {
-        self.query = query
-        self.endTime = endTime
-        self.expansions = expansions
-        self.maxResults = maxResults
-        self.mediaFields = mediaFields
-        self.nextToken = nextToken
-        self.placeFields = placeFields
-        self.pollFields = pollFields
-        self.sinceID = sinceID
-        self.sortOrder = sortOrder
-        self.startTime = startTime
-        self.tweetFields = tweetFields
-        self.untilID = untilID
-        self.userFields = userFields
+        var params: [String: Any] = [
+            "query": query
+        ]
+        
+        if let endTime = endTime {
+            params["end_time"] = ISO8601DateFormatter().string(from: endTime)
+        }
+        if let expansions = expansions {
+            params["expansions"] = expansions.map { $0.stringValue }.joined(separator: ",")
+        }
+        if let maxResults = maxResults {
+            params["max_results"] = maxResults
+        }
+        if let mediaFields = mediaFields {
+            params["media.fields"] = mediaFields.map { $0.stringValue }.joined(separator: ",")
+        }
+        if let nextToken = nextToken {
+            params["next_token"] = nextToken
+        }
+        if let placeFields = placeFields {
+            params["place.fields"] = placeFields.map { $0.stringValue }.joined(separator: ",")
+        }
+        if let pollFields = pollFields {
+            params["poll.fields"] = pollFields.map { $0.stringValue }.joined(separator: ",")
+        }
+        if let sinceID = sinceID {
+            params["since_id"] = sinceID
+        }
+        if let sortOrder = sortOrder {
+            params["sort_order"] = sortOrder.rawValue
+        }
+        if let startTime = startTime {
+            params["start_time"] = ISO8601DateFormatter().string(from: startTime)
+        }
+        if let tweetFields = tweetFields {
+            params["tweet.fields"] = tweetFields.map { $0.stringValue }.joined(separator: ",")
+        }
+        if let untilID = untilID {
+            params["until_id"] = untilID
+        }
+        if let userFields = userFields {
+            params["user.fields"] = userFields.map { $0.stringValue }.joined(separator: ",")
+        }
+        
+        self.parameters = params
     }
 } 

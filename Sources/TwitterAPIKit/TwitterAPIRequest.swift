@@ -95,6 +95,7 @@ extension MultipartFormDataPart: Equatable {
 
 /// Protocol defining the requirements for a Twitter API request.
 public protocol TwitterAPIRequest {
+    associatedtype Response: Decodable
     /// The HTTP method to be used for the request.
     var method: HTTPMethod { get }
 
@@ -151,6 +152,20 @@ public extension TwitterAPIRequest {
     }
 }
 
+// URL encoding extensions
+extension String {
+    var urlEncodedString: String {
+        addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? self
+    }
+}
+
+extension Dictionary where Key == String {
+    var urlEncodedQueryString: String {
+        map { "\($0.key.urlEncodedString)=\(String(describing: $0.value).urlEncodedString)" }
+            .joined(separator: "&")
+    }
+}
+
 // swiftlint:disable function_body_length
 public extension TwitterAPIRequest {
     /// Builds a URL request for the given environment.
@@ -189,11 +204,10 @@ public extension TwitterAPIRequest {
                 }
                 request.httpBody = data
             case .multipartFormData:
-
                 guard let parts = Array(bodyParameters.values) as? [MultipartFormDataPart] else {
                     throw TwitterAPIKitError.requestFailed(
                         reason: .invalidParameter(
-                            parameter: bodyParameters,
+                            parameter: String(describing: bodyParameters),
                             cause: """
                             Parameter must be specified in `MultipartFormDataPart` \
                             for `BodyContentType.multipartFormData`.
@@ -213,20 +227,18 @@ public extension TwitterAPIRequest {
                     String(request.httpBody?.count ?? 0), forHTTPHeaderField: "Content-Length"
                 )
             case .json:
-
                 let param = bodyParameters
                 guard JSONSerialization.isValidJSONObject(param) else {
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: param))
+                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: String(describing: param)))
                 }
                 do {
                     request.httpBody = try JSONSerialization.data(
                         withJSONObject: param, options: []
                     )
                     request.setValue(bodyContentType.rawValue, forHTTPHeaderField: "Content-Type")
-
                 } catch {
                     // This path probably won't pass because it is pre-checked with `isValidJSONObject`.
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: param))
+                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: String(describing: param)))
                 }
             }
         }
@@ -309,5 +321,16 @@ private extension Data {
         } else {
             throw TwitterAPIKitError.requestFailed(reason: .cannotEncodeStringToData(string: string))
         }
+    }
+}
+
+extension URLSession {
+    public func perform<T: TwitterAPIRequest>(
+        _ request: T,
+        environment: TwitterAPIEnvironment
+    ) async throws -> T.Response {
+        let urlRequest = try request.buildRequest(environment: environment)
+        let (data, _) = try await data(for: urlRequest)
+        return try JSONDecoder().decode(T.Response.self, from: data)
     }
 }

@@ -8,46 +8,45 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
-open class GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
-    public let id: String
-    public let expansions: Set<TwitterUserExpansionsV2>?
-    public let maxResults: Int?
-    public let paginationToken: String?
-    public let tweetFields: Set<TwitterTweetFieldsV2>?
-    public let userFields: Set<TwitterUserFieldsV2>?
-
-    public var method: HTTPMethod {
-        .get
-    }
-
-    public var path: String {
-        "/2/tweets/\(id)/retweeted_by"
-    }
-
-    open var parameters: [String: Any] {
-        var params = [String: Any]()
-        expansions?.bind(param: &params)
-        maxResults.map { params["max_results"] = $0 }
-        paginationToken.map { params["pagination_token"] = $0 }
-        tweetFields?.bind(param: &params)
-        userFields?.bind(param: &params)
-        return params
-    }
-
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request retrieves a list of users who have retweeted a specific tweet.
+/// The response includes user objects with their profile information.
+/// Note: This endpoint requires OAuth 1.0a User Context authentication.
+public struct GetTweetsRetweetedByRequestV2: TwitterAPIRequest {
+    public typealias Response = TwitterUsersResponseV2
+    
+    public let method: HTTPMethod = .get
+    public let path: String
+    public let parameters: [String: Any]
+    
     public init(
-        id: String,
-        expansions: Set<TwitterUserExpansionsV2>? = .none,
-        maxResults: Int? = .none,
-        paginationToken: String? = .none,
-        tweetFields: Set<TwitterTweetFieldsV2>? = .none,
-        userFields: Set<TwitterUserFieldsV2>? = .none
+        tweetId: String,
+        expansions: Set<TwitterUserExpansionsV2>? = nil,
+        maxResults: Int? = nil,
+        paginationToken: String? = nil,
+        tweetFields: Set<TwitterTweetFieldsV2>? = nil,
+        userFields: Set<TwitterUserFieldsV2>? = nil
     ) {
-        self.id = id
-        self.expansions = expansions
-        self.maxResults = maxResults
-        self.paginationToken = paginationToken
-        self.tweetFields = tweetFields
-        self.userFields = userFields
+        self.path = "/2/tweets/\(tweetId)/retweeted_by"
+        
+        var params: [String: Any] = [:]
+        if let expansions = expansions {
+            params["expansions"] = expansions.map { $0.stringValue }.joined(separator: ",")
+        }
+        if let maxResults = maxResults {
+            params["max_results"] = maxResults
+        }
+        if let paginationToken = paginationToken {
+            params["pagination_token"] = paginationToken
+        }
+        if let tweetFields = tweetFields {
+            params["tweet.fields"] = tweetFields.map { $0.stringValue }.joined(separator: ",")
+        }
+        if let userFields = userFields {
+            params["user.fields"] = userFields.map { $0.stringValue }.joined(separator: ",")
+        }
+        
+        self.parameters = params
     }
 } 

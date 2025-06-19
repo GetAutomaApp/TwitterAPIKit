@@ -1,45 +1,30 @@
-// PostUsersRetweetsRequestV2.swift
-// Copyright (c) 2025 GetAutomaApp
-// All source code and related assets are the property of GetAutomaApp.
-// All rights reserved.
-//
-// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
-// This Package is distributable through a modified version of the MIT License.
-
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
-open class PostUsersRetweetsRequestV2: TwitterAPIRequest {
-    public let id: String
-    public let tweetID: String
-
-    public var method: HTTPMethod {
-        .post
+public struct PostUsersRetweetsResponseV2: Decodable, Sendable {
+    public struct Data: Decodable, Sendable {
+        public let retweeted: Bool
     }
+    public let data: Data
+}
 
-    public var path: String {
-        "/2/users/\(id)/retweets"
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request creates a retweet of a specific tweet by the authenticated user.
+/// The response includes a confirmation of whether the retweet was successful.
+/// Note: This endpoint requires OAuth 1.0a User Context authentication.
+public struct PostUsersRetweetsRequestV2: TwitterAPIRequest {
+    public typealias Response = PostUsersRetweetsResponseV2
+
+    public let method: HTTPMethod = .post
+    public let path: String
+    public let parameters: [String: Any]
+
+    public init(userId: String, tweetId: String) {
+        self.path = "/2/users/\(userId)/retweets"
+        self.parameters = ["tweet_id": tweetId]
     }
 
     public var bodyContentType: BodyContentType {
         .json
     }
-
-    open var parameters: [String: Any] {
-        var params = [String: Any]()
-        params["tweet_id"] = tweetID
-        return params
-    }
-
-    public init(
-        id: String,
-        tweetID: String
-    ) {
-        self.id = id
-        self.tweetID = tweetID
-    }
-
-    deinit {
-        // de-init logic here
-    }
-}
+} 

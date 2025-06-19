@@ -1,58 +1,42 @@
-// GetTweetsCountsRecentRequestV2.swift
-// Copyright (c) 2025 GetAutomaApp
-// All source code and related assets are the property of GetAutomaApp.
-// All rights reserved.
-//
-// This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
-// This Package is distributable through a modified version of the MIT License.
-
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
-open class GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
-    public let query: String
-    public let endTime: Date?
-    public let granularity: TweetCountGranularityV2?
-    public let sinceID: String?
-    public let startTime: Date?
-    public let untilID: String?
-
-    public var method: HTTPMethod {
-        .get
-    }
-
-    public var path: String {
-        "/2/tweets/counts/recent"
-    }
-
-    open var parameters: [String: Any] {
-        var params = [String: Any]()
-        params["query"] = query
-        endTime?.bind(param: &params, for: "end_time")
-        granularity?.bind(param: &params)
-        sinceID.map { params["since_id"] = $0 }
-        startTime?.bind(param: &params, for: "start_time")
-        untilID.map { params["until_id"] = $0 }
-        return params
-    }
-
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request retrieves the count of tweets matching a search query from the last 7 days.
+/// The response includes tweet counts aggregated by the specified granularity (minute, hour, or day).
+public struct GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
+    public typealias Response = TwitterTweetCountsResponseV2
+    
+    public let method: HTTPMethod = .get
+    public let path: String = "/2/tweets/counts/recent"
+    public let parameters: [String: Any]
+    
     public init(
         query: String,
-        endTime: Date? = .none,
-        granularity: TweetCountGranularityV2? = .none,
-        sinceID: String? = .none,
-        startTime: Date? = .none,
-        untilID: String? = .none
+        endTime: Date? = nil,
+        granularity: TweetCountGranularityV2? = nil,
+        sinceID: String? = nil,
+        startTime: Date? = nil,
+        untilID: String? = nil
     ) {
-        self.query = query
-        self.endTime = endTime
-        self.granularity = granularity
-        self.sinceID = sinceID
-        self.startTime = startTime
-        self.untilID = untilID
+        var params: [String: Any] = ["query": query]
+        
+        if let endTime = endTime {
+            params["end_time"] = ISO8601DateFormatter().string(from: endTime)
+        }
+        if let granularity = granularity {
+            params["granularity"] = granularity.rawValue
+        }
+        if let sinceID = sinceID {
+            params["since_id"] = sinceID
+        }
+        if let startTime = startTime {
+            params["start_time"] = ISO8601DateFormatter().string(from: startTime)
+        }
+        if let untilID = untilID {
+            params["until_id"] = untilID
+        }
+        
+        self.parameters = params
     }
-
-    deinit {
-        // de-init logic here
-    }
-}
+} 
