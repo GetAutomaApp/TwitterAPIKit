@@ -19,7 +19,7 @@ public struct GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
     public let state: String
     public let codeChallenge: String
     public let codeChallengeMethod: String
-    public let scopes: [String]
+    public let scopes: [TwitterOAuthScope]
 
     public var method: HTTPMethod {
         .get
@@ -36,13 +36,14 @@ public struct GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
     public var parameters: [String: Any] {
         var params = [String: Any]()
 
+        // Match the exact format of the working URL
         params["response_type"] = responseType
         params["client_id"] = clientID
         params["redirect_uri"] = redirectURI
+        params["scope"] = scopes.map { $0.rawValue }.joined(separator: "+")
         params["state"] = state
         params["code_challenge"] = codeChallenge
         params["code_challenge_method"] = codeChallengeMethod
-        params["scope"] = scopes.joined(separator: " ")
         return params
     }
     
@@ -64,8 +65,8 @@ public struct GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
         redirectURI: String,
         state: String,
         codeChallenge: String,
-        codeChallengeMethod: String,
-        scopes: [String]
+        codeChallengeMethod: String = "plain",
+        scopes: [TwitterOAuthScope]
     ) {
         self.responseType = responseType
         self.clientID = clientID

@@ -49,16 +49,21 @@ struct OAuth20Example {
             // Step 1: Generate PKCE challenge and verifier
             print("\nStep 1: Generating PKCE challenge and verifier...")
             let codeVerifier = generateCodeVerifier()
-            let codeChallenge = generateCodeChallenge(from: codeVerifier)
+            let codeChallenge = codeVerifier  // For plain method, challenge is same as verifier
             print("Code Verifier: \(codeVerifier)")
             print("Code Challenge: \(codeChallenge)")
+            
+            // Generate a random state for security
+            let state = generateRandomState()
+            print("State: \(state)")
             
             // Step 2: Get authorization URL
             print("\nStep 2: Getting authorization URL...")
             if let authURL = getAuthorizationURL(
                 clientId: clientId,
                 redirectURI: redirectURI,
-                codeChallenge: codeChallenge
+                codeChallenge: codeChallenge,
+                state: state
             ) {
                 print("Authorization URL: \(authURL)")
                 print("\nPlease open this URL in your browser and authorize the application.")
@@ -104,21 +109,22 @@ struct OAuth20Example {
     /// Generates a random code verifier for PKCE.
     /// - Returns: A random string suitable for use as a code verifier
     private static func generateCodeVerifier() -> String {
-        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~"
-        let length = Int.random(in: 43...128)
-        return String((0..<length).map { _ in allowedChars.randomElement()! })
+        // Generate a very short verifier (8 characters)
+        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let length = 8
+        let verifier = String((0..<length).map { _ in allowedChars.randomElement()! })
+        
+        // Base64 encode the verifier
+        let data = verifier.data(using: .utf8)!
+        return data.base64EncodedString()
     }
     
-    /// Generates a code challenge from a code verifier using SHA-256.
-    /// - Parameter verifier: The code verifier to generate a challenge from
-    /// - Returns: A base64url-encoded SHA-256 hash of the verifier
-    private static func generateCodeChallenge(from verifier: String) -> String {
-        let data = Data(verifier.utf8)
-        let hash = SHA256.hash(data: data)
-        return Data(hash).base64EncodedString()
-            .replacingOccurrences(of: "+", with: "-")
-            .replacingOccurrences(of: "/", with: "_")
-            .replacingOccurrences(of: "=", with: "")
+    /// Generates a random state parameter for security.
+    /// - Returns: A random string suitable for use as a state parameter
+    private static func generateRandomState() -> String {
+        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let length = 32
+        return String((0..<length).map { _ in allowedChars.randomElement()! })
     }
     
     /// Gets the authorization URL that the user needs to visit to authorize your application.
@@ -127,11 +133,13 @@ struct OAuth20Example {
     ///   - clientId: Your Twitter API client ID
     ///   - redirectURI: The URI that Twitter will redirect to after authorization
     ///   - codeChallenge: The PKCE code challenge
+    ///   - state: A random state parameter for security
     /// - Returns: The URL that the user needs to visit to authorize your application
     private static func getAuthorizationURL(
         clientId: String,
         redirectURI: String,
-        codeChallenge: String
+        codeChallenge: String,
+        state: String
     ) -> URL? {
         let session = TwitterAPISession(
             authenticationType: .oauth20(
@@ -146,10 +154,10 @@ struct OAuth20Example {
         let request = GetOAuth2AuthorizeRequestV1(
             clientID: clientId,
             redirectURI: redirectURI,
-            state: "state here",
+            state: state,
             codeChallenge: codeChallenge,
-            codeChallengeMethod: "S256",
-            scopes: ["tweet.read", "tweet.write", "users.read"]
+            codeChallengeMethod: "plain",
+            scopes: [.tweetRead]
         )
         return oauthAPI.makeOAuth2AuthorizeURL(request)
     }
@@ -182,6 +190,7 @@ struct OAuth20Example {
         let oauthAPI = OAuth20API(session: session)
         let request = PostOAuth2AccessTokenRequestV2(
             code: code,
+            clientID: clientId,  // Include client ID for public client
             redirectURI: redirectURI,
             codeVerifier: codeVerifier
         )
