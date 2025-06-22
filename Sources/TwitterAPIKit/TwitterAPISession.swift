@@ -6,8 +6,8 @@
 // This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
 // This Package is distributable through a modified version of the MIT License.
 
-import Foundation
 import Crypto
+import Foundation
 
 public enum AuthenticationType: Codable, Sendable {
     case oauth10a(
@@ -30,13 +30,17 @@ public final class TwitterAPISession {
     private let session: URLSession
     private let authenticationType: AuthenticationType
 
-    public init(authenticationType: AuthenticationType, environment: TwitterAPIEnvironment = .init(), session: URLSession = .shared) {
+    public init(
+        authenticationType: AuthenticationType,
+        environment: TwitterAPIEnvironment = .init(),
+        session: URLSession = .shared
+    ) {
         self.authenticationType = authenticationType
         self.environment = environment
         self.session = session
     }
 
-    public func send<T: TwitterAPIRequest>(_ request: T, authHeaderOverride: String? = nil) async throws -> T.Response {
+    public func send<T: TwitterAPIRequest>(_ request: T, authHeaderOverride _: String? = nil) async throws -> T.Response {
         var urlRequest = try request.buildRequest(environment: environment)
 
         setAuthHeaderValue(request: &urlRequest, twitterRequest: request)
@@ -49,17 +53,20 @@ public final class TwitterAPISession {
 
         do {
             if let httpResponse = response as? HTTPURLResponse,
-               !(200...299).contains(httpResponse.statusCode) {
+               !(200 ... 299).contains(httpResponse.statusCode)
+            {
                 let errorResponse = try JSONDecoder().decode(TwitterAPIError.self, from: data)
                 throw errorResponse
             }
 
             if T.Response.self == TwitterOAuthTokenV1.self {
                 if let token = TwitterOAuthTokenV1(queryStringData: data) {
+                    // swiftlint:disable:next force_cast
                     return token as! T.Response
                 }
             } else if T.Response.self == TwitterOAuthAccessTokenV1.self {
                 if let token = TwitterOAuthAccessTokenV1(queryStringData: data) {
+                    // swiftlint:disable:next force_cast
                     return token as! T.Response
                 }
             }
@@ -68,19 +75,14 @@ public final class TwitterAPISession {
         } catch let error as TwitterAPIError {
             throw error
         } catch {
-            print("Other Error")
-            if let jsonString = String(data: data, encoding: .utf8) {
-                print("Raw JSON response: \(jsonString)")
-            } else {
-                print("Raw response (not UTF-8): \(data)")
-            }
+            print("Raw response: \(String(describing: String(data: data, encoding: .utf8)))")
             throw error
         }
     }
 
     private func setAuthHeaderValue(request: inout URLRequest, twitterRequest: any TwitterAPIRequest) {
         switch authenticationType {
-        case .oauth10a(let consumerKey, let consumerSecret, let oauthToken, let oauthTokenSecret):
+        case let .oauth10a(consumerKey, consumerSecret, oauthToken, oauthTokenSecret):
             // For request token, we only need consumer credentials
             let authHeader = authorizationHeader(
                 for: twitterRequest.method,
@@ -92,13 +94,10 @@ public final class TwitterAPISession {
                 oauthTokenSecret: oauthTokenSecret
             )
             request.setValue(authHeader, forHTTPHeaderField: "Authorization")
-            break
-        case .oauth20(_, _, let accessToken, _):
+        case let .oauth20(_, _, accessToken, _):
             let authHeader = "Bearer \(accessToken)"
             print(authHeader)
             request.setValue(authHeader, forHTTPHeaderField: "Authorization")
-            break
         }
     }
 }
-

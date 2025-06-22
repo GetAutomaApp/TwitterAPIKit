@@ -1,4 +1,4 @@
-// GetTweetExample.swift
+// main.swift
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
@@ -13,9 +13,9 @@ import TwitterAPIKit
 /// 3. Includes expanded data like author information, metrics, and referenced tweets
 /// 4. Prints the tweet's content, metrics (retweets, likes, replies, quotes), and author details
 @main
-struct GetTweetExample {
-    static func main() async throws {
-        // Twitter API credentials
+public struct GetTweetExample {
+    /// Entry Point
+    public static func main() async throws {
         let client = TwitterAPISession(
             authenticationType: .oauth10a(
                 consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
@@ -26,49 +26,58 @@ struct GetTweetExample {
         )
 
         let tweetId = "1931427021776908732"
-        
+
+        await handleRequest(client, tweetId: tweetId)
+    }
+
+    private static func logResponse(_ response: GetTweetRequestV2.Response) {
+        print("Successfully retrieved tweet!")
+        print("Tweet ID: \(response.data.id)")
+        print("Tweet text: \(response.data.text)")
+        print("Created at: \(String(describing: response.data.createdAt))")
+
+        if let metrics = response.data.publicMetrics {
+            print("Metrics:")
+            print("- Retweets: \(metrics.retweetCount)")
+            print("- Likes: \(metrics.likeCount)")
+            print("- Replies: \(metrics.replyCount)")
+            print("- Quotes: \(metrics.quoteCount)")
+        }
+
+        if let author = response.includes?.users?.first {
+            print("\nAuthor:")
+            print("- Name: \(author.name)")
+            print("- Username: @\(author.username)")
+        }
+    }
+
+    private static func handleRequest(_ client: TwitterAPISession, tweetId: String) async {
         do {
             let request = GetTweetRequestV2(
                 id: tweetId,
                 expansions: [
                     .authorID,
-                    .referencedTweetsID
+                    .referencedTweetsID,
                 ],
                 tweetFields: [
                     .createdAt,
                     .text,
                     .publicMetrics,
-                    .entities
+                    .entities,
                 ],
                 userFields: [
                     .name,
                     .username,
-                    .profileImageUrl
+                    .profileImageUrl,
                 ]
             )
-            
+
             let response = try await client.send(request)
-            
-            print("Successfully retrieved tweet!")
-            print("Tweet ID: \(response.data.id)")
-            print("Tweet text: \(response.data.text)")
-            print("Created at: \(String(describing: response.data.createdAt))")
-            
-            if let metrics = response.data.publicMetrics {
-                print("Metrics:")
-                print("- Retweets: \(metrics.retweetCount)")
-                print("- Likes: \(metrics.likeCount)")
-                print("- Replies: \(metrics.replyCount)")
-                print("- Quotes: \(metrics.quoteCount)")
-            }
-            
-            if let author = response.includes?.users?.first {
-                print("\nAuthor:")
-                print("- Name: \(author.name)")
-                print("- Username: @\(author.username)")
-            }
+
+            logResponse(response)
+
         } catch {
             print("Error retrieving tweet: \(error)")
         }
     }
-} 
+}

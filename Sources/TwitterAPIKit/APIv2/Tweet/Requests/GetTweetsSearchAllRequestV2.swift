@@ -15,16 +15,17 @@ import Foundation
 /// Note: This endpoint requires Academic Research access.
 public struct GetTweetsSearchAllRequestV2: TwitterAPIRequest {
     public typealias Response = TwitterSearchTweetsResponseV2
-    
+
     public enum TwitterSearchTweetsSortOrderV2: String {
         case recency
         case relevancy
     }
-    
+
     public let method: HTTPMethod = .get
     public let path: String = "/2/tweets/search/all"
     public let parameters: [String: Any]
-    
+
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     public init(
         query: String,
         endTime: Date? = nil,
@@ -44,7 +45,7 @@ public struct GetTweetsSearchAllRequestV2: TwitterAPIRequest {
         var params: [String: Any] = [
             "query": query
         ]
-        
+
         if let endTime = endTime {
             params["end_time"] = ISO8601DateFormatter().string(from: endTime)
         }
@@ -84,7 +85,7 @@ public struct GetTweetsSearchAllRequestV2: TwitterAPIRequest {
         if let userFields = userFields {
             params["user.fields"] = userFields.map { $0.stringValue }.joined(separator: ",")
         }
-        
+
         self.parameters = params
     }
-} 
+}
