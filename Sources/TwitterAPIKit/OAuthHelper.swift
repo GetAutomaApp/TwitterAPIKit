@@ -6,25 +6,58 @@
 // This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
 // This Package is distributable through a modified version of the MIT License.
 
+import Crypto
 import Foundation
+
+/// Creates an HMAC-SHA1 signature for the given message using the provided key
+/// - Parameters:
+///   - key: The key to use for signing
+///   - message: The message to sign
+/// - Returns: The HMAC-SHA1 signature as Data
+public func createHMACSHA1(key: Data, message: Data) -> Data {
+    Data(HMAC<Insecure.SHA1>.authenticationCode(for: message, using: SymmetricKey(data: key)))
+}
 
 private let oauthVersion = "1.0"
 private let oauthSignatureMethod = "HMAC-SHA1"
 
-// swiftlint:disable function_parameter_count function_body_length
-/// Generates an OAuth authorization header for a given HTTP method, URL, and parameters.
-/// - Parameters:
-///   - method: The HTTP method to use.
-///   - url: The URL to use.
-///   - parameters: The parameters to use.
-///   - consumerKey: The consumer key to use.
-///   - consumerSecret: The consumer secret to use.
-///   - oauthToken: The OAuth token to use.
-///   - oauthTokenSecret: The OAuth token secret to use.
-///   - oauthTimestamp: The OAuth timestamp to use.
-///   - oauthNonce: The OAuth nonce to use.
-/// - Returns: The OAuth authorization header.
-public func authorizationHeader(
+private func generateOAuthSignature(
+    method: String,
+    url: String,
+    params: [String: String],
+    consumerSecret: String,
+    tokenSecret: String?
+) -> String {
+    let sortedParams = params.sorted { $0.key < $1.key }
+
+    let paramString = sortedParams
+        .map { key, value in
+            let encodedKey = key.urlEncoded
+            let encodedValue = value.urlEncoded
+            return "\(encodedKey)=\(encodedValue)"
+        }
+        .joined(separator: "&")
+
+    let encodedURL = url.urlEncoded
+    let encodedParamString = paramString.urlEncoded
+    let signatureBase = "\(method)&\(encodedURL)&\(encodedParamString)"
+
+    let encodedConsumerSecret = consumerSecret.urlEncoded
+    let encodedTokenSecret = (tokenSecret ?? "").urlEncoded
+    let signingKey = "\(encodedConsumerSecret)&\(encodedTokenSecret)"
+
+    // swiftlint:disable force_unwrapping
+    let key = signingKey.data(using: .utf8)!
+    let msg = signatureBase.data(using: .utf8)!
+    // swiftlint:enable force_unwrapping
+
+    let hmac = HMAC<Insecure.SHA1>
+        .authenticationCode(for: msg, using: SymmetricKey(data: key))
+    return Data(hmac).base64EncodedString()
+}
+
+// swiftlint:disable:next function_parameter_count
+internal func authorizationHeader(
     for method: HTTPMethod,
     url: URL,
     parameters: [String: Any],
@@ -32,66 +65,48 @@ public func authorizationHeader(
     consumerSecret: String,
     oauthToken: String?,
     oauthTokenSecret: String?,
+    oauthVersion: String = "1.0",
+    oauthSignatureMethod: String = "HMAC-SHA1",
     oauthTimestamp: String? = .none,
     oauthNonce: String? = .none
 ) -> String {
-    var authorizationParameters = [String: Any]()
-    authorizationParameters["oauth_version"] = oauthVersion
-    authorizationParameters["oauth_signature_method"] = oauthSignatureMethod
-    authorizationParameters["oauth_consumer_key"] = consumerKey
-    authorizationParameters["oauth_timestamp"] = oauthTimestamp ?? String(Int(Date().timeIntervalSince1970))
-    authorizationParameters["oauth_nonce"] = oauthNonce ?? UUID().uuidString
-    if let oauthToken {
-        authorizationParameters["oauth_token"] = oauthToken
-    }
-    for (key, value) in parameters where key.hasPrefix("oauth_") {
-        authorizationParameters.updateValue(value, forKey: key)
-    }
-    let combinedParameters = authorizationParameters.merging(parameters) { $1 }
+    // OAuth parameters - EXACTLY like Python
+    var oauthParams: [String: String] = [
+        "oauth_consumer_key": consumerKey,
+        "oauth_nonce": oauthNonce ?? UUID().uuidString,
+        "oauth_signature_method": oauthSignatureMethod,
+        "oauth_timestamp": oauthTimestamp ?? String(Int(Date().timeIntervalSince1970)),
+        "oauth_version": oauthVersion
+    ]
 
-    authorizationParameters["oauth_signature"] = oauthSignature(
-        for: method,
-        url: url,
-        parameters: combinedParameters,
+    // Only add oauth_token if it's not empty
+    if let token = oauthToken, !token.isEmpty {
+        oauthParams["oauth_token"] = token
+    }
+
+    // Add query parameters to OAuth parameters for signature - EXACTLY like Python
+    for (key, value) in parameters {
+        oauthParams[key] = String(describing: value)
+    }
+
+    // Generate signature
+    let signature = generateOAuthSignature(
+        method: method.rawValue,
+        url: url.absoluteString,
+        params: oauthParams,
         consumerSecret: consumerSecret,
-        oauthTokenSecret: oauthTokenSecret
+        tokenSecret: oauthTokenSecret
     )
 
-    let authorizationParameterComponents = authorizationParameters
-        .urlEncodedQueryString
-        .components(separatedBy: "&")
-        .sorted()
+    oauthParams["oauth_signature"] = signature
 
-    var headerComponents = [String]()
-    for component in authorizationParameterComponents {
-        let subcomponent = component.components(separatedBy: "=")
-        if subcomponent.count == 2 {
-            headerComponents.append("\(subcomponent[0])=\"\(subcomponent[1])\"")
-        }
+    // Sort parameters alphabetically and create header - EXACTLY like Python
+    let sortedParams = oauthParams.sorted { $0.key < $1.key }
+    let headerComponents = sortedParams.map { key, value in
+        let encodedKey = key.urlEncoded
+        let encodedValue = value.urlEncoded
+        return "\(encodedKey)=\"\(encodedValue)\""
     }
 
     return "OAuth " + headerComponents.joined(separator: ", ")
-}
-// swiftlint:enable function_parameter_count function_body_length
-
-private func oauthSignature(
-    for method: HTTPMethod,
-    url: URL,
-    parameters: [String: Any],
-    consumerSecret: String,
-    oauthTokenSecret: String?
-) -> String {
-    let tokenSecret = oauthTokenSecret?.urlEncodedString ?? ""
-    let encodedConsumerSecret = consumerSecret.urlEncodedString
-    let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
-    let parameterComponents = parameters.urlEncodedQueryString.components(separatedBy: "&").sorted()
-    let parameterString = parameterComponents.joined(separator: "&")
-    let encodedParameterString = parameterString.urlEncodedString
-    let encodedURL = url.absoluteString.urlEncodedString
-    let signatureBaseString = "\(method.rawValue)&\(encodedURL)&\(encodedParameterString)"
-
-    let key = signingKey.data(using: .utf8) ?? Data()
-    let msg = signatureBaseString.data(using: .utf8) ?? Data()
-    let sha1 = createHMACSHA1(key: key, message: msg)
-    return sha1.base64EncodedString(options: [])
 }

@@ -10,7 +10,7 @@ import Foundation
 
 /// Represents an OAuth 2.0 bearer token response from Twitter's API.
 /// This token type is used for application-only authentication.
-public struct TwitterOAuth2BearerToken {
+public struct TwitterOAuth2BearerToken: Decodable {
     /// The type of token, typically "bearer".
     public let tokenType: String
 

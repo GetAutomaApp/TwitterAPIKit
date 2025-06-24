@@ -95,6 +95,8 @@ extension MultipartFormDataPart: Equatable {
 
 /// Protocol defining the requirements for a Twitter API request.
 public protocol TwitterAPIRequest {
+    /// The Response Type From Twitter
+    associatedtype Response: Decodable
     /// The HTTP method to be used for the request.
     var method: HTTPMethod { get }
 
@@ -151,6 +153,14 @@ public extension TwitterAPIRequest {
     }
 }
 
+extension Dictionary where Key == String {
+    /// Encodes a dictionary
+    public var urlEncodedQueryString: String {
+        map { "\($0.key.urlEncoded)=\(String(describing: $0.value).urlEncoded)" }
+            .joined(separator: "&")
+    }
+}
+
 // swiftlint:disable function_body_length
 public extension TwitterAPIRequest {
     /// Builds a URL request for the given environment.
@@ -170,7 +180,7 @@ public extension TwitterAPIRequest {
             urlComponent.percentEncodedQueryItems =
                 queryParameters
                     .sorted { first, second in first.key < second.key }
-                    .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
+                    .map { .init(name: $0.urlEncoded, value: "\($1)".urlEncoded) }
         }
 
         guard let url = urlComponent.url else {
@@ -189,11 +199,10 @@ public extension TwitterAPIRequest {
                 }
                 request.httpBody = data
             case .multipartFormData:
-
                 guard let parts = Array(bodyParameters.values) as? [MultipartFormDataPart] else {
                     throw TwitterAPIKitError.requestFailed(
                         reason: .invalidParameter(
-                            parameter: bodyParameters,
+                            parameter: String(describing: bodyParameters),
                             cause: """
                             Parameter must be specified in `MultipartFormDataPart` \
                             for `BodyContentType.multipartFormData`.
@@ -213,20 +222,22 @@ public extension TwitterAPIRequest {
                     String(request.httpBody?.count ?? 0), forHTTPHeaderField: "Content-Length"
                 )
             case .json:
-
                 let param = bodyParameters
                 guard JSONSerialization.isValidJSONObject(param) else {
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: param))
+                    throw TwitterAPIKitError.requestFailed(
+                        reason: .jsonSerializationFailed(obj: String(describing: param))
+                    )
                 }
                 do {
                     request.httpBody = try JSONSerialization.data(
                         withJSONObject: param, options: []
                     )
                     request.setValue(bodyContentType.rawValue, forHTTPHeaderField: "Content-Type")
-
                 } catch {
                     // This path probably won't pass because it is pre-checked with `isValidJSONObject`.
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: param))
+                    throw TwitterAPIKitError.requestFailed(
+                        reason: .jsonSerializationFailed(obj: String(describing: param))
+                    )
                 }
             }
         }

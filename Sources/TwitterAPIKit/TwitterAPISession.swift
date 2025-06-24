@@ -6,129 +6,106 @@
 // This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
 // This Package is distributable through a modified version of the MIT License.
 
+import Crypto
 import Foundation
 
-/// A session class that handles Twitter API requests and authentication.
-/// This class manages the authentication state, network requests, and environment configuration.
-open class TwitterAPISession {
-    /// The current authentication method being used for API requests.
-    /// This property can be read publicly but only modified internally.
-    public private(set) var auth: TwitterAuthenticationMethod
+public enum AuthenticationType: Codable, Sendable {
+    case oauth10a(
+        consumerKey: String,
+        consumerSecret: String,
+        oauthToken: String?,
+        oauthTokenSecret: String?
+    )
+    case oauth20(
+        clientId: String,
+        clientSecret: String,
+        accessToken: String,
+        refreshToken: String?
+    )
+}
 
-    /// The URLSession instance used for making network requests.
-    public let session: URLSession
-
-    /// The Twitter API environment configuration (e.g., API endpoints, version).
+/// Class to Run Authenticated Twitter Requests
+public final class TwitterAPISession {
+    /// Which environment to use
     public let environment: TwitterAPIEnvironment
 
-    internal let sessionDelegate = TwitterAPISessionDelegate()
+    private let session: URLSession
+    private let authenticationType: AuthenticationType
 
-    /// Creates a new TwitterAPISession instance.
-    /// - Parameters:
-    ///   - auth: The authentication method to use for API requests.
-    ///   - configuration: The URLSession configuration to use for network requests.
-    ///   - environment: The Twitter API environment configuration.
+    /// Initialize TwitterAPI Session
     public init(
-        auth: TwitterAuthenticationMethod,
-        configuration: URLSessionConfiguration,
-        environment: TwitterAPIEnvironment
+        authenticationType: AuthenticationType,
+        environment: TwitterAPIEnvironment = .init(),
+        session: URLSession = .shared
     ) {
-        self.auth = auth
-        session = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
+        self.authenticationType = authenticationType
         self.environment = environment
+        self.session = session
     }
 
-    deinit {
-        session.invalidateAndCancel()
-    }
-
-    /// Sends a Twitter API request and returns a JSON task.
-    /// - Parameter request: The Twitter API request to send.
-    /// - Returns: A task that will return JSON data when completed.
-    public func send(_ request: TwitterAPIRequest) -> TwitterAPISessionJSONTask {
-        do {
-            let urlRequest: URLRequest = try tryBuildURLRequest(request)
-            let task = session.dataTask(with: urlRequest)
-            return sessionDelegate.appendAndResume(task: task)
-        } catch {
-            return TwitterAPIFailedTask(.init(error: error))
-        }
-    }
-
-    /// Sends a streaming Twitter API request.
-    /// - Parameter streamRequest: The Twitter API request to stream.
-    /// - Returns: A task that will stream data continuously.
-    public func send(streamRequest: TwitterAPIRequest) -> TwitterAPISessionStreamTask {
-        do {
-            let urlRequest: URLRequest = try tryBuildURLRequest(streamRequest)
-            let task = session.dataTask(with: urlRequest)
-            return sessionDelegate.appendAndResumeStream(task: task)
-        } catch {
-            return TwitterAPIFailedTask(.init(error: error))
-        }
-    }
-
-    // swiftlint:disable:next function_body_length
-    private func tryBuildURLRequest(_ request: TwitterAPIRequest) throws -> URLRequest {
+    /// Sends a request & handles Authentication
+    public func send<T: TwitterAPIRequest>(_ request: T) async throws -> T.Response {
         var urlRequest = try request.buildRequest(environment: environment)
 
-        switch auth {
-        case let .oauth(
-            consumerKey: consumerKey,
-            consumerSecret: consumerSecret,
-            oauthToken: oauthToken,
-            oauthTokenSecret: oauthTokenSecret
-        ):
+        setAuthHeaderValue(request: &urlRequest, twitterRequest: request)
+
+        if request.bodyContentType == .json {
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
+
+        let (data, response) = try await session.data(for: urlRequest)
+
+        do {
+            if let httpResponse = response as? HTTPURLResponse,
+               !(200 ... 299).contains(httpResponse.statusCode)
+            {
+                let errorResponse = try JSONDecoder().decode(TwitterAPIError.self, from: data)
+                throw errorResponse
+            }
+
+            if T.Response.self == TwitterOAuthTokenV1.self {
+                if let token = TwitterOAuthTokenV1(queryStringData: data) {
+                    // swiftlint:disable:next force_cast
+                    return token as! T.Response
+                }
+            } else if T.Response.self == TwitterOAuthAccessTokenV1.self {
+                if let token = TwitterOAuthAccessTokenV1(queryStringData: data) {
+                    // swiftlint:disable:next force_cast
+                    return token as! T.Response
+                }
+            }
+
+            return try JSONDecoder().decode(T.Response.self, from: data)
+        } catch let error as TwitterAPIError {
+            throw error
+        } catch {
+            print("Raw response: \(String(describing: String(data: data, encoding: .utf8)))")
+            throw error
+        }
+    }
+
+    private func setAuthHeaderValue(request: inout URLRequest, twitterRequest: any TwitterAPIRequest) {
+        switch authenticationType {
+        case let .oauth10a(consumerKey, consumerSecret, oauthToken, oauthTokenSecret):
+            // For request token, we only need consumer credentials
             let authHeader = authorizationHeader(
-                for: request.method,
-                url: request.requestURL(for: environment),
-                parameters: request.parameterForOAuth,
+                for: twitterRequest.method,
+                url: twitterRequest.requestURL(for: environment),
+                parameters: twitterRequest.parameterForOAuth,
                 consumerKey: consumerKey,
                 consumerSecret: consumerSecret,
                 oauthToken: oauthToken,
                 oauthTokenSecret: oauthTokenSecret
             )
-            urlRequest.setValue(authHeader, forHTTPHeaderField: "Authorization")
-
-        case let .oauth10a(oauth10a):
-            let authHeader = authorizationHeader(
-                for: request.method,
-                url: request.requestURL(for: environment),
-                parameters: request.parameterForOAuth,
-                consumerKey: oauth10a.consumerKey,
-                consumerSecret: oauth10a.consumerSecret,
-                oauthToken: oauth10a.oauthToken,
-                oauthTokenSecret: oauth10a.oauthTokenSecret
-            )
-            urlRequest.setValue(authHeader, forHTTPHeaderField: "Authorization")
-
-        case let .oauth20(oauth20):
-            urlRequest.setValue("Bearer \(oauth20.accessToken)", forHTTPHeaderField: "Authorization")
-
-        case let .requestOAuth20WithPKCE(.confidentialClient(clientID: apiKey, clientSecret: apiSecretKey)),
-             let .basic(apiKey: apiKey, apiSecretKey: apiSecretKey):
-
-            let credential = "\(apiKey):\(apiSecretKey)"
-            guard let credentialData = credential.data(using: .utf8) else {
-                throw TwitterAPIKitError.requestFailed(reason: .cannotEncodeStringToData(string: credential))
-            }
-            let credentialBase64 = credentialData.base64EncodedString(options: [])
-            let basicAuth = "Basic \(credentialBase64)"
-            urlRequest.setValue(basicAuth, forHTTPHeaderField: "Authorization")
-
-        case let .bearer(token):
-            urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-
-        case .none, .requestOAuth20WithPKCE(.publicClient): break
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+        case let .oauth20(_, _, accessToken, _):
+            let authHeader = "Bearer \(accessToken)"
+            print(authHeader)
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         }
-
-        return urlRequest
     }
 
-    internal func refreshOAuth20Token(_ refreshedToken: TwitterAuthenticationMethod.OAuth20) {
-        guard case .oauth20 = auth else {
-            return
-        }
-        auth = .oauth20(refreshedToken)
+    deinit {
+        // De-init Logic
     }
 }

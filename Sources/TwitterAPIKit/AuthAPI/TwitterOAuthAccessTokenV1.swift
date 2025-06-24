@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents an OAuth 1.0a access token for Twitter API v1 authentication.
-public struct TwitterOAuthAccessTokenV1 {
+public struct TwitterOAuthAccessTokenV1: Decodable, Sendable {
     /// The OAuth token string used for authentication.
     public let oauthToken: String
 

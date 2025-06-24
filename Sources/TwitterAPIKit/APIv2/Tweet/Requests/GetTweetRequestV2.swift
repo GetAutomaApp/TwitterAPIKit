@@ -8,54 +8,56 @@
 
 import Foundation
 
-/// https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
-open class GetTweetRequestV2: TwitterAPIRequest {
+/// [DOCUMENTATION_LINK_PLACEHOLDER]
+///
+/// This request retrieves a single tweet by its ID.
+/// The response includes the tweet's content, metrics, and can be expanded to include
+/// additional fields like author information, referenced tweets, and more.
+public struct GetTweetRequestV2: TwitterAPIRequest {
+    public typealias Response = TwitterTweetResponseV2
+
     public let id: String
     public let expansions: Set<TwitterTweetExpansionsV2>?
+    public let tweetFields: Set<TwitterTweetFieldsV2>?
+    public let userFields: Set<TwitterUserFieldsV2>?
     public let mediaFields: Set<TwitterMediaFieldsV2>?
     public let placeFields: Set<TwitterPlaceFieldsV2>?
     public let pollFields: Set<TwitterPollFieldsV2>?
-    public let tweetFields: Set<TwitterTweetFieldsV2>?
-    public let userFields: Set<TwitterUserFieldsV2>?
 
     public var method: HTTPMethod {
-        .get
+        return .get
     }
 
     public var path: String {
-        "/2/tweets/\(id)"
+        return "/2/tweets/\(id)"
     }
 
-    open var parameters: [String: Any] {
-        var params = [String: Any]()
-        expansions?.bind(param: &params)
-        mediaFields?.bind(param: &params)
-        placeFields?.bind(param: &params)
-        pollFields?.bind(param: &params)
-        tweetFields?.bind(param: &params)
-        userFields?.bind(param: &params)
-        return params
+    public var parameters: [String: Any] {
+        var parameters: [String: Any] = [:]
+        parameters["expansions"] = expansions?.map(\.stringValue).joined(separator: ",")
+        parameters["tweet.fields"] = tweetFields?.map(\.stringValue).joined(separator: ",")
+        parameters["user.fields"] = userFields?.map(\.stringValue).joined(separator: ",")
+        parameters["media.fields"] = mediaFields?.map(\.stringValue).joined(separator: ",")
+        parameters["place.fields"] = placeFields?.map(\.stringValue).joined(separator: ",")
+        parameters["poll.fields"] = pollFields?.map(\.stringValue).joined(separator: ",")
+        return parameters
     }
 
     public init(
         id: String,
         expansions: Set<TwitterTweetExpansionsV2>? = .none,
+        tweetFields: Set<TwitterTweetFieldsV2>? = .none,
+        userFields: Set<TwitterUserFieldsV2>? = .none,
         mediaFields: Set<TwitterMediaFieldsV2>? = .none,
         placeFields: Set<TwitterPlaceFieldsV2>? = .none,
-        pollFields: Set<TwitterPollFieldsV2>? = .none,
-        tweetFields: Set<TwitterTweetFieldsV2>? = .none,
-        userFields: Set<TwitterUserFieldsV2>? = .none
+        pollFields: Set<TwitterPollFieldsV2>? = .none
     ) {
         self.id = id
         self.expansions = expansions
+        self.tweetFields = tweetFields
+        self.userFields = userFields
         self.mediaFields = mediaFields
         self.placeFields = placeFields
         self.pollFields = pollFields
-        self.tweetFields = tweetFields
-        self.userFields = userFields
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

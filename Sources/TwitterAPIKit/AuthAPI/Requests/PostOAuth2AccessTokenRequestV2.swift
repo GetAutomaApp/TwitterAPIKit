@@ -8,7 +8,9 @@
 
 import Foundation
 
-open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
+public struct PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
+    public typealias Response = TwitterOAuth2AccessToken
+    
     public let code: String
     public let grantType: String
     /// Required for Public Client.
@@ -25,7 +27,7 @@ open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
     }
 
     public var parameters: [String: Any] {
-        var params = [String: String]()
+        var params = [String: Any]()
         params["code"] = code
         params["grant_type"] = grantType
         clientID.map { params["client_id"] = $0 }
@@ -33,11 +35,23 @@ open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
         params["code_verifier"] = codeVerifier
         return params
     }
+    
+    public var queryParameters: [String: Any] {
+        [:]
+    }
+    
+    public var bodyParameters: [String: Any] {
+        parameters
+    }
+    
+    public var bodyContentType: BodyContentType {
+        .wwwFormUrlEncoded
+    }
 
     public init(
         code: String,
         grantType: String = "authorization_code",
-        clientID: String? = .none,
+        clientID: String? = nil,
         redirectURI: String,
         codeVerifier: String
     ) {
@@ -46,9 +60,5 @@ open class PostOAuth2AccessTokenRequestV2: TwitterAPIRequest {
         self.clientID = clientID
         self.redirectURI = redirectURI
         self.codeVerifier = codeVerifier
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

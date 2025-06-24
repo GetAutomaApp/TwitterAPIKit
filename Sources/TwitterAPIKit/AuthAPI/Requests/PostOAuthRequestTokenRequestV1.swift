@@ -9,7 +9,9 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
-open class PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
+public struct PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
+    public typealias Response = TwitterOAuthTokenV1
+    
     /// If you are using pin-based authorization, you will need to set this to oob
     public let oauthCallback: String
 
@@ -24,22 +26,26 @@ open class PostOAuthRequestTokenRequestV1: TwitterAPIRequest {
         "/oauth/request_token"
     }
 
-    open var parameters: [String: Any] {
-        var params = [String: Any]()
+    public var parameters: [String: String] {
+        var params = [String: String]()
         params["oauth_callback"] = oauthCallback
         xAuthAccessType.map { params["x_auth_access_type"] = $0 }
         return params
     }
+    
+    public var bodyParameters: [String: Any] {
+        parameters
+    }
+    
+    public var bodyContentType: BodyContentType {
+        .wwwFormUrlEncoded
+    }
 
     public init(
-        oauthCallback: String,
-        xAuthAccessType: String? = .none
+        oauthCallback: String = "oob",
+        xAuthAccessType: String? = "write"
     ) {
         self.oauthCallback = oauthCallback
         self.xAuthAccessType = xAuthAccessType
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

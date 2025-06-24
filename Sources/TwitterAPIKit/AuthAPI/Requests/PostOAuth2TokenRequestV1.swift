@@ -9,30 +9,28 @@
 import Foundation
 
 /// https://developer.twitter.com/en/docs/authentication/api-reference/token
-open class PostOAuth2TokenRequestV1: TwitterAPIRequest {
+public struct PostOAuth2TokenRequestV1: TwitterAPIRequest {
+    public typealias Response = TwitterOAuth2BearerToken
+    
     public let grantType: String
-
+    
     public var method: HTTPMethod {
         .post
     }
-
+    
     public var path: String {
         "/oauth2/token"
     }
-
-    open var parameters: [String: Any] {
-        var params = [String: Any]()
+    
+    public var parameterForOAuth: [String: String] {
+        var params = [String: String]()
         params["grant_type"] = grantType
         return params
     }
-
+    
     public init(
         grantType: String = "client_credentials"
     ) {
         self.grantType = grantType
-    }
-
-    deinit {
-        // De-init Logic Here
     }
 }

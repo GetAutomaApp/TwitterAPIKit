@@ -1,46 +1,125 @@
-// swift-tools-version:5.5
+// swift-tools-version: 6.1
+// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
-// Currently, CommonCrypto and CryptoKit are not available under Linux.
-// If CommonCrypto is not available, swift-crypto should be used.
-
-#if canImport(CommonCrypto)
-    internal let dependencies: [Package.Dependency] = []
-    internal let tDependencies: [Target.Dependency] = []
-#else // for Linux
-    internal let dependencies: [Package.Dependency] = [
-        .package(url: "https://github.com/apple/swift-crypto.git", from: "3.8.0")
-    ]
-    internal let tDependencies: [Target.Dependency] = [.product(name: "Crypto", package: "swift-crypto")]
-#endif
-
-internal let package = Package(
+let package = Package(
     name: "TwitterAPIKit",
     platforms: [
-        .macOS(.v10_14),
-        .iOS(.v12),
-        .tvOS(.v12),
-        .watchOS(.v6),
+        .macOS(.v13),
+        .iOS(.v16),
+        .tvOS(.v16),
+        .watchOS(.v9),
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "TwitterAPIKit",
             targets: ["TwitterAPIKit"]
         ),
     ],
-    dependencies: dependencies,
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-crypto.git", from: "3.1.0"),
+    ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "TwitterAPIKit",
-            dependencies: tDependencies
+            dependencies: [
+                .product(name: "Crypto", package: "swift-crypto"),
+            ]
         ),
         .testTarget(
             name: "TwitterAPIKitTests",
             dependencies: ["TwitterAPIKit"]
+        ),
+        .executableTarget(
+            name: "GetUserByIdExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetUserByIdExample"
+        ),
+        .executableTarget(
+            name: "GetUsersByIdsExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetUsersByIdsExample"
+        ),
+        .executableTarget(
+            name: "GetUserByUsernameExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetUserByUsernameExample"
+        ),
+        .executableTarget(
+            name: "GetUsersByUsernamesExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetUsersByUsernamesExample"
+        ),
+        .executableTarget(
+            name: "GetAuthenticatedUserExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetAuthenticatedUserExample"
+        ),
+        .executableTarget(
+            name: "RetweetExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/RetweetExample"
+        ),
+        .executableTarget(
+            name: "GetTweetsCountsAllExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetsCountsAllExample"
+        ),
+        .executableTarget(
+            name: "GetTweetsCountsRecentExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetsCountsRecentExample"
+        ),
+        .executableTarget(
+            name: "GetTweetsSearchAllExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetsSearchAllExample"
+        ),
+        .executableTarget(
+            name: "GetTweetsSearchRecentExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetsSearchRecentExample"
+        ),
+        .executableTarget(
+            name: "GetTweetsRetweetedByExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetsRetweetedByExample"
+        ),
+        .executableTarget(
+            name: "DeleteUsersRetweetsExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/DeleteUsersRetweetsExample"
+        ),
+        .executableTarget(
+            name: "GetUserTweetsExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetUserTweetsExample"
+        ),
+        .executableTarget(
+            name: "GetTweetExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/GetTweetExample"
+        ),
+        .executableTarget(
+            name: "PostTweetExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/PostTweetExample"
+        ),
+        .executableTarget(
+            name: "OAuth10aExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/OAuth10aExample"
+        ),
+        .executableTarget(
+            name: "OAuth20Example",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/OAuth20Example"
+        ),
+        .executableTarget(
+            name: "OAuth20RefreshExample",
+            dependencies: ["TwitterAPIKit"],
+            path: "Sources/Examples/OAuth20RefreshExample"
         ),
     ]
 )
