@@ -2,8 +2,9 @@ import Foundation
 import TwitterAPIKit
 
 @main
-struct GetUsersByIdsExample {
-    static func main() async throws {
+internal struct GetUsersByIdsExample {
+    /// EntryPoint
+    public static func main() async throws {
         // Initialize the client with your credentials
         let client = TwitterAPISession(
             authenticationType: .oauth10a(
@@ -13,7 +14,7 @@ struct GetUsersByIdsExample {
                 oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
             )
         )
-        
+
         // Get multiple users by IDs
         let elonMuskID = "44196397"
         let twitterID = "783214"
@@ -23,7 +24,7 @@ struct GetUsersByIdsExample {
             tweetFields: [.createdAt, .text],
             userFields: [.name, .username, .profileImageUrl]
         )
-        
+
         do {
             let response = try await client.send(usersRequest)
             for user in response.data {
@@ -33,4 +34,4 @@ struct GetUsersByIdsExample {
             print("Error retrieving users: \(error)")
         }
     }
-} 
+}

@@ -9,8 +9,9 @@ import TwitterAPIKit
 /// 4. Prints each tweet's ID, text, creation time, and pagination metadata
 /// 5. Includes comprehensive error handling for common API issues
 @main
-struct GetUserTweetsExample {
-    static func main() async throws {
+internal struct GetUserTweetsExample {
+    /// EntryPoint
+    public static func main() async throws {
         // Create the environment with your credentials
         let simpleClient = TwitterAPISession(
             authenticationType: .oauth10a(
@@ -45,7 +46,14 @@ struct GetUserTweetsExample {
             }
 
         } catch let error as TwitterAPIError {
-            switch error.errorType {
+            handleError(error: error)
+        } catch {
+            print("❌ Error fetching tweets: \(error)")
+        }
+    }
+
+    private static func handleError(error: TwitterAPIError) {
+        switch error.errorType {
             case .unauthorized:
                 print("Authentication failed")
             case .rateLimit:
@@ -59,8 +67,5 @@ struct GetUserTweetsExample {
             case .unknown:
                 print("Unknown error: \(error.localizedDescription)")
             }
-        } catch {
-            print("❌ Error fetching tweets: \(error)")
-        }
     }
 }

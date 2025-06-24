@@ -14,7 +14,7 @@ public enum TweetExclusion: TwitterAPIv2RequestParameter, Sendable {
     case replies
     /// Exclude retweets from results
     case retweets
-    
+
     public var stringValue: String {
         switch self {
         case .replies: "replies"
@@ -25,7 +25,8 @@ public enum TweetExclusion: TwitterAPIv2RequestParameter, Sendable {
 
 /// Extension to bind exclusions to request parameters
 public extension Set<TweetExclusion> {
+    /// Extension to bind exclusions to request parameters
     func bind(param: inout [String: Any]) {
         param["exclude"] = commaSeparatedString
     }
-} 
+}

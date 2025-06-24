@@ -6,8 +6,8 @@
 // This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
 // This Package is distributable through a modified version of the MIT License.
 
-import Foundation
 import Crypto
+import Foundation
 
 /// Creates an HMAC-SHA1 signature for the given message using the provided key
 /// - Parameters:
@@ -28,37 +28,36 @@ private func generateOAuthSignature(
     consumerSecret: String,
     tokenSecret: String?
 ) -> String {
-    // Sort parameters alphabetically
     let sortedParams = params.sorted { $0.key < $1.key }
 
-    // Create parameter string - EXACTLY like Python
-    let paramString = sortedParams.map { key, value in
-        // Use the same encoding as Python's quote function
-        let encodedKey = key.urlEncoded
-        let encodedValue = value.urlEncoded
-        return "\(encodedKey)=\(encodedValue)"
-    }.joined(separator: "&")
+    let paramString = sortedParams
+        .map { key, value in
+            let encodedKey = key.urlEncoded
+            let encodedValue = value.urlEncoded
+            return "\(encodedKey)=\(encodedValue)"
+        }
+        .joined(separator: "&")
 
-    // Create signature base string - EXACTLY like Python
     let encodedURL = url.urlEncoded
     let encodedParamString = paramString.urlEncoded
     let signatureBase = "\(method)&\(encodedURL)&\(encodedParamString)"
 
-    // Create signing key - EXACTLY like Python
     let encodedConsumerSecret = consumerSecret.urlEncoded
     let encodedTokenSecret = (tokenSecret ?? "").urlEncoded
     let signingKey = "\(encodedConsumerSecret)&\(encodedTokenSecret)"
 
-    // Generate signature - EXACTLY like Python
+    // swiftlint:disable force_unwrapping
     let key = signingKey.data(using: .utf8)!
     let msg = signatureBase.data(using: .utf8)!
-    let hmac = HMAC<Insecure.SHA1>.authenticationCode(for: msg, using: SymmetricKey(data: key))
-    let signature = Data(hmac).base64EncodedString()
+    // swiftlint:enable force_unwrapping
 
-    return signature
+    let hmac = HMAC<Insecure.SHA1>
+        .authenticationCode(for: msg, using: SymmetricKey(data: key))
+    return Data(hmac).base64EncodedString()
 }
 
-func authorizationHeader(
+// swiftlint:disable:next function_parameter_count
+internal func authorizationHeader(
     for method: HTTPMethod,
     url: URL,
     parameters: [String: Any],

@@ -8,10 +8,12 @@
 
 import Foundation
 
+/// Oauth2.0 API
 public struct OAuth20API {
     /// Twitter API Session
     public let session: TwitterAPISession
 
+    /// Initialize a new Oauth2.0 API session
     public init(
         session: TwitterAPISession
     ) {
@@ -53,30 +55,50 @@ public struct OAuth20API {
         try? request.buildRequest(environment: session.environment).url
     }
 
+    /// Requests an OAuth 2.0 access token using the provided request data.
+    /// - Parameter request: The request object containing the necessary parameters for obtaining an access token.
+    /// - Returns: A `TwitterOAuth2AccessToken` containing the access token and related information.
+    /// - Throws: An error if the request fails.
     public func postOAuth2AccessTokenData(
         _ request: PostOAuth2AccessTokenRequestV2
     ) async throws -> TwitterOAuth2AccessToken {
         return try await session.send(request)
     }
 
+    /// Requests an OAuth 2.0 access token using the provided request data.
+    /// - Parameter request: The request object containing the necessary parameters for obtaining an access token.
+    /// - Returns: A `TwitterOAuth2AccessToken` containing the access token and related information.
+    /// - Throws: An error if the request fails.
     public func postOAuth2AccessToken(
         _ request: PostOAuth2AccessTokenRequestV2
     ) async throws -> TwitterOAuth2AccessToken {
         return try await session.send(request)
     }
 
+    /// Requests a new OAuth 2.0 access token using a refresh token.
+    /// - Parameter request: The request object containing the refresh token and other required parameters.
+    /// - Returns: A `TwitterOAuth2AccessToken` containing the new access token and related information.
+    /// - Throws: An error if the request fails.
     public func postOAuth2RefreshTokenData(
         _ request: PostOAuth2RefreshTokenRequestV2
     ) async throws -> TwitterOAuth2AccessToken {
         return try await session.send(request)
     }
 
+    /// Requests a new OAuth 2.0 access token using a refresh token.
+    /// - Parameter request: The request object containing the refresh token and other required parameters.
+    /// - Returns: A `TwitterOAuth2AccessToken` containing the new access token and related information.
+    /// - Throws: An error if the request fails.
     public func postOAuth2RefreshToken(
         _ request: PostOAuth2RefreshTokenRequestV2
     ) async throws -> TwitterOAuth2AccessToken {
         return try await session.send(request)
     }
 
+    /// Revokes an OAuth 2.0 token using the provided request data.
+    /// - Parameter request: The request object containing the token to be revoked.
+    /// - Returns: A `TwitterAPIError` indicating the result of the revocation.
+    /// - Throws: An error if the request fails.
     public func postOAuth2RevokeToken(
         _ request: PostOAuth2RevokeTokenRequestV2
     ) async throws -> TwitterAPIError {

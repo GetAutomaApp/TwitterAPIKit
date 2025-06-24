@@ -7,10 +7,10 @@ import TwitterAPIKit
 /// 2. Makes a request to count tweets matching a search query
 /// 3. Specifies a time range and granularity for the counts
 /// 4. Prints the tweet counts for each time period
-/// Note: This endpoint requires Academic Research access.
 @main
-struct GetTweetsCountsAllExample {
-    static func main() async throws {
+internal struct GetTweetsCountsRecentExample {
+    /// EntryPoint
+    public static func main() async throws {
         // Initialize the client with your credentials
         let client = TwitterAPISession(
             authenticationType: .oauth20(
@@ -20,37 +20,27 @@ struct GetTweetsCountsAllExample {
                 refreshToken: nil
             )
         )
-        
-        // Create a date formatter for parsing dates
-        let dateFormatter = ISO8601DateFormatter()
-        
-        // Set up the time range (last 7 days)
+
+        // Set up the time range (last 24 hours)
         let endTime = Date()
-        let startTime = Calendar.current.date(byAdding: .day, value: -7, to: endTime)!
-        
+        guard let startTime = Calendar.current.date(byAdding: .hour, value: -24, to: endTime) else {
+            throw URLError(.badURL)
+        }
+
         // Create the request
-        let request = GetTweetsCountsAllRequestV2(
-            query: "Twitter",
+        let request = GetTweetsCountsRecentRequestV2(
+            query: "Swift",
             endTime: endTime,
-            granularity: .day,
+            granularity: .hour,
             startTime: startTime
         )
-        
+
         do {
             let response = try await client.send(request)
-            
-            print("\n📊 Tweet Counts for 'Twitter':")
-            for count in response.data {
-                print("\nPeriod: \(dateFormatter.string(from: count.start)) to \(dateFormatter.string(from: count.end))")
-                print("Tweet Count: \(count.tweetCount)")
-            }
-            
+
             print("\n📈 Total Tweets: \(response.meta.totalTweetCount)")
-            if let nextToken = response.meta.nextToken {
-                print("Next Page Token: \(nextToken)")
-            }
         } catch {
             print("Error retrieving tweet counts: \(error)")
         }
     }
-} 
+}

@@ -1,4 +1,4 @@
-// PostTweetExample.swift
+// RetweetExample.swift
 // Copyright (c) 2025 GetAutomaApp
 // All source code and related assets are the property of GetAutomaApp.
 // All rights reserved.
@@ -6,15 +6,16 @@
 import Foundation
 import TwitterAPIKit
 
-/// Demonstrates how to post a new tweet using Twitter API v2.
+/// Demonstrates how to retweet a specific tweet using Twitter API v2.
 /// This example:
 /// 1. Creates a Twitter API client using environment variables for authentication
-/// 2. Makes a request to create a new tweet with specified text
-/// 3. Prints the newly created tweet's ID and content upon success
-/// 4. Includes error handling for failed tweet creation
+/// 2. Makes a request to retweet a specific tweet using user ID and tweet ID
+/// 3. Prints confirmation of the retweet action and its status
+/// 4. Includes error handling for failed retweet attempts
 @main
-struct PostTweetExample {
-    static func main() async throws {
+internal struct RetweetExample {
+    /// EntryPoint
+    public static func main() async throws {
         // Create the environment with your credentials
         let simpleClient = TwitterAPISession(
             authenticationType: .oauth10a(
@@ -25,19 +26,18 @@ struct PostTweetExample {
             )
         )
 
-        // The text of the tweet you want to post
-        let tweetText = "Hello, Twitter! This is a test tweet from TwitterAPIKit."
-        
+        let userId = ProcessInfo.processInfo.environment["TWITTER_USER_ID"] ?? ""
+        let tweetId = ProcessInfo.processInfo.environment["TWITTER_TWEET_ID"] ?? ""
+
         do {
-            // Create and send the tweet request
-            let request = PostTweetsRequestV2(text: tweetText)
+            // Create and send the retweet request
+            let request = PostUsersRetweetsRequestV2(userId: userId, tweetId: tweetId)
             let response = try await simpleClient.send(request)
-            
-            print("Successfully posted tweet!")
-            print("Tweet ID: \(response.data.id)")
-            print("Tweet text: \(response.data.text)")
+
+            print("Successfully retweeted tweet with ID: \(tweetId)")
+            print("Retweeted: \(response.data.retweeted)")
         } catch {
-            print("Error posting tweet: \(error)")
+            print("Error retweeting: \(error)")
         }
     }
-} 
+}

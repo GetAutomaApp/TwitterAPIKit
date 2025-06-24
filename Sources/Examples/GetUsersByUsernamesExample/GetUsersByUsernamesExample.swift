@@ -8,8 +8,9 @@ import TwitterAPIKit
 /// 3. Includes expanded data like their pinned tweets
 /// 4. Prints each user's name and username
 @main
-struct GetUsersByUsernamesExample {
-    static func main() async throws {
+internal struct GetUsersByUsernamesExample {
+    /// EntryPoint
+    public static func main() async throws {
         // Initialize the client with your credentials
         let client = TwitterAPISession(
             authenticationType: .oauth10a(
@@ -19,7 +20,7 @@ struct GetUsersByUsernamesExample {
                 oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
             )
         )
-        
+
         // Get multiple users by usernames
         let elonMuskUsername = "elonmusk"
         let twitterUsername = "twitter"
@@ -29,7 +30,7 @@ struct GetUsersByUsernamesExample {
             tweetFields: [.createdAt, .text],
             userFields: [.name, .username, .profileImageUrl]
         )
-        
+
         do {
             let response = try await client.send(usersByUsernamesRequest)
             for user in response.data {
@@ -39,4 +40,4 @@ struct GetUsersByUsernamesExample {
             print("Error retrieving users: \(error)")
         }
     }
-} 
+}

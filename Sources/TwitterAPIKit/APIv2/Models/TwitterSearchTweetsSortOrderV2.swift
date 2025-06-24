@@ -14,7 +14,7 @@ public enum TwitterSearchTweetsSortOrderV2: TwitterAPIv2RequestParameter, Sendab
     case recency
     /// Sort by relevancy (most relevant first)
     case relevancy
-    
+
     public var stringValue: String {
         switch self {
         case .recency: "recency"
@@ -25,7 +25,8 @@ public enum TwitterSearchTweetsSortOrderV2: TwitterAPIv2RequestParameter, Sendab
 
 /// Extension to bind sort order to request parameters
 public extension TwitterSearchTweetsSortOrderV2 {
+    /// Extension to bind sort order to request parameters
     func bind(param: inout [String: Any]) {
         param["sort_order"] = stringValue
     }
-} 
+}

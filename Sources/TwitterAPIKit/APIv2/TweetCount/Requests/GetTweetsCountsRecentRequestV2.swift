@@ -21,19 +21,19 @@ public struct GetTweetsCountsRecentRequestV2: TwitterAPIRequest {
     ) {
         var params: [String: Any] = ["query": query]
         
-        if let endTime = endTime {
+        if let endTime {
             params["end_time"] = ISO8601DateFormatter().string(from: endTime)
         }
-        if let granularity = granularity {
+        if let granularity {
             params["granularity"] = granularity.rawValue
         }
-        if let sinceID = sinceID {
+        if let sinceID {
             params["since_id"] = sinceID
         }
-        if let startTime = startTime {
+        if let startTime {
             params["start_time"] = ISO8601DateFormatter().string(from: startTime)
         }
-        if let untilID = untilID {
+        if let untilID {
             params["until_id"] = untilID
         }
         

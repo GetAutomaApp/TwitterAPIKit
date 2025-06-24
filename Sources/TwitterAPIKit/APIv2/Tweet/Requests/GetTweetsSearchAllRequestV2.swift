@@ -46,44 +46,44 @@ public struct GetTweetsSearchAllRequestV2: TwitterAPIRequest {
             "query": query
         ]
 
-        if let endTime = endTime {
+        if let endTime {
             params["end_time"] = ISO8601DateFormatter().string(from: endTime)
         }
-        if let expansions = expansions {
-            params["expansions"] = expansions.map { $0.stringValue }.joined(separator: ",")
+        if let expansions {
+            params["expansions"] = expansions.map(\.stringValue).joined(separator: ",")
         }
-        if let maxResults = maxResults {
+        if let maxResults {
             params["max_results"] = maxResults
         }
-        if let mediaFields = mediaFields {
-            params["media.fields"] = mediaFields.map { $0.stringValue }.joined(separator: ",")
+        if let mediaFields {
+            params["media.fields"] = mediaFields.map(\.stringValue).joined(separator: ",")
         }
-        if let nextToken = nextToken {
+        if let nextToken {
             params["next_token"] = nextToken
         }
-        if let placeFields = placeFields {
-            params["place.fields"] = placeFields.map { $0.stringValue }.joined(separator: ",")
+        if let placeFields {
+            params["place.fields"] = placeFields.map(\.stringValue).joined(separator: ",")
         }
-        if let pollFields = pollFields {
-            params["poll.fields"] = pollFields.map { $0.stringValue }.joined(separator: ",")
+        if let pollFields {
+            params["poll.fields"] = pollFields.map(\.stringValue).joined(separator: ",")
         }
-        if let sinceID = sinceID {
+        if let sinceID {
             params["since_id"] = sinceID
         }
-        if let sortOrder = sortOrder {
+        if let sortOrder {
             params["sort_order"] = sortOrder.rawValue
         }
-        if let startTime = startTime {
+        if let startTime {
             params["start_time"] = ISO8601DateFormatter().string(from: startTime)
         }
-        if let tweetFields = tweetFields {
-            params["tweet.fields"] = tweetFields.map { $0.stringValue }.joined(separator: ",")
+        if let tweetFields {
+            params["tweet.fields"] = tweetFields.map(\.stringValue).joined(separator: ",")
         }
-        if let untilID = untilID {
+        if let untilID {
             params["until_id"] = untilID
         }
-        if let userFields = userFields {
-            params["user.fields"] = userFields.map { $0.stringValue }.joined(separator: ",")
+        if let userFields {
+            params["user.fields"] = userFields.map(\.stringValue).joined(separator: ",")
         }
 
         self.parameters = params

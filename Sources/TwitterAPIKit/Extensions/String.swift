@@ -1,8 +1,12 @@
 import Foundation
 
-internal extension String {
-    public var urlEncoded: String {
+extension String {
+    internal var urlEncoded: String {
+        self.addingPercentEncoding(
+            withAllowedCharacters: CharacterSet(
+                charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"
+            )
         // swiftlint:disable:next force_unwrapping
-        self.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"))!
+        )!
     }
 }

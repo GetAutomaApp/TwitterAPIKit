@@ -6,9 +6,11 @@
 // This Package is a heavily modified fork of https://github.com/mironal/TwitterAPIKit.
 // This Package is distributable through a modified version of the MIT License.
 
+import Crypto
 import Foundation
 import TwitterAPIKit
-import Crypto
+
+// swiftlint:disable force_unwrapping function_body_length
 
 /// This example demonstrates the OAuth 2.0 authentication flow for Twitter API v2.
 /// OAuth 2.0 is used for user authentication, allowing your application to act on behalf of a Twitter user.
@@ -30,33 +32,29 @@ import Crypto
 ///
 /// The example will then print your access token and refresh token, which you can use to make authenticated API calls.
 @main
-struct OAuth20Example {
-    static func main() async {
+internal struct OAuth20Example {
+    /// EntryPoint
+    public static func main() async {
         do {
             // Get Twitter API credentials from environment variables
             let clientId = ProcessInfo.processInfo.environment["TWITTER_CLIENT_ID"] ?? ""
             let clientSecret = ProcessInfo.processInfo.environment["TWITTER_CLIENT_SECRET"] ?? ""
             let redirectURI = ProcessInfo.processInfo.environment["TWITTER_REDIRECT_URI"] ?? ""
-            
-            guard !clientId.isEmpty, !clientSecret.isEmpty, !redirectURI.isEmpty else {
-                print("Error: Please set TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, and TWITTER_REDIRECT_URI environment variables")
-                return
-            }
-            
+
             print("Starting OAuth 2.0 flow...")
             print("Using Client ID: \(clientId)")
-            
+
             // Step 1: Generate PKCE challenge and verifier
             print("\nStep 1: Generating PKCE challenge and verifier...")
             let codeVerifier = generateCodeVerifier()
-            let codeChallenge = codeVerifier  // For plain method, challenge is same as verifier
+            let codeChallenge = codeVerifier
             print("Code Verifier: \(codeVerifier)")
             print("Code Challenge: \(codeChallenge)")
-            
+
             // Generate a random state for security
             let state = generateRandomState()
             print("State: \(state)")
-            
+
             // Step 2: Get authorization URL
             print("\nStep 2: Getting authorization URL...")
             if let authURL = getAuthorizationURL(
@@ -67,16 +65,15 @@ struct OAuth20Example {
             ) {
                 print("Authorization URL: \(authURL)")
                 print("\nPlease open this URL in your browser and authorize the application.")
-                print("After authorization, you'll be redirected to your callback URL with an authorization code.")
                 print("Enter the authorization code from the callback URL:")
-                
+
                 // In a real application, you would handle the callback URL and get the code
                 // For this example, we'll read it from console input
                 guard let code = readLine() else {
                     print("No authorization code provided")
                     return
                 }
-                
+
                 // Step 3: Get access token
                 print("\nStep 3: Getting access token...")
                 let accessToken = try await getAccessToken(
@@ -86,7 +83,7 @@ struct OAuth20Example {
                     code: code,
                     codeVerifier: codeVerifier
                 )
-                
+
                 print("\nOAuth 2.0 flow completed successfully!")
                 print("Access Token: \(accessToken.accessToken)")
                 print("Token Type: \(accessToken.tokenType)")
@@ -105,7 +102,7 @@ struct OAuth20Example {
             print("\nError: \(error)")
         }
     }
-    
+
     /// Generates a random code verifier for PKCE.
     /// - Returns: A random string suitable for use as a code verifier
     private static func generateCodeVerifier() -> String {
@@ -113,12 +110,12 @@ struct OAuth20Example {
         let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let length = 8
         let verifier = String((0..<length).map { _ in allowedChars.randomElement()! })
-        
+
         // Base64 encode the verifier
         let data = verifier.data(using: .utf8)!
         return data.base64EncodedString()
     }
-    
+
     /// Generates a random state parameter for security.
     /// - Returns: A random string suitable for use as a state parameter
     private static func generateRandomState() -> String {
@@ -126,7 +123,7 @@ struct OAuth20Example {
         let length = 32
         return String((0..<length).map { _ in allowedChars.randomElement()! })
     }
-    
+
     /// Gets the authorization URL that the user needs to visit to authorize your application.
     /// This is the second step in the OAuth 2.0 flow.
     /// - Parameters:
@@ -149,7 +146,7 @@ struct OAuth20Example {
                 refreshToken: nil  // Not needed for authorization URL
             )
         )
-        
+
         let oauthAPI = OAuth20API(session: session)
         let request = GetOAuth2AuthorizeRequestV1(
             clientID: clientId,
@@ -161,7 +158,7 @@ struct OAuth20Example {
         )
         return oauthAPI.makeOAuth2AuthorizeURL(request)
     }
-    
+
     /// Exchanges the authorization code for an access token.
     /// This is the final step in the OAuth 2.0 flow.
     /// - Parameters:
@@ -186,7 +183,7 @@ struct OAuth20Example {
                 refreshToken: nil  // Not needed for token request
             )
         )
-        
+
         let oauthAPI = OAuth20API(session: session)
         let request = PostOAuth2AccessTokenRequestV2(
             code: code,
@@ -196,4 +193,5 @@ struct OAuth20Example {
         )
         return try await oauthAPI.postOAuth2AccessToken(request)
     }
-} 
+}
+// swiftlint:enable force_unwrapping function_body_length

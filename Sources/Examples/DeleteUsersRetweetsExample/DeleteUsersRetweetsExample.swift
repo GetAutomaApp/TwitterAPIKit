@@ -1,14 +1,15 @@
 import Foundation
 import TwitterAPIKit
 
-/// Demonstrates how to retrieve users who retweeted a specific tweet.
+/// Demonstrates how to unretweet a tweet by the authenticated user.
 /// This example:
 /// 1. Creates a Twitter API client using environment variables for authentication
-/// 2. Makes a request to get users who retweeted a tweet
-/// 3. Prints the user information
+/// 2. Makes a request to unretweet a tweet
+/// 3. Prints the result
 @main
-struct GetTweetsRetweetedByExample {
-    static func main() async throws {
+internal struct DeleteUsersRetweetsExample {
+    /// EntryPoint
+    public static func main() async throws {
         let client = TwitterAPISession(
             authenticationType: .oauth20(
                 clientId: ProcessInfo.processInfo.environment["TWITTER_CLIENT_ID"] ?? "",
@@ -18,17 +19,15 @@ struct GetTweetsRetweetedByExample {
             )
         )
 
+        let userId = "YOUR_USER_ID"
         let tweetId = "YOUR_TWEET_ID"
-        let request = GetTweetsRetweetedByRequestV2(tweetId: tweetId)
+        let request = DeleteUsersRetweetsRequestV2(userId: userId, tweetId: tweetId)
 
         do {
             let response = try await client.send(request)
-            print("\n🔁 Users who retweeted:")
-            for user in response.data {
-                print("@\(user.username) (\(user.name))")
-            }
+            print("\n🗑️ Unretweet result: \(response.data)")
         } catch {
-            print("Error retrieving retweeters: \(error)")
+            print("Error unretweeting: \(error)")
         }
     }
 }

@@ -95,6 +95,7 @@ extension MultipartFormDataPart: Equatable {
 
 /// Protocol defining the requirements for a Twitter API request.
 public protocol TwitterAPIRequest {
+    /// The Response Type From Twitter
     associatedtype Response: Decodable
     /// The HTTP method to be used for the request.
     var method: HTTPMethod { get }
@@ -152,16 +153,10 @@ public extension TwitterAPIRequest {
     }
 }
 
-// URL encoding extensions
-extension String {
-    var urlEncodedString: String {
-        addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? self
-    }
-}
-
 extension Dictionary where Key == String {
-    var urlEncodedQueryString: String {
-        map { "\($0.key.urlEncodedString)=\(String(describing: $0.value).urlEncodedString)" }
+    /// Encodes a dictionary
+    public var urlEncodedQueryString: String {
+        map { "\($0.key.urlEncoded)=\(String(describing: $0.value).urlEncoded)" }
             .joined(separator: "&")
     }
 }
@@ -185,7 +180,7 @@ public extension TwitterAPIRequest {
             urlComponent.percentEncodedQueryItems =
                 queryParameters
                     .sorted { first, second in first.key < second.key }
-                    .map { .init(name: $0.urlEncodedString, value: "\($1)".urlEncodedString) }
+                    .map { .init(name: $0.urlEncoded, value: "\($1)".urlEncoded) }
         }
 
         guard let url = urlComponent.url else {
@@ -229,7 +224,9 @@ public extension TwitterAPIRequest {
             case .json:
                 let param = bodyParameters
                 guard JSONSerialization.isValidJSONObject(param) else {
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: String(describing: param)))
+                    throw TwitterAPIKitError.requestFailed(
+                        reason: .jsonSerializationFailed(obj: String(describing: param))
+                    )
                 }
                 do {
                     request.httpBody = try JSONSerialization.data(
@@ -238,7 +235,9 @@ public extension TwitterAPIRequest {
                     request.setValue(bodyContentType.rawValue, forHTTPHeaderField: "Content-Type")
                 } catch {
                     // This path probably won't pass because it is pre-checked with `isValidJSONObject`.
-                    throw TwitterAPIKitError.requestFailed(reason: .jsonSerializationFailed(obj: String(describing: param)))
+                    throw TwitterAPIKitError.requestFailed(
+                        reason: .jsonSerializationFailed(obj: String(describing: param))
+                    )
                 }
             }
         }
@@ -321,16 +320,5 @@ private extension Data {
         } else {
             throw TwitterAPIKitError.requestFailed(reason: .cannotEncodeStringToData(string: string))
         }
-    }
-}
-
-extension URLSession {
-    public func perform<T: TwitterAPIRequest>(
-        _ request: T,
-        environment: TwitterAPIEnvironment
-    ) async throws -> T.Response {
-        let urlRequest = try request.buildRequest(environment: environment)
-        let (data, _) = try await data(for: urlRequest)
-        return try JSONDecoder().decode(T.Response.self, from: data)
     }
 }

@@ -8,10 +8,12 @@
 
 import Foundation
 
+/// Oauth10aAPI
 public struct OAuth10aAPI {
     /// Twitter API Session
     public let session: TwitterAPISession
 
+    /// Initializes the Session
     public init(session: TwitterAPISession) {
         self.session = session
     }
@@ -19,16 +21,15 @@ public struct OAuth10aAPI {
     /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
     public func postOAuthRequestTokenData(
         _ request: PostOAuthRequestTokenRequestV1
-    ) async throws ->  TwitterOAuthTokenV1 {
-        let response = try await session.send(request)
-        return response
+    ) async throws -> TwitterOAuthTokenV1 {
+        return try await session.send(request)
     }
 
     /// https://developer.twitter.com/en/docs/authentication/api-reference/request_token
     public func postOAuthRequestToken(
         _ request: PostOAuthRequestTokenRequestV1
     ) async throws -> TwitterOAuthTokenV1 {
-        return try await session.send(request) 
+        return try await session.send(request)
     }
 
     /// Create https://developer.twitter.com/en/docs/authentication/api-reference/authorize URL.

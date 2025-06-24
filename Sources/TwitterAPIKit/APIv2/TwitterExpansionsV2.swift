@@ -9,10 +9,11 @@
 import Foundation
 
 /// Protocol for Twitter API v2 expansion parameters
-public protocol TwitterExpansionsParameterV2: TwitterAPIv2RequestParameter {}
+public protocol TwitterExpansionsV2: TwitterAPIv2RequestParameter {}
 
 /// Extension to bind expansions to request parameters
-public extension Set where Element: TwitterExpansionsParameterV2 {
+public extension Set where Element: TwitterExpansionsV2 {
+    /// Binds the expansions to comma separated strings
     func bind(param: inout [String: Any]) {
         param["expansions"] = commaSeparatedString
     }
@@ -21,7 +22,7 @@ public extension Set where Element: TwitterExpansionsParameterV2 {
 // MARK: - Tweet Expansions
 
 /// Tweet expansions that can be requested from the Twitter API v2
-public enum TwitterTweetExpansionsV2: String, TwitterExpansionsParameterV2, Sendable {
+public enum TwitterTweetExpansionsV2: String, TwitterExpansionsV2, Sendable {
     case attachmentsMediaKeys = "attachments.media_keys"
     case attachmentsPollIDs = "attachments.poll_ids"
     case authorID = "author_id"
@@ -48,7 +49,7 @@ public enum TwitterTweetExpansionsV2: String, TwitterExpansionsParameterV2, Send
 // MARK: - User Expansions
 
 /// User expansions that can be requested from the Twitter API v2
-public enum TwitterUserExpansionsV2: String, TwitterExpansionsParameterV2, Sendable {
+public enum TwitterUserExpansionsV2: String, TwitterExpansionsV2, Sendable {
     case pinnedTweetID = "pinned_tweet_id"
 
     public var stringValue: String { rawValue }
@@ -61,7 +62,7 @@ public enum TwitterUserExpansionsV2: String, TwitterExpansionsParameterV2, Senda
 // MARK: - List Expansions
 
 /// List expansions that can be requested from the Twitter API v2
-public enum TwitterListExpansionsV2: String, TwitterExpansionsParameterV2, Sendable {
+public enum TwitterListExpansionsV2: String, TwitterExpansionsV2, Sendable {
     case ownerID = "owner_id"
 
     public var stringValue: String { rawValue }
@@ -74,9 +75,9 @@ public enum TwitterListExpansionsV2: String, TwitterExpansionsParameterV2, Senda
 // MARK: - Space Expansions
 
 /// Space expansions that can be requested from the Twitter API v2
-public enum TwitterSpaceExpansionsV2: String, TwitterExpansionsParameterV2, Sendable {
-    case hostIDs = "host_ids"
+public enum TwitterSpaceExpansionsV2: String, TwitterExpansionsV2, Sendable {
     case creatorID = "creator_id"
+    case hostIDs = "host_ids"
     case invitedUserIDs = "invited_user_ids"
     case speakerIDs = "speaker_ids"
     case topicIDs = "topic_ids"
@@ -95,11 +96,11 @@ public enum TwitterSpaceExpansionsV2: String, TwitterExpansionsParameterV2, Send
 // MARK: - DM Event Expansions
 
 /// DM event expansions that can be requested from the Twitter API v2
-public enum TwitterDmEventExpansionsV2: String, TwitterExpansionsParameterV2, Sendable {
+public enum TwitterDmEventExpansionsV2: String, TwitterExpansionsV2, Sendable {
     case attachmentsMediaKeys = "attachments.media_keys"
+    case participantIDs = "participant_ids"
     case referencedTweetsID = "referenced_tweets.id"
     case senderID = "sender_id"
-    case participantIDs = "participant_ids"
 
     public var stringValue: String { rawValue }
 
@@ -109,4 +110,4 @@ public enum TwitterDmEventExpansionsV2: String, TwitterExpansionsParameterV2, Se
         .senderID,
         .participantIDs
     ]
-} 
+}

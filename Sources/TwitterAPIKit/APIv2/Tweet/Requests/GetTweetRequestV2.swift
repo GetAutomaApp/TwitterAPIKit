@@ -34,12 +34,12 @@ public struct GetTweetRequestV2: TwitterAPIRequest {
 
     public var parameters: [String: Any] {
         var parameters: [String: Any] = [:]
-        parameters["expansions"] = expansions?.map { $0.stringValue }.joined(separator: ",")
-        parameters["tweet.fields"] = tweetFields?.map { $0.stringValue }.joined(separator: ",")
-        parameters["user.fields"] = userFields?.map { $0.stringValue }.joined(separator: ",")
-        parameters["media.fields"] = mediaFields?.map { $0.stringValue }.joined(separator: ",")
-        parameters["place.fields"] = placeFields?.map { $0.stringValue }.joined(separator: ",")
-        parameters["poll.fields"] = pollFields?.map { $0.stringValue }.joined(separator: ",")
+        parameters["expansions"] = expansions?.map(\.stringValue).joined(separator: ",")
+        parameters["tweet.fields"] = tweetFields?.map(\.stringValue).joined(separator: ",")
+        parameters["user.fields"] = userFields?.map(\.stringValue).joined(separator: ",")
+        parameters["media.fields"] = mediaFields?.map(\.stringValue).joined(separator: ",")
+        parameters["place.fields"] = placeFields?.map(\.stringValue).joined(separator: ",")
+        parameters["poll.fields"] = pollFields?.map(\.stringValue).joined(separator: ",")
         return parameters
     }
 
@@ -60,4 +60,4 @@ public struct GetTweetRequestV2: TwitterAPIRequest {
         self.placeFields = placeFields
         self.pollFields = pollFields
     }
-} 
+}

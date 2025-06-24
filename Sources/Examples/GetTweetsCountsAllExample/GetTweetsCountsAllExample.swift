@@ -7,10 +7,11 @@ import TwitterAPIKit
 /// 2. Makes a request to count tweets matching a search query
 /// 3. Specifies a time range and granularity for the counts
 /// 4. Prints the tweet counts for each time period
+/// Note: This endpoint requires Academic Research access.
 @main
-struct GetTweetsCountsRecentExample {
-    static func main() async throws {
-        // Initialize the client with your credentials
+internal struct GetTweetsCountsAllExample {
+    /// EntryPoint
+    public static func main() async throws {
         let client = TwitterAPISession(
             authenticationType: .oauth20(
                 clientId: ProcessInfo.processInfo.environment["TWITTER_CLIENT_ID"] ?? "",
@@ -19,34 +20,25 @@ struct GetTweetsCountsRecentExample {
                 refreshToken: nil
             )
         )
-        
-        // Create a date formatter for parsing dates
-        let dateFormatter = ISO8601DateFormatter()
-        
-        // Set up the time range (last 24 hours)
+
         let endTime = Date()
-        let startTime = Calendar.current.date(byAdding: .hour, value: -24, to: endTime)!
-        
-        // Create the request
-        let request = GetTweetsCountsRecentRequestV2(
-            query: "Swift",
+
+        guard let startTime = Calendar.current.date(byAdding: .day, value: -7, to: endTime) else {
+            throw URLError(.badURL)
+        }
+
+        let request = GetTweetsCountsAllRequestV2(
+            query: "Twitter",
             endTime: endTime,
-            granularity: .hour,
+            granularity: .day,
             startTime: startTime
         )
-        
+
         do {
             let response = try await client.send(request)
-            
-            print("\n📊 Tweet Counts for 'Swift':")
-            for count in response.data {
-                print("\nPeriod: \(dateFormatter.string(from: count.start)) to \(dateFormatter.string(from: count.end))")
-                print("Tweet Count: \(count.tweetCount)")
-            }
-            
-            print("\n📈 Total Tweets: \(response.meta.totalTweetCount)")
+            print("\n📈 Total Tweets: \(response.meta.totalTweetCount) npt: \(response.meta.nextToken ?? "N/A")")
         } catch {
             print("Error retrieving tweet counts: \(error)")
         }
     }
-} 
+}

@@ -9,6 +9,8 @@
 import Foundation
 import TwitterAPIKit
 
+// swiftlint:disable function_body_length
+
 /// This example demonstrates the OAuth 1.0a authentication flow for Twitter API v1.
 /// OAuth 1.0a is used for user authentication, allowing your application to act on behalf of a Twitter user.
 ///
@@ -28,21 +30,17 @@ import TwitterAPIKit
 ///
 /// The example will then print your access token and secret, which you can use to make authenticated API calls.
 @main
-struct OAuth10aExample {
-    static func main() async {
+internal struct OAuth10aExample {
+    /// EntryPoint
+    public static func main() async {
         do {
             // Get Twitter API credentials from environment variables
             let consumerKey = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? ""
             let consumerSecret = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? ""
-            
-            guard !consumerKey.isEmpty, !consumerSecret.isEmpty else {
-                print("Error: Please set TWITTER_CONSUMER_KEY and TWITTER_CONSUMER_SECRET environment variables")
-                return
-            }
-            
+
             print("Starting OAuth 1.0a flow...")
             print("Using Consumer Key: \(consumerKey)")
-            
+
             // Step 1: Get request token
             // This is a temporary token that will be used to start the OAuth process
             // We only need the consumer key and secret for this step
@@ -52,7 +50,7 @@ struct OAuth10aExample {
                 consumerSecret: consumerSecret
             )
             print("Request Token: \(requestToken.oauthToken)")
-            
+
             // Step 2: Get authorization URL
             // This URL will be opened in the user's browser
             // The user will authorize your application and get a PIN code
@@ -66,14 +64,14 @@ struct OAuth10aExample {
                 print("\nPlease open this URL in your browser and authorize the application.")
                 print("After authorization, you'll be redirected to your callback URL with a verifier.")
                 print("Enter the verifier from the callback URL:")
-                
+
                 // In a real application, you would handle the callback URL and get the verifier
                 // For this example, we'll read it from console input
                 guard let verifier = readLine() else {
                     print("No verifier provided")
                     return
                 }
-                
+
                 // Step 3: Get access token
                 // Exchange the request token and verifier for a permanent access token
                 // This token can be used to make authenticated API calls
@@ -84,7 +82,7 @@ struct OAuth10aExample {
                     requestToken: requestToken.oauthToken,
                     verifier: verifier
                 )
-                
+
                 print("\nOAuth 1.0a flow completed successfully!")
                 print("Access Token: \(accessToken.oauthToken)")
                 print("Access Token Secret: \(accessToken.oauthTokenSecret)")
@@ -104,7 +102,7 @@ struct OAuth10aExample {
             print("\nError: \(error)")
         }
     }
-    
+
     /// Gets a request token from Twitter's OAuth endpoint.
     /// This is the first step in the OAuth 1.0a flow.
     /// - Parameters:
@@ -124,12 +122,12 @@ struct OAuth10aExample {
                 oauthTokenSecret: nil  // No OAuth token secret for request token
             )
         )
-        
+
         let oauthAPI = OAuth10aAPI(session: session)
         let request = PostOAuthRequestTokenRequestV1(oauthCallback: "oob", xAuthAccessType: "write")
         return try await oauthAPI.postOAuthRequestToken(request)
     }
-    
+
     /// Gets the authorization URL that the user needs to visit to authorize your application.
     /// This is the second step in the OAuth 1.0a flow.
     /// - Parameters:
@@ -151,12 +149,12 @@ struct OAuth10aExample {
                 oauthTokenSecret: nil  // No OAuth token secret needed
             )
         )
-        
+
         let oauthAPI = OAuth10aAPI(session: session)
         let request = GetOAuthAuthorizeRequestV1(oauthToken: requestToken)
         return oauthAPI.makeOAuthAuthorizeURL(request)
     }
-    
+
     /// Exchanges the request token and verifier for a permanent access token.
     /// This is the final step in the OAuth 1.0a flow.
     /// - Parameters:
@@ -180,7 +178,7 @@ struct OAuth10aExample {
                 oauthTokenSecret: nil  // No request token secret needed
             )
         )
-        
+
         let oauthAPI = OAuth10aAPI(session: session)
         let request = PostOAuthAccessTokenRequestV1(
             oauthToken: requestToken,
@@ -188,4 +186,5 @@ struct OAuth10aExample {
         )
         return try await oauthAPI.postOAuthAccessToken(request)
     }
-} 
+}
+// swiftlint:enable function_body_length

@@ -8,15 +8,17 @@
 
 import Foundation
 
+internal protocol TwitterFieldsV2 {}
+
 /// Protocol for Twitter API v2 request parameters
 public protocol TwitterAPIv2RequestParameter: Hashable {
     var stringValue: String { get }
 }
 
-/// Extension to provide common functionality for request parameters
-public extension Set where Element: TwitterAPIv2RequestParameter {
-    var commaSeparatedString: String {
-        map { $0.stringValue }.joined(separator: ",")
+extension Set where Element: TwitterAPIv2RequestParameter {
+    /// Extension to provide common functionality for request parameters
+    public var commaSeparatedString: String {
+        map(\.stringValue).joined(separator: ",")
     }
 }
 
@@ -36,6 +38,7 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Sendable {
     case lang
     case nonPublicMetrics
     case organicMetrics
+    case other(String)
     case possiblySensitive
     case promotedMetrics
     case publicMetrics
@@ -44,7 +47,6 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Sendable {
     case source
     case text
     case withheld
-    case other(String)
 
     public var stringValue: String {
         switch self {
@@ -60,6 +62,7 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Sendable {
         case .lang: "lang"
         case .nonPublicMetrics: "non_public_metrics"
         case .organicMetrics: "organic_metrics"
+        case .other(let value): value
         case .possiblySensitive: "possibly_sensitive"
         case .promotedMetrics: "promoted_metrics"
         case .publicMetrics: "public_metrics"
@@ -68,7 +71,6 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Sendable {
         case .source: "source"
         case .text: "text"
         case .withheld: "withheld"
-        case .other(let value): value
         }
     }
 
@@ -100,21 +102,21 @@ public enum TwitterTweetFieldsV2: TwitterAPIv2RequestParameter, Sendable {
 
 /// User fields that can be requested from the Twitter API v2
 public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Sendable {
+    case `protected`
     case createdAt
     case description
     case entities
     case id
     case location
     case name
+    case other(String)
     case pinnedTweetID
     case profileImageUrl
-    case `protected`
     case publicMetrics
     case url
     case username
     case verified
     case withheld
-    case other(String)
 
     public var stringValue: String {
         switch self {
@@ -124,6 +126,7 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Sendable {
         case .id: "id"
         case .location: "location"
         case .name: "name"
+        case .other(let value): value
         case .pinnedTweetID: "pinned_tweet_id"
         case .profileImageUrl: "profile_image_url"
         case .protected: "protected"
@@ -132,7 +135,6 @@ public enum TwitterUserFieldsV2: TwitterAPIv2RequestParameter, Sendable {
         case .username: "username"
         case .verified: "verified"
         case .withheld: "withheld"
-        case .other(let value): value
         }
     }
 
@@ -165,8 +167,8 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Sendable {
     case geo
     case id
     case name
-    case placeType
     case other(String)
+    case placeType
 
     public var stringValue: String {
         switch self {
@@ -177,8 +179,8 @@ public enum TwitterPlaceFieldsV2: TwitterAPIv2RequestParameter, Sendable {
         case .geo: "geo"
         case .id: "id"
         case .name: "name"
-        case .placeType: "place_type"
         case .other(let value): value
+        case .placeType: "place_type"
         }
     }
 
@@ -202,8 +204,8 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Sendable {
     case endDatetime
     case id
     case options
-    case votingStatus
     case other(String)
+    case votingStatus
 
     public var stringValue: String {
         switch self {
@@ -211,8 +213,8 @@ public enum TwitterPollFieldsV2: TwitterAPIv2RequestParameter, Sendable {
         case .endDatetime: "end_datetime"
         case .id: "id"
         case .options: "options"
-        case .votingStatus: "voting_status"
         case .other(let value): value
+        case .votingStatus: "voting_status"
         }
     }
 
@@ -235,13 +237,13 @@ public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Sendable {
     case mediaKey
     case nonPublicMetrics
     case organicMetrics
+    case other(String)
     case previewImageUrl
     case promotedMetrics
     case publicMetrics
     case type
     case url
     case width
-    case other(String)
 
     public var stringValue: String {
         switch self {
@@ -251,13 +253,13 @@ public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Sendable {
         case .mediaKey: "media_key"
         case .nonPublicMetrics: "non_public_metrics"
         case .organicMetrics: "organic_metrics"
+        case .other(let value): value
         case .previewImageUrl: "preview_image_url"
         case .promotedMetrics: "promoted_metrics"
         case .publicMetrics: "public_metrics"
         case .type: "type"
         case .url: "url"
         case .width: "width"
-        case .other(let value): value
         }
     }
 
@@ -280,31 +282,36 @@ public enum TwitterMediaFieldsV2: TwitterAPIv2RequestParameter, Sendable {
 // MARK: - Parameter Binding Extensions
 
 public extension Set where Element == TwitterTweetFieldsV2 {
+    /// Bind tweet.fields to the comma separated string value for it
     func bind(param: inout [String: Any]) {
         param["tweet.fields"] = commaSeparatedString
     }
 }
 
 public extension Set where Element == TwitterUserFieldsV2 {
+    /// Bind tweet.fields to the comma separated string value for it
     func bind(param: inout [String: Any]) {
         param["user.fields"] = commaSeparatedString
     }
 }
 
 public extension Set where Element == TwitterPlaceFieldsV2 {
+    /// Bind tweet.fields to the comma separated string value for it
     func bind(param: inout [String: Any]) {
         param["place.fields"] = commaSeparatedString
     }
 }
 
 public extension Set where Element == TwitterPollFieldsV2 {
+    /// Bind tweet.fields to the comma separated string value for it
     func bind(param: inout [String: Any]) {
         param["poll.fields"] = commaSeparatedString
     }
 }
 
 public extension Set where Element == TwitterMediaFieldsV2 {
+    /// Bind tweet.fields to the comma separated string value for it
     func bind(param: inout [String: Any]) {
         param["media.fields"] = commaSeparatedString
     }
-} 
+}

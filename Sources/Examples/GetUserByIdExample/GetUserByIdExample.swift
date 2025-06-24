@@ -1,16 +1,16 @@
 import Foundation
 import TwitterAPIKit
 
-/// Demonstrates how to retrieve a specific user's profile by their Twitter username using Twitter API v2.
+/// Demonstrates how to retrieve a specific user's profile by their Twitter ID using Twitter API v2.
 /// This example:
 /// 1. Creates a Twitter API client using environment variables for authentication
-/// 2. Makes a request to fetch a user's profile using their @username
+/// 2. Makes a request to fetch a user's profile using their numeric ID
 /// 3. Includes expanded data like their pinned tweet
-/// 4. Prints the user's name, username, and pinned tweet (if one exists)
+/// 4. Prints the user's name, username, profile image URL, and pinned tweet (if one exists)
 @main
-struct GetUserByUsernameExample {
-    static func main() async throws {
-        // Initialize the client with your credentials
+internal struct GetUserByIdExample {
+    /// EntryPoint
+    public static func main() async throws {
         let client = TwitterAPISession(
             authenticationType: .oauth10a(
                 consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
@@ -19,19 +19,18 @@ struct GetUserByUsernameExample {
                 oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
             )
         )
-        
-        // Get user by username
-        let elonMuskUsername = "elonmusk"
-        let userByUsernameRequest = GetUsersByUsernameRequestV2(
-            username: elonMuskUsername,
+
+        let elonMuskID = "44196397"
+        let userRequest = GetUserRequestV2(
+            id: elonMuskID,
             expansions: [.pinnedTweetID],
             tweetFields: [.createdAt, .text],
             userFields: [.name, .username, .profileImageUrl]
         )
-        
+
         do {
-            let response = try await client.send(userByUsernameRequest)
-            print("User: \(response.data.name) (@\(response.data.username))")
+            let response = try await client.send(userRequest)
+            print("User: \(response.data.name) (@\(response.data.username)) \(response.data.profileImageUrl ?? "")")
             if let pinnedTweet = response.includes?.tweets?.first {
                 print("Pinned Tweet: \(pinnedTweet.text)")
             }
@@ -39,4 +38,4 @@ struct GetUserByUsernameExample {
             print("Error retrieving user: \(error)")
         }
     }
-} 
+}

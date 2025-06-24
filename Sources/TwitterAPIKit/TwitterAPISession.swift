@@ -24,12 +24,15 @@ public enum AuthenticationType: Codable, Sendable {
     )
 }
 
+/// Class to Run Authenticated Twitter Requests
 public final class TwitterAPISession {
+    /// Which environment to use
     public let environment: TwitterAPIEnvironment
 
     private let session: URLSession
     private let authenticationType: AuthenticationType
 
+    /// Initialize TwitterAPI Session
     public init(
         authenticationType: AuthenticationType,
         environment: TwitterAPIEnvironment = .init(),
@@ -40,7 +43,8 @@ public final class TwitterAPISession {
         self.session = session
     }
 
-    public func send<T: TwitterAPIRequest>(_ request: T, authHeaderOverride _: String? = nil) async throws -> T.Response {
+    /// Sends a request & handles Authentication
+    public func send<T: TwitterAPIRequest>(_ request: T) async throws -> T.Response {
         var urlRequest = try request.buildRequest(environment: environment)
 
         setAuthHeaderValue(request: &urlRequest, twitterRequest: request)
@@ -99,5 +103,9 @@ public final class TwitterAPISession {
             print(authHeader)
             request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         }
+    }
+
+    deinit {
+        // De-init Logic
     }
 }

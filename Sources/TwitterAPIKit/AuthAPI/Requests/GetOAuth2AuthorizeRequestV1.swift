@@ -40,7 +40,7 @@ public struct GetOAuth2AuthorizeRequestV1: TwitterAPIRequest {
         params["response_type"] = responseType
         params["client_id"] = clientID
         params["redirect_uri"] = redirectURI
-        params["scope"] = scopes.map { $0.rawValue }.joined(separator: "+")
+        params["scope"] = scopes.map(\.rawValue).joined(separator: "+")
         params["state"] = state
         params["code_challenge"] = codeChallenge
         params["code_challenge_method"] = codeChallengeMethod

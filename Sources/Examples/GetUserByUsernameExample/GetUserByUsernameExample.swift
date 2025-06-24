@@ -1,15 +1,17 @@
 import Foundation
 import TwitterAPIKit
 
-/// Demonstrates how to retrieve the authenticated user's profile information using Twitter API v2.
+/// Demonstrates how to retrieve a specific user's profile by their Twitter username using Twitter API v2.
 /// This example:
 /// 1. Creates a Twitter API client using environment variables for authentication
-/// 2. Makes a request to the /2/users/me endpoint to get the current user's profile
-/// 3. Includes additional data like the user's pinned tweet
-/// 4. Prints the user's name, username, and their pinned tweet (if one exists)
+/// 2. Makes a request to fetch a user's profile using their @username
+/// 3. Includes expanded data like their pinned tweet
+/// 4. Prints the user's name, username, and pinned tweet (if one exists)
 @main
-struct GetAuthenticatedUserExample {
-    static func main() async throws {
+internal struct GetUserByUsernameExample {
+    /// EntryPoint
+    public static func main() async throws {
+        // Initialize the client with your credentials
         let client = TwitterAPISession(
             authenticationType: .oauth10a(
                 consumerKey: ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? "",
@@ -18,21 +20,24 @@ struct GetAuthenticatedUserExample {
                 oauthTokenSecret: ProcessInfo.processInfo.environment["TWITTER_OAUTH_TOKEN_SECRET"] ?? ""
             )
         )
-        
-        let meRequest = GetUsersMeRequestV2(
+
+        // Get user by username
+        let elonMuskUsername = "elonmusk"
+        let userByUsernameRequest = GetUsersByUsernameRequestV2(
+            username: elonMuskUsername,
             expansions: [.pinnedTweetID],
             tweetFields: [.createdAt, .text],
             userFields: [.name, .username, .profileImageUrl]
         )
-        
+
         do {
-            let response = try await client.send(meRequest)
-            print("Authenticated User: \(response.data.name) (@\(response.data.username))")
+            let response = try await client.send(userByUsernameRequest)
+            print("User: \(response.data.name) (@\(response.data.username))")
             if let pinnedTweet = response.includes?.tweets?.first {
                 print("Pinned Tweet: \(pinnedTweet.text)")
             }
         } catch {
-            print("Error retrieving authenticated user: \(error)")
+            print("Error retrieving user: \(error)")
         }
     }
-} 
+}

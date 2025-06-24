@@ -22,22 +22,18 @@ import TwitterAPIKit
 ///
 /// The example will then print your new access token and refresh token.
 @main
-struct OAuth20RefreshExample {
-    static func main() async {
+internal struct OAuth20RefreshExample {
+    /// EntryPoint
+    public static func main() async {
         do {
             // Get Twitter API credentials from environment variables
             let clientId = ProcessInfo.processInfo.environment["TWITTER_CLIENT_ID"] ?? ""
             let clientSecret = ProcessInfo.processInfo.environment["TWITTER_CLIENT_SECRET"] ?? ""
             let refreshToken = ProcessInfo.processInfo.environment["TWITTER_REFRESH_TOKEN"] ?? ""
-            
-            guard !clientId.isEmpty, !clientSecret.isEmpty, !refreshToken.isEmpty else {
-                print("Error: Please set TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, and TWITTER_REFRESH_TOKEN environment variables")
-                return
-            }
-            
+
             print("Starting OAuth 2.0 token refresh...")
             print("Using Client ID: \(clientId)")
-            
+
             // Refresh the access token
             print("\nRefreshing access token...")
             let newTokens = try await refreshAccessToken(
@@ -45,7 +41,7 @@ struct OAuth20RefreshExample {
                 clientSecret: clientSecret,
                 refreshToken: refreshToken
             )
-            
+
             print("\nToken refresh completed successfully!")
             print("New Access Token: \(newTokens.accessToken)")
             print("Token Type: \(newTokens.tokenType)")
@@ -61,7 +57,7 @@ struct OAuth20RefreshExample {
             print("\nError: \(error)")
         }
     }
-    
+
     /// Refreshes an expired access token using a refresh token.
     /// - Parameters:
     ///   - clientId: Your Twitter API client ID
@@ -81,7 +77,7 @@ struct OAuth20RefreshExample {
                 refreshToken: nil  // Not needed for refresh
             )
         )
-        
+
         let oauthAPI = OAuth20API(session: session)
         let request = PostOAuth2RefreshTokenRequestV2(
             refreshToken: refreshToken,
@@ -89,4 +85,4 @@ struct OAuth20RefreshExample {
         )
         return try await oauthAPI.postOAuth2RefreshToken(request)
     }
-} 
+}

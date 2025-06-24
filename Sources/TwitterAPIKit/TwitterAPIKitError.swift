@@ -10,21 +10,21 @@ import Foundation
 
 /// Represents errors that can occur in the Twitter API Kit.
 public enum TwitterAPIKitError: Error {
+    case apiError(TwitterAPIError)
     case requestFailed(reason: RequestFailureReason)
     case responseFailed(reason: ResponseFailureReason)
-    case apiError(TwitterAPIError)
-    
+
     public enum RequestFailureReason: Sendable {
-        case invalidURL(url: String)
         case cannotEncodeStringToData(string: String)
         case invalidParameter(parameter: String, cause: String)
+        case invalidURL(url: String)
         case jsonSerializationFailed(obj: String)
     }
-    
+
     public enum ResponseFailureReason: Sendable {
         case invalidResponse(response: URLResponse)
-        case unacceptableStatusCode(statusCode: Int, response: HTTPURLResponse)
         case responseSerializationFailed(reason: String)
+        case unacceptableStatusCode(statusCode: Int, response: HTTPURLResponse)
     }
 }
 
@@ -38,7 +38,7 @@ public struct TwitterAPIError: Error, Decodable {
         case serverError
         case unknown
 
-        init(from statusCode: Int) {
+        public init(from statusCode: Int) {
             switch statusCode {
             case 401:
                 self = .unauthorized
@@ -55,16 +55,16 @@ public struct TwitterAPIError: Error, Decodable {
             }
         }
     }
-    
+
     public let title: String
     public let type: String
     public let status: Int
     public let detail: String
-    
+
     public var errorType: ErrorType {
         ErrorType(from: status)
     }
-    
+
     public var localizedDescription: String {
         return "(\(status)) \(title): \(detail) \(errorType)"
     }

@@ -117,19 +117,19 @@ public struct GetUserTweetsRequestV2: TwitterAPIRequest {
         placeFields?.bind(param: &params)
         exclude?.bind(param: &params)
         
-        if let startTime = startTime {
+        if let startTime {
             params["start_time"] = ISO8601DateFormatter().string(from: startTime)
         }
         
-        if let endTime = endTime {
+        if let endTime {
             params["end_time"] = ISO8601DateFormatter().string(from: endTime)
         }
         
-        if let sinceId = sinceId {
+        if let sinceId {
             params["since_id"] = sinceId
         }
         
-        if let untilId = untilId {
+        if let untilId {
             params["until_id"] = untilId
         }
         
